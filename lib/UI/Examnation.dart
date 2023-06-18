@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import '../Models/ExamnationM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/SingleEXAMProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'ExamnationGroup.dart';
@@ -56,10 +57,9 @@ class _ExamnationState extends State<Examnation> {
 
   @override
   Widget build(BuildContext context) {
-    var colors = [
-      HexColor((Globalvireables.secondcolor)),
-      HexColor((Globalvireables.basecolor))
-    ];
+
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -78,7 +78,7 @@ class _ExamnationState extends State<Examnation> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(
@@ -115,7 +115,7 @@ class _ExamnationState extends State<Examnation> {
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: Directionality(
             textDirection: LanguageProvider.getDirection(),
@@ -126,7 +126,7 @@ class _ExamnationState extends State<Examnation> {
                 gradient: LinearGradient(
                   colors: [
                     HexColor((Globalvireables.secondcolor)),
-                    HexColor((Globalvireables.basecolor))
+                    HexColor((ThemP.getcolor()))
                   ],
                   stops: stops,
                   begin: FractionalOffset.topCenter,
@@ -161,7 +161,7 @@ class _ExamnationState extends State<Examnation> {
                               decoration: InputDecoration(
                                 prefixIcon: Icon(
                                   Icons.date_range,
-                                  color: HexColor(Globalvireables.basecolor),
+                                  color: HexColor(ThemP.getcolor()),
                                   size: 27 * unitHeightValue,
                                 ),
                                 suffixIcon: GestureDetector(
@@ -183,13 +183,13 @@ class _ExamnationState extends State<Examnation> {
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color:
-                                            HexColor(Globalvireables.basecolor),
+                                            HexColor(ThemP.getcolor()),
                                         width: 1.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color:
-                                            HexColor(Globalvireables.basecolor),
+                                            HexColor(ThemP.getcolor()),
                                         width: 2.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 contentPadding: EdgeInsets.only(

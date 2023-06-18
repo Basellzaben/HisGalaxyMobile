@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import '../Models/xRAYM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/ImgaeXrayProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -48,6 +49,7 @@ class _XrayImageState extends State<XrayImage> {
   @override
   Widget build(BuildContext context) {
     var ImgaeXrayProvide = Provider.of<ImgaeXrayProvider>(context, listen: false);
+    var ThemP = Provider.of<Them>(context, listen: false);
 
     controller = WebViewController()..loadRequest(Uri.parse(
         "https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+ImgaeXrayProvide.passno+"&key_images=true"
@@ -91,24 +93,14 @@ class _XrayImageState extends State<XrayImage> {
     LanguageProvider.langg,
     LanguageProvider.getDirection()),
     ),
-    //backgroundColor: HexColor(Globalvireables.basecolor),
+    //backgroundColor: HexColor(ThemP.getcolor()),
     // backgroundColor: Colors.transparent,
     body: Directionality(
     textDirection: LanguageProvider.getDirection(),
     child: Container(
     width: MediaQuery.of(context).size.width,
     height: MediaQuery.of(context).size.height / 1.15,
-    decoration: BoxDecoration(
-    gradient: LinearGradient(
-    colors: [
-    HexColor((Globalvireables.secondcolor)),
-   // HexColor((Globalvireables.basecolor))
-    ],
-    stops: stops,
-    begin: FractionalOffset.topCenter,
-    end: FractionalOffset.bottomCenter,
-    ),
-    ),
+
     child: SafeArea(
     child: Container(
     child: Container(
@@ -131,21 +123,21 @@ class _XrayImageState extends State<XrayImage> {
       children: [
 
         SizedBox(
-          height: MediaQuery.of(context).size.height/1.2,
+          height: MediaQuery.of(context).size.height/1.3,
           width: MediaQuery.of(context).size.width,
           child: WebViewWidget(controller: controller,key: _key,)
       ),
         Align(
     alignment: Alignment.bottomCenter,
     child: Container(
-    height: 30,
+    height: 40,
     width:
     MediaQuery.of(context).size.width / 3,
     margin: EdgeInsets.only(top: 10, bottom: 5),
     color: HexColor(Globalvireables.white),
     child: ElevatedButton(
     style: ElevatedButton.styleFrom(
-    primary: HexColor(Globalvireables.basecolor),
+    primary: HexColor(ThemP.getcolor()),
     ),
     child: Text(
     LanguageProvider.Llanguage('Share'),
@@ -153,12 +145,12 @@ class _XrayImageState extends State<XrayImage> {
             arabicFont: ArabicFont.tajawal,
     color:
     HexColor(Globalvireables.white),
-    fontSize: 13 * unitHeightValue),
+    fontSize: 14 * unitHeightValue),
     ),
     onPressed: () async {
 
 
-      Share.share('El esraa Hospital - '+ImgaeXrayProvide.date, subject: 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number='+ImgaeXrayProvide.passno+'&key_images=true');
+      Share.share(subject:'El esraa Hospital - '+ImgaeXrayProvide.date,  'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number='+ImgaeXrayProvide.passno+'&key_images=true');
 
 
 

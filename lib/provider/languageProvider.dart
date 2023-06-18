@@ -38,6 +38,14 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "theme":"الالوان",
+    "showfile":"الاطلاع على ملفك الطبي",
+    "confrpassmost":"كلمه المرور يجب ان تكون متطابقة",
+    "loginerrorfinget":"ليس لديك الصلاحيات للدخول",
+    "PRESCPTION":"العلاجات",
+    "HospitalInfoS":"حول المستشفى",
+
+    "Notifications":"الاشعارات",
     "Examnation":"الفحوصات",
     "download":"تنزيل",
     "Searchbyvisit":"البحث من خلال زياراتي",
@@ -57,7 +65,7 @@ class Language extends ChangeNotifier {
     "Top":"أبرز الأطباء:",
     "Ray":"الأشعة",
     "examination":"الفحوصات",
-    "Prescription":"الوصفات",
+    "Prescription":"العلاجات",
     "Vitalsigns":"العلامات حيوية",
     "Appoiments":"المواعيد",
     "Invoices":"الفواتير",
@@ -159,10 +167,34 @@ class Language extends ChangeNotifier {
   "Gangepasswor":"تغيير كلمه المرور",
   "Schedule":"المجدوله",
     "Share":"مشاركه",
-    "History":"السابقه"
+    "History":"السابقه",
+    "SGangepasswor":"تم تحديث كلمة السر بنجاح",
+
+     "oldpass":"كلمة المرور القديمة",
+  "newpass":"كلمة المرور الجديدة",
+  "newpassconfirm":"تاكيد كلمة المرور الجديدة",
+
+    "EGangepasswor":"لم يتم تحديث كلمة المرور"
+,
+    "descapp":"طورت مجموعة المجرة هذه المنصة لتمكنك من عرض ملفك الطبي في مستشفى الإسراء التخصصي ، يمكنك الاطلاع على المواعيد الطبية في العيادات المتخصصة والاطلاع على الأدوية الحالية والحساسية واللقاحات ونتائج الفحوصات المخبرية والعلامات الحيوية",
+
   };
 
   static Map<String, Object?> en = {
+    "confrpassmost":"The password must be identical",
+    "showfile":"View your medical file",
+    "descapp":"Al Majara Group developed this platform to enable you to view your medical file at Al Esraa Specialist Hospital, you can view medical appointments in specialized clinics and view current medications, allergies, vaccines, laboratory test results and vital signs",
+    "theme":"Themes",
+
+    "oldpass":"Old Password",
+    "newpass":"New Password",
+    "newpassconfirm":"Confirm new Password",
+  "EGangepasswor":"Password has not been updated",
+  "SGangepasswor":"Password updated successfully",
+    "HospitalInfoS":"About Hospital",
+    "loginerrorfinget":"You do not have permissions to login",
+    "PRESCPTION":"prescription",
+    "Notifications":"Notifications",
     "Examnation":"Examnation",
     "download":"Download",
     "Share":"Share",

@@ -10,6 +10,7 @@ import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 
 import '../Models/HospitalInfo.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -34,10 +35,10 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
 
   @override
   Widget build(BuildContext context) {
-    var colors = [HexColor((Globalvireables.secondcolor)), HexColor((Globalvireables.basecolor))];
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [ 0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
+    var ThemP = Provider.of<Them>(context, listen: false);
 
     return Stack(children: <Widget>[
       Image.asset(
@@ -52,7 +53,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -83,7 +84,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
             elevation: 4.0,
             title: Widgets.Appbar(context,LanguageProvider.Llanguage('HospitalInfoS') , unitHeightValue,LanguageProvider.langg,LanguageProvider.getDirection()),
          ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: Container(
             width: MediaQuery.of(context).size.width,
@@ -91,7 +92,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  HexColor((Globalvireables.secondcolor)), HexColor((Globalvireables.basecolor))
+                  HexColor((Globalvireables.secondcolor)), HexColor((ThemP.getcolor()))
                 ],
                 stops: stops,
                 begin: FractionalOffset.topCenter,
@@ -107,7 +108,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                   decoration: BoxDecoration(
 
                     image: DecorationImage(
-                      image: AssetImage("assets/backgroundhinfo.png"),
+                      image: AssetImage("assets/background.png"),
                       fit: BoxFit.cover,
                     ),
 
@@ -130,7 +131,177 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                              AsyncSnapshot<List<HospitalInfo>> snapshot) {
                            if (snapshot.hasData) {
                              List<HospitalInfo>? Doctors = snapshot.data;
-                             return Container();
+                             return Column(
+                               children: [
+                                 SizedBox(
+                                   width: 200,
+                                   height: 200,
+                                   child: Image(
+                                       image: new AssetImage(
+                                           "assets/esraalogo.png")),
+                                 ),
+                                 Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].desCA.toString():Doctors![0].desCE.toString(),
+                                   style: TextStyle(
+                                       fontWeight: FontWeight.w700,
+                                       color: HexColor(Globalvireables
+                                           .black),
+                                       fontSize:
+                                       18 *
+                                           unitHeightValue),),
+                                 SizedBox(
+                                   height: 30,
+                                 ),
+
+
+                                 Card(
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius:
+                                     BorderRadius.circular(10),
+                                     // if you need this
+                                     side: BorderSide(
+                                       width: MediaQuery.of(context)
+                                           .size
+                                           .height,
+                                       //  color: Colors.black12.withOpacity(0.1),
+                                     ),
+                                   ),
+                                   child: Row(
+                                     children: [
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Icon(
+                                           Icons.location_on,
+                                         ),
+                                       ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].addresSEXPA.toString():Doctors![0].addresSEXPE.toString(),
+                                           style: TextStyle(
+                                               fontWeight: FontWeight.w700,
+                                               color: HexColor(Globalvireables
+                                                   .black),
+                                               fontSize:
+                                               18 *
+                                                   unitHeightValue),),),
+                                       ),
+                                     ],
+                                   ),
+
+                                 )
+,
+                                 Card(
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius:
+                                     BorderRadius.circular(10),
+                                     // if you need this
+                                     side: BorderSide(
+                                       width: MediaQuery.of(context)
+                                           .size
+                                           .height,
+                                       //  color: Colors.black12.withOpacity(0.1),
+                                     ),
+                                   ),
+                                   child: Row(
+                                     children: [
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Icon(
+                                           Icons.email,
+                                         ),
+                                       ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].email.toString():Doctors![0].email.toString(),
+                                           style: TextStyle(
+                                               fontWeight: FontWeight.w700,
+                                               color: HexColor(Globalvireables
+                                                   .black),
+                                               fontSize:
+                                               18 *
+                                                   unitHeightValue),),),
+                                       ),
+                                     ],
+                                   ),
+
+                                 )
+,
+                                 Card(
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius:
+                                     BorderRadius.circular(10),
+                                     // if you need this
+                                     side: BorderSide(
+                                       width: MediaQuery.of(context)
+                                           .size
+                                           .height,
+                                       //  color: Colors.black12.withOpacity(0.1),
+                                     ),
+                                   ),
+                                   child: Row(
+                                     children: [
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Icon(
+                                           Icons.phone,
+                                         ),
+                                       ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].phonE1.toString():Doctors![0].phonE1.toString(),
+                                           style: TextStyle(
+                                               fontWeight: FontWeight.w700,
+                                               color: HexColor(Globalvireables
+                                                   .black),
+                                               fontSize:
+                                               18 *
+                                                   unitHeightValue),),),
+                                       ),
+                                     ],
+                                   ),
+
+                                 )
+,
+                                 Card(
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius:
+                                     BorderRadius.circular(10),
+                                     // if you need this
+                                     side: BorderSide(
+                                       width: MediaQuery.of(context)
+                                           .size
+                                           .height,
+                                       //  color: Colors.black12.withOpacity(0.1),
+                                     ),
+                                   ),
+                                   child: Row(
+                                     children: [
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Icon(
+                                           Icons.link,
+                                         ),
+                                       ),
+                                       Padding(
+                                         padding: const EdgeInsets.all(10),
+                                         child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].websitEADDRESS.toString():Doctors![0].websitEADDRESS.toString(),
+                                           style: TextStyle(
+                                               fontWeight: FontWeight.w700,
+                                               color: HexColor(Globalvireables
+                                                   .black),
+                                               fontSize:
+                                               18 *
+                                                   unitHeightValue),),),
+                                       ),
+                                     ],
+                                   ),
+
+                                 )
+
+
+                               ],
+
+
+                             );
                            } else {
                              return Center(
                                  child: CircularProgressIndicator());
@@ -139,7 +310,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                        ),
 
 
-                       Center(
+                      /* Center(
                          child: Container(
                              decoration: BoxDecoration(
 
@@ -159,7 +330,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                              child: Image(
                                  image: new AssetImage(
                                      "assets/esraalogo.png"))),
-                       ),
+                       ),*/
 
                      ],
                     ),

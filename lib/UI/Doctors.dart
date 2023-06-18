@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../Models/Doctor.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -43,10 +44,9 @@ class _DoctorsState extends State<Doctors> {
 
   @override
   Widget build(BuildContext context) {
-    var colors = [
-      HexColor((Globalvireables.secondcolor)),
-      HexColor((Globalvireables.basecolor))
-    ];
+
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -64,7 +64,7 @@ class _DoctorsState extends State<Doctors> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings ,),
@@ -97,7 +97,7 @@ class _DoctorsState extends State<Doctors> {
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: Container(
             width: MediaQuery.of(context).size.width,
@@ -106,7 +106,7 @@ class _DoctorsState extends State<Doctors> {
               gradient: LinearGradient(
                 colors: [
                   HexColor((Globalvireables.secondcolor)),
-                  HexColor((Globalvireables.basecolor))
+                  HexColor((ThemP.getcolor()))
                 ],
                 stops: stops,
                 begin: FractionalOffset.topCenter,
@@ -133,178 +133,182 @@ class _DoctorsState extends State<Doctors> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.1,
-                          height: MediaQuery.of(context).size.height / 1.2,
-                          child: FutureBuilder(
-                            future: getDoctors(context),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<List<Doctor>> snapshot) {
-                              if (snapshot.hasData) {
-                                List<Doctor>? Doctors = snapshot.data;
-                                return Doctors!.isNotEmpty? ListView(
-                                  children: Doctors!
-                                      .map((Doctor Doctor) => SizedBox(
-                                          child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                // if you need this
-                                                side: BorderSide(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .height,
-                                                  //  color: Colors.black12.withOpacity(0.1),
+                        Container(
+                          color: Colors.transparent,
+
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.1,
+                            height: MediaQuery.of(context).size.height / 1.2,
+                            child: FutureBuilder(
+                              future: getDoctors(context),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<Doctor>> snapshot) {
+                                if (snapshot.hasData) {
+                                  List<Doctor>? Doctors = snapshot.data;
+                                  return Doctors!.isNotEmpty? ListView(
+                                    children: Doctors!
+                                        .map((Doctor Doctor) => SizedBox(
+                                            child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30),
+                                                  // if you need this
+                                                  side: BorderSide(
+                                                    width: MediaQuery.of(context)
+                                                        .size
+                                                        .height,
+                                                    //  color: Colors.black12.withOpacity(0.1),
+                                                  ),
                                                 ),
-                                              ),
-                                              child: LanguageProvider
-                                                          .getLanguage() ==
-                                                      "EN"
-                                                  ? Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              1.1,
-                                                      child: Row(
-                                                        children: [
-                                                          Image.asset(
-                                                            "assets/doctor2.png",
-                                                            height: 90 *
-                                                                unitHeightValue,
-                                                            width: 90 *
-                                                                unitHeightValue,
-                                                          ),
-                                                          Container(
-                                                            width: MediaQuery.of(context).size.width / 1.8,
-                                                            margin: EdgeInsets.all(10),
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                  children: [
-                                                                    Text(
-                                                                      Doctor
-                                                                              .firsT_NAME_A
-                                                                              .toString() +
-                                                                          " " +
-                                                                          Doctor
-                                                                              .fatheR_NAME_A
-                                                                              .toString() +
-                                                                          " " +
-                                                                          Doctor
-                                                                              .lasT_NAME_A
-                                                                              .toString(),
-                                                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                          fontSize: 16 *
-                                                                              unitHeightValue,
-                                                                          fontWeight:
-                                                                              FontWeight
-                                                                                  .w700,
-                                                                          color: Colors
-                                                                              .black87),
-                                                                    ),
-                                                                    Spacer(),
-
-                                                                  ],
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Text(
-                                                                      Doctor.depName
-                                                                          .toString(),
-                                                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                          fontSize: 14 *
-                                                                              unitHeightValue),
-                                                                    ),
-                                                                    Spacer(),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                child: LanguageProvider
+                                                            .getLanguage() ==
+                                                        "EN"
+                                                    ? Container(
+                                                        width:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                1.1,
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/doctor2.png",
+                                                              height: 90 *
+                                                                  unitHeightValue,
+                                                              width: 90 *
+                                                                  unitHeightValue,
                                                             ),
+                                                            Container(
+                                                              width: MediaQuery.of(context).size.width / 1.8,
+                                                              margin: EdgeInsets.all(10),
+                                                              child: Column(
+                                                                children: [
+                                                                  Row(
+                                                                    children: [
+                                                                      Text(
+                                                                        Doctor
+                                                                                .firsT_NAME_A
+                                                                                .toString() +
+                                                                            " " +
+                                                                            Doctor
+                                                                                .fatheR_NAME_A
+                                                                                .toString() +
+                                                                            " " +
+                                                                            Doctor
+                                                                                .lasT_NAME_A
+                                                                                .toString(),
+                                                                        style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                            fontSize: 16 *
+                                                                                unitHeightValue,
+                                                                            fontWeight:
+                                                                                FontWeight
+                                                                                    .w700,
+                                                                            color: Colors
+                                                                                .black87),
+                                                                      ),
+                                                                      Spacer(),
 
+                                                                    ],
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      Text(
+                                                                        Doctor.depName
+                                                                            .toString(),
+                                                                        style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                            fontSize: 14 *
+                                                                                unitHeightValue),
+                                                                      ),
+                                                                      Spacer(),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+
+                                                            ),
+                                                            Spacer(),
+                                                            Spacer(),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    : Row(
+                                                  children: [
+                                                    Spacer(),
+                                                    Spacer(),
+
+                                                    Container(
+                                                      width: MediaQuery.of(context).size.width / 1.8,
+                                                      margin: EdgeInsets.all(10),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Spacer(),
+                                                              Text(
+                                                                Doctor
+                                                                    .firsT_NAME_A
+                                                                    .toString() +
+                                                                    " " +
+                                                                    Doctor
+                                                                        .fatheR_NAME_A
+                                                                        .toString() +
+                                                                    " " +
+                                                                    Doctor
+                                                                        .lasT_NAME_A
+                                                                        .toString(),
+                                                                style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                    fontSize: 16 *
+                                                                        unitHeightValue,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                    color: Colors
+                                                                        .black87),
+                                                              ),
+
+                                                            ],
                                                           ),
-                                                          Spacer(),
-                                                          Spacer(),
+                                                          Row(
+                                                            children: [
+                                                              Spacer(),
+                                                              Text(
+                                                                Doctor.depName
+                                                                    .toString(),
+                                                                style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                    fontSize: 14 *
+                                                                        unitHeightValue),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ],
                                                       ),
-                                                    )
-                                                  : Row(
-                                                children: [
-                                                  Spacer(),
-                                                  Spacer(),
 
-                                                  Container(
-                                                    width: MediaQuery.of(context).size.width / 1.8,
-                                                    margin: EdgeInsets.all(10),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            Spacer(),
-                                                            Text(
-                                                              Doctor
-                                                                  .firsT_NAME_A
-                                                                  .toString() +
-                                                                  " " +
-                                                                  Doctor
-                                                                      .fatheR_NAME_A
-                                                                      .toString() +
-                                                                  " " +
-                                                                  Doctor
-                                                                      .lasT_NAME_A
-                                                                      .toString(),
-                                                              style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                  fontSize: 16 *
-                                                                      unitHeightValue,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                                  color: Colors
-                                                                      .black87),
-                                                            ),
-
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Spacer(),
-                                                            Text(
-                                                              Doctor.depName
-                                                                  .toString(),
-                                                              style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                  fontSize: 14 *
-                                                                      unitHeightValue),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
                                                     ),
-
-                                                  ),
-                                                  Image.asset(
-                                                    "assets/doctor3.png",
-                                                    height: 90 *
-                                                        unitHeightValue,
-                                                    width: 90 *
-                                                        unitHeightValue,
-                                                  ),
-                                                ],
-                                              ),)))
-                                      .toList(),
-                                ):Image.asset(
-                                  "assets/null.png",
-                                  height: 100,
-                                  width: 100,
-                                );
-                              } else {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
+                                                    Image.asset(
+                                                      "assets/doctor3.png",
+                                                      height: 90 *
+                                                          unitHeightValue,
+                                                      width: 90 *
+                                                          unitHeightValue,
+                                                    ),
+                                                  ],
+                                                ),)))
+                                        .toList(),
+                                  ):Image.asset(
+                                    "assets/null.png",
+                                    height: 100,
+                                    width: 100,
+                                  );
+                                } else {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                              },
+                            ),
                           ),
                         ),
                       ],

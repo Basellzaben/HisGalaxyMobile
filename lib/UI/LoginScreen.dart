@@ -7,12 +7,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import 'Home.dart';
 import 'Index.dart';
 import 'package:http/http.dart' as http;
 import 'package:arabic_font/arabic_font.dart';
 
+import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_android/local_auth_android.dart';
+import 'package:local_auth_ios/local_auth_ios.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -25,7 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   var check = false;
-  final auth = LocalAuthentication();
 
   @override
   void initState() {
@@ -51,8 +55,13 @@ var prefs;
   Widget build(BuildContext context) {
 
 _ipControler.text='10.0.1.65:9999';
-    double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
-    var LanguageProvider = Provider.of<Language>(context, listen: false);
+double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
+
+
+var ThemP = Provider.of<Them>(context, listen: false);
+var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+
      Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     return Stack(children: <Widget>[
       Image.asset(
@@ -122,7 +131,7 @@ margin: EdgeInsets.only(top: 5),
                                   child: TextField(
                                     controller: _emailController,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.email,color: HexColor(Globalvireables.basecolor)),
+                                      prefixIcon: Icon(Icons.email,color: HexColor(ThemP.getcolor())),
                                       border: OutlineInputBorder(),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -134,7 +143,7 @@ margin: EdgeInsets.only(top: 5),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: HexColor(
-                                                  Globalvireables.basecolor),
+                                                  ThemP.getcolor()),
                                               width: 1.0),
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
@@ -158,7 +167,7 @@ margin: EdgeInsets.only(top: 5),
                                     obscureText: _obscured,
                                     controller: _passController,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.password_sharp,color: HexColor(Globalvireables.basecolor),),
+                                      prefixIcon: Icon(Icons.password_sharp,color: HexColor(ThemP.getcolor()),),
                                       suffixIcon: GestureDetector(
                                           onTap: _toggleObscured,
                                           child: Icon(_obscured
@@ -168,14 +177,14 @@ margin: EdgeInsets.only(top: 5),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: HexColor(
-                                                  Globalvireables.basecolor),
+                                                  ThemP.getcolor()),
                                               width: 0.0),
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: HexColor(
-                                                  Globalvireables.basecolor),
+                                                  ThemP.getcolor()),
                                               width: 1.0),
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
@@ -203,14 +212,14 @@ margin: EdgeInsets.only(top: 5),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: HexColor(
-                                                  Globalvireables.basecolor),
+                                                  ThemP.getcolor()),
                                               width: 0.0),
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: HexColor(
-                                                  Globalvireables.basecolor),
+                                                  ThemP.getcolor()),
                                               width: 1.0),
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
@@ -236,7 +245,7 @@ margin: EdgeInsets.only(top: 5),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       primary:
-                                          HexColor(Globalvireables.basecolor),
+                                          HexColor(ThemP.getcolor()),
                                     ),
                                     child: Text(
                                       LanguageProvider.Llanguage('login'),
@@ -328,39 +337,78 @@ margin: EdgeInsets.only(top: 5),
                                     ),
                                   ),
                                 ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Container(
-                                  height: 50,
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.2,
-                                  margin: EdgeInsets.only(top: 10, bottom: 30),
-                                  child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary:
-                                            HexColor(Globalvireables.basecolor),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Spacer(),
-                                          Text(
-                                            LanguageProvider.Llanguage(
-                                                'finger'),
-                                            style: ArabicTextStyle(
+                          SizedBox(
+                               child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    height: 50,
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.2,
+                                    margin: EdgeInsets.only(top: 10, bottom: 30),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary:
+                                              HexColor(ThemP.getcolor()),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Spacer(),
+                                            Text(
+                                              LanguageProvider.Llanguage(
+                                                  'finger'),
+                                              style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                                color: Colors.white,
-                                                fontSize: 12 * unitHeightValue),
+                                                  color: Colors.white,
+                                                  fontSize: 12 * unitHeightValue),
+                                            ),
+                                            Spacer(),
+                                            Icon(
+                                              Icons.fingerprint,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
+                                        onPressed: () async {
+
+
+                                          try {
+                                            final bool didAuthenticate = await auth.authenticate(
+                                              localizedReason: 'Please authenticate to show account balance',
+                                              options: const AuthenticationOptions(useErrorDialogs: false),
+                                            );
+                                           if(didAuthenticate && check){
+
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                          builder: (context) => Home(),
                                           ),
-                                          Spacer(),
-                                          Icon(
-                                            Icons.fingerprint,
-                                            color: Colors.white,
-                                          )
-                                        ],
-                                      ),
-                                      onPressed: () async {}),
+                                          (Route<dynamic> route) => false);
+
+
+
+                                          }else{
+                                             showDialog(
+                                                 context: context,
+                                                 builder: (_) => AlertDialog(
+                                                   title: Text(LanguageProvider.Llanguage('login')),
+                                                   content: Text(LanguageProvider.Llanguage('loginerrorfinget')),
+                                                 ));
+                                           }
+                                          } on PlatformException catch (e) {
+                                            print("errorlogiin "+ e.message.toString());
+                                           /* if (e.code == auth_error.notEnrolled) {
+                                              // Add handling of no hardware here.
+                                            } else if (e.code == auth_error.lockedOut ||
+                                                e.code == auth_error.permanentlyLockedOut) {
+                                            } else {
+                                             print("errorlogiin "+ e.message.toString());
+                                            }*/
+                                          }
+
+                                        }),
+                                  ),
                                 ),
-                              ),
+                             ),
 
                               SizedBox(height: 14),
                               LanguageProvider.getLanguage()!='AR'?
@@ -430,15 +478,25 @@ margin: EdgeInsets.only(top: 5),
     }
 
   }
+  final LocalAuthentication auth = LocalAuthentication();
   Getrememper() async {
     prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      _passController.text= prefs.getString('password').toString();
-      _emailController.text= prefs.getString('username').toString();
 
-      if(prefs.getString('password').toString().length>1){
+      Future<void> authinticate() async {
+
+      }
+
+      if(prefs.getString('password').toString().length>1 && prefs.getString('password').toString()!='null'
+      && prefs.getString('password').toString()!=null){
+        _passController.text= prefs.getString('password').toString();
+        _emailController.text= prefs.getString('username').toString();
+
         check=true;
+      }else{
+        _passController.text='';
+        _emailController.text='';
       }
     });
 
@@ -480,6 +538,7 @@ margin: EdgeInsets.only(top: 5),
       print("wheeen" + jsonResponse.toString());
       print("wheeen2" + jsonResponse["token"].toString());
 
+      Loginprovider.setpass(password.toString());
       Loginprovider.setid(jsonResponse["id"].toString());
       Loginprovider.setusername(jsonResponse["username"]);
       Loginprovider.setcustno(jsonResponse["custno"].toString());
@@ -525,7 +584,7 @@ margin: EdgeInsets.only(top: 5),
         context: context,
         builder: (context) => new AlertDialog(
           title: new Text(l.Llanguage('login')),
-          content: Text(l.Llanguage('loginerror') +"\n"+e.toString()),
+          content: Text(l.Llanguage('loginerror') ),
           actions: <Widget>[],
         ),
       );

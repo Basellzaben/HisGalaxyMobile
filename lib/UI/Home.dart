@@ -17,16 +17,20 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../Models/Doctor.dart';
 import '../Models/HospitalInfo.dart';
+import '../Models/ProfileM.dart';
 import '../Models/VisitsM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/HospitalProvider.dart';
 import '../provider/LoginProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import 'Appoiments.dart';
 import 'Examnation.dart';
 import 'HospitalInfoS.dart';
 import 'Insurance.dart';
 import 'Invoices.dart';
+import 'Notifications.dart';
+import 'PRESCPTION.dart';
 import 'Settings.dart';
 import 'VitalSigns.dart';
 import 'dart:convert';
@@ -60,10 +64,9 @@ class _HomeState extends State<Home> {
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    var colors = [
-      HexColor((Globalvireables.secondcolor)),
-      HexColor((Globalvireables.basecolor))
-    ];
+
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery
         .of(context)
         .size
@@ -92,7 +95,7 @@ class _HomeState extends State<Home> {
     elevation: 8,
     selectedItemColor: HexColor(Globalvireables.white),
     unselectedItemColor: Colors.white,
-    backgroundColor: HexColor(Globalvireables.basecolor),
+    backgroundColor: HexColor(ThemP.getcolor()),
     items: [
     BottomNavigationBarItem(
     icon: Icon(Icons.settings,),
@@ -114,7 +117,7 @@ class _HomeState extends State<Home> {
     IconThemeData(color: HexColor(Globalvireables.white)),
     onTap: _onItemTapped,
     ),
-    backgroundColor: HexColor(Globalvireables.basecolor),
+    backgroundColor: HexColor(ThemP.getcolor()),
     //backgroundColor: Colors.transparent,
     body: Directionality(
     textDirection: LanguageProvider.getDirection(),
@@ -131,7 +134,7 @@ class _HomeState extends State<Home> {
     gradient: LinearGradient(
     colors: [
     HexColor((Globalvireables.white)),
-    HexColor((Globalvireables.basecolor))
+    HexColor((ThemP.getcolor()))
     ],
     stops: stops,
     begin: FractionalOffset.topCenter,
@@ -189,10 +192,19 @@ class _HomeState extends State<Home> {
     fontWeight: FontWeight.w700),
     ),
     Spacer(),
-    Icon(
-    Icons.notifications,
-    color: HexColor(Globalvireables.basecolor),
-    size: 33 * unitHeightValue,
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Notifications()),
+          );
+        },
+      child: Icon(
+      Icons.notifications,
+      color: HexColor(ThemP.getcolor()),
+      size: 33 * unitHeightValue,
+      ),
     )
     ],
     ),
@@ -233,7 +245,7 @@ class _HomeState extends State<Home> {
     decoration: InputDecoration(
     prefixIcon: Icon(
     Icons.airline_seat_flat, color: HexColor(
-    Globalvireables.basecolor),
+    ThemP.getcolor()),
     size: 27 * unitHeightValue,),
     suffixIcon: GestureDetector(
     onTap: () {
@@ -253,14 +265,14 @@ class _HomeState extends State<Home> {
     focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
     color: HexColor(
-    Globalvireables.basecolor),
+    ThemP.getcolor()),
     width: 2.0),
     borderRadius:
     BorderRadius.circular(10.0)),
     enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
     color: HexColor(
-    Globalvireables.basecolor),
+    ThemP.getcolor()),
     width: 2.0),
     borderRadius:
     BorderRadius.circular(10.0)),
@@ -416,7 +428,7 @@ class _HomeState extends State<Home> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               primary:
-              HexColor(Globalvireables.basecolor),
+              HexColor(ThemP.getcolor()),
             ),
             child: Text(
               LanguageProvider.Llanguage('cancel'),
@@ -477,7 +489,7 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Card(
-    color: HexColor(Globalvireables.basecolor),
+    color: HexColor(ThemP.getcolor()),
     child: Container(
     width: MediaQuery
         .of(context)
@@ -534,7 +546,7 @@ class _HomeState extends State<Home> {
     children: [
     Card(
     color: HexColor(
-    Globalvireables.basecolor),
+    ThemP.getcolor()),
     child: Container(
     width: MediaQuery
         .of(context)
@@ -582,7 +594,7 @@ class _HomeState extends State<Home> {
     /*Column(
     children: [
     Card(
-    color: HexColor(Globalvireables.basecolor),
+    color: HexColor(ThemP.getcolor()),
     child: Container(
     width: MediaQuery
         .of(context)
@@ -637,7 +649,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Card(
-              color: HexColor(Globalvireables.basecolor),
+              color: HexColor(ThemP.getcolor()),
               child: Container(
                 width: MediaQuery
                     .of(context)
@@ -697,7 +709,7 @@ class _HomeState extends State<Home> {
     children: [
     Card(
     color: HexColor(
-    Globalvireables.basecolor),
+    ThemP.getcolor()),
     child: Container(
     width: MediaQuery
         .of(context)
@@ -752,7 +764,7 @@ class _HomeState extends State<Home> {
     children: [
     Card(
     color: HexColor(
-    Globalvireables.basecolor),
+    ThemP.getcolor()),
     child: Container(
     width: MediaQuery
         .of(context)
@@ -794,50 +806,58 @@ class _HomeState extends State<Home> {
     ),
     ),
     Spacer(),
-    Column(
-    children: [
-    Card(
-    color: HexColor(Globalvireables.basecolor),
-    child: Container(
-    width: MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    height:
-    MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    child: Column(
-    children: [
-    Spacer(),
-    Icon(
-    Icons.medical_services,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
-    Spacer(),
-    ],
-    ),
-    ),
-    ),
-    Text(
-    LanguageProvider.Llanguage("Prescription"),
+    GestureDetector(
+    onTap: () async {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => PRESCPTION()),
+    );},
+      child: Column(
+      children: [
+      Card(
+      color: HexColor(ThemP.getcolor()),
+      child: Container(
+      width: MediaQuery
+          .of(context)
+          .size
+          .width /
+      4.5,
+      height:
+      MediaQuery
+          .of(context)
+          .size
+          .width /
+      4.5,
+      child: Column(
+      children: [
+      Spacer(),
+      Icon(
+      Icons.medical_services,
+      color:
+      HexColor(Globalvireables.white),
+      size: 50 * unitHeightValue,
+      ),
+      Spacer(),
+      ],
+      ),
+      ),
+      ),
+      Text(
+      LanguageProvider.Llanguage("Prescription"),
 
-        style: ArabicTextStyle(
+          style: ArabicTextStyle(
 
-            arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
-            fontSize: 13 * unitHeightValue,
-            fontWeight: FontWeight.w700
-        )
+              arabicFont: ArabicFont.tajawal,
+              color: Colors.black,
+              fontSize: 13 * unitHeightValue,
+              fontWeight: FontWeight.w700
+          )
 
-      
-    ),
-    ],
+
+      ),
+      ],
+      ),
     )
     ],
     ),
@@ -856,7 +876,7 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Card(
-    color: HexColor(Globalvireables.basecolor),
+    color: HexColor(ThemP.getcolor()),
     child: Container(
     width: MediaQuery
         .of(context)
@@ -940,7 +960,8 @@ class _HomeState extends State<Home> {
     );
     },
     child: Container(
-    alignment: Alignment.topLeft,
+      color: Colors.transparent,
+      alignment: Alignment.topLeft,
     child: Text(
     LanguageProvider.Llanguage("SeeAll"),
     style: ArabicTextStyle(
@@ -957,174 +978,184 @@ class _HomeState extends State<Home> {
     SizedBox(
     height: 10,
     ),
-    SizedBox(
-    width: MediaQuery
-        .of(context)
-        .size
-        .width / 1.1,
-    height: MediaQuery
-        .of(context)
-        .size
-        .width / 2,
-    child: FutureBuilder(
-    future: getDoctors(context),
-    builder: (BuildContext context,
-    AsyncSnapshot<List<Doctor>> snapshot) {
-    if (snapshot.hasData) {
-    List<Doctor>? Doctors = snapshot.data;
-    return ListView(
-    children: Doctors!
-        .map((Doctor Doctor) =>
-    SizedBox(
-    child: Card(
-    shape: RoundedRectangleBorder(
-    borderRadius:
-    BorderRadius.circular(30),
-    // if you need this
-    side: BorderSide(
-    width:
-    MediaQuery
-        .of(context)
-        .size
-        .height,
-    //  color: Colors.black12.withOpacity(0.1),
-    ),
-    ),
-    child: LanguageProvider
-        .getLanguage() ==
-    "EN"
-    ? Row(
-    children: [
-    Image.asset(
-    "assets/doctor2.png",
-    height: 90 *
-    unitHeightValue,
-    width: 90 *
-    unitHeightValue,
-    ),
-    Spacer(),
     Container(
-    margin:
-    EdgeInsets.all(
-    10),
-    child: Column(
-    children: [
-    Center(
-    child: Text(
-    Doctor
-        .firsT_NAME_A
-        .toString() +
-    " " +
-    Doctor
-        .fatheR_NAME_A
-        .toString() +
-    " " +
-    Doctor
-        .lasT_NAME_A
-        .toString(),
-    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-    fontSize:
-    16 *
-    unitHeightValue,
-    fontWeight:
-    FontWeight
-        .w700,
-    color: Colors
-        .black87),
-    ),
-    ),
-    Center(
-    child: Text(
-    Doctor
-        .depName
-        .toString(),
-    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-    fontSize:
-    14 *
-    unitHeightValue),
-    ),
-    ),
-    ],
-    ),
-    ),
-    Spacer(),
-    ],
-    )
-        : Row(
-    children: [
-    Spacer(),
-    Container(
-    margin:
-    EdgeInsets.all(
-    10),
-    child: Column(
-    children: [
-    Center(
-    child: Text(
-    Doctor
-        .firsT_NAME_A
-        .toString() +
-    " " +
-    Doctor
-        .fatheR_NAME_A
-        .toString() +
-    " " +
-    Doctor
-        .lasT_NAME_A
-        .toString(),
-    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-    fontSize:
-    16 *
-    unitHeightValue,
-    fontWeight:
-    FontWeight
-        .w700,
-    color: Colors
-        .black87),
-    ),
-    ),
-    Center(
-    child: Text(
-    Doctor
-        .depName
-        .toString(),
-    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-    fontSize:
-    14 *
-    unitHeightValue),
-    ),
-    ),
-    ],
-    ),
-    ),
-    Spacer(),
+      color: Colors.transparent,
+      child: SizedBox(
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 1.1,
+      height: MediaQuery
+          .of(context)
+          .size
+          .width / 2,
+      child: FutureBuilder(
+      future: getDoctors(context),
+      builder: (BuildContext context,
+      AsyncSnapshot<List<Doctor>> snapshot) {
+      if (snapshot.hasData) {
+      List<Doctor>? Doctors = snapshot.data;
+      return Container(
+        color: Colors.transparent,
+        child: ListView(
+        children: Doctors!
+            .map((Doctor Doctor) =>
+        Container(
+          color: Colors.transparent,
+          child: SizedBox(
+          child: Card(
+          shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.circular(30),
+          // if you need this
+          side: BorderSide(
+          width:
+          MediaQuery
+              .of(context)
+              .size
+              .height,
+          //  color: Colors.black12.withOpacity(0.1),
+          ),
+          ),
+          child: LanguageProvider
+              .getLanguage() ==
+          "EN"
+          ? Row(
+          children: [
+          Image.asset(
+          "assets/doctor2.png",
+          height: 90 *
+          unitHeightValue,
+          width: 90 *
+          unitHeightValue,
+          ),
+          Spacer(),
+          Container(
+            color: Colors.transparent,
+            margin:
+          EdgeInsets.all(
+          10),
+          child: Column(
+          children: [
+          Center(
+          child: Text(
+          Doctor
+              .firsT_NAME_A
+              .toString() +
+          " " +
+          Doctor
+              .fatheR_NAME_A
+              .toString() +
+          " " +
+          Doctor
+              .lasT_NAME_A
+              .toString(),
+          style: ArabicTextStyle(
+                  arabicFont: ArabicFont.tajawal,
+          fontSize:
+          16 *
+          unitHeightValue,
+          fontWeight:
+          FontWeight
+              .w700,
+          color: Colors
+              .black87),
+          ),
+          ),
+          Center(
+          child: Text(
+          Doctor
+              .depName
+              .toString(),
+          style: ArabicTextStyle(
+                  arabicFont: ArabicFont.tajawal,
+          fontSize:
+          14 *
+          unitHeightValue),
+          ),
+          ),
+          ],
+          ),
+          ),
+          Spacer(),
+          ],
+          )
+              : Row(
+          children: [
+          Spacer(),
+          Container(
+          margin:
+          EdgeInsets.all(
+          10),
+          child: Column(
+          children: [
+          Center(
+          child: Text(
+          Doctor
+              .firsT_NAME_A
+              .toString() +
+          " " +
+          Doctor
+              .fatheR_NAME_A
+              .toString() +
+          " " +
+          Doctor
+              .lasT_NAME_A
+              .toString(),
+          style: ArabicTextStyle(
+                  arabicFont: ArabicFont.tajawal,
+          fontSize:
+          16 *
+          unitHeightValue,
+          fontWeight:
+          FontWeight
+              .w700,
+          color: Colors
+              .black87),
+          ),
+          ),
+          Center(
+          child: Text(
+          Doctor
+              .depName
+              .toString(),
+          style: ArabicTextStyle(
+                  arabicFont: ArabicFont.tajawal,
+          fontSize:
+          14 *
+          unitHeightValue),
+          ),
+          ),
+          ],
+          ),
+          ),
+          Spacer(),
 
 
-    Padding(
-    padding: const EdgeInsets.only(left: 9.0),
-    child: Container(
-    child: Image.asset(
-    "assets/doctor2.png",
-    height: 90 *
-    unitHeightValue,
-    width: 90 *
-    unitHeightValue,
-    )),
-    ),
-    ],
-    ))))
-        .toList(),
-    );
-    } else {
-    return Center(
-    child: CircularProgressIndicator());
-    }
-    },
-    ),
+          Padding(
+          padding: const EdgeInsets.only(left: 9.0),
+          child: Container(
+          child: Image.asset(
+          "assets/doctor2.png",
+          height: 90 *
+          unitHeightValue,
+          width: 90 *
+          unitHeightValue,
+          )),
+          ),
+          ],
+          ))),
+        ))
+            .toList(),
+        ),
+      );
+      } else {
+      return Center(
+      child: CircularProgressIndicator());
+      }
+      },
+      ),
+      ),
     ),
 
 
@@ -1281,49 +1312,6 @@ class _HomeState extends State<Home> {
   ];
 
 
-
-  Future<List<Doctor>> getProfile(BuildContext context) async {
-    var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL =
-    Uri.parse(Globalvireables.DoctorsURL);
-    try {
-      var map = new Map<String, dynamic>();
-      map['lan'] = LanguageProvider.getLanguage();
-      http.Response res = await http.post(
-        postsURL,
-        body: map,
-
-      );
-
-      if (res.statusCode == 200) {
-        print("Doctors" + res.body.toString());
-
-        List<dynamic> body = jsonDecode(res.body);
-
-        List<Doctor> Doctors = body
-            .map(
-              (dynamic item) => Doctor.fromJson(item),
-        )
-            .toList();
-
-        return Doctors;
-      } else {
-        throw "Unable to retrieve Doctors.";
-      }
-    } catch (e) {
-      await showDialog(
-        context: context,
-        builder: (context) =>
-        new AlertDialog(
-          title: new Text('بيانات الأطباء'),
-          content: Text(e.toString()),
-          actions: <Widget>[],
-        ),
-      );
-    }
-
-    throw "Unable to retrieve Doctors.";
-  }
 
 
 }

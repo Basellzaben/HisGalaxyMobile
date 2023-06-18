@@ -16,6 +16,7 @@ import 'package:arabic_font/arabic_font.dart';
 import '../Models/VitalSignsM.dart';
 import '../Models/VitalSignsM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -55,6 +56,8 @@ class _VitalSignsState extends State<VitalSigns> {
   }
   @override
   Widget build(BuildContext context) {
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -72,7 +75,7 @@ class _VitalSignsState extends State<VitalSigns> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -105,7 +108,7 @@ class _VitalSignsState extends State<VitalSigns> {
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 1.15,
@@ -113,7 +116,7 @@ class _VitalSignsState extends State<VitalSigns> {
               gradient: LinearGradient(
                 colors: [
                   HexColor((Globalvireables.secondcolor)),
-                  HexColor((Globalvireables.basecolor))
+                  HexColor((ThemP.getcolor()))
                 ],
                 stops: stops,
                 begin: FractionalOffset.topCenter,
@@ -146,7 +149,7 @@ class _VitalSignsState extends State<VitalSigns> {
                             controller: dateinput, //editing controller of this TextField
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.date_range,color: HexColor(
-                                  Globalvireables.basecolor),size: 27*unitHeightValue,),
+                                  ThemP.getcolor()),size: 27*unitHeightValue,),
                               suffixIcon: GestureDetector(
                                   onTap: (){
                                     setState(() {
@@ -160,14 +163,14 @@ class _VitalSignsState extends State<VitalSigns> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: HexColor(
-                                          Globalvireables.basecolor),
+                                          ThemP.getcolor()),
                                       width: 2.0),
                                   borderRadius:
                                   BorderRadius.circular(10.0)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: HexColor(
-                                          Globalvireables.basecolor),
+                                          ThemP.getcolor()),
                                       width: 2.0),
                                   borderRadius:
                                   BorderRadius.circular(10.0)),
@@ -231,7 +234,7 @@ class _VitalSignsState extends State<VitalSigns> {
                                                       ,
                                                       style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                                        color: HexColor(Globalvireables.basecolor),
+                                                        color: HexColor(ThemP.getcolor()),
                                                           fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.w700),

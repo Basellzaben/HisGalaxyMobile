@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import '../Models/InsuranceM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -45,10 +46,8 @@ class _InsuranceState extends State<Insurance> {
 
   @override
   Widget build(BuildContext context) {
-    var colors = [
-      HexColor((Globalvireables.secondcolor)),
-      HexColor((Globalvireables.basecolor))
-    ];
+
+    var ThemP = Provider.of<Them>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
@@ -67,7 +66,7 @@ class _InsuranceState extends State<Insurance> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -100,7 +99,7 @@ class _InsuranceState extends State<Insurance> {
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: Directionality(
             textDirection: LanguageProvider.getDirection(),
@@ -111,7 +110,7 @@ class _InsuranceState extends State<Insurance> {
                 gradient: LinearGradient(
                   colors: [
                     HexColor((Globalvireables.secondcolor)),
-                    HexColor((Globalvireables.basecolor))
+                    HexColor((ThemP.getcolor()))
                   ],
                   stops: stops,
                   begin: FractionalOffset.topCenter,

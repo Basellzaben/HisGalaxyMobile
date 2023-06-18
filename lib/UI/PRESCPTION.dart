@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:arabic_font/arabic_font.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,22 +9,22 @@ import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-
-import '../Models/AppoimentsM.dart';
+import '../Models/prescptionM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/SingleEXAMProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
-
-class Appoiments extends StatefulWidget {
+import 'package:arabic_font/arabic_font.dart';
+class PRESCPTION extends StatefulWidget {
   @override
-  State<Appoiments> createState() => _AppoimentsState();
+  State<PRESCPTION> createState() => _PRESCPTIONState();
 }
 
-class _AppoimentsState extends State<Appoiments> {
+class _PRESCPTIONState extends State<PRESCPTION> {
   @override
   void initState() {
     setsearch(context);
@@ -46,7 +44,7 @@ class _AppoimentsState extends State<Appoiments> {
     profile(),
   ];
   TextEditingController dateinputC = TextEditingController();
-var state=false;
+
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
@@ -56,11 +54,13 @@ var state=false;
   @override
   Widget build(BuildContext context) {
 
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    var ThemP = Provider.of<Them>(context, listen: false);
-    
+    var SINGLEEx = Provider.of<SingleEXAMProvider>(context, listen: false);
+
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background.png",
@@ -97,7 +97,7 @@ var state=false;
             showUnselectedLabels: true,
             currentIndex: selectedIndex,
             selectedIconTheme:
-            IconThemeData(color: HexColor(Globalvireables.white)),
+                IconThemeData(color: HexColor(Globalvireables.white)),
             onTap: _onItemTapped,
           ),
           appBar: AppBar(
@@ -106,7 +106,7 @@ var state=false;
             elevation: 4.0,
             title: Widgets.Appbar(
                 context,
-                LanguageProvider.Llanguage('Appoiments'),
+                LanguageProvider.Llanguage('PRESCPTION'),
                 unitHeightValue,
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
@@ -150,63 +150,74 @@ var state=false;
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
+                          SizedBox(
+                            child: TextField(
+                              controller: dateinputC,
+                              //editing controller of this TextField
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.date_range,
+                                  color: HexColor(ThemP.getcolor()),
+                                  size: 27 * unitHeightValue,
+                                ),
+                                suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      print("ex 1");
+                                      setState(() {
+                                        dateinputC.text =
+                                            LanguageProvider.Llanguage(
+                                                'SearchbyDate');
+                                      });
+                                    },
+                                    child: Icon(color: Colors.redAccent,dateinputC.text.isEmpty ||
+                                            dateinputC.text.toString() ==
+                                                LanguageProvider.Llanguage(
+                                                    'SearchbyDate')
+                                        ? null
+                                        : Icons.cancel)),
+                                border: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            HexColor(ThemP.getcolor()),
+                                        width: 1.0),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color:
+                                            HexColor(ThemP.getcolor()),
+                                        width: 2.0),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                contentPadding: EdgeInsets.only(
+                                    top: 18, bottom: 18, right: 20, left: 20),
+                                fillColor: HexColor(Globalvireables.white),
+                                filled: true,
+                                hintText:
+                                    LanguageProvider.Llanguage("SearchbyDate"),
+                              ),
+                              readOnly: true,
+                              //set it true, so that user will not able to edit text
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
 
-child: Row(children: [
-   SizedBox(
-      height: 50,
-      width: MediaQuery.of(context).size.width / 2.5,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary:
-    state?  HexColor(ThemP.getcolor()): HexColor(Globalvireables.grey),
-        ),
-        child: Text(
-        LanguageProvider.Llanguage('History') ,
-          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-              color: HexColor(Globalvireables.white),
-              fontSize: 15 * unitHeightValue),
-        ),
-        onPressed: () async {
-          if(!state){
-            setState(() {
-              state=true;
-            });
-          }
-     },
-    ),
-  )
-  ,Spacer(),
-  SizedBox(
-    height: 50,
-    width: MediaQuery.of(context).size.width / 2.5,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary:
-        state?  HexColor(Globalvireables.grey): HexColor(ThemP.getcolor()),),
-      child: Text(LanguageProvider.Llanguage('Schedule'),
-        style: ArabicTextStyle(
-        arabicFont: ArabicFont.tajawal,
-        color: HexColor(Globalvireables.white),
-        fontSize: 15 * unitHeightValue),
-      ),
-      onPressed: () async {
-       if(state){
-         setState(() {
-           state=false;
-         });
-
-       }
-
-      },
-    ),
-  )
-
-],),
-
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(pickedDate);
+                                  print(formattedDate + "formattedDate");
+                                  setState(() {
+                                    dateinputC.text = formattedDate
+                                        .toString(); //set output date to TextField value.
+                                  });
+                                } else {
+                                  print("Date is not selected");
+                                }
+                              },
                             ),
                           ),
                           SizedBox(
@@ -219,39 +230,28 @@ child: Row(children: [
                             width: MediaQuery.of(context).size.width / 1.11,
                             height: MediaQuery.of(context).size.height / 1.2,
                             child: FutureBuilder(
-                              future: getAppoiments(
-                                context,
-                                "8","20"
-
+                              future: getPRESCPTION(
+                                  context,
+                                  "8",
+                                      dateinputC.text.isEmpty ||
+                                      dateinputC.text.toString() ==
+                                      LanguageProvider.Llanguage(
+                                      'SearchbyDate')
+                                      ? "202"
+                                      : dateinputC.text,
                               ),
-                              builder: (BuildContext context, AsyncSnapshot<List<AppoimentsM>> snapshot) {
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<prescptionM>> snapshot) {
                                 if (snapshot.hasData) {
-                                  List<AppoimentsM>? Appoiments = snapshot.data;
+                                  List<prescptionM>? PRESCPTION = snapshot.data;
+                                  return PRESCPTION!.isNotEmpty? ListView(
+                                    children: PRESCPTION!
+                                        .map((prescptionM inv) => SizedBox(
+                                            child: GestureDetector(
+                                         onTap: () {
 
-                                 return Appoiments!.isNotEmpty? ListView(
-                                    children: Appoiments!
-                                        .map((AppoimentsM inv) =>
-                                        SizedBox(
-                                        child: GestureDetector(
-                                          onTap: () {
-
-
-
-                                          },
-                                          child: Column(
-                                            children: [
-                                              SizedBox(height: 10,),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                    textAlign: TextAlign.left,
-                                                    inv.sessionDate.toString() == null
-                                                        ||  inv.sessionDate.toString() == 'NULL'
-                                                        || inv.sessionDate.toString() ==
-                                                        'null'? '' : retturndatenewformat(inv.sessionDate.toString())
-                                                        .trim()),
-                                              ),
-                                              Card(
+                                                  },
+                                              child: Card(
                                                   color: Colors.white,
                                                   shape: RoundedRectangleBorder(
                                                     side: BorderSide(
@@ -260,7 +260,7 @@ child: Row(children: [
                                                                 .basecolor),
                                                         width: 2),
                                                     borderRadius:
-                                                    BorderRadius.circular(10),
+                                                        BorderRadius.circular(10),
                                                   ),
                                                   child: Padding(
                                                     padding: EdgeInsets.all(13),
@@ -269,29 +269,28 @@ child: Row(children: [
                                                         children: [
                                                           Row(
                                                             children: [
-
                                                               Expanded(
                                                                 child: Column(
                                                                   children: [
                                                                     Align(
                                                                       alignment: Alignment.topLeft,
                                                                       child: Text(
-                                                                        textAlign: TextAlign.left,
-                                                                        inv.doctornamEE.toString() == null
-                                                                            ||  inv.doctornamEE.toString() == 'NULL'
-                                                                            || inv.doctornamEE.toString() == 'null'? '' : inv.doctornamEE.toString()
+                                                                          textAlign: TextAlign.left,
+                                                                          inv.cname.toString() == null
+                                                                           ||  inv.cname.toString() == 'NULL'
+                                                                           || inv.cname.toString() == 'null'? '' : inv.cname.toString()
                                                                             .trim(),
-                                                                        style: ArabicTextStyle(
+                                                                      style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,color: Colors.black,fontWeight: FontWeight.w900),),
                                                                     ),
                                                                     Align(
                                                                       alignment: Alignment.topLeft,
                                                                       child: Text(
                                                                           textAlign: TextAlign.left,
-                                                                          inv.sessionNameE.toString() == null
-                                                                              ||  inv.sessionNameE.toString() == 'NULL'
-                                                                              || inv.sessionNameE.toString() ==
-                                                                              'null'? '' : "DR . "+inv.sessionNameE.toString()
+                                                                          inv.cdate.toString() == null
+                                                                              ||  inv.cdate.toString() == 'NULL'
+                                                                              || inv.cdate.toString() ==
+                                                                              'null'? '' : inv.cdate.toString().substring(0,10)
                                                                               .trim()),
                                                                     ),
                                                                   ],
@@ -306,16 +305,13 @@ child: Row(children: [
                                                       ),
                                                     ),
                                                   )),
-                                            ],
-                                          ),
-                                        )))
+                                            )))
                                         .toList(),
                                   ):Image.asset(
-                                "assets/null.png",
-                                height: 100,
-                                width: 100,
-                                );
-
+                                    "assets/null.png",
+                                    height: 100,
+                                    width: 100,
+                                  );
                                 } else {
                                   return Center(
                                       child: CircularProgressIndicator());
@@ -334,42 +330,33 @@ child: Row(children: [
     ]);
   }
 
-  Future<List<AppoimentsM>> getAppoiments(
-      BuildContext context, String patientid, String date) async {
+  Future<List<prescptionM>> getPRESCPTION(
+      BuildContext context, String patientid, String date ) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.AppoimentsURL);
+    Uri postsURL = Uri.parse(Globalvireables.prescptionURL);
     try {
-      String state1='3247';
-      String state2='2';
-
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
-      map['searchDate'] = date;
-      if(state){
-        state1='3248';
-        state2='1';
-      }
-      map['state'] = state1;
-      map['state2'] = state2;
+      map['Date'] = date;
       http.Response res = await http.post(
         postsURL,
         body: map,
       );
 
       if (res.statusCode == 200) {
-        print("Appoiments" + res.body.toString());
+        print("PRESCPTION" + res.body.toString());
 
         List<dynamic> body = jsonDecode(res.body);
 
-        List<AppoimentsM> Appoiments = body
+        List<prescptionM> PRESCPTION = body
             .map(
-              (dynamic item) => AppoimentsM.fromJson(item),
-        )
+              (dynamic item) => prescptionM.fromJson(item),
+            )
             .toList();
 
-        return Appoiments;
+        return PRESCPTION;
       } else {
-        throw "Unable to retrieve Appoiments." + res.statusCode.toString();
+        throw "Unable to retrieve PRESCPTION." + res.statusCode.toString();
       }
     } catch (e) {
       await showDialog(
@@ -382,7 +369,7 @@ child: Row(children: [
       );
     }
 
-    throw "Unable to retrieve Appoiments.";
+    throw "Unable to retrieve PRESCPTION.";
   }
 
   _onItemTapped(int index) {

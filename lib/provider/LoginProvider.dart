@@ -10,12 +10,23 @@ class LoginProvider extends ChangeNotifier {
   String refreshToken="";
   String id="";
   String custno="";
+  String pass="";
 
   String nameA="";
   String nameE="";
   String userId="";
   String userType="";
   String createdDate="";
+
+  getpass() {
+    return pass;
+  }
+
+  setpass(String pass) {
+    this.pass = pass;
+    notifyListeners();
+  }
+
 
   getcreatedDate() {
     return createdDate;

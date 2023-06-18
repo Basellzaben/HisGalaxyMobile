@@ -4,10 +4,16 @@ import 'package:hismobileapp/GlobalVar.dart';
 import 'package:hismobileapp/HexaColor.dart';
 import 'dart:math' as math;
 import 'package:arabic_font/arabic_font.dart';
+import 'package:provider/provider.dart';
+
+import '../UI/Notifications.dart';
+import '../provider/Them.dart';
 class Widgets {
 
   static Widget Appbar(BuildContext context,
   String title, double unitHeightValue,String lan, TextDirection direction) {
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     if(lan=="EN"){
     return Directionality(
       textDirection: direction,
@@ -17,17 +23,6 @@ class Widgets {
         padding: EdgeInsets.only(left: 5, right: 5),
         child: Row(
           children: [
-           /* GestureDetector(
-            onTap: () async {
-              Navigator.pop(context);
-
-            },
-              *//*child: Icon(
-                Icons.arrow_back_ios_new,
-                color: HexColor(Globalvireables.basecolor),
-                size: 30 * unitHeightValue,
-              ),*//*
-            ),*/
             SizedBox(
               width: 4,
             ),
@@ -42,7 +37,7 @@ class Widgets {
             Spacer(),
             Icon(
               Icons.notifications,
-              color: HexColor(Globalvireables.basecolor),
+              color: HexColor(ThemP.getcolor()),
               size: 33 * unitHeightValue,
             )
           ],
@@ -54,10 +49,19 @@ class Widgets {
         padding: EdgeInsets.only(left: 5, right: 5),
         child: Row(
           children: [
-            Icon(
-              Icons.notifications,
-              color: HexColor(Globalvireables.basecolor),
-              size: 33 * unitHeightValue,
+            GestureDetector(
+            onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Notifications()),
+      );
+      },
+              child: Icon(
+                Icons.notifications,
+                color: HexColor(ThemP.getcolor()),
+                size: 33 * unitHeightValue,
+              ),
             ),
             Spacer(),
             Text(
@@ -76,7 +80,7 @@ class Widgets {
               child: IconButton(
                 icon:  Icon(
                   Icons.arrow_back_ios_new_outlined,
-                  color: HexColor(Globalvireables.basecolor),
+                  color: HexColor(ThemP.getcolor()),
                   size: 30 * unitHeightValue,
                 ),
 

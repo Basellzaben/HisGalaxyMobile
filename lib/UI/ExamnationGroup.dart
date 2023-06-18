@@ -22,6 +22,7 @@ import '../main.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
 import '../provider/SingleEXAMProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -95,10 +96,9 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
 
   @override
   Widget build(BuildContext context) {
-    var colors = [
-      HexColor((Globalvireables.secondcolor)),
-      HexColor((Globalvireables.basecolor))
-    ];
+
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -118,7 +118,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(
@@ -155,7 +155,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: RepaintBoundary(
 /*LanguageProvider.getDirection()*/
@@ -166,7 +166,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                 gradient: LinearGradient(
                   colors: [
                     HexColor((Globalvireables.secondcolor)),
-                    HexColor((Globalvireables.basecolor))
+                    HexColor((ThemP.getcolor()))
                   ],
                   stops: stops,
                   begin: FractionalOffset.topCenter,
@@ -462,7 +462,7 @@ SizedBox(height: 6,),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary:
-                                  HexColor(Globalvireables.basecolor),
+                                  HexColor(ThemP.getcolor()),
                                 ),
                                 child: Text(
                                  LanguageProvider.Llanguage('download'),

@@ -9,10 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
+import 'ChangePass.dart';
 import 'Home.dart';
 import 'package:arabic_font/arabic_font.dart';
+
+import 'HospitalInfoS.dart';
 class Settings extends StatefulWidget {
   @override
   State<Settings> createState() => _SettingsState();
@@ -31,6 +35,8 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
@@ -47,7 +53,7 @@ class _SettingsState extends State<Settings> {
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -78,7 +84,7 @@ class _SettingsState extends State<Settings> {
             elevation: 4.0,
             title: Widgets.Appbar(context, LanguageProvider.Llanguage('settings'), unitHeightValue,LanguageProvider.langg,LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 1.15,
@@ -86,7 +92,7 @@ class _SettingsState extends State<Settings> {
               gradient: LinearGradient(
                 colors: [
                   HexColor((Globalvireables.secondcolor)),
-                  HexColor((Globalvireables.basecolor))
+                  HexColor((ThemP.getcolor()))
                 ],
                 stops: stops,
                 begin: FractionalOffset.topCenter,
@@ -156,7 +162,7 @@ class _SettingsState extends State<Settings> {
                                       Icon(
                                         Icons.language,
                                         color:
-                                            HexColor(Globalvireables.basecolor),
+                                            HexColor(ThemP.getcolor()),
                                         size: 35 * unitHeightValue,
                                       ),
                                       SizedBox(
@@ -190,26 +196,36 @@ class _SettingsState extends State<Settings> {
                                   height: 6,
                                 ),
                                 Divider(thickness: 1.0, color: Colors.black),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.change_circle_outlined,
-                                      color:
-                                          HexColor(Globalvireables.basecolor),
-                                      size: 35 * unitHeightValue,
-                                    ),
-                                    SizedBox(
-                                      width: 6,
-                                    ),
-                                    Text(
-                                      LanguageProvider.Llanguage('Gangepasswor'),
-                                      style: ArabicTextStyle(
+                                GestureDetector(
+                                  onTap: () async {
+                                    // Share.share( 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+"3284"+"&key_images=true');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ChangePass()),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.change_circle_outlined,
+                                        color:
+                                            HexColor(ThemP.getcolor()),
+                                        size: 35 * unitHeightValue,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        LanguageProvider.Llanguage('Gangepasswor'),
+                                        style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                          fontSize: 17.5 * unitHeightValue,
-                                          color:HexColor(Globalvireables.black),
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
+                                            fontSize: 17.5 * unitHeightValue,
+                                            color:HexColor(Globalvireables.black),
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 6,
@@ -289,7 +305,7 @@ class _SettingsState extends State<Settings> {
                                         Icon(
                                           Icons.logout_outlined,
                                           color: HexColor(
-                                              Globalvireables.basecolor),
+                                              ThemP.getcolor()),
                                           size: 35 * unitHeightValue,
                                         ),
                                         SizedBox(
@@ -307,6 +323,43 @@ class _SettingsState extends State<Settings> {
                                       ],
                                     )),
                                 SizedBox(
+                                  height: 6,
+                                ),
+                                Divider(thickness: 1.0, color: Colors.black),
+                                GestureDetector(
+                                    onTap: () async {
+
+
+
+
+                                      showLoaderDialog( context);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.color_lens_outlined,
+                                          color: HexColor(
+                                              ThemP.getcolor()),
+                                          size: 35 * unitHeightValue,
+                                        ),
+                                        SizedBox(
+                                          width: 6,
+                                        ),
+                                        Text(
+                                          LanguageProvider.Llanguage('theme'),
+                                          style: ArabicTextStyle(
+                                              arabicFont: ArabicFont.tajawal,
+                                              fontSize: 17.5 * unitHeightValue,
+                                              color: HexColor(
+                                                  Globalvireables.black),
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ],
+                                    )),
+
+
+
+                                SizedBox(
                                   height: 40,
                                 ),
                                 Align(
@@ -323,27 +376,83 @@ class _SettingsState extends State<Settings> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.report_gmailerrorred,
-                                      color:
-                                          HexColor(Globalvireables.basecolor),
-                                      size: 35 * unitHeightValue,
-                                    ),
-                                    SizedBox(
-                                      width: 6,
-                                    ),
-                                    Text(
-                                      LanguageProvider.Llanguage("callus"),
-                                      style: ArabicTextStyle(
+                                GestureDetector(
+                                onTap: ()  {
+
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Expanded(
+                                          child: AlertDialog(
+                                            title: Center(
+                                              child: Text(
+                                                  LanguageProvider.Llanguage("Feedback"),
+                                                  style: ArabicTextStyle(
+                                                      arabicFont: ArabicFont.tajawal,
+                                                      fontSize: 22 *
+                                                          unitHeightValue)),
+                                            ),
+                                            content: Text(
+                                              LanguageProvider.Llanguage("descapp"),
+                                              style: ArabicTextStyle(
+                                                  arabicFont: ArabicFont.tajawal,
+                                                  fontSize:
+                                                  14 * unitHeightValue),
+                                            ),
+                                            actions: [
+
+Row(children: [
+Spacer(),
+  SizedBox(
+    width: 100,
+    height: 100,
+    child: Image(
+        image: new AssetImage(
+            "assets/esraalogo.png")),
+  ),
+  Spacer(),
+
+  SizedBox(
+    width: 120,
+    height: 120,
+    child: Image(
+        image: new AssetImage(
+            "assets/logo.png")),
+  ),
+  Spacer(),
+
+
+],)
+
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+
+    },
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.report_gmailerrorred,
+                                        color:
+                                            HexColor(ThemP.getcolor()),
+                                        size: 35 * unitHeightValue,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        LanguageProvider.Llanguage("Feedback"),
+                                        style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                          fontSize: 17.5 * unitHeightValue,
-                                          color:
-                                              HexColor(Globalvireables.black),
-                                          fontWeight: FontWeight.w400),
-                                    )
-                                  ],
+                                            fontSize: 17.5 * unitHeightValue,
+                                            color:
+                                                HexColor(Globalvireables.black),
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 6,
@@ -352,24 +461,34 @@ class _SettingsState extends State<Settings> {
                                 SizedBox(
                                   height: 6,
                                 ),
-                                Row(children: [
-                                  Icon(
-                                    Icons.message_outlined,
-                                    color: HexColor(Globalvireables.basecolor),
-                                    size: 35 * unitHeightValue,
-                                  ),
-                                  SizedBox(
-                                    width: 6,
-                                  ),
-                                  Text(
-                                    LanguageProvider.Llanguage("Sendfeedback"),
-                                    style: ArabicTextStyle(
+                                GestureDetector(
+                                  onTap: () async {
+                                    // Share.share( 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+"3284"+"&key_images=true');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HospitalInfoS()),
+                                    );
+                                  },
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.message_outlined,
+                                      color: HexColor(ThemP.getcolor()),
+                                      size: 35 * unitHeightValue,
+                                    ),
+                                    SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      LanguageProvider.Llanguage("HospitalInfoS"),
+                                      style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                        fontSize: 17.5 * unitHeightValue,
-                                        color: HexColor(Globalvireables.grey),
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ])
+                                          fontSize: 17.5 * unitHeightValue,
+                                          color: HexColor(Globalvireables.black),
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ]),
+                                )
                               ],
                             ),
                           )),
@@ -397,4 +516,193 @@ class _SettingsState extends State<Settings> {
     Home(),
     profile(),
   ];
+
+
+
+
+  showLoaderDialog(BuildContext context) {
+
+
+    AlertDialog alert = AlertDialog(
+      content: Container(
+        height: 200,
+        child: Column(
+          children: [
+
+            Row(children: [
+
+              Container(
+                child: GestureDetector(
+                    onTap: () {
+
+                      Navigator.pop(context);
+
+                    }, child: Container(child: Icon(Icons.clear))),
+              ),
+              Spacer(),
+              Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(Provider.of<Language>(context, listen: false).Llanguage('selectcolor'))
+              ),
+
+            ],),
+            Spacer(),
+            Spacer(),
+            Row(
+              children: [
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+
+                        Provider.of<Them>(context, listen: false).setcolor(Globalvireables.basecolor);
+                        Navigator.pop(context);
+
+                        setState(() {   });
+                        setState(() {
+
+                        });
+
+                    }, child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: HexColor(Globalvireables.basecolor),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                        bottomRight: Radius.circular(100.0),
+                        topLeft: Radius.circular(100.0),
+                        bottomLeft: Radius.circular(100.0)),
+                  ),
+                )),
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them1);
+
+                      Navigator.pop(context);
+                      setState(() {
+
+                      });
+                    }, child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color:HexColor(Globalvireables.them1),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                        bottomRight: Radius.circular(100.0),
+                        topLeft: Radius.circular(100.0),
+                        bottomLeft: Radius.circular(100.0)),
+                  ),
+                )),
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them2);
+
+                      Navigator.pop(context);
+                      setState(() {
+
+                      });
+                    }, child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: HexColor(Globalvireables.them2),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                        bottomRight: Radius.circular(100.0),
+                        topLeft: Radius.circular(100.0),
+                        bottomLeft: Radius.circular(100.0)),
+                  ),
+                )),
+                Spacer(),
+              ],
+            ),
+            Spacer(),
+
+            Row(
+              children: [
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them3);
+
+                      Navigator.pop(context);
+                      setState(() {
+
+                      });
+
+                    }, child:Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: HexColor(Globalvireables.them3),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                        bottomRight: Radius.circular(100.0),
+                        topLeft: Radius.circular(100.0),
+                        bottomLeft: Radius.circular(100.0)),
+                  ),
+                )),
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them4);
+                      Navigator.pop(context);
+setState(() {
+
+});
+                    }, child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: HexColor(Globalvireables.them4),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                        bottomRight: Radius.circular(100.0),
+                        topLeft: Radius.circular(100.0),
+                        bottomLeft: Radius.circular(100.0)),
+                  ),
+                )),
+                Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them5);
+
+                      Navigator.pop(context);
+                      setState(() {
+
+                      });
+                    },  child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: HexColor(Globalvireables.them5),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(100.0),
+                        bottomRight: Radius.circular(100.0),
+                        topLeft: Radius.circular(100.0),
+                        bottomLeft: Radius.circular(100.0)),
+                  ),
+                )),
+                Spacer()
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
+
+
 }

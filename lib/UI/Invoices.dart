@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 
 import '../Models/InvoicesM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'Home.dart';
@@ -52,10 +53,9 @@ var leng=0;
   }
   @override
   Widget build(BuildContext context) {
-    var colors = [
-      HexColor((Globalvireables.secondcolor)),
-      HexColor((Globalvireables.basecolor))
-    ];
+
+    var ThemP = Provider.of<Them>(context, listen: false);
+
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -73,7 +73,7 @@ var leng=0;
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
             unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(Globalvireables.basecolor),
+            backgroundColor: HexColor(ThemP.getcolor()),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings ,),
@@ -106,7 +106,7 @@ var leng=0;
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
           ),
-          backgroundColor: HexColor(Globalvireables.basecolor),
+          backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: Directionality(
             textDirection: LanguageProvider.getDirection(),
@@ -117,7 +117,7 @@ var leng=0;
                 gradient: LinearGradient(
                   colors: [
                     HexColor((Globalvireables.secondcolor)),
-                    HexColor((Globalvireables.basecolor))
+                    HexColor((ThemP.getcolor()))
                   ],
                   stops: stops,
                   begin: FractionalOffset.topCenter,
@@ -150,7 +150,7 @@ var leng=0;
                               controller: dateinputC, //editing controller of this TextField
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.date_range,color: HexColor(
-                                    Globalvireables.basecolor),size: 27*unitHeightValue,),
+                                    ThemP.getcolor()),size: 27*unitHeightValue,),
                                 suffixIcon: GestureDetector(
                                     onTap: (){
                                       setState(() {
@@ -165,14 +165,14 @@ var leng=0;
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: HexColor(
-                                            Globalvireables.basecolor),
+                                            ThemP.getcolor()),
                                         width: 2.0),
                                     borderRadius:
                                     BorderRadius.circular(10.0)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: HexColor(
-                                            Globalvireables.basecolor),
+                                            ThemP.getcolor()),
                                         width: 2.0),
                                     borderRadius:
                                     BorderRadius.circular(10.0)),
@@ -303,21 +303,8 @@ SizedBox(height: 10,),
                                     width: 100,
                                     );
                                 } else {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height,
-                                    child: Center(
-
-
-                                     child: Image.asset(
-                                      "assets/null.png",
-                                      
-                                      height: 100,
-                                      width: 100,
-                                     
-                                    )
-                                      /*CircularProgressIndicator()*/),
-                                  );
+                                 return Center(
+                                      child: CircularProgressIndicator());
                                 }
                               },
                             ),
