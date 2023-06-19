@@ -256,8 +256,7 @@ child: Row(children: [
                                                   shape: RoundedRectangleBorder(
                                                     side: BorderSide(
                                                         color: HexColor(
-                                                            Globalvireables
-                                                                .basecolor),
+                                                            ThemP.getcolor()),
                                                         width: 2),
                                                     borderRadius:
                                                     BorderRadius.circular(10),

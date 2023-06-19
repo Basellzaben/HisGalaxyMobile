@@ -38,6 +38,7 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "Gangepasswormost":"يجب تحديث كلمة المرور عند تسجيل الدخول لأول مرة",
     "theme":"الالوان",
     "showfile":"الاطلاع على ملفك الطبي",
     "confrpassmost":"كلمه المرور يجب ان تكون متطابقة",
@@ -45,6 +46,7 @@ class Language extends ChangeNotifier {
     "PRESCPTION":"العلاجات",
     "HospitalInfoS":"حول المستشفى",
 
+    "gochange":"الذهاب",
     "Notifications":"الاشعارات",
     "Examnation":"الفحوصات",
     "download":"تنزيل",
@@ -183,8 +185,11 @@ class Language extends ChangeNotifier {
   static Map<String, Object?> en = {
     "confrpassmost":"The password must be identical",
     "showfile":"View your medical file",
+    "gochange":"Ok",
+
     "descapp":"Al Majara Group developed this platform to enable you to view your medical file at Al Esraa Specialist Hospital, you can view medical appointments in specialized clinics and view current medications, allergies, vaccines, laboratory test results and vital signs",
     "theme":"Themes",
+    "Gangepasswormost":"The password must be updated the first time you log in",
 
     "oldpass":"Old Password",
     "newpass":"New Password",

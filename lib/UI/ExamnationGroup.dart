@@ -150,7 +150,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
             elevation: 4.0,
             title: Widgets.Appbar(
                 context,
-                LanguageProvider.Llanguage('ExamnationGroup'),
+                LanguageProvider.Llanguage('Examnation'),
                 unitHeightValue,
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
@@ -209,227 +209,229 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                               ),
                               Container(
                                 color: Colors.white,
-                                width: MediaQuery.of(context).size.width,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(children: [
-                                    SizedBox(height: 5,),
-                                    Row(children: [ Text(
-                                      'Patient Name : ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: HexColor(Globalvireables
-                                              .black),
-                                          fontSize:
-                                          12 *
-                                              unitHeightValue),
-                                    ),
-                                      Text(
-                                        Loginprovider.nameE,
-                                        style: TextStyle(
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Spacer(),
-
-                                    ],)
-                                    ,
-                                    Row(children: [ Text(
-                                      'Doctor Name :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-
-                                          color: HexColor(Globalvireables
-                                              .black),
-                                          fontSize:
-                                          12 *
-                                              unitHeightValue),
-                                    ),
-                                      Text(
-                                        SINGLEEx.getDOCTORNAME(),
-                                        style: TextStyle(
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Spacer(),
-
-                                    ],),
-
-                                    Row(children: [
-                                      Text(
-                                        'Date :',
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(children: [
+                                      SizedBox(height: 5,),
+                                      Row(children: [ Text(
+                                        'Patient Name : ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w700,
-
                                             color: HexColor(Globalvireables
                                                 .black),
                                             fontSize:
                                             12 *
                                                 unitHeightValue),
                                       ),
-                                      Text(
-                                        SINGLEEx.getDATE(),
-                                        style: TextStyle(
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Spacer(),
-
-                                    ],)
-                                    ,
-                                    Row(children: [
-                                      Text(
-                                        'Patient No : ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Text(
-                                        Loginprovider.id,
-                                        style: TextStyle(
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-
-
-                                      Spacer(),
-
-
-                                    ],),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Divider(),
-                                    ),
-
-                                    Row(
-                                      children: [
                                         Text(
-                                          SINGLEEx.SERVDESC,
+                                          Loginprovider.nameE,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w700,
                                               color: HexColor(Globalvireables
                                                   .black),
                                               fontSize:
                                               12 *
                                                   unitHeightValue),
                                         ),
-                                        Spacer()
+                                        Spacer(),
 
-                                      ],
-                                    ),
-SizedBox(height: 6,),
-                                    //ListView
-                                    SizedBox(
-                                      height: 180,
-                                      child: FutureBuilder(
-                                        future: getExamnation(
-                                          context,
-                                          "8",
-                                            '20',
-                                            SINGLEEx.getOrderNo(),
-                                            SINGLEEx.getServNo(),
-                                            /*SINGLEEx.getServNo()*/
-                                        ),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot<List<ExamnationGroupM>> snapshot) {
-                                          if (snapshot.hasData) {
-                                            List<ExamnationGroupM>? Examnation = snapshot.data;
-                                            return Examnation!.isNotEmpty? ListView(
-                                              children: Examnation!
-                                                  .map((ExamnationGroupM inv) => SizedBox(
-                                                  child: Row(children: [
-                                                    Text(
-                                                      inv.serVDESC.toString(),
-                                                      style: TextStyle(
+                                      ],)
+                                      ,
+                                      Row(children: [ Text(
+                                        'Doctor Name :',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
 
-                                                          color: HexColor(Globalvireables
-                                                              .black),
-                                                          fontSize:
-                                                          12 *
-                                                              unitHeightValue),
-                                                    ),
-                                                    Spacer(),
-                                                    Text(
-                                                      inv.result.toString(),
-                                                      style: TextStyle(
-
-                                                          color: HexColor(Globalvireables
-                                                              .black),
-                                                          fontSize:
-                                                          12 *
-                                                              unitHeightValue),
-                                                    ),
-                                                    Spacer(),
-
-                                                    Text(
-                                                        inv.unitDesc.toString(),
-
-                                                      style: TextStyle(
-
-                                                          color: HexColor(Globalvireables
-                                                              .black),
-                                                          fontSize:
-                                                          12 *
-                                                              unitHeightValue),
-                                                    ),
-                                                    Spacer(),
-                                                    Text(
-                                                      inv.normalRange.toString(),
-
-                                                      style: TextStyle(
-
-                                                          color: HexColor(Globalvireables
-                                                              .black),
-                                                          fontSize:
-                                                          12 *
-                                                              unitHeightValue),
-                                                    ),
-
-
-                                                  ],)
-
-
-                                              ))
-                                                  .toList(),
-                                            ):Image.asset(
-                                              "assets/null.png",
-                                              height: 100,
-                                              width: 100,
-                                            );
-                                          } else {
-                                            return Center(
-                                                child: CircularProgressIndicator());
-                                          }
-                                        },
+                                            color: HexColor(Globalvireables
+                                                .black),
+                                            fontSize:
+                                            12 *
+                                                unitHeightValue),
                                       ),
-                                    ),
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                  ],),
+                                        Text(
+                                          SINGLEEx.getDOCTORNAME(),
+                                          style: TextStyle(
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Spacer(),
+
+                                      ],),
+
+                                      Row(children: [
+                                        Text(
+                                          'Date :',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Text(
+                                          SINGLEEx.getDATE(),
+                                          style: TextStyle(
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Spacer(),
+
+                                      ],)
+                                      ,
+                                      Row(children: [
+                                        Text(
+                                          'Patient No : ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Text(
+                                          Loginprovider.id,
+                                          style: TextStyle(
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+
+
+                                        Spacer(),
+
+
+                                      ],),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Divider(),
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          Text(
+                                            SINGLEEx.SERVDESC,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: HexColor(Globalvireables
+                                                    .black),
+                                                fontSize:
+                                                12 *
+                                                    unitHeightValue),
+                                          ),
+                                          Spacer()
+
+                                        ],
+                                      ),
+SizedBox(height: 6,),
+                                      //ListView
+                                      SizedBox(
+                                        height: 180,
+                                        child: FutureBuilder(
+                                          future: getExamnation(
+                                            context,
+                                            "8",
+                                              '20',
+                                              SINGLEEx.getOrderNo(),
+                                              SINGLEEx.getServNo(),
+                                              /*SINGLEEx.getServNo()*/
+                                          ),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<List<ExamnationGroupM>> snapshot) {
+                                            if (snapshot.hasData) {
+                                              List<ExamnationGroupM>? Examnation = snapshot.data;
+                                              return Examnation!.isNotEmpty? ListView(
+                                                children: Examnation!
+                                                    .map((ExamnationGroupM inv) => SizedBox(
+                                                    child: Row(children: [
+                                                      Text(
+                                                        inv.serVDESC.toString(),
+                                                        style: TextStyle(
+
+                                                            color: HexColor(Globalvireables
+                                                                .black),
+                                                            fontSize:
+                                                            12 *
+                                                                unitHeightValue),
+                                                      ),
+                                                      Spacer(),
+                                                      Text(
+                                                        inv.result.toString(),
+                                                        style: TextStyle(
+
+                                                            color: HexColor(Globalvireables
+                                                                .black),
+                                                            fontSize:
+                                                            12 *
+                                                                unitHeightValue),
+                                                      ),
+                                                      Spacer(),
+
+                                                      Text(
+                                                          inv.unitDesc.toString(),
+
+                                                        style: TextStyle(
+
+                                                            color: HexColor(Globalvireables
+                                                                .black),
+                                                            fontSize:
+                                                            12 *
+                                                                unitHeightValue),
+                                                      ),
+                                                      Spacer(),
+                                                      Text(
+                                                        inv.normalRange.toString(),
+
+                                                        style: TextStyle(
+
+                                                            color: HexColor(Globalvireables
+                                                                .black),
+                                                            fontSize:
+                                                            12 *
+                                                                unitHeightValue),
+                                                      ),
+
+
+                                                    ],)
+
+
+                                                ))
+                                                    .toList(),
+                                              ):Image.asset(
+                                                "assets/null.png",
+                                                height: 100,
+                                                width: 100,
+                                              );
+                                            } else {
+                                              return Center(
+                                                  child: CircularProgressIndicator());
+                                            }
+                                          },
+                                        ),
+                                      ),
+
+
+
+
+
+
+                                    ],),
+                                  ),
                                 ),
                               ),
                               Image.asset(

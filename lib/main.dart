@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
             arabicFont: ArabicFont.tajawal,color: HexColor(Globalvireables.basecolor)),
       ),
       navigator:  LoginScreen(),
-      durationInSeconds: 10,
+      durationInSeconds: 5,
     );
   }
 }

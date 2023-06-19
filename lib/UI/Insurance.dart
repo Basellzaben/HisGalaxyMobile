@@ -160,8 +160,7 @@ class _InsuranceState extends State<Insurance> {
                                                     Icons.account_balance,
                                                     size: 40 * unitHeightValue,
                                                     color: HexColor(
-                                                        Globalvireables
-                                                            .basecolor),
+                                                       ThemP.getcolor()),
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -235,8 +234,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue),
                                                           ),
                                                           progressColor: HexColor(
-                                                              Globalvireables
-                                                                  .basecolor),
+                                                             ThemP.getcolor()),
                                                         ),
                                                         SizedBox(
                                                           height: 5,
@@ -286,8 +284,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue),
                                                           ),
                                                           progressColor: HexColor(
-                                                              Globalvireables
-                                                                  .basecolor),
+                                                             ThemP.getcolor()),
                                                         ),
                                                         SizedBox(
                                                           height: 5,
@@ -343,8 +340,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue),
                                                           ),
                                                           progressColor: HexColor(
-                                                              Globalvireables
-                                                                  .basecolor),
+                                                             ThemP.getcolor()),
                                                         ),
                                                         SizedBox(
                                                           height: 5,
@@ -395,8 +391,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue),
                                                           ),
                                                           progressColor: HexColor(
-                                                              Globalvireables
-                                                                  .basecolor),
+                                                             ThemP.getcolor()),
                                                         ),
                                                         SizedBox(
                                                           height: 5,

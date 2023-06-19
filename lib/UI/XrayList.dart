@@ -57,7 +57,7 @@ class _XrayListState extends State<XrayList> {
 
   @override
   Widget build(BuildContext context) {
-    
+
     var ThemP = Provider.of<Them>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
@@ -264,8 +264,7 @@ class _XrayListState extends State<XrayList> {
                                                   shape: RoundedRectangleBorder(
                                                     side: BorderSide(
                                                         color: HexColor(
-                                                            Globalvireables
-                                                                .basecolor),
+                                                            ThemP.getcolor()),
                                                         width: 2),
                                                     borderRadius:
                                                         BorderRadius.circular(10),
@@ -291,8 +290,7 @@ class _XrayListState extends State<XrayList> {
                                                                     style: ElevatedButton
                                                                         .styleFrom(
                                                                       primary: HexColor(
-                                                                          Globalvireables
-                                                                              .basecolor),
+                                                                          ThemP.getcolor()),
                                                                     ),
                                                                     child: Text(
                                                                       'Show',

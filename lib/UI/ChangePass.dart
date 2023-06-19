@@ -8,6 +8,7 @@ import 'package:hismobileapp/Models/ProfileM.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
@@ -354,6 +355,11 @@ class _ChangePassState extends State<ChangePass> {
 
 
         if(Doctors[0].response=='1S'){
+
+         var prefs = await SharedPreferences.getInstance();
+
+            prefs.setString('changepass','yes');
+
           Navigator.pop(context);
           await showDialog(
             context: context,

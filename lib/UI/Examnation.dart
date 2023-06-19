@@ -260,8 +260,7 @@ class _ExamnationState extends State<Examnation> {
                                                   shape: RoundedRectangleBorder(
                                                     side: BorderSide(
                                                         color: HexColor(
-                                                            Globalvireables
-                                                                .basecolor),
+                                                            ThemP.getcolor()),
                                                         width: 2),
                                                     borderRadius:
                                                         BorderRadius.circular(10),
@@ -287,8 +286,7 @@ class _ExamnationState extends State<Examnation> {
                                                                     style: ElevatedButton
                                                                         .styleFrom(
                                                                       primary: HexColor(
-                                                                          Globalvireables
-                                                                              .basecolor),
+                                                                          ThemP.getcolor()),
                                                                     ),
                                                                     child: Text(
                                                                       'Show',

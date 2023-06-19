@@ -386,6 +386,7 @@ SizedBox(height: 20,),
     profile(),
   ];
 
+
   Future<List<ProfileM>> getProfile(BuildContext context,String patientNo) async {
     Uri postsURL =
     Uri.parse(Globalvireables.profileURL);
@@ -427,6 +428,5 @@ SizedBox(height: 20,),
 
     throw "Unable to retrieve Profile.";
   }
-
 
 }

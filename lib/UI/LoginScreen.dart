@@ -481,6 +481,12 @@ margin: EdgeInsets.only(top: 5),
   final LocalAuthentication auth = LocalAuthentication();
   Getrememper() async {
     prefs = await SharedPreferences.getInstance();
+   try{
+    if(prefs.getString('them')!=null && prefs.getString('them').toString().length>4){
+      Provider.of<Them>(context, listen: false).setcolor(prefs.getString('them').toString());
+    }}catch(_){
+
+   }
 
     setState(() {
 
@@ -552,6 +558,7 @@ margin: EdgeInsets.only(top: 5),
 
 
       print(jsonResponse["nameA"]+"UUU");
+      print(jsonResponse["nameE"]+"UUU2");
 
         if (jsonResponse["username"] == username) {
 

@@ -121,12 +121,11 @@ class _XrayImageState extends State<XrayImage> {
     child: SingleChildScrollView(
       child: Column(
       children: [
-
         SizedBox(
           height: MediaQuery.of(context).size.height/1.3,
           width: MediaQuery.of(context).size.width,
           child: WebViewWidget(controller: controller,key: _key,)
-      ),
+                ),
         Align(
     alignment: Alignment.bottomCenter,
     child: Container(

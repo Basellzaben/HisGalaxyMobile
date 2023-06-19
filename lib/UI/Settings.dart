@@ -278,6 +278,8 @@ class _SettingsState extends State<Settings> {
                                                   // textColor: Colors.black,
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
+
+
                                                   },
                                                   child: Text(
                                                     LanguageProvider.Llanguage('cancel'),
@@ -386,6 +388,8 @@ class _SettingsState extends State<Settings> {
                                           child: AlertDialog(
                                             title: Center(
                                               child: Text(
+                                                  textAlign: TextAlign.center,
+
                                                   LanguageProvider.Llanguage("Feedback"),
                                                   style: ArabicTextStyle(
                                                       arabicFont: ArabicFont.tajawal,
@@ -393,11 +397,13 @@ class _SettingsState extends State<Settings> {
                                                           unitHeightValue)),
                                             ),
                                             content: Text(
+                                              textAlign: TextAlign.center,
+
                                               LanguageProvider.Llanguage("descapp"),
                                               style: ArabicTextStyle(
                                                   arabicFont: ArabicFont.tajawal,
                                                   fontSize:
-                                                  14 * unitHeightValue),
+                                                  16 * unitHeightValue),
                                             ),
                                             actions: [
 
@@ -429,6 +435,13 @@ Spacer(),
                                         );
                                       },
                                     );
+
+
+
+
+
+
+
 
     },
                                   child: Row(
@@ -523,6 +536,207 @@ Spacer(),
   showLoaderDialog(BuildContext context) {
 
 
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20),
+          ),
+        ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+
+        builder: (context) {
+          return SizedBox(
+            height: 320,
+            child: Column(
+              children: <Widget>
+              [
+SizedBox(height: 15,),
+                Row(children: [
+
+
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                        alignment: Alignment.center,
+                        child: Text(Provider.of<Language>(context, listen: false).Llanguage('selectcolor'),
+
+                            style: ArabicTextStyle(
+                                arabicFont: ArabicFont.tajawal,
+                                fontSize: 18.5 * (MediaQuery.of(context).size.height * 0.00122),
+                                color: HexColor(Globalvireables.black),
+                                fontWeight: FontWeight.w500)
+                        )
+                    ),
+                  ),
+
+                ],),
+                Spacer(),
+
+                Row(
+                  children: [
+                    Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString('them', Globalvireables.basecolor);
+
+                          Provider.of<Them>(context, listen: false).setcolor(Globalvireables.basecolor);
+                          Navigator.pop(context);
+
+                          setState(() {   });
+                          setState(() {
+
+                          });
+
+                        }, child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: HexColor(Globalvireables.basecolor),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(100.0),
+                            bottomRight: Radius.circular(100.0),
+                            topLeft: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(100.0)),
+                      ),
+                    )),
+                    Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString('them', Globalvireables.them1);
+                          Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them1);
+
+                          Navigator.pop(context);
+                          setState(() {
+
+                          });
+                        }, child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color:HexColor(Globalvireables.them1),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(100.0),
+                            bottomRight: Radius.circular(100.0),
+                            topLeft: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(100.0)),
+                      ),
+                    )),
+                    Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString('them', Globalvireables.them2);
+                          Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them2);
+
+                          Navigator.pop(context);
+                          setState(() {
+
+                          });
+                        }, child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: HexColor(Globalvireables.them2),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(100.0),
+                            bottomRight: Radius.circular(100.0),
+                            topLeft: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(100.0)),
+                      ),
+                    )),
+                    Spacer(),
+                  ],
+                ),
+                Spacer(),
+
+                Row(
+                  children: [
+                    Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString('them', Globalvireables.them3);
+                          Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them3);
+
+                          Navigator.pop(context);
+                          setState(() {
+
+                          });
+
+                        }, child:Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: HexColor(Globalvireables.them3),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(100.0),
+                            bottomRight: Radius.circular(100.0),
+                            topLeft: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(100.0)),
+                      ),
+                    )),
+                    Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString('them', Globalvireables.them4);
+                          Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them4);
+                          Navigator.pop(context);
+                          setState(() {
+
+                          });
+                        }, child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: HexColor(Globalvireables.them4),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(100.0),
+                            bottomRight: Radius.circular(100.0),
+                            topLeft: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(100.0)),
+                      ),
+                    )),
+                    Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          var prefs = await SharedPreferences.getInstance();
+                          prefs.setString('them', Globalvireables.them5);
+                          Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them5);
+
+                          Navigator.pop(context);
+                          setState(() {
+
+                          });
+                        },  child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: HexColor(Globalvireables.them5),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(100.0),
+                            bottomRight: Radius.circular(100.0),
+                            topLeft: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(100.0)),
+                      ),
+                    )),
+                    Spacer()
+                  ],
+                ),
+                Spacer(),
+
+              ]
+
+              ,
+            ),
+          );
+        });
+
+/*
     AlertDialog alert = AlertDialog(
       content: Container(
         height: 200,
@@ -552,7 +766,9 @@ Spacer(),
               children: [
                 Spacer(),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('them', Globalvireables.basecolor);
 
                         Provider.of<Them>(context, listen: false).setcolor(Globalvireables.basecolor);
                         Navigator.pop(context);
@@ -576,7 +792,9 @@ Spacer(),
                 )),
                 Spacer(),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString('them', Globalvireables.them1);
                       Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them1);
 
                       Navigator.pop(context);
@@ -597,7 +815,9 @@ Spacer(),
                 )),
                 Spacer(),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString('them', Globalvireables.them2);
                       Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them2);
 
                       Navigator.pop(context);
@@ -625,7 +845,9 @@ Spacer(),
               children: [
                 Spacer(),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString('them', Globalvireables.them3);
                       Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them3);
 
                       Navigator.pop(context);
@@ -647,7 +869,9 @@ Spacer(),
                 )),
                 Spacer(),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString('them', Globalvireables.them4);
                       Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them4);
                       Navigator.pop(context);
 setState(() {
@@ -667,7 +891,9 @@ setState(() {
                 )),
                 Spacer(),
                 GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString('them', Globalvireables.them5);
                       Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them5);
 
                       Navigator.pop(context);
@@ -699,7 +925,7 @@ setState(() {
       builder: (BuildContext context) {
         return alert;
       },
-    );
+    );*/
   }
 
 

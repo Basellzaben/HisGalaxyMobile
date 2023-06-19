@@ -183,7 +183,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
             elevation: 4.0,
             title: Widgets.Appbar(
                 context,
-                LanguageProvider.Llanguage('ExamnationSingle'),
+                LanguageProvider.Llanguage('Examnation'),
                 unitHeightValue,
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
@@ -242,124 +242,51 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                               ),
                               Container(
                                 color: Colors.white,
-                                width: MediaQuery.of(context).size.width,
-                                height: 180,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(children: [
-                                    SizedBox(height: 5,),
-                                    Row(children: [ Text(
-                                      'Patient Name : ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          color: HexColor(Globalvireables
-                                              .black),
-                                          fontSize:
-                                          12 *
-                                              unitHeightValue),
-                                    ),
-                                      Text(
-                                        Loginprovider.nameE,
-                                        style: TextStyle(
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Spacer(),
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height/2.7,
 
-                                    ],)
-                                    ,
-                                    Row(children: [ Text(
-                                      'Doctor Name :',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-
-                                          color: HexColor(Globalvireables
-                                              .black),
-                                          fontSize:
-                                          12 *
-                                              unitHeightValue),
-                                    ),
-                                      Text(
-                                        SINGLEEx.getDOCTORNAME(),
-                                        style: TextStyle(
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Spacer(),
-
-                                    ],),
-
-                                    Row(children: [
-                                      Text(
-                                        'Date :',
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Padding(
+                                    padding:  EdgeInsets.all(8.0),
+                                    child: Column(children: [
+                                      SizedBox(height: 5,),
+                                      Row(children: [ Text(
+                                        'Patient Name : ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w700,
-
                                             color: HexColor(Globalvireables
                                                 .black),
                                             fontSize:
                                             12 *
                                                 unitHeightValue),
                                       ),
-                                      Text(
-                                        SINGLEEx.getDATE(),
-                                        style: TextStyle(
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Spacer(),
-
-                                    ],)
-                                    ,
-                                    Row(children: [
-                                      Text(
-                                        'Patient No : ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Text(
-                                        Loginprovider.id,
-                                        style: TextStyle(
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-
-
-                                      Spacer(),
-
-
-                                    ],),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Divider(),
-                                    ),
-                                    Row(
-                                      children: [
                                         Text(
-                                          SINGLEEx.getSERVDESC(),
+                                          Loginprovider.nameE,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w700,
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Spacer(),
+
+                                      ],)
+                                      ,
+                                      Row(children: [ Text(
+                                        'Doctor Name :',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+
+                                            color: HexColor(Globalvireables
+                                                .black),
+                                            fontSize:
+                                            12 *
+                                                unitHeightValue),
+                                      ),
+                                        Text(
+                                          SINGLEEx.getDOCTORNAME(),
+                                          style: TextStyle(
 
                                               color: HexColor(Globalvireables
                                                   .black),
@@ -369,69 +296,145 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                                         ),
                                         Spacer(),
 
-                                      ],
-                                    ),
-                                    Row(children: [
-                                      SizedBox(width: 22,),
-                                      Text(
-                                        SINGLEEx.getRESULT(),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
+                                      ],),
 
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ), SizedBox(width: 60,),
-                                      Text(
-                                        SINGLEEx.getUNIT(),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
+                                      Row(children: [
+                                        Text(
+                                          'Date :',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Text(
+                                          SINGLEEx.getDATE(),
+                                          style: TextStyle(
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Spacer(),
+
+                                      ],)
+                                      ,
+                                      Row(children: [
+                                        Text(
+                                          'Patient No : ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Text(
+                                          Loginprovider.id,
+                                          style: TextStyle(
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+
+
+                                        Spacer(),
+
+
+                                      ],),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Divider(),
                                       ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            SINGLEEx.getSERVDESC(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700,
 
+                                                color: HexColor(Globalvireables
+                                                    .black),
+                                                fontSize:
+                                                12 *
+                                                    unitHeightValue),
+                                          ),
+                                          Spacer(),
+
+                                        ],
+                                      ),
+                                      Row(children: [
+                                        SizedBox(width: 22,),
+                                        Text(
+                                          SINGLEEx.getRESULT(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ), SizedBox(width: 60,),
+                                        Text(
+                                          SINGLEEx.getUNIT(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+
+
+                                        Spacer(),
+
+                                      ],),
+
+
+                                      Row(children: [
+                                        Text(
+                                          'Ref.R : ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+                                        Text(
+                                          SINGLEEx.getNORMALRANGE(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+
+                                              color: HexColor(Globalvireables
+                                                  .black),
+                                              fontSize:
+                                              12 *
+                                                  unitHeightValue),
+                                        ),
+
+                                      ],)
+                                      ,
 
                                       Spacer(),
 
+
                                     ],),
-
-
-                                    Row(children: [
-                                      Text(
-                                        'Ref.R : ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-                                      Text(
-                                        SINGLEEx.getNORMALRANGE(),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-
-                                            color: HexColor(Globalvireables
-                                                .black),
-                                            fontSize:
-                                            12 *
-                                                unitHeightValue),
-                                      ),
-
-                                    ],)
-                                    ,
-
-                                    Spacer(),
-
-
-                                  ],),
+                                  ),
                                 ),
                               ),
                               Image.asset(
