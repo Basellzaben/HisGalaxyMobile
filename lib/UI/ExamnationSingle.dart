@@ -9,12 +9,16 @@ import 'package:hismobileapp/UI/profile.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:core';
 import 'dart:ui' as ui;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -53,6 +57,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
     profile(),
   ];
   TextEditingController dateinputC = TextEditingController();
+   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
@@ -72,39 +77,6 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
     print(pngBytes);
   }
 
-/*  _saveImage(String userName) async {
-    try {
-      String filePath = await getImagePath();
-      bool isImageSaved = await GallerySaver.saveImage(filePath, albumName:"AlbumName");
-      SnackBar _snackbar =  SnackBar(
-        content: isImageSaved ? Text('Image saved in gallery') : Text("There was an error while saving image"),
-        duration: const Duration(seconds: 1),
-      );
-      _scaffoldKey.currentState.showSnackBar(_snackbar);
-    } catch (exception) {
-      print("Error $exception");
-      SnackBar _snackbar =  SnackBar(
-        content: Text('Something went wrong'),
-        duration: const Duration(seconds: 1),
-      );
-      _scaffoldKey.currentState.showSnackBar(_snackbar);
-    }}*/
-
-/*
-  _saveLocalImage() async {
-    RenderRepaintBoundary boundary =
-    globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-    ui.Image image = await boundary.toImage();
-    ByteData? byteData =
-    await (image.toByteData(format: ui.ImageByteFormat.png));
-    if (byteData != null) {
-      final result =
-      await ImageGallerySaver.saveImage(byteData.buffer.asUint8List());
-      print(result +" rrrrsslur");
-    //  Utils.toast(result.toString());
-    }
-  }*/
-
 
 
   void _takeScreenshot() async {
@@ -116,13 +88,8 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
     if (byteData != null) {
       Uint8List pngBytes = byteData.buffer.asUint8List();
 
-      // Saving the screenshot to the gallery
-      final result = await ImageGallerySaver.saveImage(
-          Uint8List.fromList(pngBytes),
-          quality: 90,
-          name: 'screenshot-${DateTime.now()}.png');
+      makePdf(pngBytes);
 
-        print(result.toString() +"  resssult");
 
     }
   }
@@ -146,6 +113,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
         fit: BoxFit.cover,
       ),
       Scaffold(
+          key: scaffoldKey,
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             elevation: 8,
@@ -233,13 +201,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                           RepaintBoundary(
                             key: globalKey,
                             child: Column(children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Image.asset(
-                                "assets/hdr.jpg",
-                                width: MediaQuery.of(context).size.width,
-                              ),
+
                               Container(
                                 color: Colors.white,
                                 child: SizedBox(
@@ -249,6 +211,53 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                                   child: Padding(
                                     padding:  EdgeInsets.all(8.0),
                                     child: Column(children: [
+
+                                      Row(
+                                        children: [
+                                          Spacer(),
+                                          Spacer(),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                'MARKA SPECIALITY HOSPITAL',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    color: HexColor(Globalvireables
+                                                        .black),
+                                                    fontSize:
+                                                    12 *
+                                                        unitHeightValue),
+                                              ),
+                                              Text(
+
+                                                'Patient Laboratory Tests',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    color: HexColor(Globalvireables
+                                                        .black),
+                                                    fontSize:
+                                                    12 *
+                                                        unitHeightValue),
+                                              ),
+
+
+
+
+
+
+                                            ],
+                                          ),
+                                          Spacer(),
+                                          Container(
+                                              width:60,
+                                              height:60,
+                                              child: Image(
+                                                  image: new AssetImage(
+                                                      "assets/esraalogo.png")))
+                                        ],
+                                      ),
+
+                                      Divider(thickness: 1.0, color: Colors.black),
                                       SizedBox(height: 5,),
                                       Row(children: [ Text(
                                         'Patient Name : ',
@@ -492,7 +501,19 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
           )),
     ]);
   }
+  Future<Uint8List> makePdf(Uint8List byteList) async {
+    final pdf = pw.Document();
+    pdf.addPage(
+        pw.Page(
+            margin: const pw.EdgeInsets.all(10),
+            pageFormat: PdfPageFormat.a4,
+            build: (context) {
+              return  pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
 
+            }
+        ));
+    return pdf.save();
+  }
   _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
@@ -538,4 +559,19 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
 
     return newMonth + " " + d + "," + y;
   }
+
+  /*Future<void> _request_permission(context,Function fn)async{
+    final Permission location_permission=Permission.location;
+    bool location_status=false;
+    bool ispermanetelydenied= await location_permission.isPermanentlyDenied;
+    if(ispermanetelydenied) {
+      print("denied");
+      await  openAppSettings();
+    }else{
+      var location_statu = await location_permission.request();
+      location_status=location_statu.isGranted;
+      print(location_status);
+    }
+
+  }*/
 }

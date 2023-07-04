@@ -114,8 +114,7 @@ class _profileState extends State<profile> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/background.png"),
-                      fit: BoxFit.cover,
-                    ),
+                      fit: BoxFit.cover,),
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(0.0),
                         bottomRight: Radius.circular(40.0),
@@ -136,67 +135,31 @@ class _profileState extends State<profile> {
                               AsyncSnapshot<List<ProfileM>> snapshot) {
                             if (snapshot.hasData) {
                               List<ProfileM>? Doctors = snapshot.data;
-                              return   ListView(
-                                children: Doctors!
-                                    .map((ProfileM Doctor) => SizedBox(
-                                    child: Column(children: [
-                                      Doctor.gender=='1'? Container(
-                                        width: 120 * unitHeightValue,
-                                        height: 120 * unitHeightValue,
-                                        child: Image.asset(
-                                          "assets/persion2.png",
-                                          height: 120,
-                                          width: 120,
+                              return   Container(margin: EdgeInsets.only(bottom: 16),
+                                child: ListView(
+                                  children: Doctors!
+                                      .map((ProfileM Doctor) => SizedBox(
+                                      child: Column(children: [
+                                        Doctor.gender=='1'? Container(
+                                          width: 120 * unitHeightValue,
+                                          height: 120 * unitHeightValue,
+                                          child: Image.asset(
+                                            "assets/persion2.png",
+                                            height: 120,
+                                            width: 120,
+                                          ),
+                                        ):
+                                        Container(
+                                          width: 120 * unitHeightValue,
+                                          height: 120 * unitHeightValue,
+                                          child: Image.asset(
+                                            "assets/girl.png",
+                                            height: 120,
+                                            width: 120,
+                                          ),
                                         ),
-                                      ):
-                                      Container(
-                                        width: 120 * unitHeightValue,
-                                        height: 120 * unitHeightValue,
-                                        child: Image.asset(
-                                          "assets/girl.png",
-                                          height: 120,
-                                          width: 120,
-                                        ),
-                                      ),
 
 SizedBox(height: 20,),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width/1.2,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          // if you need this
-                                          side: BorderSide(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .height,
-                                            //  color: Colors.black12.withOpacity(0.1),
-                                          ),
-                                        ),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Icon(
-                                              Icons.person,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Center(child: Text(Doctor.fulLANAME.toString(),
-                                              style: ArabicTextStyle(
-                                                  arabicFont: ArabicFont.tajawal,
-                                                  color: HexColor(Globalvireables.black2),
-                                                  fontSize: 18 * unitHeightValue,
-                                                  fontWeight: FontWeight.w700),
-                                            )),
-                                          ),
-                                        ],
-                                      ),
-
-                                      ),
-                                    ),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width/1.2,
                                         child: Card(
@@ -211,146 +174,197 @@ SizedBox(height: 20,),
                                               //  color: Colors.black12.withOpacity(0.1),
                                             ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Icon(
-                                                  Icons.person,
-                                                ),
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Icon(
+                                                Icons.person,
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Center(child: Text(Doctor.fulLENAME.toString(),
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      color: HexColor(Globalvireables.black2),
-                                                      fontSize: 18 * unitHeightValue,
-                                                      fontWeight: FontWeight.w700),
-                                                )),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Center(child: Text(Doctor.fulLANAME.toString(),
+                                                style: ArabicTextStyle(
+                                                    arabicFont: ArabicFont.tajawal,
+                                                    color: HexColor(Globalvireables.black2),
+                                                    fontSize: 18 * unitHeightValue,
+                                                    fontWeight: FontWeight.w700),
+                                              )),
+                                            ),
+                                          ],
+                                        ),
 
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width/1.2,
-                                        child: Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            // if you need this
-                                            side: BorderSide(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              //  color: Colors.black12.withOpacity(0.1),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width/1.2,
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              // if you need this
+                                              side: BorderSide(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                //  color: Colors.black12.withOpacity(0.1),
+                                              ),
+                                            ),
+                                            child:     SizedBox(
+                                              width: MediaQuery.of(context).size.width/1.6,
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(10),
+                                                    child: Icon(
+                                                      Icons.person,
+                                                    ),
+                                                  ),
+
+                                                 Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(context).size.width/1.7
+                                                       ,
+                                                        child: Center(child: Text(Doctor.fulLENAME.toString(),
+
+                                                            maxLines: 3,
+                                                            overflow: TextOverflow.ellipsis,
+
+                                                          style: ArabicTextStyle(
+                                                              arabicFont: ArabicFont.tajawal,
+                                                              color: HexColor(Globalvireables.black2),
+                                                              fontSize: 18 * unitHeightValue,
+                                                              fontWeight: FontWeight.w700),
+                                                        )),
+                                                      ),
+                                                    ),
+
+                                                ],
+                                              ),
+                                            ),
+
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width/1.2,
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              // if you need this
+                                              side: BorderSide(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                //  color: Colors.black12.withOpacity(0.1),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: Icon(
+                                                    Icons.phone,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: Center(child: Text(Doctor.mobilENO.toString(),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        color: HexColor(Globalvireables.black2),
+                                                        fontSize: 18 * unitHeightValue,
+                                                        fontWeight: FontWeight.w700),
+                                                  )),
+                                                ),
+                                              ],
+                                            ),
+
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width/1.2,
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              // if you need this
+                                              side: BorderSide(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                //  color: Colors.black12.withOpacity(0.1),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: Icon(
+                                                    Icons.child_friendly_rounded,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: Center(child: Text(Doctor.bdate.toString().substring(0,10),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        color: HexColor(Globalvireables.black2),
+                                                        fontSize: 18 * unitHeightValue,
+                                                        fontWeight: FontWeight.w700),
+                                                  )),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Icon(
-                                                  Icons.phone,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Center(child: Text(Doctor.mobilENO.toString(),
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      color: HexColor(Globalvireables.black2),
-                                                      fontSize: 18 * unitHeightValue,
-                                                      fontWeight: FontWeight.w700),
-                                                )),
-                                              ),
-                                            ],
-                                          ),
-
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width/1.2,
-                                        child: Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            // if you need this
-                                            side: BorderSide(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              //  color: Colors.black12.withOpacity(0.1),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width/1.2,
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              // if you need this
+                                              side: BorderSide(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                //  color: Colors.black12.withOpacity(0.1),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: Icon(
+                                                    Icons.girl_sharp,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(10),
+                                                  child: Center(child: Text(Doctor.gender.toString()=='1'?'ذكر':'أنثى',
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        color: HexColor(Globalvireables.black2),
+                                                        fontSize: 18 * unitHeightValue,
+                                                        fontWeight: FontWeight.w700),
+                                                  )),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Icon(
-                                                  Icons.child_friendly_rounded,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Center(child: Text(Doctor.bdate.toString().substring(0,10),
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      color: HexColor(Globalvireables.black2),
-                                                      fontSize: 18 * unitHeightValue,
-                                                      fontWeight: FontWeight.w700),
-                                                )),
-                                              ),
-                                            ],
-                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width/1.2,
-                                        child: Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            // if you need this
-                                            side: BorderSide(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              //  color: Colors.black12.withOpacity(0.1),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Icon(
-                                                  Icons.girl_sharp,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Center(child: Text(Doctor.gender.toString()=='1'?'ذكر':'أنثى',
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      color: HexColor(Globalvireables.black2),
-                                                      fontSize: 18 * unitHeightValue,
-                                                      fontWeight: FontWeight.w700),
-                                                )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
 
 
-                                      SizedBox(height: 240,),
-                                      Text("Version 1.0 - Galaxy Group")
+                                        SizedBox(height: 240,),
+                                        Text("Version 1.0 - Galaxy Group")
 
 
-                                    ],)))
-                                    .toList(),
+                                      ],)))
+                                      .toList(),
+                                ),
                               );
                             } else {
                               return Center(
@@ -371,12 +385,13 @@ SizedBox(height: 20,),
     ]);
   }
   _onItemTapped(int index) {
+    if(index != 2){
     setState(() {
       selectedIndex = index;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => nav[index]),);
-    });
+    });}
   }
   int selectedIndex = 1;
 
@@ -391,6 +406,10 @@ SizedBox(height: 20,),
     Uri postsURL =
     Uri.parse(Globalvireables.profileURL);
     try {
+
+      print("patientNo" + patientNo.toString());
+
+
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
       http.Response res = await http.post(

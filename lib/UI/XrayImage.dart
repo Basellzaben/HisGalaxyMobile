@@ -9,11 +9,13 @@ import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../Models/xRAYM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/ImgaeXrayProvider.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -35,7 +37,7 @@ class _XrayImageState extends State<XrayImage> {
 
     super.initState();
   }
-  late  WebViewController controller;
+  late  WebViewController controller,controlimg;
   @override
   void dispose() {
     super.dispose();
@@ -45,26 +47,35 @@ class _XrayImageState extends State<XrayImage> {
 
 
   final _key = UniqueKey();
+  final _keyimg = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
     var ImgaeXrayProvide = Provider.of<ImgaeXrayProvider>(context, listen: false);
     var ThemP = Provider.of<Them>(context, listen: false);
 
-    controller = WebViewController()..loadRequest(Uri.parse(
-        "https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+ImgaeXrayProvide.passno+"&key_images=true"
+    String link,linkimg;
+    link=ImgaeXrayProvide.PLACEHOLDER.toString().trim();
+    linkimg=ImgaeXrayProvide.PLACEHOLDER_HTML.toString().trim();
 
+    controller = WebViewController()..loadRequest(Uri.parse(
+        link.trim()
     ));
     controller
       ..enableZoom(true)
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
+    controlimg = WebViewController()..loadRequest(Uri.parse(
+        linkimg.trim()
+    ));
+    controlimg
+      ..enableZoom(true)
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
 
-    double unitHeightValue = MediaQuery
-        .of(context)
-        .size
-        .height * 0.00122;
-    var stops = [0.0, 1.00];
+
+
+
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var LanguageProvider = Provider.of<Language>(context, listen: false);
 
     return Stack(children: <Widget>[
@@ -121,42 +132,164 @@ class _XrayImageState extends State<XrayImage> {
     child: SingleChildScrollView(
       child: Column(
       children: [
+
+        Text(LanguageProvider.Llanguage('Rayi'),
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: HexColor(Globalvireables
+                  .black),
+              fontSize:
+              18 *
+                  unitHeightValue),),
+
         SizedBox(
-          height: MediaQuery.of(context).size.height/1.3,
+          height: MediaQuery.of(context).size.width,
           width: MediaQuery.of(context).size.width,
-          child: WebViewWidget(controller: controller,key: _key,)
+          child: WebViewWidget(
+            // initialUrl: Uri.encodeFull(EnterUrlHere),
+            controller: controlimg,key: _keyimg,)
+      ),
+        Center(
+          child: Row(
+            children: [
+              Spacer(),
+              Container(
+                  height: 40,
+                  width:
+                  MediaQuery.of(context).size.width / 3,
+                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                  color: HexColor(Globalvireables.white),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: HexColor(ThemP.getcolor()),
+                    ),
+                    child: Text(
+                      LanguageProvider.Llanguage('Share'),
+                      style: ArabicTextStyle(
+                          arabicFont: ArabicFont.tajawal,
+                          color:
+                          HexColor(Globalvireables.white),
+                          fontSize: 14 * unitHeightValue),
+                    ),
+                    onPressed: () async {
+                     Share.share(subject:'El esraa Hospital - ',  ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+//print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+  //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+
+                    },
+                  ),
                 ),
-        Align(
-    alignment: Alignment.bottomCenter,
-    child: Container(
-    height: 40,
-    width:
-    MediaQuery.of(context).size.width / 3,
-    margin: EdgeInsets.only(top: 10, bottom: 5),
-    color: HexColor(Globalvireables.white),
-    child: ElevatedButton(
-    style: ElevatedButton.styleFrom(
-    primary: HexColor(ThemP.getcolor()),
-    ),
-    child: Text(
-    LanguageProvider.Llanguage('Share'),
-    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-    color:
-    HexColor(Globalvireables.white),
-    fontSize: 14 * unitHeightValue),
-    ),
-    onPressed: () async {
+              Spacer(),
+              Container(
+                  height: 40,
+                  width:
+                  MediaQuery.of(context).size.width / 3,
+                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                  color: HexColor(Globalvireables.white),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: HexColor(ThemP.getcolor()),
+                    ),
+                    child: Text(
+                      LanguageProvider.Llanguage('openbrowser'),
+                      textAlign: TextAlign.center,
 
+                      style: ArabicTextStyle(
+                          arabicFont: ArabicFont.tajawal,
+                          color:
+                          HexColor(Globalvireables.white),
+                          fontSize: 12 * unitHeightValue),
+                    ),
+                    onPressed: () async {
+                        openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
 
-      Share.share(subject:'El esraa Hospital - '+ImgaeXrayProvide.date,  'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number='+ImgaeXrayProvide.passno+'&key_images=true');
+                    },
+                  ),
+                ),
+              Spacer(),
 
+            ],
+          ),
+        ),
 
+SizedBox(height: 20,),
+        Text(LanguageProvider.Llanguage('Rayr'),
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: HexColor(Globalvireables
+                  .black),
+              fontSize:
+              18 *
+                  unitHeightValue),),
 
-    },
-    ),
-    ),
-    )
+        SizedBox(
+            height: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width,
+          child: WebViewWidget(
+           // initialUrl: Uri.encodeFull(EnterUrlHere),
+              controller: controller,key: _key,)
+              ),
+
+        Center(
+          child: Row(
+            children: [
+              Spacer(),
+              Container(
+                height: 40,
+                width:
+                MediaQuery.of(context).size.width / 3,
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                color: HexColor(Globalvireables.white),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: HexColor(ThemP.getcolor()),
+                  ),
+                  child: Text(
+                    LanguageProvider.Llanguage('Share'),
+                    style: ArabicTextStyle(
+                        arabicFont: ArabicFont.tajawal,
+                        color:
+                        HexColor(Globalvireables.white),
+                        fontSize: 14 * unitHeightValue),
+                  ),
+                  onPressed: () async {
+                    Share.share(subject:'El esraa Hospital - ',  ImgaeXrayProvide.PLACEHOLDER.trim());
+
+                  },
+                ),
+              ),
+              Spacer(),
+              Container(
+                height: 40,
+                width:
+                MediaQuery.of(context).size.width / 3,
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                color: HexColor(Globalvireables.white),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: HexColor(ThemP.getcolor()),
+                  ),
+                  child: Text(
+                    LanguageProvider.Llanguage('openbrowser'),
+                    textAlign: TextAlign.center,
+
+                    style: ArabicTextStyle(
+                        arabicFont: ArabicFont.tajawal,
+                        color:
+                        HexColor(Globalvireables.white),
+                        fontSize: 12 * unitHeightValue),
+                  ),
+                  onPressed: () async {
+                    openUrl(ImgaeXrayProvide.PLACEHOLDER.trim());
+
+                  },
+                ),
+              ),
+              Spacer(),
+
+            ],
+          ),
+        ),
 
       ],
       ),
@@ -171,7 +304,12 @@ class _XrayImageState extends State<XrayImage> {
     );
   }
 
-
+  Future<void> openUrl(String url) async {
+    final _url = Uri.parse(url);
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) { // <--
+      throw Exception('Could not launch $_url');
+    }
+  }
   String retturndatenewformat(String DATE) {
     String newMonth = "";
     var parts = DATE.substring(0, 10).split('-');

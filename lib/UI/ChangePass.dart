@@ -80,7 +80,7 @@ class _ChangePassState extends State<ChangePass> {
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person),
-                  label: LanguageProvider.Llanguage('ChangePass')
+                  label: LanguageProvider.Llanguage('profile')
               ),
             ],
             iconSize: 30 * unitHeightValue,

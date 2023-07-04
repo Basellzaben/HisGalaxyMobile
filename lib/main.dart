@@ -15,6 +15,7 @@ import 'HexaColor.dart';
 import 'UI/LoginScreen.dart';
 String language='';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //final prefs = await SharedPreferences.getInstance();
@@ -29,7 +30,7 @@ Future<void> main() async {
 
 
       ],
-      child:DevicePreview(enabled: false,builder:(context)=> const MyApp(),)));
+      child:DevicePreview(enabled: true,builder:(context)=> const MyApp(),)));
 }
 
 class MyApp extends StatelessWidget {
@@ -85,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       logoWidth: MediaQuery.of(context).size.width/2.5,
       loaderColor:HexColor(Globalvireables.basecolor),
       logo: Image.asset(
-        "assets/logo.png",
+        "assets/esraalogo.png",
       ),
       showLoader: true,
       title:  Text(

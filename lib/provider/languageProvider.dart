@@ -23,6 +23,12 @@ class Language extends ChangeNotifier {
     return TextDirection.ltr;
   }
 
+  TextDirection getDirectionPres() {
+    String languageCode = getLanguage(); //Platform.localeName.split('_')[0];
+
+   return TextDirection.rtl;
+  }
+
   Alignment Align() {
     String languageCode = getLanguage(); //Platform.localeName.split('_')[0];
 
@@ -38,14 +44,19 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+"openbrowser":"فتح من خلال المتصفح",
+"drugH":"العلاجات",
+    "Search":"بحث",
+    "qt":"الكمية",
+    "Dosageinstructions":"تعليمات الجرعة",
+    "openimageusebrowser":"فتح من خلال المتصفح",
     "Gangepasswormost":"يجب تحديث كلمة المرور عند تسجيل الدخول لأول مرة",
     "theme":"الالوان",
     "showfile":"الاطلاع على ملفك الطبي",
     "confrpassmost":"كلمه المرور يجب ان تكون متطابقة",
     "loginerrorfinget":"ليس لديك الصلاحيات للدخول",
-    "PRESCPTION":"العلاجات",
+    "PRESCPTION":"وصفات الخروج",
     "HospitalInfoS":"حول المستشفى",
-
     "gochange":"الذهاب",
     "Notifications":"الاشعارات",
     "Examnation":"الفحوصات",
@@ -59,21 +70,23 @@ class Language extends ChangeNotifier {
     "cancel":"إلغاء",
     "RememberMe":"تذكرني",
     "Baselalzaben":"باسل الزبن",
-    "Feedback":"حول الطبيق",
+    "Feedback":"حول التطبيق",
     "Sendfeedback":"إرسال رأيك",
     "callus":"اتصل بنا",
     "general":"عام",
     "SeeAll":"عرض الكل",
     "Top":"أبرز الأطباء:",
     "Ray":"الأشعة",
+    "Rayi":"صوره الأشعة",
+    "Rayr":"تقارير الأشعة",
     "examination":"الفحوصات",
-    "Prescription":"العلاجات",
+    "Prescription":"وصفات الخروج",
     "Vitalsigns":"العلامات حيوية",
     "Appoiments":"المواعيد",
     "Invoices":"الفواتير",
     "Payments":"الدفعات",
     "Insurance":"التامين",
-    "AlEsraaHospital":"مستشفى الاسراء",
+    "AlEsraaHospital":"مستشفى ماركا التخصصي الاسلامي",
     "language": "تغيير اللغه",
     "loading": "يجب الانتظار لحين جلب الوقت...",
     "previoustime": "وقت الانصراف السابق",
@@ -171,34 +184,43 @@ class Language extends ChangeNotifier {
     "Share":"مشاركه",
     "History":"السابقه",
     "SGangepasswor":"تم تحديث كلمة السر بنجاح",
-
      "oldpass":"كلمة المرور القديمة",
   "newpass":"كلمة المرور الجديدة",
   "newpassconfirm":"تاكيد كلمة المرور الجديدة",
 
     "EGangepasswor":"لم يتم تحديث كلمة المرور"
 ,
-    "descapp":"طورت مجموعة المجرة هذه المنصة لتمكنك من عرض ملفك الطبي في مستشفى الإسراء التخصصي ، يمكنك الاطلاع على المواعيد الطبية في العيادات المتخصصة والاطلاع على الأدوية الحالية والحساسية واللقاحات ونتائج الفحوصات المخبرية والعلامات الحيوية",
+    "dsuccessfully":"تم تنزيل الصوره بنجاح",
+
+    "descapp":"طورت مجموعة المجرة هذه المنصة لتمكنك من عرض ملفك الطبي في مستشفى ماركا التخصصي ، يمكنك الاطلاع على المواعيد الطبية في العيادات المتخصصة والاطلاع على الأدوية الحالية والحساسية واللقاحات ونتائج الفحوصات المخبرية والعلامات الحيوية",
 
   };
 
   static Map<String, Object?> en = {
+    "openbrowser":"Open Browser",
+    "drugH":"drugH",
+    "Search":"Search",
+    "qt":"Quantity",
+    "dsuccessfully":"Download successfully",
     "confrpassmost":"The password must be identical",
     "showfile":"View your medical file",
     "gochange":"Ok",
-
-    "descapp":"Al Majara Group developed this platform to enable you to view your medical file at Al Esraa Specialist Hospital, you can view medical appointments in specialized clinics and view current medications, allergies, vaccines, laboratory test results and vital signs",
+    "Dosageinstructions":"Dosage instructions",
+    "Rayi":"ray image",
+    "Rayr":"radiology report",
+    "descapp":"Al Majara Group developed this platform to enable you to view your medical file at marka Specialist Hospital, you can view medical appointments in specialized clinics and view current medications, allergies, vaccines, laboratory test results and vital signs",
     "theme":"Themes",
     "Gangepasswormost":"The password must be updated the first time you log in",
+  "openimageusebrowser":"open image use browser",
 
     "oldpass":"Old Password",
     "newpass":"New Password",
     "newpassconfirm":"Confirm new Password",
   "EGangepasswor":"Password has not been updated",
   "SGangepasswor":"Password updated successfully",
-    "HospitalInfoS":"About Hospital",
+    "HospitalInfoS":"About v",
     "loginerrorfinget":"You do not have permissions to login",
-    "PRESCPTION":"prescription",
+    "PRESCPTION":"exit recipes",
     "Notifications":"Notifications",
     "Examnation":"Examnation",
     "download":"Download",
@@ -221,7 +243,7 @@ class Language extends ChangeNotifier {
     "callus":"call us",
     "SeeAll":"See All",
     "Top":"Top Doctors:",
-    "Ray":"Ray",
+    "Ray":"Radiology",
     "examination":"examination",
     "Prescription":"Prescription",
     "Vitalsigns":"Vital signs",
@@ -229,7 +251,7 @@ class Language extends ChangeNotifier {
     "Invoices":"Invoices",
     "Payments":"Payments",
     "Insurance":"Insurance",
-    "AlEsraaHospital":"Al Esraa Hospital",
+    "AlEsraaHospital":"Marka Islamic Specialist Hospital",
     "username": "username ",
     "metr": "mtr",
     "checkin": "check in",

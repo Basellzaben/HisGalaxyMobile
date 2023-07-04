@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import '../GlobalVar.dart';
@@ -354,7 +355,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
   final List<Widget> nav = [
     Settings(),
     Home(),
-    HospitalInfoS(),
+    profile(),
   ];
 
 

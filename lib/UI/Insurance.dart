@@ -46,13 +46,13 @@ class _InsuranceState extends State<Insurance> {
 
   @override
   Widget build(BuildContext context) {
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     var ThemP = Provider.of<Them>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    var patientNo = Provider.of<LoginProvider>(context, listen: false);
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background.png",
@@ -142,7 +142,7 @@ class _InsuranceState extends State<Insurance> {
                             width: MediaQuery.of(context).size.width / 1.1,
                             height: MediaQuery.of(context).size.height / 1.2,
                             child: FutureBuilder(
-                              future: getInsurance(context, "8"),
+                              future: getInsurance(context, Loginprovider.userId),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<InsuranceM>> snapshot) {
                                 if (snapshot.hasData) {
@@ -165,20 +165,24 @@ class _InsuranceState extends State<Insurance> {
                                                   SizedBox(
                                                     width: 5,
                                                   ),
-                                                  Text(
-                                                    LanguageProvider
-                                                                .getLanguage() ==
-                                                            "AR"
-                                                        ? insurance.payoRNAMEE
-                                                            .toString()
-                                                        : insurance.payoRNAMEA
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.4,
+                                                      child: Text(
+                                                        maxLines: 3,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        LanguageProvider.getLanguage() == "AR"
+                                                            ? insurance.payoRNAMEA.toString()+""
+                                                            : insurance.payoRNAMEE
                                                             .toString(),
-                                                    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        fontSize: 19 *
-                                                            unitHeightValue),
+                                                        style: ArabicTextStyle(
+                                                            arabicFont: ArabicFont.tajawal,
+                                                            fontWeight: FontWeight.w900,
+                                                            fontSize: 19 * unitHeightValue
+                                                        ),
+                                                      ),
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -229,7 +233,7 @@ class _InsuranceState extends State<Insurance> {
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .w900,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
                                                           ),
@@ -279,7 +283,7 @@ class _InsuranceState extends State<Insurance> {
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .w900,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
                                                           ),
@@ -335,7 +339,7 @@ class _InsuranceState extends State<Insurance> {
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .w900,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
                                                           ),
@@ -386,7 +390,7 @@ class _InsuranceState extends State<Insurance> {
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .w900,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
                                                           ),

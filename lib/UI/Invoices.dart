@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 
 import '../Models/InvoicesM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -21,11 +22,15 @@ import 'Settings.dart';
 import 'package:intl/intl.dart';
 
 class Invoices extends StatefulWidget {
+
+  const Invoices({super.key});
+
   @override
   State<Invoices> createState() => _InvoicesState();
 }
 
 class _InvoicesState extends State<Invoices> {
+  int selectedTile = -1;
   @override
   void initState() {
     setsearch(context);
@@ -48,13 +53,14 @@ var leng=0;
   setsearch(BuildContext context){
 
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-
+if(homeP.getVisitDate().toString().length>7)
     dateinputC.text=homeP.getVisitDate();
   }
   @override
   Widget build(BuildContext context) {
 
     var ThemP = Provider.of<Them>(context, listen: false);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
@@ -109,7 +115,7 @@ var leng=0;
           backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
           body: Directionality(
-            textDirection: LanguageProvider.getDirection(),
+            textDirection: LanguageProvider.getDirectionPres(),
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.15,
@@ -213,91 +219,165 @@ SizedBox(height: 10,),
                             width: MediaQuery.of(context).size.width / 1.1,
                             height: MediaQuery.of(context).size.height / 1.2,
                             child: FutureBuilder(
-                              future: getInvoices(context, "277", dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
+                              future: getInvoices(context, "31618" , dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<InvoicesM>> snapshot) {
                                 if (snapshot.hasData ) {
                                   List<InvoicesM>? Invoices = snapshot.data;
 
-                                  return Invoices!.isNotEmpty? ListView(
-                                    children: Invoices
-                                    .map((InvoicesM inv) => SizedBox(
-                                     child: Card(
-                                                child:  Theme(
-                                                  data : ThemeData().copyWith(dividerColor: Colors.transparent),
-                                                  child: ExpansionTile(
-                                                      title:Column(
+                                  return Invoices!.isNotEmpty? Container(
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    child: ListView(
+                                      key: Key(selectedTile.toString()),
+                                      children: Invoices
+                                      .map((InvoicesM inv) => SizedBox(
+                                       child: Card(
+                                                  child:  Theme(
+                                                    data : ThemeData().copyWith(dividerColor: Colors.transparent),
+                                                    child: ExpansionTile(
 
-                                                        children: [
-                                                          Align(alignment: Alignment.topLeft,child: Text(inv.bilLTOTALVALUE.toString()+" JD",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontWeight: FontWeight.w900,fontSize: 17*unitHeightValue,color: Colors.black),)),
-                                                          Align(alignment: Alignment.topLeft,child: Text( retturndatenewformat( inv.invDate.toString()),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,color: Colors.black45,fontWeight: FontWeight.w500))),
-                                                        ],
+                                                     /* onExpansionChanged: ((newState) {
+                                                        if (newState)
+                                                          setState(() {
+                                                            selectedTile = -1;
+                                                          });
+                                                        else
+                                                          setState(() {
+                                                            selectedTile = int.parse(
+                                                                (inv.invDate.toString().substring(0,4)).toString()
+                                                            );
+                                                          });
 
+                                                      }),
+*/
+
+                                                      key: Key((inv.invDate.toString().substring(0,4)).toString()),
+                                                      initiallyExpanded: (inv.invDate.toString().substring(0,4)) == selectedTile,
+                                                      leading: Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: Icon(Icons.expand_more_sharp),
                                                       ),
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                        child: Row(children: [
-                                                          Container(
-                                                              width: 120,
-                                                              child: Text("اسم الاجراء",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                          Spacer(),
-                                                          Container(
-                                                              alignment: Alignment.center,
-                                                              child: Text("دفعه المريض",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                          Spacer(),
-                                                          Container(
-                                                              alignment: Alignment.center,
-                                                              width: 60,
-                                                              child: Text("المجموع",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-
-                                                        ],),
+                                                      trailing:  Padding(
+                                                        padding: const EdgeInsets.only(left: 0),
+                                                        child: Text(
+                                                          retDay(inv.invDate.toString()),
+                                                          style: TextStyle(
+                                                              fontSize: 34,
+                                                              fontWeight: FontWeight
+                                                                  .bold,
+                                                              color: HexColor(
+                                                                  ThemP
+                                                                      .getcolor())),
+                                                        ),
                                                       ),
+                                                        title:Row(
+                                                          children: [
 
-                                                      Column(children: [
-                                                        for(int i=0;i<inv.iNVOICESAllModelS!.length;i++)
+                                                            Spacer(),
+                                                            Align(alignment: Alignment.topLeft,child: Text(inv.bilLTOTALVALUE.toString()+" JD",
+                                                              style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontWeight: FontWeight.w900,fontSize: 22*unitHeightValue,color: Colors.black),)),
+                                                            Padding(
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: Container(
+                                                                  color: HexColor(ThemP.getcolor()),
+                                                                  child: SizedBox(height: 50,width: 2,)),
+                                                            ),
+                                                            SizedBox(
+                                                              child: Row(
+                                                                children: [
+
+                                                                  Column(
+                                                                    children: [
+                                                                      Text(
+                                                                          textAlign: TextAlign
+                                                                              .center,
+                                                                          retMonth(inv.invDate.toString()),
+                                                                          style: TextStyle(
+                                                                              fontSize: 16,
+                                                                              fontWeight: FontWeight
+                                                                                  .bold,
+                                                                              height: 1)),
+                                                                      Text(
+                                                                          textAlign: TextAlign
+                                                                              .center,
+                                                                          retYear(inv.invDate.toString()),
+                                                                          style: TextStyle(
+                                                                              fontSize: 16,
+                                                                              height: 1)),
+                                                                    ],
+
+                                                                  ),
+
+
+
+                                                                ],),
+                                                            )
+                                                             ],
+                                                        ),
+                                                      children: [
                                                         Padding(
                                                           padding: EdgeInsets.only(left: 16,right: 16,top: 6),
                                                           child: Row(children: [
-                                                               Container(
-                                                                  width: 120,
-                                                                  child: Text(inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString(),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                               Spacer(),
-                                                               Container(
+                                                            Container(
+                                                                width: 120,
+                                                                child: Text("اسم الاجراء",style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                            Spacer(),
+                                                            Container(
                                                                 alignment: Alignment.center,
-                                                                width: 60,
-                                                                 child: Text(inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString(),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                               Spacer(),
-                                                               /*Container(
-                                                                  alignment: Alignment.center,
-                                                                  width: 60,
-                                                                  child: Text(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString(),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                            Spacer(),*/
+                                                                child: Text("دفعه المريض",style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                            Spacer(),
                                                             Container(
                                                                 alignment: Alignment.center,
                                                                 width: 60,
-                                                                child: Text(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-
+                                                                child: Text("المجموع",style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
                                                           ],),
                                                         ),
 
-                                                      ],),
-                                                    ],
-                                                  ),
-                                                )
+                                                        Column(children: [
+                                                          for(int i=0;i<inv.iNVOICESAllModelS!.length;i++)
+                                                          Padding(
+                                                            padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                            child: Row(children: [
+                                                                 Container(
+                                                                    width: 120,
+                                                                    child: Text(inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString(),style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                 Spacer(),
+                                                                 Container(
+                                                                  alignment: Alignment.center,
+                                                                  width: 60,
+                                                                   child: Text(inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString(),style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                 Spacer(),
+                                                                 /*Container(
+                                                                    alignment: Alignment.center,
+                                                                    width: 60,
+                                                                    child: Text(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString(),style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                              Spacer(),*/
+                                                              Container(
+                                                                  width: 60,
+                                                                  child: Text(
+                                                                    textAlign: TextAlign.left,
+                                                                    inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+
+                                                            ],),
+                                                          ),
+
+                                                        ],),
+                                                      ],
+                                                    ),
+                                                  )
 
 
-                                            )
-                                     )).toList(),):Image.asset(
+                                              )
+                                       )).toList(),),
+                                  ):Image.asset(
                                     "assets/null.png",
                                     height: 100,
                                     width: 100,
@@ -422,5 +502,51 @@ SizedBox(height: 10,),
 
   }
 
+  String retDay(String DATE) {
+    var parts = DATE.split('-');
+    String d = parts[2].trim().substring(0, 2);
+
+    return d.toString();
+  }
+
+
+  String retYear(String DATE) {
+    var parts = DATE.split('-');
+    String y = parts[0].trim();
+
+    return y.toString();
+  }
+
+  String retMonth(String DATE) {
+    String newMonth = "";
+    var parts = DATE.split('-');
+    int m = int.parse(parts[1].trim());
+    if (m == 1) {
+      newMonth = 'Jan';
+    } else if (m == 2) {
+      newMonth = 'Feb';
+    } else if (m == 3) {
+      newMonth = 'Mar';
+    } else if (m == 4) {
+      newMonth = 'Apr';
+    } else if (m == 5) {
+      newMonth = 'May';
+    } else if (m == 6) {
+      newMonth = 'Jun';
+    } else if (m == 7) {
+      newMonth = 'Jul';
+    } else if (m == 8) {
+      newMonth = 'Aug';
+    } else if (m == 9) {
+      newMonth = 'Sep';
+    } else if (m == 10) {
+      newMonth = 'Oct';
+    } else if (m == 11) {
+      newMonth = 'Nov';
+    } else if (m == 12) {
+      newMonth = 'Dec';
+    }
+    return newMonth.toString();
+  }
 
 }

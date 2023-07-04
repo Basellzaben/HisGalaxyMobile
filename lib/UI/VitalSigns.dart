@@ -16,6 +16,7 @@ import 'package:arabic_font/arabic_font.dart';
 import '../Models/VitalSignsM.dart';
 import '../Models/VitalSignsM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -51,7 +52,7 @@ class _VitalSignsState extends State<VitalSigns> {
   setsearch(BuildContext context){
 
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-
+    if(homeP.getVisitDate().toString().length==10)
     dateinput.text=homeP.getVisitDate();
   }
   @override
@@ -61,6 +62,7 @@ class _VitalSignsState extends State<VitalSigns> {
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     return Stack(children: <Widget>[
       Image.asset(
@@ -211,186 +213,196 @@ class _VitalSignsState extends State<VitalSigns> {
                           width: MediaQuery.of(context).size.width / 1.1,
                           height: MediaQuery.of(context).size.height / 1.24,
                           child: FutureBuilder(
-                            future: getVitalSigns(context, "277", dateinput.text.isEmpty||dateinput.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinput.text),
+                            future: getVitalSigns(context, "29732", dateinput.text.isEmpty||dateinput.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinput.text),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<VitalSignsM>> snapshot) {
                               if (snapshot.hasData) {
                                 List<VitalSignsM>? VitalSigns = snapshot.data;
-                                return VitalSigns!.isNotEmpty? ListView(
-                                  children: VitalSigns!
-                                      .map((VitalSignsM VitalSignsM) =>
-                                          SizedBox(
-                                              child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Align(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: Text(
-                                                        retturndatenewformat(
-                                                      VitalSignsM.datee
-                                                          .toString())+ " - " +VitalSignsM.vITALSIGNSAllModelS![0].reaDTIME.toString()
-                                                      ,
-                                                      style: ArabicTextStyle(
+                                return VitalSigns!.asMap().length>0  ? Container(margin: EdgeInsets.only(bottom: 80),
+                                  child: ListView(
+                                    children: VitalSigns!
+                                        .map((VitalSignsM VitalSignsM) =>
+                                            SizedBox(
+                                                child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Align(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      child: Text(
+                                                          retturndatenewformat(
+                                                        VitalSignsM.datee
+                                                            .toString())+ " - " +VitalSignsM.vITALSIGNSAllModelS![0].reaDTIME.toString()
+                                                        ,
+                                                        style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                                        color: HexColor(ThemP.getcolor()),
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                    )),
-                                              ),
+                                                          color: HexColor(ThemP.getcolor()),
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.w700),
+                                                      )),
+                                                ),
 
 
-                                                 Card(
-                                                   shape: RoundedRectangleBorder(
-                                                   borderRadius: BorderRadius.circular(30),
-                                                   side: BorderSide(
-                                                     width: MediaQuery.of(context)
-                                                         .size
-                                                         .height,
-                                                     //  color: Colors.black12.withOpacity(0.1),
+                                                   Card(
+                                                     shape: RoundedRectangleBorder(
+                                                     borderRadius: BorderRadius.circular(30),
+                                                     side: BorderSide(
+                                                       width: MediaQuery.of(context)
+                                                           .size
+                                                           .height,
+                                                       //  color: Colors.black12.withOpacity(0.1),
+                                                     ),
                                                    ),
-                                                 ),
-                                                   child: SizedBox(
-                                                     child: GridView.builder(
-                                                      physics: NeverScrollableScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 2,
-                                                        crossAxisSpacing: 0.0,
-                                                        mainAxisSpacing: 0.0,
-                                                      ),
-                                                      itemCount: VitalSignsM.vITALSIGNSAllModelS!.asMap().length,
-                                                      itemBuilder: (context, index) {
-                                                        return Container(
-                                                            color: Colors.transparent,
-                                                            child: Column(
-                                                              children: [
-                                                                CircularPercentIndicator(
-                                                                  radius: 50.0 *
-                                                                      unitHeightValue,
-                                                                  lineWidth: 10.0,
-                                                                  percent: 0.50,
-                                                                  progressColor:
-                                                                      present(VitalSignsM
-                                                                          .vITALSIGNSAllModelS![
-                                                                      index]
-                                                                          .desCA
-                                                                          .toString()
-                                                                          ,VitalSignsM
-                                                                          .vITALSIGNSAllModelS![
-                                                                      index]
-                                                                          .vitaLSIGNREAD
-                                                                          .toString()),
-                                                                  center: new Text(
-                                                                    VitalSignsM
-                                                                        .vITALSIGNSAllModelS![
-                                                                    index]
-                                                                        .vitaLSIGNREAD
-                                                                        .toString(),
-                                                                    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                        fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                        fontSize: 16 *
-                                                                            unitHeightValue),
-                                                                  ),
+                                                     child: Padding(
+                                                       padding: const EdgeInsets.all(8.0),
+                                                       child: SizedBox(
+                                                         child: GridView.builder(
+                                                          physics: NeverScrollableScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                            crossAxisCount: 2,
+                                                            crossAxisSpacing: 0.0,
+                                                            mainAxisSpacing: 0.0,
+                                                          ),
+                                                          itemCount: VitalSignsM.vITALSIGNSAllModelS!.asMap().length,
+                                                          itemBuilder: (context, index) {
+                                                            return Container(
+                                                                color: Colors.transparent,
+                                                                child: Column(
+                                                                  children: [
+                                                                    CircularPercentIndicator(
+                                                                      radius: 50.0 *
+                                                                          unitHeightValue,
+                                                                      lineWidth: 10.0,
+                                                                      percent: 0.50,
+                                                                      progressColor:
+                                                                          present(VitalSignsM
+                                                                              .vITALSIGNSAllModelS![
+                                                                          index]
+                                                                              .desCA
+                                                                              .toString()
+                                                                              ,VitalSignsM
+                                                                              .vITALSIGNSAllModelS![
+                                                                          index]
+                                                                              .vitaLSIGNREAD
+                                                                              .toString()),
+                                                                      center: new Text(
 
+                                                                        VitalSignsM
+                                                                            .vITALSIGNSAllModelS![
+                                                                        index]
+                                                                            .vitaLSIGNREAD
+                                                                            .toString(),
+                                                                        style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .w900,
+                                                                            fontSize: 18 *
+                                                                                unitHeightValue),
+                                                                      ),
+
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: 15,
+                                                                    ),
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        textAlign: TextAlign.center,
+                                                                        maxLines: 3,
+                                                                        overflow: TextOverflow.ellipsis,
+                                                                        VitalSignsM.vITALSIGNSAllModelS![index]
+                                                                            .desCA
+                                                                            .toString(),
+                                                                        style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .w700,
+                                                                            fontSize: 16 *
+                                                                                unitHeightValue),
+                                                                      ),
+
+                                                                    )
+                                                                  ],
                                                                 ),
-                                                                SizedBox(
-                                                                  height: 15,
-                                                                ),
-                                                                Text(
+                                                            );
+                                                          },
+                                                  ),
+                                                       ),
+                                                     ),
+                                                   ),
+
+                                                /* SizedBox(
+                                                    child: GridView.builder(
+                                                      physics: ClampingScrollPhysics(),
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount: snapshot.data!.length,
+                                                      itemBuilder: (BuildContext context, int index) =>
+                                                              Padding(
+                                                        padding: EdgeInsets.all(2),
+                                                        child: SizedBox(
+                                                          child: Column(
+                                                            children: [
+                                                              CircularPercentIndicator(
+                                                                radius: 50.0 *
+                                                                    unitHeightValue,
+                                                                lineWidth: 15.0,
+                                                                percent: 0.50,
+                                                                center: new Text(
                                                                   VitalSignsM
                                                                       .vITALSIGNSAllModelS![
-                                                                  index]
-                                                                      .desCA
+                                                                          index]
+                                                                      .vitaLSIGNREAD
                                                                       .toString(),
                                                                   style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                       fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
+                                                                          FontWeight
+                                                                              .w500,
                                                                       fontSize: 16 *
                                                                           unitHeightValue),
-                                                                )
-                                                              ],
-                                                            ),
-                                                        );
-                                                      },
-                                                ),
-                                                   ),
-                                                 ),
-
-                                              /* SizedBox(
-                                                  child: GridView.builder(
-                                                    physics: ClampingScrollPhysics(),
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemCount: snapshot.data!.length,
-                                                    itemBuilder: (BuildContext context, int index) =>
-                                                            Padding(
-                                                      padding: EdgeInsets.all(2),
-                                                      child: SizedBox(
-                                                        child: Column(
-                                                          children: [
-                                                            CircularPercentIndicator(
-                                                              radius: 50.0 *
-                                                                  unitHeightValue,
-                                                              lineWidth: 15.0,
-                                                              percent: 0.50,
-                                                              center: new Text(
+                                                                ),
+                                                                progressColor: HexColor(
+                                                                    Globalvireables
+                                                                        .basecolor),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                              Text(
                                                                 VitalSignsM
                                                                     .vITALSIGNSAllModelS![
                                                                         index]
-                                                                    .vitaLSIGNREAD
+                                                                    .desCA
                                                                     .toString(),
                                                                 style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w500,
+                                                                            .w700,
                                                                     fontSize: 16 *
                                                                         unitHeightValue),
-                                                              ),
-                                                              progressColor: HexColor(
-                                                                  Globalvireables
-                                                                      .basecolor),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 15,
-                                                            ),
-                                                            Text(
-                                                              VitalSignsM
-                                                                  .vITALSIGNSAllModelS![
-                                                                      index]
-                                                                  .desCA
-                                                                  .toString(),
-                                                              style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize: 16 *
-                                                                      unitHeightValue),
-                                                            )
-                                                          ],
+                                                              )
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ), gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 5,
-                                                    crossAxisSpacing: 5.0,
-                                                    mainAxisSpacing: 5.0,
-                                                  ),
-                                                  ),
-                                                ),*/
+                                                      ), gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 5,
+                                                      crossAxisSpacing: 5.0,
+                                                      mainAxisSpacing: 5.0,
+                                                    ),
+                                                    ),
+                                                  ),*/
 
-                                            ],
-                                          )))
-                                      .toList(),
+                                              ],
+                                            )))
+                                        .toList(),
+                                  ),
                                 ):Image.asset(
                               "assets/null.png",
                               height: 100,
@@ -525,39 +537,39 @@ if(double.parse(result)>38.0){
     String d = parts[2].trim();
 
     if(m==1){
-      newMonth='January';
+      newMonth='Jan';
     }else  if(m==2){
-      newMonth='Februay';
+      newMonth='Feb';
 
     }else  if(m==3){
-      newMonth='March';
+      newMonth='Mar';
 
     }else  if(m==4){
-      newMonth='April';
+      newMonth='Apr';
 
     }else  if(m==5){
       newMonth='May';
 
     }else  if(m==6){
-      newMonth='June';
+      newMonth='Jun';
 
     }else  if(m==7){
-      newMonth='July';
+      newMonth='Jul';
 
     }else  if(m==8){
-      newMonth='August';
+      newMonth='Aug';
 
     }else  if(m==9){
-      newMonth='September';
+      newMonth='Sep';
 
     }else  if(m==10){
-      newMonth='October';
+      newMonth='Oct';
 
     }else  if(m==11){
-      newMonth='November';
+      newMonth='Nov';
 
     }else  if(m==12){
-      newMonth='December';
+      newMonth='Dec';
 
     }
 

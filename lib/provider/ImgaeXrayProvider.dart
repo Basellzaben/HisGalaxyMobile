@@ -9,6 +9,27 @@ class ImgaeXrayProvider extends ChangeNotifier {
   String result="";
   String date="";
 
+  String PLACEHOLDER="";
+  String PLACEHOLDER_HTML="";
+
+  getPLACEHOLDER_HTML() {
+    return PLACEHOLDER_HTML;
+  }
+
+  setPLACEHOLDER_HTML(String PLACEHOLDER_HTML) {
+    this.PLACEHOLDER_HTML = PLACEHOLDER_HTML;
+    notifyListeners();
+  }
+
+  getPLACEHOLDER() {
+    return PLACEHOLDER;
+  }
+
+  setPLACEHOLDER(String PLACEHOLDER) {
+    this.PLACEHOLDER = PLACEHOLDER;
+    notifyListeners();
+  }
+
 
   getdate() {
     return date;

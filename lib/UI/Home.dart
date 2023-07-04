@@ -4,6 +4,8 @@ import 'package:arabic_font/arabic_font.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hismobileapp/HexaColor.dart';
 import 'package:hismobileapp/UI/Doctors.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:http/http.dart';
@@ -12,7 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
-import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -27,6 +28,7 @@ import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import 'Appoiments.dart';
 import 'ChangePass.dart';
+import 'DrugInHOSPITAL.dart';
 import 'Examnation.dart';
 import 'HospitalInfoS.dart';
 import 'Insurance.dart';
@@ -54,7 +56,7 @@ class _HomeState extends State<Home> {
 
   var data;
 
-  String selectedSpinnerItem = 'Eliseo@gardner.biz';
+  String selectedSpinnerItem = 'basellalzaben@gmail.com';
 
   @override
   void dispose() {
@@ -254,6 +256,9 @@ class _HomeState extends State<Home> {
     controller: dateinput,
     //editing controller of this TextField
     decoration: InputDecoration(
+
+
+
     prefixIcon: Icon(
     Icons.airline_seat_flat, color: HexColor(
     ThemP.getcolor()),
@@ -264,14 +269,16 @@ class _HomeState extends State<Home> {
     dateinput.text =
     LanguageProvider.Llanguage(
     'Searchbyvisit');
+    homeP.setVisitDate('');
+
     });
     },
-    child: Icon(color: Colors.redAccent,dateinput.text.isEmpty ||
-    dateinput.text.toString() ==
+    child: Icon(color: Colors.redAccent,
+    dateinput.text.contains(
     LanguageProvider.Llanguage(
-    'Searchbyvisit')
+    'Searchbyvisit')) || dateinput.text.length!=10
     ? null
-        : Icons.cancel)),
+    : Icons.cancel)),
     border: OutlineInputBorder(),
     focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
@@ -339,18 +346,18 @@ class _HomeState extends State<Home> {
     ),
       Divider(thickness: 1.0, color: Colors.grey),
 
-    Container(
+    SizedBox(
     height: MediaQuery
         .of(context)
         .size
-        .height / 2.7,
+        .height / 3,
     width: MediaQuery
         .of(context)
         .size
-        .width / 1.3,
+        .width / 1.4,
     child: FutureBuilder(
     future: getvisits(
-    context, "277"),
+    context, "30417"),
     builder: (
     BuildContext context,
     AsyncSnapshot<List<
@@ -373,6 +380,9 @@ class _HomeState extends State<Home> {
               .visitDate
               .toString().substring(0,10)) ;
           dateinput.text=homeP.getVisitDate();
+          setState(() {
+
+          });
           Navigator.pop(context);
           },
           child
@@ -391,7 +401,7 @@ class _HomeState extends State<Home> {
                   arabicFont: ArabicFont.tajawal,
           color: Colors
               .black,
-          fontSize: 16 *
+          fontSize: 15 *
           unitHeightValue,
           fontWeight: FontWeight
               .w700),),
@@ -406,7 +416,7 @@ class _HomeState extends State<Home> {
                   arabicFont: ArabicFont.tajawal,
           color: Colors
               .black,
-          fontSize: 14 *
+          fontSize: 13 *
           unitHeightValue,
           fontWeight: FontWeight
               .w700),),
@@ -432,10 +442,8 @@ class _HomeState extends State<Home> {
     ),
     ),
       Align(
-        child: Container(
-          height: 40,
+        child: SizedBox(
           width: MediaQuery.of(context).size.width / 4,
-          color: HexColor(Globalvireables.white),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               primary:
@@ -464,7 +472,7 @@ class _HomeState extends State<Home> {
     LanguageProvider.Llanguage('cancel'),
     style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-    color: Colors.black87,
+    color: HexColor(ThemP.getcolor())87,
     fontSize: 15 *
     unitHeightValue),
     ),
@@ -499,9 +507,12 @@ class _HomeState extends State<Home> {
     },
     child: Column(
     children: [
-    Card(
-    color: HexColor(ThemP.getcolor()),
-    child: Container(
+ Container(
+   decoration: BoxDecoration(
+       border: Border.all(color: HexColor(ThemP.getcolor())),
+        borderRadius: BorderRadius.circular(15.0),
+
+    ),
     width: MediaQuery
         .of(context)
         .size
@@ -516,24 +527,24 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Spacer(),
-    Icon(
-    Icons.timelapse_outlined,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
+      SvgPicture.asset("assets/Dates.svg",color: HexColor(ThemP.getcolor()),
+        height: 50 * unitHeightValue,
+        width: 50 * unitHeightValue,
+      ),
+
     Spacer(),
     ],
     ),
     ),
-    ),
-    Text(
+      SizedBox(height: 5,),
+
+      Text(
     LanguageProvider.Llanguage("Appoiments"),
 
 
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
+            color: HexColor(ThemP.getcolor()),
             fontSize: 13 * unitHeightValue,
             fontWeight: FontWeight.w700
         )
@@ -551,14 +562,18 @@ class _HomeState extends State<Home> {
     Navigator.push(
     context,
     MaterialPageRoute(
-    builder: (context) => Invoices()),);
+    builder: (context) => Invoices( )),);
     },
     child: Column(
     children: [
-    Card(
-    color: HexColor(
-    ThemP.getcolor()),
-    child: Container(
+
+
+    Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: HexColor(ThemP.getcolor())),
+        borderRadius: BorderRadius.circular(15.0),
+
+      ),
     width: MediaQuery
         .of(context)
         .size
@@ -573,24 +588,23 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Spacer(),
-    Icon(
-    Icons.receipt,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
+      SvgPicture.asset("assets/invoices.svg",color: HexColor(ThemP.getcolor()),
+        height: 50 * unitHeightValue,
+        width: 50 * unitHeightValue,
+      ),
     Spacer(),
     ],
     ),
     ),
-    ),
+      SizedBox(height: 5,),
+
     Text(
     LanguageProvider.Llanguage("Invoices"),
 
 
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
+            color: HexColor(ThemP.getcolor()),
             fontSize: 13 * unitHeightValue,
             fontWeight: FontWeight.w700
         )
@@ -602,51 +616,6 @@ class _HomeState extends State<Home> {
     ),
     ),
     Spacer(),
-    /*Column(
-    children: [
-    Card(
-    color: HexColor(ThemP.getcolor()),
-    child: Container(
-    width: MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    height:
-    MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    child: Column(
-    children: [
-    Spacer(),
-    Icon(
-    Icons.monetization_on,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
-    Spacer(),
-    ],
-    ),
-    ),
-    ),
-    Text(
-    LanguageProvider.Llanguage("Payments"),
-
-
-        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
-            fontSize: 13 * unitHeightValue,
-            fontWeight: FontWeight.w700
-        )
-
-
-    ),
-    ],
-    )*/
     GestureDetector(
         onTap: () async {
           Navigator.push(
@@ -659,9 +628,13 @@ class _HomeState extends State<Home> {
 
         child: Column(
           children: [
-            Card(
-              color: HexColor(ThemP.getcolor()),
-              child: Container(
+
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
+
+              ),
                 width: MediaQuery
                     .of(context)
                     .size
@@ -676,24 +649,23 @@ class _HomeState extends State<Home> {
                 child: Column(
                   children: [
                     Spacer(),
-                    Icon(
-                      Icons.rate_review,
-                      color:
-                      HexColor(Globalvireables.white),
-                      size: 50 * unitHeightValue,
+                    SvgPicture.asset("assets/xray.svg",color: HexColor(ThemP.getcolor()),
+                      height: 50 * unitHeightValue,
+                      width: 50 * unitHeightValue,
                     ),
                     Spacer(),
                   ],
                 ),
               ),
-            ),
+            SizedBox(height: 5,),
+
             Text(
                 LanguageProvider.Llanguage("Ray"),
 
 
                 style: ArabicTextStyle(
                     arabicFont: ArabicFont.tajawal,
-                    color: Colors.black,
+                    color: HexColor(ThemP.getcolor()),
                     fontSize: 13 * unitHeightValue,
                     fontWeight: FontWeight.w700
                 )
@@ -718,10 +690,13 @@ class _HomeState extends State<Home> {
     },
     child: Column(
     children: [
-    Card(
-    color: HexColor(
-    ThemP.getcolor()),
-    child: Container(
+
+     Container(
+       decoration: BoxDecoration(
+         border: Border.all(color: HexColor(ThemP.getcolor())),
+         borderRadius: BorderRadius.circular(15.0),
+
+       ),
     width: MediaQuery
         .of(context)
         .size
@@ -736,24 +711,23 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Spacer(),
-    Icon(
-    Icons.shield,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
+      SvgPicture.asset("assets/Insurance.svg",color: HexColor(ThemP.getcolor()),
+        height: 50 * unitHeightValue,
+        width: 50 * unitHeightValue,
+      ),
     Spacer(),
     ],
     ),
     ),
-    ),
+      SizedBox(height: 5,),
+
     Text(
     LanguageProvider.Llanguage("Insurance"),
 
 
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
+            color: HexColor(ThemP.getcolor()),
             fontSize: 13 * unitHeightValue,
             fontWeight: FontWeight.w700
         )
@@ -773,10 +747,13 @@ class _HomeState extends State<Home> {
     },
     child: Column(
     children: [
-    Card(
-    color: HexColor(
-    ThemP.getcolor()),
-    child: Container(
+
+    Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: HexColor(ThemP.getcolor())),
+        borderRadius: BorderRadius.circular(15.0),
+
+      ),
     width: MediaQuery
         .of(context)
         .size
@@ -791,23 +768,22 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Spacer(),
-    Icon(
-    Icons.analytics_rounded,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
+      SvgPicture.asset("assets/VitalSigns.svg",color: HexColor(ThemP.getcolor()),
+        height: 50 * unitHeightValue,
+        width: 50 * unitHeightValue,
+      ),
     Spacer(),
     ],
     ),
     ),
-    ),
+      SizedBox(height: 5,),
+
     Text(
     LanguageProvider.Llanguage("Vitalsigns"),
 
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
+            color: HexColor(ThemP.getcolor()),
             fontSize: 13 * unitHeightValue,
             fontWeight: FontWeight.w700
         )
@@ -827,40 +803,45 @@ class _HomeState extends State<Home> {
       child: Column(
       children: [
       Card(
-      color: HexColor(ThemP.getcolor()),
-      child: Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width /
-      4.5,
-      height:
-      MediaQuery
-          .of(context)
-          .size
-          .width /
-      4.5,
-      child: Column(
-      children: [
-      Spacer(),
-      Icon(
-      Icons.medical_services,
-      color:
-      HexColor(Globalvireables.white),
-      size: 50 * unitHeightValue,
+        color: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: HexColor(ThemP.getcolor())),
+            borderRadius: BorderRadius.circular(15.0),
+
+          ),
+        width: MediaQuery
+            .of(context)
+            .size
+            .width /
+        4.5,
+        height:
+        MediaQuery
+            .of(context)
+            .size
+            .width /
+        4.5,
+        child: Column(
+        children: [
+        Spacer(),
+          SvgPicture.asset("assets/Medical.svg",color: HexColor(ThemP.getcolor()),
+            height: 50 * unitHeightValue,
+            width: 50 * unitHeightValue,
+          ),
+        Spacer(),
+        ],
+        ),
+        ),
       ),
-      Spacer(),
-      ],
-      ),
-      ),
-      ),
+        SizedBox(height: 5,),
+
       Text(
       LanguageProvider.Llanguage("Prescription"),
 
           style: ArabicTextStyle(
 
               arabicFont: ArabicFont.tajawal,
-              color: Colors.black,
+              color: HexColor(ThemP.getcolor()),
               fontSize: 13 * unitHeightValue,
               fontWeight: FontWeight.w700
           )
@@ -886,9 +867,12 @@ class _HomeState extends State<Home> {
     );},
     child: Column(
     children: [
-    Card(
-    color: HexColor(ThemP.getcolor()),
-    child: Container(
+    Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: HexColor(ThemP.getcolor())),
+        borderRadius: BorderRadius.circular(15.0),
+
+      ),
     width: MediaQuery
         .of(context)
         .size
@@ -903,23 +887,22 @@ class _HomeState extends State<Home> {
     child: Column(
     children: [
     Spacer(),
-    Icon(
-    Icons.abc_rounded,
-    color:
-    HexColor(Globalvireables.white),
-    size: 50 * unitHeightValue,
-    ),
+      SvgPicture.asset("assets/Checkup.svg",color: HexColor(ThemP.getcolor()),
+        height: 50 * unitHeightValue,
+        width: 50 * unitHeightValue,
+      ),
     Spacer(),
     ],
     ),
     ),
-    ),
+      SizedBox(height: 5,),
+
     Text(
     LanguageProvider.Llanguage("examination"),
 
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-            color: Colors.black,
+            color: HexColor(ThemP.getcolor()),
             fontSize: 13 * unitHeightValue,
             fontWeight: FontWeight.w700
         )
@@ -930,24 +913,77 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-    Spacer(),
+      SizedBox(width: 12,),
 
-    Spacer(),
-    Container(
-    width: MediaQuery
-        .of(context)
-        .size
-        .width / 4.5,
-    height: MediaQuery
-        .of(context)
-        .size
-        .width / 4.5,
-    )
+      Spacer(),
+      GestureDetector(
+        onTap: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DrugInHOSPITAL()),
+          );},
+        child: Column(
+          children: [
+           Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: HexColor(ThemP.getcolor())),
+                  borderRadius: BorderRadius.circular(15.0),
+
+                ),
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width /
+                    4.5,
+                height:
+                MediaQuery
+                    .of(context)
+                    .size
+                    .width /
+                    4.5,
+                child: Column(
+                  children: [
+                    Spacer(),
+                    SvgPicture.asset("assets/Medical_In.svg",color: HexColor(ThemP.getcolor()),
+                      height: 50 * unitHeightValue,
+                      width: 50 * unitHeightValue,
+                    ),
+                    Spacer(),
+                  ],
+                ),
+              ),
+            SizedBox(height: 5,),
+            Text(
+                LanguageProvider.Llanguage("drugH"),
+
+                style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+                    color: HexColor(ThemP.getcolor()),
+                    fontSize: 13 * unitHeightValue,
+                    fontWeight: FontWeight.w700
+                )
+
+
+
+            ),
+          ],
+        ),
+      ),
+
+      Spacer(),
+      Spacer(),
+      Spacer(),
+      Spacer(),
+
     ],
     ),
     SizedBox(
     height: 40,
     ),
+
+
+
     Row(
     children: [
     Container(
@@ -985,6 +1021,12 @@ class _HomeState extends State<Home> {
     ),
     ],
     ),
+
+
+
+
+
+
 
     SizedBox(
     height: 10,
@@ -1025,7 +1067,7 @@ class _HomeState extends State<Home> {
               .of(context)
               .size
               .height,
-          //  color: Colors.black12.withOpacity(0.1),
+          //  color: HexColor(ThemP.getcolor())12.withOpacity(0.1),
           ),
           ),
           child: LanguageProvider
@@ -1229,6 +1271,8 @@ class _HomeState extends State<Home> {
     try {
       var map = new Map<String, dynamic>();
       map['lan'] = LanguageProvider.getLanguage();
+      map['search'] = "all";
+
       http.Response res = await http.post(
         postsURL,
         body: map,
@@ -1305,13 +1349,16 @@ class _HomeState extends State<Home> {
   }
 
   _onItemTapped(int index) {
+
+
+    if(index != 1){
     setState(() {
       selectedIndex = index;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => nav[index]),
       );
-    });
+    });}
   }
 
   int selectedIndex = 1;
@@ -1398,7 +1445,7 @@ SizedBox(height: 20,),
                     color: HexColor(Globalvireables.white),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: HexColor(Globalvireables.basecolor),
+                        primary: HexColor(Provider.of<Them>(context, listen: false).getcolor()),
                       ),
                       child: Text(
                         Provider.of<Language>(context, listen: false).Llanguage('gochange'),
@@ -1619,7 +1666,7 @@ Spacer(),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .height,
-                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                  //  color: HexColor(ThemP.getcolor())12.withOpacity(0.1),
                                                 ),
                                               ),
                                               child: Row(
@@ -1659,32 +1706,48 @@ Spacer(),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .height,
-                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                  //  color: HexColor(ThemP.getcolor())12.withOpacity(0.1),
                                                 ),
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(10),
-                                                    child: Icon(
-                                                      Icons.person,
+
+                                              child:     SizedBox(
+                                                width: MediaQuery.of(context).size.width/1.6,
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: Icon(
+                                                        Icons.person,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(10),
-                                                    child: Center(child: Text(Doctor.fulLENAME.toString(),
-                                                      style: ArabicTextStyle(
-                                                          arabicFont: ArabicFont.tajawal,
-                                                          color: HexColor(Globalvireables.black2),
-                                                          fontSize: 18 * (MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height * 0.00122),
-                                                          fontWeight: FontWeight.w700),
-                                                    )),
-                                                  ),
-                                                ],
+
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(context).size.width/1.7
+                                                        ,
+                                                        child: Center(child: Text(Doctor.fulLENAME.toString(),
+
+                                                          maxLines: 3,
+                                                          overflow: TextOverflow.ellipsis,
+
+                                                          style: ArabicTextStyle(
+                                                              arabicFont: ArabicFont.tajawal,
+                                                              color: HexColor(Globalvireables.black2),
+                                                              fontSize: 18 * ( MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.00122),
+                                                              fontWeight: FontWeight.w700),
+                                                        )),
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),
                                               ),
+
+
 
                                             ),
                                           ),
@@ -1699,7 +1762,7 @@ Spacer(),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .height,
-                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                  //  color: HexColor(ThemP.getcolor())12.withOpacity(0.1),
                                                 ),
                                               ),
                                               child: Row(
@@ -1739,7 +1802,7 @@ Spacer(),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .height,
-                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                  //  color: HexColor(ThemP.getcolor())12.withOpacity(0.1),
                                                 ),
                                               ),
                                               child: Row(
@@ -1778,7 +1841,7 @@ Spacer(),
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .height,
-                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                  //  color: HexColor(ThemP.getcolor())12.withOpacity(0.1),
                                                 ),
                                               ),
                                               child: Row(
@@ -1843,6 +1906,7 @@ Spacer(),
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
+
       http.Response res = await http.post(
         postsURL,
         body: map,

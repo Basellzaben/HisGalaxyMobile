@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import '../Models/xRAYM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/ImgaeXrayProvider.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -51,6 +52,7 @@ class _XrayListState extends State<XrayList> {
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
+    if(homeP.getVisitDate().toString().length==10)
 
     dateinputC.text = homeP.getVisitDate();
   }
@@ -59,6 +61,7 @@ class _XrayListState extends State<XrayList> {
   Widget build(BuildContext context) {
 
     var ThemP = Provider.of<Them>(context, listen: false);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
@@ -216,7 +219,10 @@ class _XrayListState extends State<XrayList> {
                                   print(formattedDate + "formattedDate");
                                   setState(() {
                                     dateinputC.text = formattedDate
-                                        .toString(); //set output date to TextField value.
+                                        .toString();
+
+                                    print("DATE   "+dateinputC.text);
+                                    //set output date to TextField value.
                                   });
                                 } else {
                                   print("Date is not selected");
@@ -236,19 +242,17 @@ class _XrayListState extends State<XrayList> {
                             child: FutureBuilder(
                               future: getXrayList(
                                   context,
-                                  "300159",
+                                Loginprovider.userId,
                                   dateinputC.text.isEmpty ||
                                           dateinputC.text.toString() ==
                                               LanguageProvider.Llanguage(
                                                   'SearchbyDate')
                                       ? "20"
-                                      : retturndatenewformat(dateinputC.text),
+                                      : dateinputC.text.toString(),
 
-
-                              
                               ),
                               builder: (BuildContext context,
-                                  AsyncSnapshot<List<xRAYM>> snapshot) {
+                              AsyncSnapshot<List<xRAYM>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<xRAYM>? XrayList = snapshot.data;
                                   return XrayList!.isNotEmpty? ListView(
@@ -265,7 +269,7 @@ class _XrayListState extends State<XrayList> {
                                                     side: BorderSide(
                                                         color: HexColor(
                                                             ThemP.getcolor()),
-                                                        width: 2),
+                                                        width: 1),
                                                     borderRadius:
                                                         BorderRadius.circular(10),
                                                   ),
@@ -279,14 +283,9 @@ class _XrayListState extends State<XrayList> {
                                                               Align(
                                                                 alignment: Alignment
                                                                     .bottomCenter,
-                                                                child: Container(
+                                                                child: SizedBox(
                                                                   height: 40,
-                                                                  width: 100,
-                                                                  color: HexColor(
-                                                                      Globalvireables
-                                                                          .white),
-                                                                  child:
-                                                                      ElevatedButton(
+                                                                  child: ElevatedButton(
                                                                     style: ElevatedButton
                                                                         .styleFrom(
                                                                       primary: HexColor(
@@ -304,9 +303,16 @@ class _XrayListState extends State<XrayList> {
                                                                     ),
                                                                     onPressed:
                                                                         () async {
-                                                                          ImgaeXrayProvide.setpassno(inv.accN.toString());
-                                                                          ImgaeXrayProvide.setresult(inv.report.toString());
-                                                                          ImgaeXrayProvide.setdate(inv.sdate.toString());
+
+
+                                                                      print("imgggg  "+inv.placeholdeR_HTML.toString());
+                                                                      ImgaeXrayProvide.setPLACEHOLDER(inv.placeholder.toString());
+                                                                      ImgaeXrayProvide.setPLACEHOLDER_HTML(inv.placeholdeR_HTML.toString());
+                                                                      ImgaeXrayProvide.setpassno(inv.accN.toString());
+                                                                      ImgaeXrayProvide.setresult(inv.report.toString());
+                                                                      ImgaeXrayProvide.setdate(inv.sdate.toString());
+
+
                                                                           Navigator.push(
                                                                             context,
                                                                             MaterialPageRoute(
@@ -318,36 +324,79 @@ class _XrayListState extends State<XrayList> {
                                                                   ),
                                                                 ),
                                                               ),
+
                                                               SizedBox(
                                                                 width: 5,
                                                               ),
+
+
+
                                                               Expanded(
-                                                                child: Column(
+                                                                child: Row(
                                                                   children: [
+                                                                    Spacer(),
                                                                     Align(
                                                                       alignment: Alignment.topLeft,
                                                                       child: Text(
                                                                           textAlign: TextAlign.left,
-                                                                          inv.sdate.toString() == null
-                                                                           ||  inv.sdate.toString() == 'NULL'
-                                                                           || inv.sdate.toString() == 'null'? '' : inv.sdate.toString()
-                                                                            .trim(),
-                                                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,color: Colors.black,fontWeight: FontWeight.w900),),
-                                                                    ),
-                                                                    Align(
-                                                                      alignment: Alignment.topLeft,
-                                                                      child: Text(
-                                                                          textAlign: TextAlign.left,
-                                                                          inv.accN.toString() == null
-                                                                              ||  inv.accN.toString() == 'NULL'
-                                                                              || inv.accN.toString() ==
-                                                                              'null'? '' : inv.accN.toString()
+                                                                          inv.descr.toString() == null
+                                                                              ||  inv.descr.toString() == 'NULL'
+                                                                              || inv.descr.toString() ==
+                                                                              'null'? '' : inv.descr.toString()
                                                                               .trim()),
                                                                     ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.all(8.0),
+                                                                      child: Container(
+                                                                          color: HexColor(ThemP.getcolor()),
+                                                                          child: SizedBox(height: 50,width: 2,)),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      child: Row(
+                                                                        children: [
+
+                                                                          Column(
+                                                                            children: [
+                                                                              Text(
+                                                                                  textAlign: TextAlign
+                                                                                      .center,
+                                                                                  retMonth(inv.sdate.toString()),
+                                                                                  style: TextStyle(
+                                                                                      fontSize: 14,
+                                                                                      fontWeight: FontWeight
+                                                                                          .bold,
+                                                                                      height: 1)),
+                                                                              Text(
+                                                                                  textAlign: TextAlign
+                                                                                      .center,
+                                                                                  retYear(inv.sdate.toString()),
+                                                                                  style: TextStyle(
+                                                                                      fontSize: 14,
+                                                                                      height: 1)),
+                                                                            ],
+
+                                                                          ),
+
+                                                                          SizedBox(
+                                                                            width: 2,),
+                                                                          Text(
+                                                                            retDay(inv.sdate.toString()),
+                                                                            style: TextStyle(
+                                                                                fontSize: 30,
+                                                                                fontWeight: FontWeight
+                                                                                    .bold,
+                                                                                color: HexColor(
+                                                                                    ThemP
+                                                                                        .getcolor())),
+                                                                          )
+
+                                                                        ],),
+                                                                    )
                                                                   ],
                                                                 ),
                                                               ),
+
+
                                                             ],
                                                           ),
 
@@ -385,6 +434,8 @@ class _XrayListState extends State<XrayList> {
   Future<List<xRAYM>> getXrayList(
       BuildContext context, String patientid, String date) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    print("dateOfApi "+date);
 
     Uri postsURL = Uri.parse(Globalvireables.XrayListURL);
     try {
@@ -470,4 +521,60 @@ class _XrayListState extends State<XrayList> {
 
     return newMonth + "  " + d + " " + y;
   }
+
+
+  String retDay(String DATE) {
+    var parts = DATE.split('-');
+    String d = parts[2].trim().substring(0, 2);
+
+    return d.toString();
+  }
+
+
+  String retYear(String DATE) {
+    var parts = DATE.split('-');
+    String y = parts[0].trim();
+
+    return y.toString();
+  }
+  String dattw(String date){
+    var parts = date.split('-');
+    int y = int.parse(parts[0].trim());
+    int m = int.parse(parts[1].trim());
+    int d = int.parse(parts[2].trim());
+
+    return("");
+}
+  String retMonth(String DATE) {
+    String newMonth = "";
+    var parts = DATE.split('-');
+    int m = int.parse(parts[1].trim());
+    if (m == 1) {
+      newMonth = 'Jan';
+    } else if (m == 2) {
+      newMonth = 'Feb';
+    } else if (m == 3) {
+      newMonth = 'Mar';
+    } else if (m == 4) {
+      newMonth = 'Apr';
+    } else if (m == 5) {
+      newMonth = 'May';
+    } else if (m == 6) {
+      newMonth = 'Jun';
+    } else if (m == 7) {
+      newMonth = 'Jul';
+    } else if (m == 8) {
+      newMonth = 'Aug';
+    } else if (m == 9) {
+      newMonth = 'Sep';
+    } else if (m == 10) {
+      newMonth = 'Oct';
+    } else if (m == 11) {
+      newMonth = 'Nov';
+    } else if (m == 12) {
+      newMonth = 'Dec';
+    }
+    return newMonth.toString();
+  }
+
 }

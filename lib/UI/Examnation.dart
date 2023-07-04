@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 
 import '../Models/ExamnationM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/SingleEXAMProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
@@ -23,6 +24,7 @@ import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:arabic_font/arabic_font.dart';
+
 class Examnation extends StatefulWidget {
   @override
   State<Examnation> createState() => _ExamnationState();
@@ -51,16 +53,19 @@ class _ExamnationState extends State<Examnation> {
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-
+    if(homeP.getVisitDate().toString().length==10)
     dateinputC.text = homeP.getVisitDate();
   }
 
   @override
   Widget build(BuildContext context) {
-
     var ThemP = Provider.of<Them>(context, listen: false);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
-    double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
+    double unitHeightValue = MediaQuery
+        .of(context)
+        .size
+        .height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     var SINGLEEx = Provider.of<SingleEXAMProvider>(context, listen: false);
@@ -68,8 +73,14 @@ class _ExamnationState extends State<Examnation> {
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background.png",
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         fit: BoxFit.cover,
       ),
       Scaffold(
@@ -101,7 +112,7 @@ class _ExamnationState extends State<Examnation> {
             showUnselectedLabels: true,
             currentIndex: selectedIndex,
             selectedIconTheme:
-                IconThemeData(color: HexColor(Globalvireables.white)),
+            IconThemeData(color: HexColor(Globalvireables.white)),
             onTap: _onItemTapped,
           ),
           appBar: AppBar(
@@ -120,8 +131,14 @@ class _ExamnationState extends State<Examnation> {
           body: Directionality(
             textDirection: LanguageProvider.getDirection(),
             child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.15,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height / 1.15,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -136,8 +153,14 @@ class _ExamnationState extends State<Examnation> {
               child: SafeArea(
                 child: Container(
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 1.2,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 1.2,
                     decoration: BoxDecoration(
 
                       image: DecorationImage(
@@ -173,23 +196,24 @@ class _ExamnationState extends State<Examnation> {
                                                 'SearchbyDate');
                                       });
                                     },
-                                    child: Icon(color: Colors.redAccent,dateinputC.text.isEmpty ||
+                                    child: Icon(color: Colors.redAccent,
+                                        dateinputC.text.isEmpty ||
                                             dateinputC.text.toString() ==
                                                 LanguageProvider.Llanguage(
                                                     'SearchbyDate')
-                                        ? null
-                                        : Icons.cancel)),
+                                            ? null
+                                            : Icons.cancel)),
                                 border: OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color:
-                                            HexColor(ThemP.getcolor()),
+                                        HexColor(ThemP.getcolor()),
                                         width: 1.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color:
-                                            HexColor(ThemP.getcolor()),
+                                        HexColor(ThemP.getcolor()),
                                         width: 2.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 contentPadding: EdgeInsets.only(
@@ -197,7 +221,7 @@ class _ExamnationState extends State<Examnation> {
                                 fillColor: HexColor(Globalvireables.white),
                                 filled: true,
                                 hintText:
-                                    LanguageProvider.Llanguage("SearchbyDate"),
+                                LanguageProvider.Llanguage("SearchbyDate"),
                               ),
                               readOnly: true,
                               //set it true, so that user will not able to edit text
@@ -211,8 +235,8 @@ class _ExamnationState extends State<Examnation> {
 
                                 if (pickedDate != null) {
                                   String formattedDate =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
+                                  DateFormat('yyyy-MM-dd')
+                                      .format(pickedDate);
                                   print(formattedDate + "formattedDate");
                                   setState(() {
                                     dateinputC.text = formattedDate
@@ -231,149 +255,294 @@ class _ExamnationState extends State<Examnation> {
                             height: 13,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.11,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 1.11,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height / 1.2,
                             child: FutureBuilder(
                               future: getExamnation(
-                                  context,
-                                  "8",
-                                      dateinputC.text.isEmpty ||
-                                      dateinputC.text.toString() ==
-                                      LanguageProvider.Llanguage(
-                                      'SearchbyDate')
-                                      ? "202"
-                                      : dateinputC.text,
+                                context,
+                                Loginprovider.userId,
+                                  dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text
+
                               ),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<ExamnationM>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<ExamnationM>? Examnation = snapshot.data;
-                                  return Examnation!.isNotEmpty? ListView(
-                                    children: Examnation!
-                                        .map((ExamnationM inv) => SizedBox(
-                                            child: GestureDetector(
-                                         onTap: () {
+                                  return Examnation!.isNotEmpty ? Container(
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    child: ListView(
+                                      children: Examnation!
+                                          .map((ExamnationM inv) =>
+                                          SizedBox(
+                                              child: GestureDetector(
+                                                onTap: () {
 
-                                                  },
-                                              child: Card(
-                                                  color: Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color: HexColor(
-                                                            ThemP.getcolor()),
-                                                        width: 2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(10),
-                                                  ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(13),
-                                                    child: SizedBox(
-                                                      child: Column(
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              Align(
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child: Container(
-                                                                  height: 40,
-                                                                  width: 100,
-                                                                  color: HexColor(
-                                                                      Globalvireables
-                                                                          .white),
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary: HexColor(
-                                                                          ThemP.getcolor()),
-                                                                    ),
-                                                                    child: Text(
-                                                                      'Show',
-                                                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                          color: HexColor(Globalvireables
-                                                                              .white),
-                                                                          fontSize:
-                                                                              13 *
-                                                                                  unitHeightValue),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
+                                                },
+                                                child: Column(
+                                                  children: [
 
-                                                                          SINGLEEx.setDATE(inv.ExDate.toString());
-                                                                          SINGLEEx.setNORMALRANGE(inv.normalRange.toString());
-                                                                          SINGLEEx.setDOCTORNAME(inv.doctorName.toString());
-                                                                          SINGLEEx.setRESULT(inv.result.toString());
-                                                                          SINGLEEx.setUNIT(inv.unitDesc.toString());
-                                                                          SINGLEEx.setSERVDESC(inv.serVDESC.toString());
-
-                                                                          SINGLEEx.setServNo(inv.servNo.toString());
-                                                                          SINGLEEx.setOrderNo(inv.orederNo.toString());
-
-
-                                                                          if(inv.normalRange!="null"){
-                                                                            Navigator.push(
-                                                                              context,
-                                                                              MaterialPageRoute(
-                                                                                  builder: (context) => ExamnationSingle()),
-                                                                            );
-                                                                          }else{
-                                                                            Navigator.push(
-                                                                              context,
-                                                                              MaterialPageRoute(
-                                                                                  builder: (context) => ExamnationGroup()),
-                                                                            );
-                                                                          }
-
-
-
-                                                                        },
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-                                                              Expanded(
-                                                                child: Column(
+                                                    Card(
+                                                        color: Colors.white,
+                                                        shape: RoundedRectangleBorder(
+                                                          side: BorderSide(
+                                                              color: HexColor(
+                                                                  ThemP
+                                                                      .getcolor()),
+                                                              width: 1),
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                        ),
+                                                        child: Padding(
+                                                          padding: EdgeInsets.all(
+                                                              5),
+                                                          child: SizedBox(
+                                                            child: Column(
+                                                              children: [
+                                                                Row(
                                                                   children: [
                                                                     Align(
-                                                                      alignment: Alignment.topLeft,
-                                                                      child: Text(
-                                                                          textAlign: TextAlign.left,
-                                                                          inv.serVDESC.toString() == null
-                                                                           ||  inv.serVDESC.toString() == 'NULL'
-                                                                           || inv.serVDESC.toString() == 'null'? '' : inv.serVDESC.toString()
-                                                                            .trim(),
-                                                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,color: Colors.black,fontWeight: FontWeight.w900),),
+                                                                      alignment: Alignment
+                                                                          .bottomCenter,
+                                                                      child: Container(
+                                                                        height: 40,
+                                                                        width: 100,
+                                                                        color: HexColor(
+                                                                            Globalvireables
+                                                                                .white),
+                                                                        child:
+                                                                        ElevatedButton(
+                                                                          style: ElevatedButton
+                                                                              .styleFrom(
+                                                                            primary: HexColor(
+                                                                                ThemP
+                                                                                    .getcolor()),
+                                                                          ),
+                                                                          child: Text(
+                                                                            'Show',
+                                                                            style: ArabicTextStyle(
+                                                                                arabicFont: ArabicFont
+                                                                                    .tajawal,
+                                                                                color: HexColor(
+                                                                                    Globalvireables
+                                                                                        .white),
+                                                                                fontSize:
+                                                                                14 *
+                                                                                    unitHeightValue),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            SINGLEEx
+                                                                                .setDATE(
+                                                                                inv
+                                                                                    .ExDate
+                                                                                    .toString());
+                                                                            SINGLEEx
+                                                                                .setNORMALRANGE(
+                                                                                inv
+                                                                                    .normalRange
+                                                                                    .toString());
+                                                                            SINGLEEx
+                                                                                .setDOCTORNAME(
+                                                                                inv
+                                                                                    .doctorName
+                                                                                    .toString());
+                                                                            SINGLEEx
+                                                                                .setRESULT(
+                                                                                inv
+                                                                                    .result
+                                                                                    .toString());
+                                                                            SINGLEEx
+                                                                                .setUNIT(
+                                                                                inv
+                                                                                    .unitDesc
+                                                                                    .toString());
+                                                                            SINGLEEx
+                                                                                .setSERVDESC(
+                                                                                inv
+                                                                                    .serVDESC
+                                                                                    .toString());
+
+                                                                            SINGLEEx
+                                                                                .setServNo(
+                                                                                inv
+                                                                                    .servNo
+                                                                                    .toString());
+                                                                            SINGLEEx
+                                                                                .setOrderNo(
+                                                                                inv
+                                                                                    .orederNo
+                                                                                    .toString());
+
+
+                                                                            if (inv
+                                                                                .normalRange !=
+                                                                                "null") {
+                                                                              Navigator
+                                                                                  .push(
+                                                                                context,
+                                                                                MaterialPageRoute(
+                                                                                    builder: (
+                                                                                        context) =>
+                                                                                        ExamnationSingle()),
+                                                                              );
+                                                                            } else {
+                                                                              Navigator
+                                                                                  .push(
+                                                                                context,
+                                                                                MaterialPageRoute(
+                                                                                    builder: (
+                                                                                        context) =>
+                                                                                        ExamnationGroup()),
+                                                                              );
+                                                                            }
+                                                                          },
+                                                                        ),
+                                                                      ),
                                                                     ),
-                                                                    Align(
-                                                                      alignment: Alignment.topLeft,
-                                                                      child: Text(
-                                                                          textAlign: TextAlign.left,
-                                                                          inv.doctorName.toString() == null
-                                                                              ||  inv.doctorName.toString() == 'NULL'
-                                                                              || inv.doctorName.toString() ==
-                                                                              'null'? '' : "DR . "+inv.doctorName.toString()
-                                                                              .trim()),
+                                                                    SizedBox(
+                                                                      width: 5,
                                                                     ),
+                                                                    Expanded(
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                        child: Column(
+                                                                          children: [
+                                                                            Align(
+                                                                              alignment: Alignment
+                                                                                  .topLeft,
+                                                                              child: Text(
+                                                                                textAlign: TextAlign
+                                                                                    .left,
+                                                                                inv
+                                                                                    .serVDESC
+                                                                                    .toString() ==
+                                                                                    null
+                                                                                    ||
+                                                                                    inv
+                                                                                        .serVDESC
+                                                                                        .toString() ==
+                                                                                        'NULL'
+                                                                                    ||
+                                                                                    inv
+                                                                                        .serVDESC
+                                                                                        .toString() ==
+                                                                                        'null'
+                                                                                    ? ''
+                                                                                    : inv
+                                                                                    .serVDESC
+                                                                                    .toString()
+                                                                                    .trim(),
+                                                                                style: ArabicTextStyle(
+                                                                                    arabicFont: ArabicFont
+                                                                                        .tajawal,
+                                                                                    color: Colors
+                                                                                        .black,
+                                                                                    fontWeight: FontWeight
+                                                                                        .w900),),
+                                                                            ),
+                                                                            Align(
+                                                                              alignment: Alignment
+                                                                                  .topLeft,
+                                                                              child: Text(
+                                                                                  textAlign: TextAlign
+                                                                                      .left,
+                                                                                  inv
+                                                                                      .doctorName
+                                                                                      .toString() ==
+                                                                                      null
+                                                                                      ||
+                                                                                      inv
+                                                                                          .doctorName
+                                                                                          .toString() ==
+                                                                                          'NULL'
+                                                                                      ||
+                                                                                      inv
+                                                                                          .doctorName
+                                                                                          .toString() ==
+                                                                                          'null'
+                                                                                      ? ''
+                                                                                      : "DR . " +
+                                                                                      inv
+                                                                                          .doctorName
+                                                                                          .toString()
+                                                                                          .trim()),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+
+                                                                    Container(
+                                                                        color: HexColor(ThemP.getcolor()),
+                                                                        child: SizedBox(height: 50,width: 2,))
+,
+                                                                    Padding(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                      child: Row(
+                                                                        children: [
+
+                                                                          Column(
+                                                                            children: [
+                                                                              Text(
+                                                                                  textAlign: TextAlign
+                                                                                      .center,
+                                                                                  retMonth(inv.ExDate.toString()),
+                                                                                  style: TextStyle(
+                                                                                      fontSize: 15,
+                                                                                      fontWeight: FontWeight
+                                                                                          .bold,
+                                                                                      height: 1)),
+                                                                              Text(
+                                                                                  textAlign: TextAlign
+                                                                                      .center,
+                                                                                  retYear(inv.ExDate.toString()),
+                                                                                  style: TextStyle(
+                                                                                      fontSize: 15,
+                                                                                      height: 1)),
+                                                                            ],
+
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width: 2,),
+                                                                          Text(
+                                                                            retDay(inv.ExDate.toString()),
+                                                                            style: TextStyle(
+                                                                                fontSize: 30,
+                                                                                fontWeight: FontWeight
+                                                                                    .bold,
+                                                                                color: HexColor(
+                                                                                    ThemP
+                                                                                        .getcolor())),
+                                                                          )
+
+                                                                        ],),
+                                                                    )
+
                                                                   ],
                                                                 ),
-                                                              ),
-                                                            ],
+
+
+                                                              ],
+                                                            ),
                                                           ),
-
-
-
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )),
-                                            )))
-                                        .toList(),
-                                  ):Image.asset(
+                                                        )),
+                                                  ],
+                                                ),
+                                              )))
+                                          .toList(),
+                                    ),
+                                  ) : Image.asset(
                                     "assets/null.png",
                                     height: 100,
                                     width: 100,
@@ -396,8 +565,8 @@ class _ExamnationState extends State<Examnation> {
     ]);
   }
 
-  Future<List<ExamnationM>> getExamnation(
-      BuildContext context, String patientid, String date) async {
+  Future<List<ExamnationM>> getExamnation(BuildContext context,
+      String patientid, String date) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(Globalvireables.ExamnationURL);
     try {
@@ -417,7 +586,7 @@ class _ExamnationState extends State<Examnation> {
         List<ExamnationM> Examnation = body
             .map(
               (dynamic item) => ExamnationM.fromJson(item),
-            )
+        )
             .toList();
 
         return Examnation;
@@ -427,7 +596,8 @@ class _ExamnationState extends State<Examnation> {
     } catch (e) {
       await showDialog(
         context: context,
-        builder: (context) => new AlertDialog(
+        builder: (context) =>
+        new AlertDialog(
           title: new Text('بيانات الأطباء'),
           content: Text(e.toString()),
           actions: <Widget>[],
@@ -448,6 +618,55 @@ class _ExamnationState extends State<Examnation> {
     });
   }
 
+
+  String retDay(String DATE) {
+    var parts = DATE.split('-');
+    String d = parts[2].trim().substring(0, 2);
+
+    return d.toString();
+  }
+
+
+  String retYear(String DATE) {
+    var parts = DATE.split('-');
+    String y = parts[0].trim();
+
+    return y.toString();
+  }
+
+  String retMonth(String DATE) {
+    String newMonth = "";
+    var parts = DATE.split('-');
+    int m = int.parse(parts[1].trim());
+    if (m == 1) {
+      newMonth = 'Jan';
+    } else if (m == 2) {
+      newMonth = 'Feb';
+    } else if (m == 3) {
+      newMonth = 'Mar';
+    } else if (m == 4) {
+      newMonth = 'Apr';
+    } else if (m == 5) {
+      newMonth = 'May';
+    } else if (m == 6) {
+      newMonth = 'Jun';
+    } else if (m == 7) {
+      newMonth = 'Jul';
+    } else if (m == 8) {
+      newMonth = 'Aug';
+    } else if (m == 9) {
+      newMonth = 'Sep';
+    } else if (m == 10) {
+      newMonth = 'Oct';
+    } else if (m == 11) {
+      newMonth = 'Nov';
+    } else if (m == 12) {
+      newMonth = 'Dec';
+    }
+    return newMonth.toString();
+  }
+
+
   String retturndatenewformat(String DATE) {
     String newMonth = "";
     var parts = DATE.substring(0, 10).split('-');
@@ -456,29 +675,29 @@ class _ExamnationState extends State<Examnation> {
     String d = parts[2].trim();
 
     if (m == 1) {
-      newMonth = 'January';
+      newMonth = 'Jan';
     } else if (m == 2) {
-      newMonth = 'Februay';
+      newMonth = 'Feb';
     } else if (m == 3) {
-      newMonth = 'March';
+      newMonth = 'Mar';
     } else if (m == 4) {
-      newMonth = 'April';
+      newMonth = 'Apr';
     } else if (m == 5) {
       newMonth = 'May';
     } else if (m == 6) {
-      newMonth = 'June';
+      newMonth = 'Jun';
     } else if (m == 7) {
-      newMonth = 'July';
+      newMonth = 'Jul';
     } else if (m == 8) {
-      newMonth = 'August';
+      newMonth = 'Aug';
     } else if (m == 9) {
-      newMonth = 'September';
+      newMonth = 'Sep';
     } else if (m == 10) {
-      newMonth = 'October';
+      newMonth = 'Oct';
     } else if (m == 11) {
-      newMonth = 'November';
+      newMonth = 'Nov';
     } else if (m == 12) {
-      newMonth = 'December';
+      newMonth = 'Dec';
     }
 
     return newMonth + " " + d + "," + y;

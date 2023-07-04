@@ -9,7 +9,7 @@ import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import '../Models/prescptionM.dart';
+import '../Models/DrugInHos.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
 import '../provider/SingleEXAMProvider.dart';
@@ -20,12 +20,12 @@ import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:arabic_font/arabic_font.dart';
-class PRESCPTION extends StatefulWidget {
+class DrugInHOSPITAL extends StatefulWidget {
   @override
-  State<PRESCPTION> createState() => _PRESCPTIONState();
+  State<DrugInHOSPITAL> createState() => _DrugInHOSPITALState();
 }
 
-class _PRESCPTIONState extends State<PRESCPTION> {
+class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
   @override
   void initState() {
     setsearch(context);
@@ -108,7 +108,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
             elevation: 4.0,
             title: Widgets.Appbar(
                 context,
-                LanguageProvider.Llanguage('PRESCPTION'),
+                LanguageProvider.Llanguage('drugH'),
                 unitHeightValue,
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
@@ -232,7 +232,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                             width: MediaQuery.of(context).size.width / 1.11,
                             height: MediaQuery.of(context).size.height / 1.2,
                             child: FutureBuilder(
-                              future: getPRESCPTION(
+                              future: getDrugInHOSPITAL(
                                   context,
                                 Loginprovider.userId,
                                       dateinputC.text.isEmpty ||
@@ -243,17 +243,17 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                       : dateinputC.text,
                               ),
                               builder: (BuildContext context,
-                                  AsyncSnapshot<List<prescptionM>> snapshot) {
+                                  AsyncSnapshot<List<DrugInHos>> snapshot) {
                                 if (snapshot.hasData) {
-                                  List<prescptionM>? PRESCPTION = snapshot.data;
-                                  return PRESCPTION!.isNotEmpty? Container(
+                                  List<DrugInHos>? DrugInHOSPITAL = snapshot.data;
+                                  return DrugInHOSPITAL!.isNotEmpty? Container(
                                     margin: EdgeInsets.only(bottom: 100),
 
 
 
                                     child: ListView(
-                                      children: PRESCPTION!
-                                          .map((prescptionM inv) => SizedBox(
+                                      children: DrugInHOSPITAL!
+                                          .map((DrugInHos inv) => SizedBox(
                                               child: GestureDetector(
                                            onTap: () {
 
@@ -286,16 +286,14 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                 Spacer(),
                                                                 Spacer(),
 
-                                                                SizedBox(
-                                                                  child: Align(alignment: Alignment.center,child: SizedBox(width: MediaQuery.of(context).size.width/3.5,
-                                                                    child: Text( textAlign: TextAlign.left,inv.doctorname.toString(),
-                                                                      style: ArabicTextStyle(
-                                                                          arabicFont: ArabicFont.tajawal,fontWeight: FontWeight.w900,fontSize: 15*unitHeightValue,color: Colors.black),
-                                                                      maxLines: 3,
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                    ),
-                                                                  )),
-                                                                ),
+                                                                Align(alignment: Alignment.topLeft,child: SizedBox(width: MediaQuery.of(context).size.width/3.3,
+                                                                  child: Text( textAlign: TextAlign.left,inv.doctorname.toString(),
+                                                                    style: ArabicTextStyle(
+                                                                        arabicFont: ArabicFont.tajawal,fontWeight: FontWeight.w900,fontSize: 14*unitHeightValue,color: Colors.black),
+                                                                    maxLines: 3,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                  ),
+                                                                )),
                                                                 Padding(
                                                                   padding: const EdgeInsets.all(8.0),
                                                                   child: Container(
@@ -313,16 +311,16 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                   .center,
                                                                               retMonth(inv.cdate.toString()),
                                                                               style: TextStyle(
-                                                                                  fontSize: 15,
+                                                                                  fontSize: 14,
                                                                                   fontWeight: FontWeight
-                                                                                      .w900,
+                                                                                      .bold,
                                                                                   height: 1)),
                                                                           Text(
                                                                               textAlign: TextAlign
                                                                                   .center,
                                                                               retYear(inv.cdate.toString()),
                                                                               style: TextStyle(
-                                                                                  fontSize: 15,
+                                                                                  fontSize: 14,
                                                                                   height: 1)),
                                                                         ],
 
@@ -337,7 +335,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                             ),
                                                             children: [
                                                               Column(children: [
-                                                                for(int i=0;i<inv.prescptionHdrModels!.length;i++)
+                                                                for(int i=0;i<inv.drugHosAllModelS!.length;i++)
                                                                   Padding(
                                                                     padding: const EdgeInsets.only(top: 12),
                                                                     child: Column(
@@ -374,7 +372,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                   Text(
                                                                                                     textAlign: TextAlign.center,
 
-                                                                                                    inv.prescptionHdrModels![i].dos.toString(),
+                                                                                                      inv.drugHosAllModelS![i].dos.toString()=='null'||inv.drugHosAllModelS![i].dos==null ?inv.drugHosAllModelS![i].dos.toString():"",
                                                                                                     style: ArabicTextStyle(
                                                                                                         arabicFont: ArabicFont.tajawal,
                                                                                                         fontSize:
@@ -400,8 +398,8 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                   fontSize: 22 * unitHeightValue)),
                                                                                         Text(
                                                                                                 textAlign: TextAlign.center,
-                                                                                                inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
-                                                                                                +inv.prescptionHdrModels![i].unit.toString(),
+                                                                                                inv.drugHosAllModelS![i].qt.toString().substring(0,3)+" "
+                                                                                                +inv.drugHosAllModelS![i].unit.toString(),
                                                                                                 style: ArabicTextStyle(
                                                                                                 arabicFont: ArabicFont.tajawal,
                                                                                                 fontSize:
@@ -435,7 +433,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                               child: SizedBox(
                                                                                 width:MediaQuery.of(context).size.width/1.7,
                                                                                 child: Text( textAlign: TextAlign.left,maxLines: 3,
-                                                                                  overflow: TextOverflow.ellipsis,inv.prescptionHdrModels![i].cname.toString(),style: ArabicTextStyle(
+                                                                                  overflow: TextOverflow.ellipsis,inv.drugHosAllModelS![i].cname.toString(),style: ArabicTextStyle(
                                                                                       arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),),
                                                                               ),
                                                                             ),
@@ -468,7 +466,6 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                     ),
                                                                   ),
 
-SizedBox(height: 18,)
 
                                                               ],),
                                                             ],
@@ -511,7 +508,7 @@ SizedBox(height: 18,)
                                                                                 ),
                                                                               ),
 
-                                                                              for(int i=0;i<inv.prescptionHdrModels!.length;i++)
+                                                                              for(int i=0;i<inv.DrugInHOSPITALHdrModels!.length;i++)
                                                                                 Padding(
                                                                                   padding: const EdgeInsets.only(top: 12),
                                                                                   child: Column(
@@ -544,7 +541,7 @@ SizedBox(height: 18,)
                                                                                                         content: Text(
                                                                                                           textAlign: TextAlign.center,
 
-                                                                                                          inv.prescptionHdrModels![i].dos.toString(),
+                                                                                                          inv.DrugInHOSPITALHdrModels![i].dos.toString(),
                                                                                                           style: ArabicTextStyle(
                                                                                                               arabicFont: ArabicFont.tajawal,
                                                                                                               fontSize:
@@ -573,7 +570,7 @@ SizedBox(height: 18,)
                                                                                                child: SizedBox(
                                                                                                  width:MediaQuery.of(context).size.width/1.7,
                                                                                                  child: Text( textAlign: TextAlign.left,maxLines: 3,
-                                                                                                   overflow: TextOverflow.ellipsis,inv.prescptionHdrModels![i].cname.toString(),style: ArabicTextStyle(
+                                                                                                   overflow: TextOverflow.ellipsis,inv.DrugInHOSPITALHdrModels![i].cname.toString(),style: ArabicTextStyle(
                                                                                                         arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),),
                                                                                                ),
                                                                                              ),
@@ -653,10 +650,10 @@ SizedBox(height: 18,)
     ]);
   }
 
-  Future<List<prescptionM>> getPRESCPTION(
+  Future<List<DrugInHos>> getDrugInHOSPITAL(
       BuildContext context, String patientid, String date ) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.prescptionURL);
+    Uri postsURL = Uri.parse(Globalvireables.DrugInHOSPITALURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
@@ -667,32 +664,32 @@ SizedBox(height: 18,)
       );
 
       if (res.statusCode == 200) {
-        print("PRESCPTION" + res.body.toString());
+        print("DrugInHOSPITAL" + res.body.toString());
 
         List<dynamic> body = jsonDecode(res.body);
 
-        List<prescptionM> PRESCPTION = body
+        List<DrugInHos> DrugInHOSPITAL = body
             .map(
-              (dynamic item) => prescptionM.fromJson(item),
+              (dynamic item) => DrugInHos.fromJson(item),
             )
             .toList();
 
-        return PRESCPTION;
+        return DrugInHOSPITAL;
       } else {
-        throw "Unable to retrieve PRESCPTION." + res.statusCode.toString();
+        throw "Unable to retrieve DrugInHOSPITAL." + res.statusCode.toString();
       }
     } catch (e) {
       await showDialog(
         context: context,
         builder: (context) => new AlertDialog(
-          title: new Text('بيانات الأطباء'),
+          title: new Text('العلاجات'),
           content: Text(e.toString()),
           actions: <Widget>[],
         ),
       );
     }
 
-    throw "Unable to retrieve PRESCPTION.";
+    throw "Unable to retrieve DrugInHOSPITAL.";
   }
 
   _onItemTapped(int index) {

@@ -10,10 +10,10 @@ class InsuranceM {
   double? servicePercent;
   double? suppliesPercent;
   double? dischargePercent;
-  Null? companyEmpName;
+  String? companyEmpName;
   String? payoRNAMEA;
   String? payoRNAMEE;
-  Null? pPatientInsurncesModel;
+  String? pPatientInsurncesModel;
 
   InsuranceM(
       {this.payorType,

@@ -92,29 +92,20 @@ var LanguageProvider = Provider.of<Language>(context, listen: false);
                             children: [
                               Center(
                                 child: Container(
-                                    decoration: BoxDecoration(
 
-                                      image: DecorationImage(
-                                        image: AssetImage("assets/background.png"),
-                                        fit: BoxFit.cover,),
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(0.0),
-                                          bottomRight: Radius.circular(29.0),
-                                          topLeft: Radius.circular(0.0),
-                                          bottomLeft: Radius.circular(29.0)),
-                                    ),
                                     width:
-                                        MediaQuery.of(context).size.width / 2.3,
+                                        MediaQuery.of(context).size.width / 2,
                                     height:
-                                        MediaQuery.of(context).size.width / 2.3,
+                                        MediaQuery.of(context).size.width / 2,
                                     child: Image(
                                         image: new AssetImage(
                                          "assets/esraalogo.png"))),
                               ),
           Container(
               alignment:Alignment.center,
-margin: EdgeInsets.only(top: 5),
+margin: EdgeInsets.only(top: 0),
               child: Text(
+    textAlign: TextAlign.center,
                   LanguageProvider.Llanguage("AlEsraaHospital"),
                   style: ArabicTextStyle(
                       arabicFont: ArabicFont.tajawal,
@@ -378,13 +369,16 @@ margin: EdgeInsets.only(top: 5),
                                             );
                                            if(didAuthenticate && check){
 
-                                          Navigator.of(context).pushAndRemoveUntil(
+    prefs = await SharedPreferences.getInstance();
+                                             Login(prefs.getString('username'),prefs.getString('password'),context);
+
+                                      /*    Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                           builder: (context) => Home(),
                                           ),
                                           (Route<dynamic> route) => false);
 
-
+*/
 
                                           }else{
                                              showDialog(
@@ -523,6 +517,10 @@ margin: EdgeInsets.only(top: 5),
         ));
 
 
+    print("UUSER" + username.toString());
+    print("PPass" + password.toString());
+
+
     var map = new Map<String, dynamic>();
     map['username'] = username;
     map['password'] = password;
@@ -534,9 +532,7 @@ margin: EdgeInsets.only(top: 5),
       Uri apiUrl = Uri.parse(Globalvireables.loginAPI);
 
       http.Response response = await http
-          .post(apiUrl, body: json.encode(map),  headers: {
-        "content-type" : "application/json",
-      },)
+          .post(apiUrl, body:map,  )
           .whenComplete(() => Navigator.pop(context));
 
       var jsonResponse = jsonDecode(response.body);

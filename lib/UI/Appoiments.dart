@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 
 import '../Models/AppoimentsM.dart';
 import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -55,6 +56,7 @@ var state=false;
 
   @override
   Widget build(BuildContext context) {
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
@@ -221,7 +223,7 @@ child: Row(children: [
                             child: FutureBuilder(
                               future: getAppoiments(
                                 context,
-                                "8","20"
+                                 "40093","20"
 
                               ),
                               builder: (BuildContext context, AsyncSnapshot<List<AppoimentsM>> snapshot) {
@@ -236,20 +238,23 @@ child: Row(children: [
                                           onTap: () {
 
 
-
                                           },
                                           child: Column(
-                                            children: [
-                                              SizedBox(height: 10,),
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: Text(
-                                                    textAlign: TextAlign.left,
-                                                    inv.sessionDate.toString() == null
-                                                        ||  inv.sessionDate.toString() == 'NULL'
-                                                        || inv.sessionDate.toString() ==
-                                                        'null'? '' : retturndatenewformat(inv.sessionDate.toString())
-                                                        .trim()),
+                                           children: [
+                                           SizedBox(height: 10,),
+                                           Padding(
+                                           padding: const EdgeInsets.all(8.0),
+                                           child: Align(
+                                           alignment: Alignment.topLeft,
+                                           child: Text(
+                                           textAlign: TextAlign.left,
+                                           inv.sessionDate.toString() == null
+                                           ||  inv.sessionDate.toString() == 'NULL'
+                                           || inv.sessionDate.toString() ==
+                                           'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length)
+
+                                                          .trim()),
+                                                ),
                                               ),
                                               Card(
                                                   color: Colors.white,
@@ -257,7 +262,7 @@ child: Row(children: [
                                                     side: BorderSide(
                                                         color: HexColor(
                                                             ThemP.getcolor()),
-                                                        width: 2),
+                                                        width: 1),
                                                     borderRadius:
                                                     BorderRadius.circular(10),
                                                   ),
@@ -296,6 +301,52 @@ child: Row(children: [
                                                                   ],
                                                                 ),
                                                               ),
+                                                              Padding(
+                                                                padding: const EdgeInsets.all(8.0),
+                                                                child: Container(
+                                                                    color: HexColor(ThemP.getcolor()),
+                                                                    child: SizedBox(height: 50,width: 2,)),
+                                                              ),
+                                                              SizedBox(
+                                                                child: Row(
+                                                                  children: [
+                                                                    Column(
+                                                                      children: [
+                                                                        Text(
+                                                                            textAlign: TextAlign
+                                                                                .center,
+                                                                            retMonth(inv.sessionDate.toString()),
+                                                                            style: TextStyle(
+                                                                                fontSize: 14,
+                                                                                fontWeight: FontWeight
+                                                                                    .bold,
+                                                                                height: 1)),
+                                                                        Text(
+                                                                            textAlign: TextAlign
+                                                                                .center,
+                                                                            retYear(inv.sessionDate.toString()),
+                                                                            style: TextStyle(
+                                                                                fontSize: 14,
+                                                                                height: 1)),
+                                                                      ],
+
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 2,),
+                                                                    Text(
+                                                                      retDay(inv.sessionDate.toString()),
+                                                                      style: TextStyle(
+                                                                          fontSize: 30,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color: HexColor(
+                                                                              ThemP
+                                                                                  .getcolor())),
+                                                                    )
+
+                                                                  ],),
+                                                              )
+,
                                                             ],
                                                           ),
 
@@ -338,14 +389,14 @@ child: Row(children: [
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(Globalvireables.AppoimentsURL);
     try {
-      String state1='3247';
+      String state1='3649';
       String state2='2';
 
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['searchDate'] = date;
       if(state){
-        state1='3248';
+        state1='3650';
         state2='1';
       }
       map['state'] = state1;
@@ -429,4 +480,54 @@ child: Row(children: [
 
     return newMonth + " " + d + "," + y;
   }
+
+
+
+  String retDay(String DATE) {
+    var parts = DATE.split('-');
+    String d = parts[2].trim().substring(0, 2);
+
+    return d.toString();
+  }
+
+
+  String retYear(String DATE) {
+    var parts = DATE.split('-');
+    String y = parts[0].trim();
+
+    return y.toString();
+  }
+
+  String retMonth(String DATE) {
+    String newMonth = "";
+    var parts = DATE.split('-');
+    int m = int.parse(parts[1].trim());
+    if (m == 1) {
+      newMonth = 'Jan';
+    } else if (m == 2) {
+      newMonth = 'Feb';
+    } else if (m == 3) {
+      newMonth = 'Mar';
+    } else if (m == 4) {
+      newMonth = 'Apr';
+    } else if (m == 5) {
+      newMonth = 'May';
+    } else if (m == 6) {
+      newMonth = 'Jun';
+    } else if (m == 7) {
+      newMonth = 'Jul';
+    } else if (m == 8) {
+      newMonth = 'Aug';
+    } else if (m == 9) {
+      newMonth = 'Sep';
+    } else if (m == 10) {
+      newMonth = 'Oct';
+    } else if (m == 11) {
+      newMonth = 'Nov';
+    } else if (m == 12) {
+      newMonth = 'Dec';
+    }
+    return newMonth.toString();
+  }
+
 }

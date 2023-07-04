@@ -15,7 +15,7 @@ class Globalvireables {
   static String secondcolor2="#d0e8ee";
   static String connectIP="10.0.1.120:9999";
 
-  static String loginAPI="http://"+Globalvireables.connectIP+"/api/auth/login";
+  static String loginAPI="http://"+Globalvireables.connectIP+"/api/auth/Mobilelogin";
   static String DoctorsURL="http://"+Globalvireables.connectIP+"/api/Doctor/GetDoctors";
   static String InsuranceURL="http://"+Globalvireables.connectIP+"/api/PatientInsurances/GetPatientInsurances";
   static String VitalSignsURL="http://"+Globalvireables.connectIP+"/api/VitalSigns/GetVitalSigns";
@@ -30,6 +30,7 @@ class Globalvireables {
 
   static String prescptionURL="http://"+Globalvireables.connectIP+"/api/prespction/GetPrespction";
   static String ChangePassURL="http://"+Globalvireables.connectIP+"/api/PasswordCangeController/PasswordCange";
+  static String DrugInHOSPITALURL="http://"+Globalvireables.connectIP+"/api/prespctionHoo/GetprespctionHoo";
 
 
   static String them1="#229954";

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,15 @@ import '../widget/Widgets.dart';
 import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+
+
 
 class ExamnationGroup extends StatefulWidget {
   @override
@@ -73,6 +84,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
     print(pngBytes);
   }
 
+  final GlobalKey<State<StatefulWidget>> _printKey = GlobalKey();
 
   void _takeScreenshot() async {
     RenderRepaintBoundary boundary =
@@ -82,14 +94,27 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     if (byteData != null) {
       Uint8List pngBytes = byteData.buffer.asUint8List();
+    //  makePdf(pngBytes);
+
+
+
+
+
+    showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    return  PdfPreview(
+      build: (context) => makePdf(pngBytes),
+    );
+    },
+    );
 
       // Saving the screenshot to the gallery
-      final result = await ImageGallerySaver.saveImage(
+     /* final result = await ImageGallerySaver.saveImage(
           Uint8List.fromList(pngBytes),
           quality: 90,
-          name: 'screenshot-${DateTime.now()}.png');
-
-        print(result.toString() +"  resssult");
+          name: 'screenshot-${DateTime.now()}.pdf');
+        print(result.toString() +"  resssult");*/
 
     }
   }
@@ -200,13 +225,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                           RepaintBoundary(
                             key: globalKey,
                             child: Column(children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Image.asset(
-                                "assets/hdr.jpg",
-                                width: MediaQuery.of(context).size.width,
-                              ),
+
                               Container(
                                 color: Colors.white,
                                 child: SizedBox(
@@ -214,6 +233,51 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(children: [
+                                      Row(
+                                        children: [
+                                          Spacer(),
+                                          Spacer(),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                'MARKA SPECIALITY HOSPITAL',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    color: HexColor(Globalvireables
+                                                        .black),
+                                                    fontSize:
+                                                    12 *
+                                                        unitHeightValue),
+                                              ),
+                                              Text(
+
+                                                'Patient Laboratory Tests',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    color: HexColor(Globalvireables
+                                                        .black),
+                                                    fontSize:
+                                                    12 *
+                                                        unitHeightValue),
+                                              ),
+
+
+
+
+
+
+                                            ],
+                                          ),
+                                          Spacer(),
+                                          Container(
+                                              width:60,
+                                              height:60,
+                                              child: Image(
+                                                  image: new AssetImage(
+                                                      "assets/esraalogo.png")))
+                                        ],
+                                      ),
+                                      Divider(thickness: 1.0, color: Colors.black),
                                       SizedBox(height: 5,),
                                       Row(children: [ Text(
                                         'Patient Name : ',
@@ -345,7 +409,7 @@ SizedBox(height: 6,),
                                         child: FutureBuilder(
                                           future: getExamnation(
                                             context,
-                                            "8",
+                                            Loginprovider.userId,
                                               '20',
                                               SINGLEEx.getOrderNo(),
                                               SINGLEEx.getServNo(),
@@ -453,6 +517,10 @@ SizedBox(height: 6,),
 
                           ),*/
 
+
+
+
+
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
@@ -540,7 +608,6 @@ SizedBox(height: 6,),
   }
   Future<List<ExamnationGroupM>> getExamnation(
       BuildContext context, String patientid, String date,String orderNo,String ServNo) async {
-    var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(Globalvireables.ExamnatioGroupURL);
     try {
       var map = new Map<String, dynamic>();
@@ -554,7 +621,7 @@ SizedBox(height: 6,),
       );
 
       if (res.statusCode == 200) {
-        print("ExamnationG" + res.body.toString());
+        print("ExamnationG" + map.toString());
 
         List<dynamic> body = jsonDecode(res.body);
 
@@ -581,5 +648,52 @@ SizedBox(height: 6,),
 
     throw "Unable to retrieve Examnation.";
   }
+
+  ////////////////////////////////////////////////
+
+
+
+  Future<Uint8List> makePdf(Uint8List byteList) async {
+    final pdf = pw.Document();
+    pdf.addPage(
+        pw.Page(
+            margin: const pw.EdgeInsets.all(10),
+            pageFormat: PdfPageFormat.a4,
+            build: (context) {
+              return  pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
+
+            }
+        ));
+    return pdf.save();
+  }
+
+  Future<Uint8List> makePdf2() async {
+    final pdf = pw.Document();
+    final ByteData bytes = await rootBundle.load('assets/fotter.jpg');
+    final Uint8List byteList = bytes.buffer.asUint8List();
+    pdf.addPage(
+        pw.Page(
+            margin: const pw.EdgeInsets.all(10),
+            pageFormat: PdfPageFormat.a4,
+            build: (context) {
+              return pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.Header(text: "About Cat", level: 1),
+                          pw.Image(pw.MemoryImage(byteList), fit: pw.BoxFit.fitHeight, height: 100, width: 100)
+                        ]
+                    ),
+                    pw.Divider(borderStyle: pw.BorderStyle.dashed),
+                    pw.Paragraph(text: 'text'),
+                  ]
+              );
+            }
+        ));
+    return pdf.save();
+  }
+
 
 }

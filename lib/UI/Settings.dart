@@ -515,12 +515,13 @@ Spacer(),
     ]);
   }
   _onItemTapped(int index) {
+    if(index != 0){
     setState(() {
       selectedIndex = index;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => nav[index]),);
-    });
+    });}
   }
   int selectedIndex = 1;
 
@@ -736,196 +737,7 @@ SizedBox(height: 15,),
           );
         });
 
-/*
-    AlertDialog alert = AlertDialog(
-      content: Container(
-        height: 200,
-        child: Column(
-          children: [
 
-            Row(children: [
-
-              Container(
-                child: GestureDetector(
-                    onTap: () {
-
-                      Navigator.pop(context);
-
-                    }, child: Container(child: Icon(Icons.clear))),
-              ),
-              Spacer(),
-              Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(Provider.of<Language>(context, listen: false).Llanguage('selectcolor'))
-              ),
-
-            ],),
-            Spacer(),
-            Spacer(),
-            Row(
-              children: [
-                Spacer(),
-                GestureDetector(
-                    onTap: () async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString('them', Globalvireables.basecolor);
-
-                        Provider.of<Them>(context, listen: false).setcolor(Globalvireables.basecolor);
-                        Navigator.pop(context);
-
-                        setState(() {   });
-                        setState(() {
-
-                        });
-
-                    }, child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: HexColor(Globalvireables.basecolor),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                        bottomRight: Radius.circular(100.0),
-                        topLeft: Radius.circular(100.0),
-                        bottomLeft: Radius.circular(100.0)),
-                  ),
-                )),
-                Spacer(),
-                GestureDetector(
-                    onTap: () async {
-                      var prefs = await SharedPreferences.getInstance();
-                      prefs.setString('them', Globalvireables.them1);
-                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them1);
-
-                      Navigator.pop(context);
-                      setState(() {
-
-                      });
-                    }, child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color:HexColor(Globalvireables.them1),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                        bottomRight: Radius.circular(100.0),
-                        topLeft: Radius.circular(100.0),
-                        bottomLeft: Radius.circular(100.0)),
-                  ),
-                )),
-                Spacer(),
-                GestureDetector(
-                    onTap: () async {
-                      var prefs = await SharedPreferences.getInstance();
-                      prefs.setString('them', Globalvireables.them2);
-                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them2);
-
-                      Navigator.pop(context);
-                      setState(() {
-
-                      });
-                    }, child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: HexColor(Globalvireables.them2),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                        bottomRight: Radius.circular(100.0),
-                        topLeft: Radius.circular(100.0),
-                        bottomLeft: Radius.circular(100.0)),
-                  ),
-                )),
-                Spacer(),
-              ],
-            ),
-            Spacer(),
-
-            Row(
-              children: [
-                Spacer(),
-                GestureDetector(
-                    onTap: () async {
-                      var prefs = await SharedPreferences.getInstance();
-                      prefs.setString('them', Globalvireables.them3);
-                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them3);
-
-                      Navigator.pop(context);
-                      setState(() {
-
-                      });
-
-                    }, child:Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: HexColor(Globalvireables.them3),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                        bottomRight: Radius.circular(100.0),
-                        topLeft: Radius.circular(100.0),
-                        bottomLeft: Radius.circular(100.0)),
-                  ),
-                )),
-                Spacer(),
-                GestureDetector(
-                    onTap: () async {
-                      var prefs = await SharedPreferences.getInstance();
-                      prefs.setString('them', Globalvireables.them4);
-                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them4);
-                      Navigator.pop(context);
-setState(() {
-
-});
-                    }, child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: HexColor(Globalvireables.them4),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                        bottomRight: Radius.circular(100.0),
-                        topLeft: Radius.circular(100.0),
-                        bottomLeft: Radius.circular(100.0)),
-                  ),
-                )),
-                Spacer(),
-                GestureDetector(
-                    onTap: () async {
-                      var prefs = await SharedPreferences.getInstance();
-                      prefs.setString('them', Globalvireables.them5);
-                      Provider.of<Them>(context, listen: false).setcolor(Globalvireables.them5);
-
-                      Navigator.pop(context);
-                      setState(() {
-
-                      });
-                    },  child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: HexColor(Globalvireables.them5),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(100.0),
-                        bottomRight: Radius.circular(100.0),
-                        topLeft: Radius.circular(100.0),
-                        bottomLeft: Radius.circular(100.0)),
-                  ),
-                )),
-                Spacer()
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-    showDialog(
-      barrierDismissible: true,
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );*/
   }
 
 
