@@ -147,285 +147,466 @@ class _InsuranceState extends State<Insurance> {
                                   AsyncSnapshot<List<InsuranceM>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<InsuranceM>? Insurance = snapshot.data;
-                                  return ListView(
-                                    children: Insurance!
-                                        .map((InsuranceM insurance) => SizedBox(
-                                                child: Column(children: [
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.account_balance,
-                                                    size: 40 * unitHeightValue,
-                                                    color: HexColor(
-                                                       ThemP.getcolor()),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: SizedBox(
-                                                      width: MediaQuery.of(context).size.width/1.4,
+                                  return Insurance!.isNotEmpty? Container(
+                                    margin: EdgeInsets.only(bottom: 70),
+                                    child: ListView(
+                                      children: Insurance!
+                                          .map((InsuranceM insurance) => SizedBox(
+                                                  child: Column(children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.account_balance,
+                                                      size: 40 * unitHeightValue,
+                                                      color: HexColor(
+                                                         ThemP.getcolor()),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(top: 8.0,left: 8.0,right: 8.0),
+                                                          child: SizedBox(
+                                                            width: MediaQuery.of(context).size.width/1.4,
+                                                            child: Text(
+                                                              maxLines: 3,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              LanguageProvider.getLanguage() == "AR"
+                                                                  ? insurance.payoRNAMEA.toString()+""
+                                                                  : insurance.payoRNAMEE
+                                                                  .toString(),
+                                                              style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,
+                                                                  fontWeight: FontWeight.w900,
+                                                                  fontSize: 19 * unitHeightValue
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                       SizedBox(
+                                                          width: MediaQuery.of(context).size.width/1.4,
+                                                          child: Text(
+                                                            maxLines: 3,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            LanguageProvider.getLanguage() == "AR"
+                                                                ? insurance.carde.toString()+""
+                                                                : insurance.carde
+                                                                .toString(),
+                                                            style: ArabicTextStyle(
+                                                                arabicFont: ArabicFont.tajawal,
+                                                                fontWeight: FontWeight.w900,
+                                                                fontSize: 14 * unitHeightValue
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
                                                       child: Text(
-                                                        maxLines: 3,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        LanguageProvider.getLanguage() == "AR"
-                                                            ? insurance.payoRNAMEA.toString()+""
-                                                            : insurance.payoRNAMEE
-                                                            .toString(),
+                                                        LanguageProvider
+                                                                    .getLanguage() ==
+                                                                "AR"
+                                                            ? "معلومات التامين :"
+                                                            : "Insurance information :",
                                                         style: ArabicTextStyle(
-                                                            arabicFont: ArabicFont.tajawal,
-                                                            fontWeight: FontWeight.w900,
-                                                            fontSize: 19 * unitHeightValue
+            arabicFont: ArabicFont.tajawal,
+                                                          fontSize: 18 *
+                                                              unitHeightValue,
                                                         ),
                                                       ),
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    child: Text(
-                                                      LanguageProvider
-                                                                  .getLanguage() ==
-                                                              "AR"
-                                                          ? "معلومات التامين :"
-                                                          : "Insurance information :",
-                                                      style: ArabicTextStyle(
+                                                    Spacer()
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 30 * unitHeightValue,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Spacer(),
+                                                    SizedBox(
+                                                      child: Column(
+                                                        children: [
+                                                          CircularPercentIndicator(
+                                                            radius: 60.0 *
+                                                                unitHeightValue,
+                                                            lineWidth: 15.0,
+                                                            percent:( (100-double.parse(
+                                                                    insurance
+                                                                        .labPercent
+                                                                        .toString()
+
+
+                                                            ) )/
+                                                                100),
+                                                            center: new Text(
+                                                                (100- double.parse(insurance.labPercent.toString()))
+                                                                  .toString(),
+                                                              style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                                        fontSize: 18 *
-                                                            unitHeightValue,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                  fontSize: 18 *
+                                                                      unitHeightValue),
+                                                            ),
+                                                            progressColor: HexColor(
+                                                               ThemP.getcolor()),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            LanguageProvider
+                                                                        .getLanguage() ==
+                                                                    "AR"
+                                                                ? "المختبر"
+                                                                : "lab",
+                                                            style: ArabicTextStyle(
+                                                                arabicFont: ArabicFont.tajawal,
+                                                                fontWeight:
+                                                                FontWeight.w700,
+                                                                fontSize: 18 * unitHeightValue
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                  Spacer()
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 30 * unitHeightValue,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Spacer(),
-                                                  SizedBox(
-                                                    child: Column(
-                                                      children: [
-                                                        CircularPercentIndicator(
-                                                          radius: 60.0 *
-                                                              unitHeightValue,
-                                                          lineWidth: 15.0,
-                                                          percent: double.parse(
-                                                                  insurance
-                                                                      .labPercent
-                                                                      .toString()) /
-                                                              100,
-                                                          center: new Text(
-                                                            insurance.labPercent
-                                                                .toString(),
+                                                    Spacer(),
+                                                    Spacer(),
+                                                    Spacer(),
+                                                    Spacer(),
+                                                    SizedBox(
+                                                      child: Column(
+                                                        children: [
+                                                          CircularPercentIndicator(
+                                                            radius: 60.0 *
+                                                                unitHeightValue,
+                                                            lineWidth: 15.0,
+                                                            percent:
+                                                              (100-double.parse(
+                                                                insurance
+                                                                    .pharmacyPercent
+                                                                    .toString()
+
+
+                                                            ) )
+                                                                /
+                                                                100,
+                                                            center: new Text(
+                                                                (100- double.parse(insurance.pharmacyPercent.toString()))
+                                                                    .toString()
+                                                           ,
+                                                              style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                  fontSize: 18 *
+                                                                      unitHeightValue),
+                                                            ),
+                                                            progressColor: HexColor(
+                                                               ThemP.getcolor()),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            LanguageProvider
+                                                                        .getLanguage() ==
+                                                                    "AR"
+                                                                ? "الصيدلية"
+                                                                : "pharmacy",
                                                             style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w900,
+                                                                        .w700,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
-                                                          ),
-                                                          progressColor: HexColor(
-                                                             ThemP.getcolor()),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          LanguageProvider
-                                                                      .getLanguage() ==
-                                                                  "AR"
-                                                              ? "المختبر"
-                                                              : "lab",
-                                                          style: ArabicTextStyle(
-                                                              arabicFont: ArabicFont.tajawal,
-                                                              fontWeight:
-                                                              FontWeight.w700,
-                                                              fontSize: 18 * unitHeightValue
-                                                          ),
-                                                        )
-                                                      ],
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Spacer(),
-                                                  Spacer(),
-                                                  Spacer(),
-                                                  Spacer(),
-                                                  SizedBox(
-                                                    child: Column(
-                                                      children: [
-                                                        CircularPercentIndicator(
-                                                          radius: 60.0 *
-                                                              unitHeightValue,
-                                                          lineWidth: 15.0,
-                                                          percent: double.parse(
-                                                                  insurance
-                                                                      .pharmacyPercent
-                                                                      .toString()) /
-                                                              100,
-                                                          center: new Text(
-                                                            insurance
-                                                                .pharmacyPercent
-                                                                .toString(),
+                                                    Spacer(),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 30 * unitHeightValue,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Spacer(),
+                                                    SizedBox(
+                                                      child: Column(
+                                                        children: [
+                                                          CircularPercentIndicator(
+                                                            radius: 60.0 *
+                                                                unitHeightValue,
+                                                            lineWidth: 15.0,
+                                                            percent:
+                                                              (100-double.parse(
+                                                                insurance
+                                                                    .servicePercent
+                                                                    .toString()
+
+
+                                                            ) )
+                                                                /
+                                                                100,
+                                                            center: new Text(
+                                                                (100- double.parse(insurance.servicePercent.toString()))
+                                                                    .toString()
+                                                            ,
+                                                              style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                  fontSize: 18 *
+                                                                      unitHeightValue),
+                                                            ),
+                                                            progressColor: HexColor(
+                                                               ThemP.getcolor()),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            LanguageProvider
+                                                                        .getLanguage() ==
+                                                                    "AR"
+                                                                ? "الخدمة"
+                                                                : "service",
                                                             style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w900,
+                                                                        .w700,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
-                                                          ),
-                                                          progressColor: HexColor(
-                                                             ThemP.getcolor()),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          LanguageProvider
-                                                                      .getLanguage() ==
-                                                                  "AR"
-                                                              ? "الصيدلية"
-                                                              : "pharmacy",
-                                                          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              fontSize: 18 *
-                                                                  unitHeightValue),
-                                                        )
-                                                      ],
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Spacer(),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 30 * unitHeightValue,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Spacer(),
-                                                  SizedBox(
-                                                    child: Column(
-                                                      children: [
-                                                        CircularPercentIndicator(
-                                                          radius: 60.0 *
-                                                              unitHeightValue,
-                                                          lineWidth: 15.0,
-                                                          percent: double.parse(
-                                                                  insurance
-                                                                      .servicePercent
-                                                                      .toString()) /
-                                                              100,
-                                                          center: new Text(
-                                                            insurance
-                                                                .servicePercent
-                                                                .toString(),
+                                                    Spacer(),
+                                                    Spacer(),
+                                                    Spacer(),
+                                                    Spacer(),
+                                                    SizedBox(
+                                                      child: Column(
+                                                        children: [
+                                                          CircularPercentIndicator(
+                                                            radius: 60.0 *
+                                                                unitHeightValue,
+                                                            lineWidth: 15.0,
+                                                            percent:
+                                                              (100-double.parse(
+                                                                insurance
+                                                                    .suppliesPercent
+                                                                    .toString()
+
+
+                                                            ) )
+                                                                /
+                                                                100,
+                                                            center: new Text(
+                                                                (100- double.parse(insurance.suppliesPercent.toString()))
+                                                                    .toString()
+                                                            ,
+                                                              style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                  fontSize: 18 *
+                                                                      unitHeightValue),
+                                                            ),
+                                                            progressColor: HexColor(
+                                                               ThemP.getcolor()),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            LanguageProvider
+                                                                        .getLanguage() ==
+                                                                    "AR"
+                                                                ? "لوازم"
+                                                                : "supplies",
                                                             style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w900,
+                                                                        .w700,
                                                                 fontSize: 18 *
                                                                     unitHeightValue),
-                                                          ),
-                                                          progressColor: HexColor(
-                                                             ThemP.getcolor()),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Text(
-                                                          LanguageProvider
-                                                                      .getLanguage() ==
-                                                                  "AR"
-                                                              ? "الخدمة"
-                                                              : "service",
-                                                          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              fontSize: 18 *
-                                                                  unitHeightValue),
-                                                        )
-                                                      ],
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Spacer(),
-                                                  Spacer(),
-                                                  Spacer(),
-                                                  Spacer(),
-                                                  SizedBox(
-                                                    child: Column(
+                                                    Spacer(),
+                                                  ],
+                                                ),
+                                                    SizedBox(
+                                                      height: 30 * unitHeightValue,
+                                                    ),
+                                                    Row(
                                                       children: [
-                                                        CircularPercentIndicator(
-                                                          radius: 60.0 *
-                                                              unitHeightValue,
-                                                          lineWidth: 15.0,
-                                                          percent: double.parse(
-                                                                  insurance
-                                                                      .suppliesPercent
-                                                                      .toString()) /
-                                                              100,
-                                                          center: new Text(
-                                                            insurance
-                                                                .suppliesPercent
-                                                                .toString(),
-                                                            style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900,
-                                                                fontSize: 18 *
-                                                                    unitHeightValue),
-                                                          ),
-                                                          progressColor: HexColor(
-                                                             ThemP.getcolor()),
-                                                        ),
+                                                        Spacer(),
                                                         SizedBox(
-                                                          height: 5,
+                                                          child: Column(
+                                                            children: [
+                                                              CircularPercentIndicator(
+                                                                radius: 60.0 *
+                                                                    unitHeightValue,
+                                                                lineWidth: 15.0,
+                                                                percent:
+                                                                (100-double.parse(
+                                                                    insurance
+                                                                        .dischargePercent
+                                                                        .toString()
+
+
+                                                                ) )
+                                                                    /
+                                                                    100,
+                                                                center: new Text(
+                                                                  (100- double.parse(insurance.dischargePercent.toString()))
+                                                                      .toString()
+                                                                  ,
+                                                                  style: ArabicTextStyle(
+                                                                      arabicFont: ArabicFont.tajawal,
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                      fontSize: 18 *
+                                                                          unitHeightValue),
+                                                                ),
+                                                                progressColor: HexColor(
+                                                                    ThemP.getcolor()),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Text(
+                                                                LanguageProvider
+                                                                    .getLanguage() ==
+                                                                    "AR"
+                                                                    ? "الكشفيه"
+                                                                    : "discharge",
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                    fontSize: 18 *
+                                                                        unitHeightValue),
+                                                              )
+                                                            ],
+                                                          ),
                                                         ),
-                                                        Text(
-                                                          LanguageProvider
-                                                                      .getLanguage() ==
-                                                                  "AR"
-                                                              ? "لوازم"
-                                                              : "supplies",
-                                                          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
-                                                              fontSize: 18 *
-                                                                  unitHeightValue),
-                                                        )
+                                                        Spacer(),
+                                                        Spacer(),
+                                                        Spacer(),
+                                                        Spacer(),
+                                                        SizedBox(
+                                                          child: Column(
+                                                            children: [
+                                                              CircularPercentIndicator(
+                                                                radius: 60.0 *
+                                                                    unitHeightValue,
+                                                                lineWidth: 15.0,
+                                                                percent:
+                                                                (100-double.parse(
+                                                                    insurance
+                                                                        .raysPercent
+                                                                        .toString()
+
+
+                                                                ) )
+                                                                    /
+                                                                    100,
+                                                                center: new Text(
+                                                                  (100- double.parse(insurance.raysPercent.toString()))
+                                                                      .toString()
+                                                                  ,
+                                                                  style: ArabicTextStyle(
+                                                                      arabicFont: ArabicFont.tajawal,
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                      fontSize: 18 *
+                                                                          unitHeightValue),
+                                                                ),
+                                                                progressColor: HexColor(
+                                                                    ThemP.getcolor()),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Text(
+                                                                LanguageProvider
+                                                                    .getLanguage() ==
+                                                                    "AR"
+                                                                    ? "صور الاشعه"
+                                                                    : "Rays",
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                    fontSize: 18 *
+                                                                        unitHeightValue),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Spacer(),
                                                       ],
                                                     ),
-                                                  ),
-                                                  Spacer(),
-                                                ],
-                                              ),
-                                            ])))
-                                        .toList(),
+
+
+                                              ])))
+                                          .toList(),
+                                    )
+                                  ):
+                                  Center(
+                                    child: Column(
+                                      children: [
+                                        Spacer(),
+                                        Text(
+                                          textAlign: TextAlign.center,
+                                          LanguageProvider.getLanguage()=='AR'?'يبدو ان نوع التامين الخاص بك هو شخصي':'Your type of medical insurance appears to be personal',
+                                            style: ArabicTextStyle(
+                                            arabicFont: ArabicFont.tajawal,
+                                            fontWeight:
+                                            FontWeight
+                                                .w700,
+                                            fontSize: 16 *
+                                                unitHeightValue),
+                                        ),
+                                        Spacer(),
+
+                                      ],
+                                    ),
                                   );
                                 } else {
                                   return Center(
-                                      child: CircularProgressIndicator());
+                                      child: CircularProgressIndicator()
+                                  );
                                 }
                               },
                             ),

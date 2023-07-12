@@ -5,7 +5,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hismobileapp/HexaColor.dart';
 import 'package:hismobileapp/UI/Doctors.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:http/http.dart';
@@ -14,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
+import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -50,13 +50,12 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     changepass(context);
-
     super.initState();
   }
 
   var data;
 
-  String selectedSpinnerItem = 'basellalzaben@gmail.com';
+  String selectedSpinnerItem = 'Eliseo@gardner.biz';
 
   @override
   void dispose() {
@@ -192,7 +191,9 @@ class _HomeState extends State<Home> {
     SizedBox(
     width: 10,
     ),
-    Text(
+      SizedBox(
+    width: MediaQuery.of(context).size.width/1.6
+    ,child: Text(
     LanguageProvider.getLanguage() == "AR"
     ? Loginprovider.getnameA()
         : Loginprovider.getnameE(),
@@ -201,7 +202,7 @@ class _HomeState extends State<Home> {
     color: HexColor(Globalvireables.black2),
     fontSize: 19 * unitHeightValue,
     fontWeight: FontWeight.w700),
-    ),
+    ),),
     Spacer(),
       GestureDetector(
         onTap: () {
@@ -331,7 +332,7 @@ class _HomeState extends State<Home> {
         .all(8.0),
     child: SizedBox(
     child: Text(
-    "زياراتي",
+    LanguageProvider.Llanguage('myvisit'),
 
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
@@ -357,7 +358,7 @@ class _HomeState extends State<Home> {
         .width / 1.4,
     child: FutureBuilder(
     future: getvisits(
-    context, "30417"),
+    context, Loginprovider.userId),
     builder: (
     BuildContext context,
     AsyncSnapshot<List<
@@ -536,9 +537,10 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-      SizedBox(height: 5,),
-
-      Text(
+      SizedBox(
+        height: 5,
+      ),
+    Text(
     LanguageProvider.Llanguage("Appoiments"),
 
 
@@ -596,8 +598,9 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-      SizedBox(height: 5,),
-
+      SizedBox(
+        height: 5,
+      ),
     Text(
     LanguageProvider.Llanguage("Invoices"),
 
@@ -657,8 +660,9 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-            SizedBox(height: 5,),
-
+            SizedBox(
+              height: 5,
+            ),
             Text(
                 LanguageProvider.Llanguage("Ray"),
 
@@ -692,11 +696,11 @@ class _HomeState extends State<Home> {
     children: [
 
      Container(
-       decoration: BoxDecoration(
-         border: Border.all(color: HexColor(ThemP.getcolor())),
-         borderRadius: BorderRadius.circular(15.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: HexColor(ThemP.getcolor())),
+        borderRadius: BorderRadius.circular(15.0),
 
-       ),
+      ),
     width: MediaQuery
         .of(context)
         .size
@@ -719,8 +723,9 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-      SizedBox(height: 5,),
-
+      SizedBox(
+        height: 5,
+      ),
     Text(
     LanguageProvider.Llanguage("Insurance"),
 
@@ -747,7 +752,6 @@ class _HomeState extends State<Home> {
     },
     child: Column(
     children: [
-
     Container(
       decoration: BoxDecoration(
         border: Border.all(color: HexColor(ThemP.getcolor())),
@@ -776,8 +780,9 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-      SizedBox(height: 5,),
-
+      SizedBox(
+        height: 5,
+      ),
     Text(
     LanguageProvider.Llanguage("Vitalsigns"),
 
@@ -802,39 +807,37 @@ class _HomeState extends State<Home> {
     );},
       child: Column(
       children: [
-      Card(
-        color: Colors.white,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: HexColor(ThemP.getcolor())),
-            borderRadius: BorderRadius.circular(15.0),
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: HexColor(ThemP.getcolor())),
+          borderRadius: BorderRadius.circular(15.0),
 
-          ),
-        width: MediaQuery
-            .of(context)
-            .size
-            .width /
-        4.5,
-        height:
-        MediaQuery
-            .of(context)
-            .size
-            .width /
-        4.5,
-        child: Column(
-        children: [
-        Spacer(),
-          SvgPicture.asset("assets/Medical.svg",color: HexColor(ThemP.getcolor()),
-            height: 50 * unitHeightValue,
-            width: 50 * unitHeightValue,
-          ),
-        Spacer(),
-        ],
         ),
+      width: MediaQuery
+          .of(context)
+          .size
+          .width /
+      4.5,
+      height:
+      MediaQuery
+          .of(context)
+          .size
+          .width /
+      4.5,
+      child: Column(
+      children: [
+      Spacer(),
+        SvgPicture.asset("assets/Medical.svg",color: HexColor(ThemP.getcolor()),
+          height: 50 * unitHeightValue,
+          width: 50 * unitHeightValue,
         ),
+      Spacer(),
+      ],
       ),
-        SizedBox(height: 5,),
-
+      ),
+        SizedBox(
+          height: 5,
+        ),
       Text(
       LanguageProvider.Llanguage("Prescription"),
 
@@ -867,7 +870,8 @@ class _HomeState extends State<Home> {
     );},
     child: Column(
     children: [
-    Container(
+
+   Container(
       decoration: BoxDecoration(
         border: Border.all(color: HexColor(ThemP.getcolor())),
         borderRadius: BorderRadius.circular(15.0),
@@ -895,8 +899,9 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-      SizedBox(height: 5,),
-
+      SizedBox(
+        height: 5,
+      ),
     Text(
     LanguageProvider.Llanguage("examination"),
 
@@ -913,9 +918,7 @@ class _HomeState extends State<Home> {
     ],
     ),
     ),
-      SizedBox(width: 12,),
-
-      Spacer(),
+    Spacer(),
       GestureDetector(
         onTap: () async {
           Navigator.push(
@@ -925,7 +928,7 @@ class _HomeState extends State<Home> {
           );},
         child: Column(
           children: [
-           Container(
+            Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: HexColor(ThemP.getcolor())),
                   borderRadius: BorderRadius.circular(15.0),
@@ -953,7 +956,9 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Text(
                 LanguageProvider.Llanguage("drugH"),
 
@@ -971,7 +976,6 @@ class _HomeState extends State<Home> {
         ),
       ),
 
-      Spacer(),
       Spacer(),
       Spacer(),
       Spacer(),
@@ -1677,18 +1681,22 @@ Spacer(),
                                                       Icons.person,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(10),
-                                                    child: Center(child: Text(Doctor.fulLANAME.toString(),
-                                                      style: ArabicTextStyle(
-                                                          arabicFont: ArabicFont.tajawal,
-                                                          color: HexColor(Globalvireables.black2),
-                                                          fontSize: 18 * (MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height * 0.00122),
-                                                          fontWeight: FontWeight.w700),
-                                                    )),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width/1.7,
+
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: Center(child: Text(Doctor.fulLANAME.toString(),
+                                                        style: ArabicTextStyle(
+                                                            arabicFont: ArabicFont.tajawal,
+                                                            color: HexColor(Globalvireables.black2),
+                                                            fontSize: 18 * (MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.00122),
+                                                            fontWeight: FontWeight.w700),
+                                                      )),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1942,5 +1950,13 @@ Spacer(),
 
     throw "Unable to retrieve Profile.";
   }
+
+
+
+
+
+
+
+
 
 }

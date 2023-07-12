@@ -88,9 +88,14 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
     if (byteData != null) {
       Uint8List pngBytes = byteData.buffer.asUint8List();
 
-      makePdf(pngBytes);
-
-
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return  PdfPreview(
+            build: (context) => makePdf(pngBytes),
+          );
+        },
+      );
     }
   }
 

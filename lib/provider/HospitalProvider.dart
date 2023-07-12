@@ -13,6 +13,37 @@ class HospitalProvider extends ChangeNotifier {
   String websitEADDRESS="";
   String phonE1="";
 
+  String Terms="";
+  String Facebook="";
+  String Twitter="";
+  getTwitter() {
+    return Twitter;
+  }
+
+  setTwitter(String Twitter) {
+    this.Twitter = Twitter;
+    notifyListeners();
+  }
+
+  getFacebook() {
+    return Facebook;
+  }
+
+  setFacebook(String Facebook) {
+    this.Facebook = Facebook;
+    notifyListeners();
+  }
+
+
+  getTerms() {
+    return Terms;
+  }
+
+  setTerms(String Terms) {
+    this.Terms = Terms;
+    notifyListeners();
+  }
+
   getphonE1() {
     return phonE1;
   }

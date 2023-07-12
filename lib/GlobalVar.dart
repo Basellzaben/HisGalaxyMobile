@@ -27,10 +27,13 @@ class Globalvireables {
   static String HospitalInfoURL="http://"+Globalvireables.connectIP+"/api/HospitalINF/GetHospitalINF";
    static String ExamnatioGroupURL="http://"+Globalvireables.connectIP+"/api/ExamnationGroupController/GetExamnationGroupController";
   static String profileURL="http://"+Globalvireables.connectIP+"/api/Persiomdata/GetPersiomdata";
-
   static String prescptionURL="http://"+Globalvireables.connectIP+"/api/prespction/GetPrespction";
   static String ChangePassURL="http://"+Globalvireables.connectIP+"/api/PasswordCangeController/PasswordCange";
   static String DrugInHOSPITALURL="http://"+Globalvireables.connectIP+"/api/prespctionHoo/GetprespctionHoo";
+  static String TermsACCSEPT="http://"+Globalvireables.connectIP+"/api/Terms/GetTermsAP";
+
+  static String ChangeTermsACCSEPTURL="http://"+Globalvireables.connectIP+"/api/TermsAController/TermsACange";
+  static String UpdateInformationURL="http://"+Globalvireables.connectIP+"/api/UpdateinfoControler/UpdateInfo";
 
 
   static String them1="#229954";

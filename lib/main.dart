@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hismobileapp/provider/HomeProvider.dart';
+import 'package:hismobileapp/provider/HospitalProvider.dart';
 import 'package:hismobileapp/provider/ImgaeXrayProvider.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
 import 'package:hismobileapp/provider/SingleEXAMProvider.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
         ChangeNotifierProvider<ImgaeXrayProvider>(create: (_) => ImgaeXrayProvider()),
         ChangeNotifierProvider<SingleEXAMProvider>(create: (_) => SingleEXAMProvider()),
         ChangeNotifierProvider<Them>(create: (_) => Them()),
+        ChangeNotifierProvider<HospitalProvider>(create: (_) => HospitalProvider()),
 
 
       ],

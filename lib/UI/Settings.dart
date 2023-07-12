@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,12 +11,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
+import '../Models/HospitalInfo.dart';
+import '../provider/HospitalProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'ChangePass.dart';
 import 'Home.dart';
 import 'package:arabic_font/arabic_font.dart';
+import 'package:http/http.dart' as http;
 
 import 'HospitalInfoS.dart';
 class Settings extends StatefulWidget {
@@ -25,6 +30,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   void initState() {
+    getHospitalInf();
+
     super.initState();
   }
 
@@ -32,7 +39,7 @@ class _SettingsState extends State<Settings> {
   void dispose() {
     super.dispose();
   }
-
+var Terms;
   @override
   Widget build(BuildContext context) {
     var ThemP = Provider.of<Them>(context, listen: false);
@@ -47,6 +54,7 @@ class _SettingsState extends State<Settings> {
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.cover,
       ),
+
       Scaffold(
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -231,103 +239,7 @@ class _SettingsState extends State<Settings> {
                                   height: 6,
                                 ),
                                 Divider(thickness: 1.0, color: Colors.black),
-                                GestureDetector(
-                                    onTap: () async {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Expanded(
-                                            child: AlertDialog(
-                                              title: Text(
-                                                  LanguageProvider.Llanguage('Logout'),
-                                                  style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                      fontSize: 22 *
-                                                          unitHeightValue)),
-                                              content: Text(
-                                                LanguageProvider.Llanguage("txxt"),
-                                                style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                    fontSize:
-                                                        14 * unitHeightValue),
-                                              ),
-                                              actions: [
-                                                TextButton(
-                                                  //  textColor: Colors.black,
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pushAndRemoveUntil(
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  LoginScreen(),
-                                                            ),
-                                                            (Route<dynamic>
-                                                                    route) =>
-                                                                false);
-                                                  },
-                                                  child: Text(
-                                                    LanguageProvider.Llanguage('Logout'),
-                                                    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                        color: Colors.redAccent,
-                                                        fontSize: 15 *
-                                                            unitHeightValue),
-                                                  ),
-                                                ),
-                                                TextButton(
-                                                  // textColor: Colors.black,
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
 
-
-                                                  },
-                                                  child: Text(
-                                                    LanguageProvider.Llanguage('cancel'),
-                                                    style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                        color: Colors.black87,
-                                                        fontSize: 15 *
-                                                            unitHeightValue),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                      //Widgets.ShowLoaderDialog(context, "Logout","");
-                                      /*Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => LoginScreen(),
-          ),
-              (Route<dynamic> route) => false);*/
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.logout_outlined,
-                                          color: HexColor(
-                                              ThemP.getcolor()),
-                                          size: 35 * unitHeightValue,
-                                        ),
-                                        SizedBox(
-                                          width: 6,
-                                        ),
-                                        Text(
-                                          LanguageProvider.Llanguage('Logout'),
-                                          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                              fontSize: 17.5 * unitHeightValue,
-                                              color: HexColor(
-                                                  Globalvireables.black),
-                                              fontWeight: FontWeight.w400),
-                                        )
-                                      ],
-                                    )),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Divider(thickness: 1.0, color: Colors.black),
                                 GestureDetector(
                                     onTap: () async {
 
@@ -359,6 +271,104 @@ class _SettingsState extends State<Settings> {
                                       ],
                                     )),
 
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Divider(thickness: 1.0, color: Colors.black),
+
+                                GestureDetector(
+                                    onTap: () async {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Expanded(
+                                            child: AlertDialog(
+                                              title: Text(
+                                                  LanguageProvider.Llanguage('Logout'),
+                                                  style: ArabicTextStyle(
+                                                      arabicFont: ArabicFont.tajawal,
+                                                      fontSize: 22 *
+                                                          unitHeightValue)),
+                                              content: Text(
+                                                LanguageProvider.Llanguage("txxt"),
+                                                style: ArabicTextStyle(
+                                                    arabicFont: ArabicFont.tajawal,
+                                                    fontSize:
+                                                    14 * unitHeightValue),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  //  textColor: Colors.black,
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pushAndRemoveUntil(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              LoginScreen(),
+                                                        ),
+                                                            (Route<dynamic>
+                                                        route) =>
+                                                        false);
+                                                  },
+                                                  child: Text(
+                                                    LanguageProvider.Llanguage('Logout'),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        color: Colors.redAccent,
+                                                        fontSize: 15 *
+                                                            unitHeightValue),
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                  // textColor: Colors.black,
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+
+
+                                                  },
+                                                  child: Text(
+                                                    LanguageProvider.Llanguage('cancel'),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        color: Colors.black87,
+                                                        fontSize: 15 *
+                                                            unitHeightValue),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                      //Widgets.ShowLoaderDialog(context, "Logout","");
+                                      /*Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+              (Route<dynamic> route) => false);*/
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.logout_outlined,
+                                          color: HexColor(
+                                              ThemP.getcolor()),
+                                          size: 35 * unitHeightValue,
+                                        ),
+                                        SizedBox(
+                                          width: 6,
+                                        ),
+                                        Text(
+                                          LanguageProvider.Llanguage('Logout'),
+                                          style: ArabicTextStyle(
+                                              arabicFont: ArabicFont.tajawal,
+                                              fontSize: 17.5 * unitHeightValue,
+                                              color: HexColor(
+                                                  Globalvireables.black),
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ],
+                                    )),
 
 
                                 SizedBox(
@@ -502,6 +512,76 @@ Spacer(),
                                     )
                                   ]),
                                 )
+,
+
+                                Divider(thickness: 1.0, color: Colors.black),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                GestureDetector(
+                                  onTap: () async {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Expanded(
+                                          child: AlertDialog(
+                                            title: Center(
+                                              child: Text(
+                                                  textAlign: TextAlign.center,
+
+                                                  LanguageProvider.Llanguage("terms"),
+                                                  style: ArabicTextStyle(
+                                                      arabicFont: ArabicFont.tajawal,
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w700,
+                                                      fontSize: 16 *
+                                                          unitHeightValue)),
+                                            ),
+                                            content: Text(
+                                             Terms,
+                                              textAlign: TextAlign.center,
+
+                                              style: ArabicTextStyle(
+                                                  arabicFont: ArabicFont.tajawal,
+                                                  fontSize:
+                                                  16 * unitHeightValue),
+                                            ),
+                                            actions: [
+
+
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+
+
+
+
+                                  },
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.privacy_tip,
+                                      color: HexColor(ThemP.getcolor()),
+                                      size: 35 * unitHeightValue,
+                                    ),
+                                    SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      LanguageProvider.Llanguage("terms"),
+                                      style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                          fontSize: 17.5 * unitHeightValue,
+                                          color: HexColor(Globalvireables.black),
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ]),
+                                )
+
+
+
                               ],
                             ),
                           )),
@@ -741,6 +821,57 @@ SizedBox(height: 15,),
   }
 
 
+  Future<List<HospitalInfo>> getHospitalInf() async {
+    var HosProvider = Provider.of<HospitalProvider>(context, listen: false);
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    Uri postsURL =
+    Uri.parse(Globalvireables.HospitalInfoURL);
+    print(Globalvireables.HospitalInfoURL.toString());
+    try {
+      http.Response res = await http.post(
+        postsURL,
+      );
+
+      if (res.statusCode == 200) {
+        print("Doctors" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<HospitalInfo> HINFO = body
+            .map(
+              (dynamic item) => HospitalInfo.fromJson(item),
+        )
+            .toList();
+
+        print(HINFO[0].Terms.toString()+"sdafdsf");
+
+        Terms=HINFO[0].Terms.toString();
+
+        HosProvider.setTerms(HINFO[0].Terms.toString());
+        HosProvider.setFacebook(HINFO[0].Facebook.toString());
+        HosProvider.setTwitter(HINFO[0].Twitter.toString());
+
+
+        return HINFO;
+      } else {
+        throw "Unable to retrieve Doctors.";
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),
+
+          actions: <Widget>[],
+        ),
+      );
+    }
+
+    throw "Unable to retrieve Doctors.";
+  }
 
 
 }

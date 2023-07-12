@@ -7,6 +7,11 @@ class HospitalInfo {
   String? websitEADDRESS;
   String? phonE1;
 
+  String? Terms;
+  String? Facebook;
+  String? Twitter;
+
+
   HospitalInfo(
       {
         this.desCA,
@@ -15,7 +20,10 @@ class HospitalInfo {
         this.addresSEXPE,
         this.email,
         this.websitEADDRESS,
-        this.phonE1
+        this.phonE1,
+        this.Terms,
+        this.Facebook,
+        this.Twitter
       });
 
   HospitalInfo.fromJson(Map<String, dynamic> json) {
@@ -26,6 +34,11 @@ class HospitalInfo {
     email = json['email'];
     websitEADDRESS = json['websitE_ADDRESS'];
     phonE1 = json['phonE_1'];
+
+    Terms = json['terms'];
+    Facebook = json['faceebook'];
+    Twitter = json['twitter'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +50,11 @@ class HospitalInfo {
     data['email'] = this.email.toString()??'';
     data['websitE_ADDRESS'] = this.websitEADDRESS.toString()??'';
     data['phonE_1'] = this.phonE1.toString()??'';
+
+    data['terms'] = this.Terms.toString()??'';
+    data['faceebook'] = this.Facebook.toString()??'';
+    data['twitter'] = this.Twitter.toString()??'';
+
     return data;
   }
 }

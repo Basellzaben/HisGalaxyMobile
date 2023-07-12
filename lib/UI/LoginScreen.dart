@@ -7,10 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
+import '../Models/ChangePassM.dart';
+import '../Models/HospitalInfo.dart';
+import '../provider/HospitalProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import 'Home.dart';
 import 'Index.dart';
+import  'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:arabic_font/arabic_font.dart';
 
@@ -36,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Getrememper();
     super.initState();
   }
-
+var Terms;
   @override
   void dispose() {
     super.dispose();
@@ -44,22 +48,24 @@ class _LoginScreenState extends State<LoginScreen> {
     _passController.dispose();
   }
 var prefs;
-  bool _obscured = false;
+  bool _obscured = true;
   void _toggleObscured() {
     setState(() {
       _obscured = !_obscured;
     });
   }
+
   var Loginprovider;
   @override
   Widget build(BuildContext context) {
-
 _ipControler.text='10.0.1.65:9999';
 double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
 
 
 var ThemP = Provider.of<Them>(context, listen: false);
 var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+
 
 
      Loginprovider = Provider.of<LoginProvider>(context, listen: false);
@@ -158,12 +164,12 @@ margin: EdgeInsets.only(top: 0),
                                     obscureText: _obscured,
                                     controller: _passController,
                                     decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.password_sharp,color: HexColor(ThemP.getcolor()),),
+                                      prefixIcon: Icon(Icons.admin_panel_settings_sharp,color: HexColor(ThemP.getcolor()),),
                                       suffixIcon: GestureDetector(
                                           onTap: _toggleObscured,
                                           child: Icon(_obscured
-                                              ? Icons.lens_blur_outlined
-                                              : Icons.remove_red_eye_rounded)),
+                                              ? Icons.remove_red_eye_rounded
+                                              : Icons.lens_blur_outlined)),
                                       border: OutlineInputBorder(),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -364,22 +370,19 @@ margin: EdgeInsets.only(top: 0),
 
                                           try {
                                             final bool didAuthenticate = await auth.authenticate(
+
                                               localizedReason: 'Please authenticate to show account balance',
-                                              options: const AuthenticationOptions(useErrorDialogs: false),
+                                              options: const AuthenticationOptions(useErrorDialogs: true,
+                                                  stickyAuth: false,
+                                                  sensitiveTransaction: true
+                                              ),
                                             );
                                            if(didAuthenticate && check){
-
-    prefs = await SharedPreferences.getInstance();
-                                             Login(prefs.getString('username'),prefs.getString('password'),context);
-
-                                      /*    Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                          builder: (context) => Home(),
-                                          ),
-                                          (Route<dynamic> route) => false);
-
-*/
-
+                                             prefs = await SharedPreferences.getInstance();
+                                             Login(
+                                             prefs.getString('username'),
+                                             prefs.getString('password'),context
+                                             );
                                           }else{
                                              showDialog(
                                                  context: context,
@@ -504,7 +507,12 @@ margin: EdgeInsets.only(top: 0),
 
   }
 
+
   Login(String username, String password, BuildContext context) async {
+
+    getHospitalInf();
+
+
     prefs = await SharedPreferences.getInstance();
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var l = Provider.of<Language>(context, listen: false);
@@ -566,12 +574,12 @@ margin: EdgeInsets.only(top: 0),
           }
 
 
-          Navigator.pop(context);
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (context) => Home(),
-              ),
-                  (Route<dynamic> route) => false);
+
+
+          CheckTerms(jsonResponse["userId"].toString(),jsonResponse["username"].toString());
+
+
+
         } else {
           showDialog(
               context: context,
@@ -594,5 +602,344 @@ margin: EdgeInsets.only(top: 0),
 
     }
   }
+
+
+  CheckTerms(String PatientNo,String Patientname) async {
+
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
+
+    var l = Provider.of<Language>(context, listen: false);
+
+
+
+
+    var map = new Map<String, dynamic>();
+    map['PatientNo'] = PatientNo;
+
+    Uri apiUrl = Uri.parse(Globalvireables.TermsACCSEPT);
+
+    http.Response response = await http
+        .post(apiUrl, body:map,  );
+
+    try {
+      var jsonResponse = jsonDecode(response.body);
+
+
+      print("teeerms "+jsonResponse.toString());
+      if (!jsonResponse.toString().contains(PatientNo) ) {
+        showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+
+            context: context,
+            builder: (context) {
+              return FractionallySizedBox(
+                heightFactor: 0.85,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height/1.1,
+                  child: SingleChildScrollView(child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(children: [
+
+
+                      Text(
+                          textAlign: TextAlign.center,
+
+                          LanguageProvider.Llanguage("terms"),
+                          style: ArabicTextStyle(
+                              arabicFont: ArabicFont.tajawal,
+                              fontWeight:
+                              FontWeight
+                                  .w700,
+                              fontSize: 18 *
+                                  unitHeightValue)),
+
+                      Padding(padding: const EdgeInsets.all(10),
+                          child: Text(
+                              textAlign: TextAlign.center,
+                              Terms.toString()
+                                    )),
+
+
+
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 50,
+                          width:
+                          MediaQuery
+                              .of(context)
+                              .size
+                              .width / 1.2,
+                          margin: EdgeInsets.only(top: 40, bottom: 5),
+                          color: HexColor(Globalvireables.white),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary:
+                              HexColor(Provider.of<Them>(context, listen: false)
+                                  .getcolor()),
+                            ),
+                            child: Text(
+                              l.Llanguage('loginandacept'),
+                              style: ArabicTextStyle(
+                                  arabicFont: ArabicFont.tajawal,
+                                  color:
+                                  HexColor(Globalvireables.white),
+                                  fontSize: 13 * unitHeightValue),
+                            ),
+                            onPressed: () async {
+                              ChangeTerms(context,PatientNo,Patientname);
+
+                            },
+                          ),
+                        ),
+                      ),
+
+                    ],),
+                  ),),
+                ),
+              );
+            });
+      }else{
+        Navigator.pop(context);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => Home(),
+            ),
+                (Route<dynamic> route) => false);
+      }
+
+
+    }catch(e){
+      print("teeerms "+e.toString());
+
+      showModalBottomSheet(
+          isDismissible: false,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20),
+            ),
+          ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+
+          context: context,
+          builder: (context) {
+            return SingleChildScrollView(child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+
+                Text(
+                    textAlign: TextAlign.center,
+
+                    LanguageProvider.Llanguage("terms"),
+                    style: ArabicTextStyle(
+                        arabicFont: ArabicFont.tajawal,
+                        fontWeight:
+                        FontWeight
+                            .w700,
+                        fontSize: 16 *
+                            unitHeightValue)),
+
+                Padding(padding: const EdgeInsets.all(10),
+                    child:Text(
+                        textAlign: TextAlign.center,
+                        Terms.toString()
+                                 )),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 50,
+                    width:
+                    MediaQuery
+                        .of(context)
+                        .size
+                        .width / 1.2,
+                    margin: EdgeInsets.only(top: 40, bottom: 5),
+                    color: HexColor(Globalvireables.white),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary:
+                        HexColor(Provider.of<Them>(context, listen: false)
+                            .getcolor()),
+                      ),
+                      child: Text(
+                        l.Llanguage('login'),
+                        style: ArabicTextStyle(
+                            arabicFont: ArabicFont.tajawal,
+                            color:
+                            HexColor(Globalvireables.white),
+                            fontSize: 13 * unitHeightValue),
+                      ),
+                      onPressed: () async {
+
+                        ChangeTerms(context,PatientNo,Patientname);
+
+
+
+                      },
+                    ),
+                  ),
+                ),
+
+              ],),
+            ),);
+          });
+
+    }
+
+
+
+
+  }
+
+
+  ChangeTerms(BuildContext context,String patientNo,String patientname) async {
+
+    print("userid :"+patientNo.toString());
+
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
+    String time = DateFormat("hh:mm:ss a").format(DateTime.now());
+
+    Uri postsURL =
+    Uri.parse(Globalvireables.ChangeTermsACCSEPTURL);
+    try {
+      var map = new Map<String, dynamic>();
+      map['PatientNo'] = patientNo;
+      map['patientname'] = patientname;
+      map['date'] = date;
+      map['time'] = time;
+
+      http.Response res = await http.post(
+        postsURL,
+        body: map,
+      );
+
+      if (res.statusCode == 200) {
+        print("ChangePass" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<ChangePassM> Doctorss = body
+            .map(
+              (dynamic item) => ChangePassM.fromJson(item),
+        )
+            .toList();
+
+
+        if(Doctorss[0].response=='1S'){
+
+          Navigator.pop(context);
+
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => Home(),
+              ),
+                  (Route<dynamic> route) => false);
+
+        }else{
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+              content: Text(LanguageProvider.Llanguage('anerror')),
+              actions: <Widget>[],
+            ),
+          );
+        }
+
+
+      } else {
+        Navigator.pop(context);
+
+        await showDialog(
+          context: context,
+          builder: (context) =>
+          new AlertDialog(
+            title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+            content: Text(LanguageProvider.Llanguage('anerror')),
+            actions: <Widget>[],
+          ),
+        );
+      }
+    } catch (e) {
+      Navigator.pop(context);
+
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),
+          actions: <Widget>[],
+        ),
+      );
+    }
+
+  }
+
+
+  Future<List<HospitalInfo>> getHospitalInf() async {
+    var HosProvider = Provider.of<HospitalProvider>(context, listen: false);
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    Uri postsURL =
+    Uri.parse(Globalvireables.HospitalInfoURL);
+    print(Globalvireables.HospitalInfoURL.toString());
+    try {
+      http.Response res = await http.post(
+        postsURL,
+      );
+
+      if (res.statusCode == 200) {
+        print("Doctors" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<HospitalInfo> HINFO = body
+            .map(
+              (dynamic item) => HospitalInfo.fromJson(item),
+        )
+            .toList();
+
+        print(HINFO[0].Terms.toString()+"sdafdsf");
+
+        Terms=HINFO[0].Terms.toString();
+
+        HosProvider.setTerms(HINFO[0].Terms.toString());
+        HosProvider.setFacebook(HINFO[0].Facebook.toString());
+        HosProvider.setTwitter(HINFO[0].Twitter.toString());
+
+
+        return HINFO;
+      } else {
+        throw "Unable to retrieve Doctors.";
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),
+
+          actions: <Widget>[],
+        ),
+      );
+    }
+
+    throw "Unable to retrieve Doctors.";
+  }
+
 
 }

@@ -323,8 +323,8 @@ class _ChangePassState extends State<ChangePass> {
      showDialog(
          context: context,
          builder: (_) => AlertDialog(
-           title:  Text(LanguageProvider.Llanguage('login')),
-           content: Text(LanguageProvider.getLanguage()=="AR"?'جار تسجيل الدخول ...':'Logging in...'),
+           title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
+           content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
          ));
 
 
@@ -377,9 +377,8 @@ class _ChangePassState extends State<ChangePass> {
             context: context,
             builder: (context) =>
             new AlertDialog(
-              title: new Text(LanguageProvider.Llanguage('Gangepasswor')),
-              content: Text(LanguageProvider.Llanguage('EGangepasswor')),
-              actions: <Widget>[],
+              title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+              content: Text(LanguageProvider.Llanguage('anerror')),      actions: <Widget>[],
             ),
           );
         }
@@ -389,9 +388,8 @@ class _ChangePassState extends State<ChangePass> {
         Navigator.pop(context);
 
         new AlertDialog(
-          title: new Text(LanguageProvider.Llanguage('Gangepasswor')),
-          content: Text(LanguageProvider.Llanguage('EGangepasswor')),
-          actions: <Widget>[],
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),     actions: <Widget>[],
         );
       }
     } catch (e) {
@@ -401,8 +399,8 @@ class _ChangePassState extends State<ChangePass> {
         context: context,
         builder: (context) =>
         new AlertDialog(
-          title: new Text(LanguageProvider.Llanguage('Gangepasswor')),
-          content: Text(LanguageProvider.Llanguage('EGangepasswor')),
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),
           actions: <Widget>[],
         ),
       );

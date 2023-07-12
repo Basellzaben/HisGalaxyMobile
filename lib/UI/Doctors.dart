@@ -204,8 +204,8 @@ class _DoctorsState extends State<Doctors> {
                                 if (snapshot.hasData) {
                                   List<Doctor>? Doctors2 = snapshot.data;
                                   List<Doctor>? Doctors = Doctors2!.where((map)=>(map.firsT_NAME_A.toString() +
-                                      "" + map.fatheR_NAME_A.toString() +
-                                      "" + map.lasT_NAME_A.toString()).toString().contains(dateinputC.text.toString())
+                                      " " + map.fatheR_NAME_A.toString() +
+                                      " " + map.lasT_NAME_A.toString()).toString().contains(dateinputC.text.toString())
                                   || map.depName.toString().contains(dateinputC.text.toString())
                                   ).toList();
                                   return Doctors!.isNotEmpty? Container(

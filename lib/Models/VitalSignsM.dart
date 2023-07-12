@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
   class VitalSignsM {
-  String? datee;
+    String? datee;
+    String? VisitID;
   List<VITALSIGNSAllModelS>? vITALSIGNSAllModelS;
 
-  VitalSignsM({this.datee, this.vITALSIGNSAllModelS});
+  VitalSignsM({this.datee,this.VisitID, this.vITALSIGNSAllModelS});
 
   VitalSignsM.fromJson(Map<String, dynamic> json) {
-  datee = json['datee'];
+    datee = json['datee'];
+    VisitID = json['VisitID'];
+
   if (json['vITAL_SIGNS_AllModelS'] != null) {
   vITALSIGNSAllModelS = <VITALSIGNSAllModelS>[];
   json['vITAL_SIGNS_AllModelS'].forEach((v) {
@@ -19,6 +22,9 @@ import 'package:flutter/cupertino.dart';
   Map<String, dynamic> toJson() {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['datee'] = this.datee;
+  data['VisitID'] = this.VisitID;
+
+
   if (this.vITALSIGNSAllModelS != null) {
   data['vITAL_SIGNS_AllModelS'] =
   this.vITALSIGNSAllModelS!.map((v) => v.toJson()).toList();
@@ -28,7 +34,7 @@ import 'package:flutter/cupertino.dart';
   }
 
   class VITALSIGNSAllModelS {
-  String? patienTNO;
+  String? VisitID;
   String? reaDDATE;
   String? reaDTIME;
   String? vitaLSIGNREAD;
@@ -37,7 +43,7 @@ import 'package:flutter/cupertino.dart';
   Null? vITALSIGNSAllModel;
 
   VITALSIGNSAllModelS(
-  {this.patienTNO,
+  {this.VisitID,
   this.reaDDATE,
   this.reaDTIME,
   this.vitaLSIGNREAD,
@@ -46,7 +52,7 @@ import 'package:flutter/cupertino.dart';
   this.vITALSIGNSAllModel});
 
   VITALSIGNSAllModelS.fromJson(Map<String, dynamic> json) {
-  patienTNO = json['patienT_NO'].toString() ??"";
+    VisitID = json['VisitID'].toString() ??"";
   reaDDATE = json['reaD_DATE'].toString() ??"";
   reaDTIME = json['reaD_TIME'].toString() ??"";
   vitaLSIGNREAD = json['vitaL_SIGN_READ'].toString() ??"";
@@ -57,7 +63,7 @@ import 'package:flutter/cupertino.dart';
 
   Map<String, dynamic> toJson() {
   final Map<String, dynamic> data = new Map<String, dynamic>();
-  data['patienT_NO'] = this.patienTNO;
+  data['VisitID'] = this.VisitID;
   data['reaD_DATE'] = this.reaDDATE;
   data['reaD_TIME'] = this.reaDTIME;
   data['vitaL_SIGN_READ'] = this.vitaLSIGNREAD;

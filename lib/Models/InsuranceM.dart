@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 
 
 class InsuranceM {
+  String? carde;
   int? payorType;
   int? payorNo;
   int? insuranceType;
   double? labPercent;
   double? pharmacyPercent;
+  double? DischargePercent;
+  double? raysPercent;
   double? servicePercent;
   double? suppliesPercent;
   double? dischargePercent;
@@ -16,7 +19,12 @@ class InsuranceM {
   String? pPatientInsurncesModel;
 
   InsuranceM(
-      {this.payorType,
+      {
+
+        this.DischargePercent,
+        this.raysPercent,
+        this.carde,
+        this.payorType,
         this.payorNo,
         this.insuranceType,
         this.labPercent,
@@ -30,6 +38,10 @@ class InsuranceM {
         this.pPatientInsurncesModel});
 
   InsuranceM.fromJson(Map<String, dynamic> json) {
+
+    DischargePercent=json['DischargePercent'];
+    raysPercent=json['raysPercent'];
+    carde=json['carde'];
     payorType = json['payorType'];
     payorNo = json['payorNo'];
     insuranceType = json['insuranceType'];
@@ -46,6 +58,9 @@ class InsuranceM {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['DischargePercent'] = this.DischargePercent;
+    data['raysPercent'] = this.raysPercent;
+    data['carde'] = this.carde;
     data['payorType'] = this.payorType;
     data['payorNo'] = this.payorNo;
     data['insuranceType'] = this.insuranceType;

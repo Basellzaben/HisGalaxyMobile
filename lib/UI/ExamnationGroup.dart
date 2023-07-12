@@ -661,9 +661,10 @@ SizedBox(height: 6,),
             pageFormat: PdfPageFormat.a4,
             build: (context) {
               return  pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
-
             }
         ));
+
+
     return pdf.save();
   }
 

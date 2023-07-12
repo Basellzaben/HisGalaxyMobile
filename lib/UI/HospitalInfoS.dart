@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Models/HospitalInfo.dart';
 import '../provider/Them.dart';
@@ -296,7 +297,47 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                                      ],
                                    ),
 
+                                 ),
+
+SizedBox(height: 30,),
+                                 Center(
+                                   child: Row(children: [
+Spacer(),
+                           GestureDetector(
+                           onTap: (){
+
+                             openUrl(Doctors![0].Twitter.toString().trim());
+
+                           },
+                                       child: Image.asset(
+                                         "assets/facebook.png",
+                                         height: 70,
+                                         width: 70,
+                                       ),
+                                     ),
+                                     Spacer(),
+
+                                     GestureDetector(
+                                       onTap: (){
+
+                                         openUrl(Doctors![0].Facebook.toString().trim());
+
+                                       },
+                                       child: Image.asset(
+                                         "assets/twitter.png",
+                                         height: 70,
+                                         width: 70,
+                                       ),
+                                     ),
+
+
+                                     Spacer(),
+
+
+
+                                   ],),
                                  )
+
 
 
                                ],
@@ -399,6 +440,11 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
 
     throw "Unable to retrieve Doctors.";
   }
-
+  Future<void> openUrl(String url) async {
+    final _url = Uri.parse(url);
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) { // <--
+      throw Exception('Could not launch $_url');
+    }
+  }
 
 }

@@ -7,10 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 
+import '../Models/ChangePassM.dart';
 import '../Models/ProfileM.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
@@ -34,6 +36,9 @@ class _profileState extends State<profile> {
   void dispose() {
     super.dispose();
   }
+
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -182,15 +187,18 @@ SizedBox(height: 20,),
                                                 Icons.person,
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Center(child: Text(Doctor.fulLANAME.toString(),
-                                                style: ArabicTextStyle(
-                                                    arabicFont: ArabicFont.tajawal,
-                                                    color: HexColor(Globalvireables.black2),
-                                                    fontSize: 18 * unitHeightValue,
-                                                    fontWeight: FontWeight.w700),
-                                              )),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width/1.7,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(10),
+                                                child: Center(child: Text(Doctor.fulLANAME.toString(),
+                                                  style: ArabicTextStyle(
+                                                      arabicFont: ArabicFont.tajawal,
+                                                      color: HexColor(Globalvireables.black2),
+                                                      fontSize: 18 * unitHeightValue,
+                                                      fontWeight: FontWeight.w700),
+                                                )),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -247,43 +255,8 @@ SizedBox(height: 20,),
 
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.width/1.2,
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              // if you need this
-                                              side: BorderSide(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .height,
-                                                //  color: Colors.black12.withOpacity(0.1),
-                                              ),
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(10),
-                                                  child: Icon(
-                                                    Icons.phone,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(10),
-                                                  child: Center(child: Text(Doctor.mobilENO.toString(),
-                                                    style: ArabicTextStyle(
-                                                        arabicFont: ArabicFont.tajawal,
-                                                        color: HexColor(Globalvireables.black2),
-                                                        fontSize: 18 * unitHeightValue,
-                                                        fontWeight: FontWeight.w700),
-                                                  )),
-                                                ),
-                                              ],
-                                            ),
 
-                                          ),
-                                        ),
+
                                         SizedBox(
                                           width: MediaQuery.of(context).size.width/1.2,
                                           child: Card(
@@ -344,7 +317,8 @@ SizedBox(height: 20,),
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(10),
-                                                  child: Center(child: Text(Doctor.gender.toString()=='1'?'ذكر':'أنثى',
+                                                  child: Center(child: Text(Doctor.gender.toString()=='1'?(LanguageProvider.getLanguage()=='AR'?'ذكر':'Male')
+                                                      :(LanguageProvider.getLanguage()=='AR'?'أنثى':'female'),
                                                     style: ArabicTextStyle(
                                                         arabicFont: ArabicFont.tajawal,
                                                         color: HexColor(Globalvireables.black2),
@@ -353,6 +327,296 @@ SizedBox(height: 20,),
                                                   )),
                                                 ),
                                               ],
+                                            ),
+                                          ),
+                                        ),
+
+                                        GestureDetector(
+                                          onTap: (){
+
+                                            showModalBottomSheet(
+
+                                                context: context,
+
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(20),
+                                                  ),
+                                                ),
+                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+
+
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets.all(20),
+                                                    child: SizedBox(
+                                                      child: Column(children: [
+                                                        TextField(
+                                                          controller: _phoneController,
+                                                          decoration: InputDecoration(
+                                                            prefixIcon: Icon(Icons.phone,color: HexColor(ThemP.getcolor())),
+                                                            border: OutlineInputBorder(),
+                                                            focusedBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: HexColor(
+                                                                        Globalvireables.black),
+                                                                    width: 0.0),
+                                                                borderRadius:
+                                                                BorderRadius.circular(10.0)),
+                                                            enabledBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: HexColor(
+                                                                        ThemP.getcolor()),
+                                                                    width: 1.0),
+                                                                borderRadius:
+                                                                BorderRadius.circular(10.0)),
+                                                            contentPadding: EdgeInsets.only(
+                                                                top: 18,
+                                                                bottom: 18,
+                                                                right: 20,
+                                                                left: 20),
+                                                            fillColor:
+                                                            HexColor(Globalvireables.white),
+                                                            filled: true,
+                                                            hintText: LanguageProvider.Llanguage(
+                                                                "phone"),
+                                                          ),
+                                                        ),
+
+
+                                                        Align(
+                                                          alignment: Alignment.bottomCenter,
+                                                          child: Container(
+                                                            height: 50,
+                                                            width:
+                                                            MediaQuery.of(context).size.width / 1.2,
+                                                            margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                            color: HexColor(Globalvireables.white),
+                                                            child: ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                primary:
+                                                                HexColor(ThemP.getcolor()),
+                                                              ),
+                                                              child: Text(
+                                                                LanguageProvider.Llanguage('update'),
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    color:
+                                                                    HexColor(Globalvireables.white),
+                                                                    fontSize: 13 * unitHeightValue),
+                                                              ),
+                                                              onPressed: () async {
+                                                                UpdateInformationTel(context,Loginprovider.userId,_phoneController.text);
+
+                                                              },
+                                                            ),
+                                                          ),
+                                                        )
+
+
+                                                      ],),
+
+
+                                                    ),
+                                                  );});
+
+                                          },
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context).size.width/1.2,
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(10),
+                                                // if you need this
+                                                side: BorderSide(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .height,
+                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                ),
+                                              ),
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context).size.width/1.7,
+
+                                                child: Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: Icon(
+                                                        Icons.phone,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.9,
+
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(10),
+                                                      child: Text(Doctor.mobilENO.toString(),
+                                                          maxLines: 3,
+                                                          overflow: TextOverflow.ellipsis,
+
+                                                          style: ArabicTextStyle(
+                                                              arabicFont: ArabicFont.tajawal,
+                                                              color: HexColor(Globalvireables.black2),
+                                                              fontSize: 18 * unitHeightValue,
+                                                              fontWeight: FontWeight.w700),
+                                                        ),
+                                                      ),
+                                                    ),
+
+Spacer(),
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Icon(
+                                                        Icons.change_circle,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+
+                                            ),
+                                          ),
+                                        ),
+
+                                        GestureDetector(
+                                          onTap: (){
+
+                                            showModalBottomSheet(
+
+                                                context: context,
+
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(20),
+                                                  ),
+                                                ),
+                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+
+
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets.all(20),
+                                                    child: SizedBox(
+                                                      child: Column(children: [
+                                                        TextField(
+                                                          controller: _emailController,
+                                                          decoration: InputDecoration(
+                                                            prefixIcon: Icon(Icons.email,color: HexColor(ThemP.getcolor())),
+                                                            border: OutlineInputBorder(),
+                                                            focusedBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: HexColor(
+                                                                        Globalvireables.black),
+                                                                    width: 0.0),
+                                                                borderRadius:
+                                                                BorderRadius.circular(10.0)),
+                                                            enabledBorder: OutlineInputBorder(
+                                                                borderSide: BorderSide(
+                                                                    color: HexColor(
+                                                                        ThemP.getcolor()),
+                                                                    width: 1.0),
+                                                                borderRadius:
+                                                                BorderRadius.circular(10.0)),
+                                                            contentPadding: EdgeInsets.only(
+                                                                top: 18,
+                                                                bottom: 18,
+                                                                right: 20,
+                                                                left: 20),
+                                                            fillColor:
+                                                            HexColor(Globalvireables.white),
+                                                            filled: true,
+                                                            hintText: LanguageProvider.Llanguage(
+                                                                "email"),
+                                                          ),
+                                                        ),
+
+
+                                                        Align(
+                                                          alignment: Alignment.bottomCenter,
+                                                          child: Container(
+                                                            height: 50,
+                                                            width:
+                                                            MediaQuery.of(context).size.width / 1.2,
+                                                            margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                            color: HexColor(Globalvireables.white),
+                                                            child: ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                primary:
+                                                                HexColor(ThemP.getcolor()),
+                                                              ),
+                                                              child: Text(
+                                                                LanguageProvider.Llanguage('update'),
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    color:
+                                                                    HexColor(Globalvireables.white),
+                                                                    fontSize: 13 * unitHeightValue),
+                                                              ),
+                                                              onPressed: () async {
+
+                                                                UpdateInformationTel(context,Loginprovider.userId,_emailController.text);
+
+                                                              },
+                                                            ),
+                                                          ),
+                                                        )
+
+
+                                                      ],),
+
+
+                                                    ),
+                                                  );});
+
+                                          },
+                                          child: SizedBox(
+                                            width: MediaQuery.of(context).size.width/1.2,
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(10),
+                                                // if you need this
+                                                side: BorderSide(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .height,
+                                                  //  color: Colors.black12.withOpacity(0.1),
+                                                ),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(10),
+                                                    child: Icon(
+                                                      Icons.email,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width/1.8,
+
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                     child: Text(Doctor.email.toString().length<5?'- - - - - - - -':Doctor.email.toString(),
+                                                        style: ArabicTextStyle(
+                                                            arabicFont: ArabicFont.tajawal,
+                                                            color: HexColor(Globalvireables.black2),
+                                                            fontSize: 18 * unitHeightValue,
+                                                            fontWeight: FontWeight.w700),
+                                                      ),
+                                                    ),
+                                                  ),
+Spacer(),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Icon(
+                                                      Icons.change_circle,
+                                                    ),
+                                                     )
+
+                                                ],
+                                              ),
+
                                             ),
                                           ),
                                         ),
@@ -400,6 +664,195 @@ SizedBox(height: 20,),
     Home(),
     profile(),
   ];
+
+  UpdateInformationTel(BuildContext context,String patientNo
+      ,String tel) async {
+
+
+    print("userid :"+patientNo.toString());
+
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
+          content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
+        ));
+
+
+
+    Uri postsURL =
+    Uri.parse(Globalvireables.UpdateInformationURL);
+    try {
+      var map = new Map<String, dynamic>();
+      map['PatientNo'] = patientNo;
+      map['tel'] = tel;
+      map['email'] = 'null';
+
+      http.Response res = await http.post(
+        postsURL,
+        body: map,
+
+      ).whenComplete(() => Navigator.pop(context));
+
+      if (res.statusCode == 200) {
+        print("UpdateInformation" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<ChangePassM> Doctors = body
+            .map(
+              (dynamic item) => ChangePassM.fromJson(item),
+        )
+            .toList();
+
+
+        if(Doctors[0].response=='1S'){
+
+          var prefs = await SharedPreferences.getInstance();
+
+          prefs.setString('UpdateInformation','yes');
+
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('update')),
+              content: Text(LanguageProvider.Llanguage('doneupdte')),
+            ),
+          );
+
+        }else{
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+              content: Text(LanguageProvider.Llanguage('anerror')),     actions: <Widget>[],
+            ),
+          );
+        }
+
+
+      } else {
+        Navigator.pop(context);
+
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),   actions: <Widget>[],
+        );
+      }
+    } catch (e) {
+      Navigator.pop(context);
+
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),      actions: <Widget>[],
+        ),
+      );
+    }
+
+  }
+
+
+  UpdateInformationEmail(BuildContext context,String patientNo
+  ,String email) async {
+
+
+    print("userid :"+patientNo.toString());
+
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
+          content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
+        ));
+
+    Uri postsURL =
+    Uri.parse(Globalvireables.UpdateInformationURL);
+    try {
+      var map = new Map<String, dynamic>();
+      map['PatientNo'] = patientNo;
+      map['email'] = email;
+      map['tel'] = 'null';
+
+      http.Response res = await http.post(
+        postsURL,
+        body: map,
+
+      ).whenComplete(() => Navigator.pop(context));
+
+      if (res.statusCode == 200) {
+        print("UpdateInformation" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<ChangePassM> Doctors = body
+            .map(
+              (dynamic item) => ChangePassM.fromJson(item),
+        )
+            .toList();
+
+
+        if(Doctors[0].response=='1S'){
+
+          var prefs = await SharedPreferences.getInstance();
+
+          prefs.setString('UpdateInformation','yes');
+
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('update')),
+              content: Text(LanguageProvider.Llanguage('doneupdte')),     ),
+          );
+
+        }else{
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+              content: Text(LanguageProvider.Llanguage('anerror')),     actions: <Widget>[],
+            ),
+          );
+        }
+
+
+      } else {
+        Navigator.pop(context);
+
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),         actions: <Widget>[],
+        );
+      }
+    } catch (e) {
+      Navigator.pop(context);
+
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),          actions: <Widget>[],
+        ),
+      );
+    }
+
+  }
+
 
 
   Future<List<ProfileM>> getProfile(BuildContext context,String patientNo) async {

@@ -4,9 +4,10 @@ class ProfileM {
   String? bdate;
   String? mobilENO;
   String? gender;
+  String? email;
 
   ProfileM(
-      {this.fulLANAME, this.fulLENAME, this.bdate, this.mobilENO, this.gender});
+      {this.fulLANAME, this.fulLENAME, this.bdate, this.mobilENO, this.gender,this.email});
 
   ProfileM.fromJson(Map<String, dynamic> json) {
     fulLANAME = json['fulL_A_NAME'];
@@ -14,6 +15,8 @@ class ProfileM {
     bdate = json['bdate'];
     mobilENO = json['mobilE_NO'];
     gender = json['gender'];
+    email = json['email'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -23,6 +26,8 @@ class ProfileM {
     data['bdate'] = this.bdate;
     data['mobilE_NO'] = this.mobilENO;
     data['gender'] = this.gender;
+    data['email'] = this.email;
+
     return data;
   }
 }

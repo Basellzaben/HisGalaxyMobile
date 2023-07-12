@@ -223,7 +223,7 @@ child: Row(children: [
                             child: FutureBuilder(
                               future: getAppoiments(
                                 context,
-                                 "40093","20"
+                                  Loginprovider.userId,"20"
 
                               ),
                               builder: (BuildContext context, AsyncSnapshot<List<AppoimentsM>> snapshot) {
@@ -425,7 +425,7 @@ child: Row(children: [
       await showDialog(
         context: context,
         builder: (context) => new AlertDialog(
-          title: new Text('بيانات الأطباء'),
+          title: new Text('بيانات المواعي'),
           content: Text(e.toString()),
           actions: <Widget>[],
         ),

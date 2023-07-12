@@ -219,7 +219,7 @@ SizedBox(height: 10,),
                             width: MediaQuery.of(context).size.width / 1.1,
                             height: MediaQuery.of(context).size.height / 1.2,
                             child: FutureBuilder(
-                              future: getInvoices(context, "31618" , dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
+                              future: getInvoices(context, Loginprovider.userId , dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<InvoicesM>> snapshot) {
                                 if (snapshot.hasData ) {
@@ -236,20 +236,6 @@ SizedBox(height: 10,),
                                                     data : ThemeData().copyWith(dividerColor: Colors.transparent),
                                                     child: ExpansionTile(
 
-                                                     /* onExpansionChanged: ((newState) {
-                                                        if (newState)
-                                                          setState(() {
-                                                            selectedTile = -1;
-                                                          });
-                                                        else
-                                                          setState(() {
-                                                            selectedTile = int.parse(
-                                                                (inv.invDate.toString().substring(0,4)).toString()
-                                                            );
-                                                          });
-
-                                                      }),
-*/
 
                                                       key: Key((inv.invDate.toString().substring(0,4)).toString()),
                                                       initiallyExpanded: (inv.invDate.toString().substring(0,4)) == selectedTile,
@@ -334,6 +320,8 @@ SizedBox(height: 10,),
                                                                 width: 60,
                                                                 child: Text("المجموع",style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+
+
                                                           ],),
                                                         ),
 
@@ -342,7 +330,8 @@ SizedBox(height: 10,),
                                                           Padding(
                                                             padding: EdgeInsets.only(left: 16,right: 16,top: 6),
                                                             child: Row(children: [
-                                                                 Container(
+
+                                                              Container(
                                                                     width: 120,
                                                                     child: Text(inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString(),style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
@@ -432,7 +421,7 @@ SizedBox(height: 10,),
       await showDialog(
         context: context,
         builder: (context) => new AlertDialog(
-          title: new Text('بيانات الأطباء'),
+          title: new Text('بيانات الفواتير'),
           content: Text(e.toString()),
           actions: <Widget>[],
         ),

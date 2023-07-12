@@ -213,7 +213,7 @@ class _VitalSignsState extends State<VitalSigns> {
                           width: MediaQuery.of(context).size.width / 1.1,
                           height: MediaQuery.of(context).size.height / 1.24,
                           child: FutureBuilder(
-                            future: getVitalSigns(context, "29732", dateinput.text.isEmpty||dateinput.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinput.text),
+                            future: getVitalSigns(context, Loginprovider.userId, dateinput.text.isEmpty||dateinput.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinput.text),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<VitalSignsM>> snapshot) {
                               if (snapshot.hasData) {
@@ -272,6 +272,7 @@ class _VitalSignsState extends State<VitalSigns> {
                                                                 color: Colors.transparent,
                                                                 child: Column(
                                                                   children: [
+                                                                    SizedBox(height: 15,),
                                                                     CircularPercentIndicator(
                                                                       radius: 50.0 *
                                                                           unitHeightValue,
