@@ -39,7 +39,7 @@ class _SettingsState extends State<Settings> {
   void dispose() {
     super.dispose();
   }
-var Terms;
+var Terms='';
   @override
   Widget build(BuildContext context) {
     var ThemP = Provider.of<Them>(context, listen: false);
@@ -206,12 +206,17 @@ var Terms;
                                 Divider(thickness: 1.0, color: Colors.black),
                                 GestureDetector(
                                   onTap: () async {
-                                    // Share.share( 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+"3284"+"&key_images=true');
+
+
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ChangePass()),
                                     );
+
+
+
                                   },
                                   child: Row(
                                     children: [

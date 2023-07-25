@@ -41,7 +41,7 @@ class _InvoicesState extends State<Invoices> {
   void dispose() {
     super.dispose();
   }
-
+var sumPatient=0;
   int selectedIndex = 1;
 var leng=0;
   final List<Widget> nav = [
@@ -159,9 +159,9 @@ if(homeP.getVisitDate().toString().length>7)
                                     ThemP.getcolor()),size: 27*unitHeightValue,),
                                 suffixIcon: GestureDetector(
                                     onTap: (){
-                                      setState(() {
-                                        dateinputC.text=LanguageProvider.Llanguage('SearchbyDate');
+                                      dateinputC.text=LanguageProvider.Llanguage('SearchbyDate');
 
+                                      setState(() {
                                       });
                                     },
                                     child: Icon(color: Colors.redAccent,dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')
@@ -226,7 +226,7 @@ SizedBox(height: 10,),
                                   List<InvoicesM>? Invoices = snapshot.data;
 
                                   return Invoices!.isNotEmpty? Container(
-                                    margin: EdgeInsets.only(bottom: 20),
+                                    margin: EdgeInsets.only(bottom: 170),
                                     child: ListView(
                                       key: Key(selectedTile.toString()),
                                       children: Invoices
@@ -329,36 +329,74 @@ SizedBox(height: 10,),
                                                           for(int i=0;i<inv.iNVOICESAllModelS!.length;i++)
                                                           Padding(
                                                             padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                            child: Row(children: [
+                                                            child: Container(
+                                                              child: Row(children: [
 
-                                                              Container(
-                                                                    width: 120,
-                                                                    child: Text(inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString(),style: ArabicTextStyle(
+                                                                Container(
+                                                                      width: 120,
+                                                                      child: Text(
+
+                                                                         inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList().length>2?
+                                                                          LanguageProvider.getLanguage()=='AR'
+                                                                          ?inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[2].toString()
+                                                                          :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[1].toString()
+
+                                                                             :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[0].toString()
+                                                                             
+
+                                                                        ,style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                 Spacer(),
-                                                                 Container(
-                                                                  alignment: Alignment.center,
-                                                                  width: 60,
-                                                                   child: Text(inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString(),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                 Spacer(),
-                                                                 /*Container(
+                                                                   Spacer(),
+                                                                   Container(
                                                                     alignment: Alignment.center,
                                                                     width: 60,
-                                                                    child: Text(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString(),style: ArabicTextStyle(
+                                                                     child: Text(
+                                                                       (double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
+                                                                       -
+                                                                           double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())).toString()
+
+
+                                                                       /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                              Spacer(),*/
-                                                              Container(
-                                                                  width: 60,
-                                                                  child: Text(
-                                                                    textAlign: TextAlign.left,
-                                                                    inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
+                                                                   Spacer(),
+
+                                                                Container(
+                                                                    width: 70,
+                                                                    child: Text(
+                                                                      textAlign: TextAlign.left,
+                                                                      inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
 
-                                                            ],),
+                                                              ],),
+                                                            ),
                                                           ),
 
                                                         ],),
+
+SizedBox(height: 15,),
+
+                                                        Padding(
+                                                          padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                          child: Row(children: [
+                                                            Container(
+                                                                alignment: Alignment.center,
+                                                                child: Text( LanguageProvider.getLanguage()=='AR'?'المجموع  ':'Total  ',style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                            Spacer(),
+                                                            Container(
+                                                                alignment: Alignment.center,
+                                                                child: Text(inv.patienTTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                            Spacer(),
+                                                            Container(
+                                                                alignment: Alignment.center,
+                                                                child: Text(inv.bilLTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+
+
+                                                          ],),
+                                                        ),
+
                                                       ],
                                                     ),
                                                   )
@@ -390,6 +428,8 @@ SizedBox(height: 10,),
   }
 
   Future<List<InvoicesM>> getInvoices(BuildContext context,String patientid,String date) async {
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL =
         Uri.parse(Globalvireables.InvoicesURL);
@@ -397,6 +437,10 @@ SizedBox(height: 10,),
       var map = new Map<String, dynamic>();
       map['patientNo'] = patientid;
       map['searchDate'] = date;
+      map['vno'] =homeP.visitNo;
+
+
+
       http.Response res = await http.post(
         postsURL,
         body: map,);

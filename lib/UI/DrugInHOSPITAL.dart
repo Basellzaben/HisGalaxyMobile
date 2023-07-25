@@ -372,7 +372,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                                   Text(
                                                                                                     textAlign: TextAlign.center,
 
-                                                                                                      inv.drugHosAllModelS![i].dos.toString()=='null'||inv.drugHosAllModelS![i].dos==null ?inv.drugHosAllModelS![i].dos.toString():"",
+                                                                                                      inv.drugHosAllModelS![i].dose.toString()=='null'||inv.drugHosAllModelS![i].dose==null ?"":inv.drugHosAllModelS![i].dose.toString(),
                                                                                                     style: ArabicTextStyle(
                                                                                                         arabicFont: ArabicFont.tajawal,
                                                                                                         fontSize:
@@ -398,8 +398,11 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                                   fontSize: 22 * unitHeightValue)),
                                                                                         Text(
                                                                                                 textAlign: TextAlign.center,
-                                                                                                inv.drugHosAllModelS![i].qt.toString().substring(0,3)+" "
-                                                                                                +inv.drugHosAllModelS![i].unit.toString(),
+                                                                                               inv.drugHosAllModelS![i].qt.toString().substring(0,3)+" : "
+                                                                                                +(
+                                                                                                    LanguageProvider.getLanguage()=='AR'?inv.drugHosAllModelS![i].unit.toString().split(':').last:
+                                                                                                    inv.drugHosAllModelS![i].unit.toString().split(':').first
+                                                                                                ),
                                                                                                 style: ArabicTextStyle(
                                                                                                 arabicFont: ArabicFont.tajawal,
                                                                                                 fontSize:
@@ -652,12 +655,16 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
 
   Future<List<DrugInHos>> getDrugInHOSPITAL(
       BuildContext context, String patientid, String date ) async {
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+    print('ordernoo '+homeP.getvisitNo());
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(Globalvireables.DrugInHOSPITALURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['Date'] = date;
+      map['vno'] = homeP.getvisitNo();
       http.Response res = await http.post(
         postsURL,
         body: map,

@@ -337,13 +337,18 @@ class _XrayListState extends State<XrayList> {
                                                                     Spacer(),
                                                                     Align(
                                                                       alignment: Alignment.topLeft,
-                                                                      child: Text(
-                                                                          textAlign: TextAlign.left,
-                                                                          inv.descr.toString() == null
-                                                                              ||  inv.descr.toString() == 'NULL'
-                                                                              || inv.descr.toString() ==
-                                                                              'null'? '' : inv.descr.toString()
-                                                                              .trim()),
+                                                                      child: SizedBox(
+                                                                        width: MediaQuery.of(context).size.width/3,
+                                                                        child: Text(
+                                                                            maxLines: 3,
+                                                                            overflow: TextOverflow.ellipsis,
+                                                                            textAlign: TextAlign.left,
+                                                                            inv.descr.toString() == null
+                                                                                ||  inv.descr.toString() == 'NULL'
+                                                                                || inv.descr.toString() ==
+                                                                                'null'? '' : inv.descr.toString()
+                                                                                .trim()),
+                                                                      ),
                                                                     ),
                                                                     Padding(
                                                                       padding: const EdgeInsets.all(8.0),
@@ -431,17 +436,20 @@ class _XrayListState extends State<XrayList> {
     ]);
   }
 
+
   Future<List<xRAYM>> getXrayList(
       BuildContext context, String patientid, String date) async {
-    var LanguageProvider = Provider.of<Language>(context, listen: false);
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    print("dateOfApi "+date);
+    print("dateOfApi"+homeP.visitNo+"ff");
 
     Uri postsURL = Uri.parse(Globalvireables.XrayListURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['searchDate'] = date;
+      map['vno'] = homeP.visitNo.toString().replaceAll('-', '');
+
       http.Response res = await http.post(
         postsURL,
         body: map,

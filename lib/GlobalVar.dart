@@ -35,6 +35,7 @@ class Globalvireables {
   static String ChangeTermsACCSEPTURL="http://"+Globalvireables.connectIP+"/api/TermsAController/TermsACange";
   static String UpdateInformationURL="http://"+Globalvireables.connectIP+"/api/UpdateinfoControler/UpdateInfo";
 
+  static String GetMedicalReport="http://"+Globalvireables.connectIP+"/api/MedicalReport/GetMedicalReport";
 
   static String them1="#229954";
   static String them2="#2E86C1";

@@ -574,8 +574,15 @@ margin: EdgeInsets.only(top: 0),
           }
 
 
-
-
+if(jsonResponse["userType"].toString()!='2'){
+  showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(l.Llanguage('login')),
+        content: Text(l.Llanguage('anerror')),
+      ));
+}
+else
           CheckTerms(jsonResponse["userId"].toString(),jsonResponse["username"].toString());
 
 
@@ -923,7 +930,7 @@ margin: EdgeInsets.only(top: 0),
 
         return HINFO;
       } else {
-        throw "Unable to retrieve Doctors.";
+        throw "Unable to retrieve Doctors. orrr";
       }
     } catch (e) {
       await showDialog(

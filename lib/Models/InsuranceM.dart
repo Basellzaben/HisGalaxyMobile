@@ -7,6 +7,7 @@ class InsuranceM {
   int? payorNo;
   int? insuranceType;
   double? labPercent;
+  double? InPre;
   double? pharmacyPercent;
   double? DischargePercent;
   double? raysPercent;
@@ -35,6 +36,7 @@ class InsuranceM {
         this.companyEmpName,
         this.payoRNAMEA,
         this.payoRNAMEE,
+        this.InPre,
         this.pPatientInsurncesModel});
 
   InsuranceM.fromJson(Map<String, dynamic> json) {
@@ -54,6 +56,8 @@ class InsuranceM {
     payoRNAMEA = json['payoR_NAME_A'];
     payoRNAMEE = json['payoR_NAME_E'];
     pPatientInsurncesModel = json['pPatientInsurncesModel'];
+    InPre = json['inPre'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +77,8 @@ class InsuranceM {
     data['payoR_NAME_A'] = this.payoRNAMEA;
     data['payoR_NAME_E'] = this.payoRNAMEE;
     data['pPatientInsurncesModel'] = this.pPatientInsurncesModel;
+    data['inPre'] = this.InPre;
+
     return data;
   }
 }

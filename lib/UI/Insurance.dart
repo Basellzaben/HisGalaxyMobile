@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -77,7 +78,7 @@ class _InsuranceState extends State<Insurance> {
                   label: LanguageProvider.Llanguage('Home')),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person),
-                  label: LanguageProvider.Llanguage('Insurance')),
+                  label: LanguageProvider.Llanguage('profile')),
             ],
             iconSize: 30 * unitHeightValue,
             unselectedFontSize: 12 * unitHeightValue,
@@ -577,6 +578,68 @@ class _InsuranceState extends State<Insurance> {
                                                         Spacer(),
                                                       ],
                                                     ),
+                                                    SizedBox(
+                                                      height: 30 * unitHeightValue,
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(left: 20,right: 20),
+                                                      child: Row(children: [
+
+                                                        SizedBox(
+                                                          child: Column(
+                                                            children: [
+                                                              CircularPercentIndicator(
+                                                                radius: 60.0 *
+                                                                    unitHeightValue,
+                                                                lineWidth: 15.0,
+                                                                percent:
+                                                                (100-double.parse(
+                                                                    insurance
+                                                                        .InPre
+                                                                        .toString())
+                                                                )
+                                                                    /
+                                                                    100,
+                                                                center: new Text(
+                                                                  (100- double.parse(insurance.InPre.toString().substring(0,4)))
+                                                                      .toString()
+                                                                  ,
+                                                                  style: ArabicTextStyle(
+                                                                      arabicFont: ArabicFont.tajawal,
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                      fontSize: 18 *
+                                                                          unitHeightValue),
+                                                                ),
+                                                                progressColor: HexColor(
+                                                                    ThemP.getcolor()),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                              Text(
+                                                                LanguageProvider
+                                                                    .getLanguage() ==
+                                                                    "AR"
+                                                                    ? "وصفة الخروج"
+                                                                    : "exit recipes",
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                    fontSize: 18 *
+                                                                        unitHeightValue),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+
+
+                                                      ],),
+                                                    )
+
 
 
                                               ])))
@@ -589,7 +652,7 @@ class _InsuranceState extends State<Insurance> {
                                         Spacer(),
                                         Text(
                                           textAlign: TextAlign.center,
-                                          LanguageProvider.getLanguage()=='AR'?'يبدو ان نوع التامين الخاص بك هو شخصي':'Your type of medical insurance appears to be personal',
+                                          LanguageProvider.getLanguage()=='AR'?'يبدو ان نوع التامين الخاص بك هو شخصي ، او ان معلومات التامين غير متوفره حاليا':'Your type of medical insurance appears to be personal',
                                             style: ArabicTextStyle(
                                             arabicFont: ArabicFont.tajawal,
                                             fontWeight:
@@ -637,15 +700,24 @@ class _InsuranceState extends State<Insurance> {
   final List<Widget> nav = [
     Settings(),
     Home(),
-    Insurance(),
+    profile(),
   ];
 
   Future<List<InsuranceM>> getInsurance(BuildContext context, String p) async {
     Uri postsURL = Uri.parse(Globalvireables.InsuranceURL);
     try {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+      var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+
+
+var dd= homeP.VisitDate.length<8?"202":homeP.VisitDate;
+    print("ddfsdfsdd"+ dd);
 
       var map = new Map<String, dynamic>();
       map['PatientNo'] = p;
+      map['vno'] =dd;
+
       http.Response res = await http.post(
         postsURL,
         body: map,);

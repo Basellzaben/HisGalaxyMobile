@@ -33,6 +33,8 @@ import 'Examnation.dart';
 import 'HospitalInfoS.dart';
 import 'Insurance.dart';
 import 'Invoices.dart';
+import 'MedicalReport.dart';
+import 'MedicalReportTList.dart';
 import 'Notifications.dart';
 import 'PRESCPTION.dart';
 import 'Settings.dart';
@@ -267,10 +269,12 @@ class _HomeState extends State<Home> {
     suffixIcon: GestureDetector(
     onTap: () {
     setState(() {
-    dateinput.text =
-    LanguageProvider.Llanguage(
-    'Searchbyvisit');
+
+    dateinput.text = LanguageProvider.Llanguage('Searchbyvisit');
+
     homeP.setVisitDate('');
+
+    homeP.setvisitNo('0');
 
     });
     },
@@ -380,6 +384,11 @@ class _HomeState extends State<Home> {
           homeP.setVisitDate(v
               .visitDate
               .toString().substring(0,10)) ;
+          dateinput.text=homeP.getVisitDate();
+          homeP.setvisitNo(v
+              .visitName
+              .toString()) ;
+
           dateinput.text=homeP.getVisitDate();
           setState(() {
 
@@ -977,8 +986,65 @@ class _HomeState extends State<Home> {
       ),
 
       Spacer(),
-      Spacer(),
-      Spacer(),
+
+      GestureDetector(
+        onTap: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MedicalReportTList()),
+          );},
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
+
+              ),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              height:
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              child: Column(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/medicalreport.svg",color: HexColor(ThemP.getcolor()),
+                    height: 50 * unitHeightValue,
+                    width: 50 * unitHeightValue,
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+                LanguageProvider.Llanguage("medicalreport"),
+
+                style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+                    color: HexColor(ThemP.getcolor()),
+                    fontSize: 13 * unitHeightValue,
+                    fontWeight: FontWeight.w700
+                )
+
+
+
+            ),
+          ],
+        ),
+      ),
+
+
 
     ],
     ),

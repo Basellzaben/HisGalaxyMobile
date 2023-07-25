@@ -554,9 +554,7 @@ Spacer(),
                                                                     fontSize: 13 * unitHeightValue),
                                                               ),
                                                               onPressed: () async {
-
-                                                                UpdateInformationTel(context,Loginprovider.userId,_emailController.text);
-
+                                                                UpdateInformationEmail(context,Loginprovider.userId,_emailController.text);
                                                               },
                                                             ),
                                                           ),
@@ -620,7 +618,6 @@ Spacer(),
                                             ),
                                           ),
                                         ),
-
 
                                         SizedBox(height: 240,),
                                         Text("Version 1.0 - Galaxy Group")

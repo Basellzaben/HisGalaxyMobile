@@ -5,6 +5,7 @@ import 'package:hismobileapp/provider/HomeProvider.dart';
 import 'package:hismobileapp/provider/HospitalProvider.dart';
 import 'package:hismobileapp/provider/ImgaeXrayProvider.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
+import 'package:hismobileapp/provider/MedicalREPProvider.dart';
 import 'package:hismobileapp/provider/SingleEXAMProvider.dart';
 import 'package:hismobileapp/provider/Them.dart';
 import 'package:hismobileapp/provider/languageProvider.dart';
@@ -29,6 +30,8 @@ Future<void> main() async {
         ChangeNotifierProvider<SingleEXAMProvider>(create: (_) => SingleEXAMProvider()),
         ChangeNotifierProvider<Them>(create: (_) => Them()),
         ChangeNotifierProvider<HospitalProvider>(create: (_) => HospitalProvider()),
+
+        ChangeNotifierProvider<MedicalREPProvider>(create: (_) => MedicalREPProvider()),
 
 
       ],

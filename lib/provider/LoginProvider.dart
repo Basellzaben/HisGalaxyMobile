@@ -18,6 +18,17 @@ class LoginProvider extends ChangeNotifier {
   String userType="";
   String createdDate="";
 
+  String Bdate="";
+
+  getBdate() {
+    return Bdate;
+  }
+
+  setBdate(String Bdate) {
+    this.Bdate = Bdate;
+    notifyListeners();
+  }
+
   getpass() {
     return pass;
   }

@@ -45,6 +45,7 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "medicalreport":"تقرير طبي",
     "terms": "الشروط و الاحكام",
     "update": "تحديث",
     "email": "البريد الالكتروني",
@@ -208,14 +209,14 @@ class Language extends ChangeNotifier {
     "email": "Email",
     "doneupdte": "The information has been updated successfully",
     "terms": "Terms and Conditions",
-
+    "medicalreport":"medical report",
     "update": "Update",
     "phone": "Phone",
     "myvisit": "My Visits",
     "anerror": "An error occurred, try again",
     "anerrortitle": "An error occurred",
     "openbrowser": "Open Browser",
-    "drugH": "drugH",
+    "drugH": "Treatments",
     "Search": "Search",
     "qt": "Quantity",
     "dsuccessfully": "Download successfully",

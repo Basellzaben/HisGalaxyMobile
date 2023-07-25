@@ -400,8 +400,18 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                   fontSize: 22 * unitHeightValue)),
                                                                                         Text(
                                                                                                 textAlign: TextAlign.center,
-                                                                                                inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
-                                                                                                +inv.prescptionHdrModels![i].unit.toString(),
+
+
+                                                                                            inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" : "
+                                                                                                +(
+                                                                                                LanguageProvider.getLanguage()=='AR'?inv.prescptionHdrModels![i].unit.toString().split(':').last:
+                                                                                                inv.prescptionHdrModels![i].unit.toString().split(':').first
+                                                                                            ),
+
+
+
+                                                                                              /*  inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
+                                                                                                +inv.prescptionHdrModels![i].unit.toString(),*/
                                                                                                 style: ArabicTextStyle(
                                                                                                 arabicFont: ArabicFont.tajawal,
                                                                                                 fontSize:
@@ -425,10 +435,6 @@ class _PRESCPTIONState extends State<PRESCPTION> {
 
                                                                                 },child: Icon(Icons.more_horiz))
                                                                             ,
-
-
-
-
 
                                                                             Align(
                                                                               alignment: Alignment.topLeft,
@@ -655,12 +661,16 @@ SizedBox(height: 18,)
 
   Future<List<prescptionM>> getPRESCPTION(
       BuildContext context, String patientid, String date ) async {
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(Globalvireables.prescptionURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['Date'] = date;
+      map['vno'] = homeP.getvisitNo();
+
       http.Response res = await http.post(
         postsURL,
         body: map,

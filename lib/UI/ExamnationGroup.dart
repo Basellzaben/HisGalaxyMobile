@@ -608,6 +608,8 @@ SizedBox(height: 6,),
   }
   Future<List<ExamnationGroupM>> getExamnation(
       BuildContext context, String patientid, String date,String orderNo,String ServNo) async {
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
+
     Uri postsURL = Uri.parse(Globalvireables.ExamnatioGroupURL);
     try {
       var map = new Map<String, dynamic>();
@@ -615,6 +617,8 @@ SizedBox(height: 6,),
       map['Date'] = date;
       map['OrderNo'] = orderNo;
       map['ServNo'] = ServNo;
+      map['vno'] = homeP.getvisitNo();
+
       http.Response res = await http.post(
         postsURL,
         body: map,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/MedicalReport.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
@@ -11,28 +12,29 @@ import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-import '../Models/ExamnationM.dart';
+import '../Models/MedicalReportM.dart';
+import '../Models/ProfileM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
+import '../provider/MedicalREPProvider.dart';
 import '../provider/SingleEXAMProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
-import 'ExamnationGroup.dart';
-import 'ExamnationSingle.dart';
 import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:arabic_font/arabic_font.dart';
 
-class Examnation extends StatefulWidget {
+class MedicalReportTList extends StatefulWidget {
   @override
-  State<Examnation> createState() => _ExamnationState();
+  State<MedicalReportTList> createState() => _MedicalReportTListState();
 }
 
-class _ExamnationState extends State<Examnation> {
+class _MedicalReportTListState extends State<MedicalReportTList> {
   @override
   void initState() {
+    getProfile(context);
     setsearch(context);
     super.initState();
   }
@@ -68,7 +70,7 @@ class _ExamnationState extends State<Examnation> {
         .height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    var SINGLEEx = Provider.of<SingleEXAMProvider>(context, listen: false);
+    var SINGLEEx = Provider.of<MedicalREPProvider>(context, listen: false);
 
     return Stack(children: <Widget>[
       Image.asset(
@@ -121,7 +123,7 @@ class _ExamnationState extends State<Examnation> {
             elevation: 4.0,
             title: Widgets.Appbar(
                 context,
-                LanguageProvider.Llanguage('Examnation'),
+                LanguageProvider.Llanguage('medicalreport'),
                 unitHeightValue,
                 LanguageProvider.langg,
                 LanguageProvider.getDirection()),
@@ -190,11 +192,15 @@ class _ExamnationState extends State<Examnation> {
                                 suffixIcon: GestureDetector(
                                     onTap: () {
                                       print("ex 1");
-                                      setState(() {
                                         dateinputC.text =
                                             LanguageProvider.Llanguage(
-                                                'SearchbyDate');
+                                             'SearchbyDate'
+                                             );
+
+                                      setState(() {
+
                                       });
+
                                     },
                                     child: Icon(color: Colors.redAccent,
                                         dateinputC.text.isEmpty ||
@@ -245,6 +251,11 @@ class _ExamnationState extends State<Examnation> {
                                 } else {
                                   print("Date is not selected");
                                 }
+
+                                setState(() {
+
+                                });
+
                               },
                             ),
                           ),
@@ -264,22 +275,22 @@ class _ExamnationState extends State<Examnation> {
                                 .size
                                 .height / 1.2,
                             child: FutureBuilder(
-                              future: getExamnation(
+                              future: getMedicalReportTList(
                                 context,
                                 Loginprovider.userId,
                                   dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text
 
                               ),
                               builder: (BuildContext context,
-                                  AsyncSnapshot<List<ExamnationM>> snapshot) {
+                                  AsyncSnapshot<List<MedicalReportM>> snapshot) {
                                 if (snapshot.hasData) {
-                                  List<ExamnationM>? Examnation = snapshot.data;
-                                  return Examnation!.isNotEmpty ? Container(
+                                  List<MedicalReportM>? MedicalReportTList = snapshot.data;
+                                  return MedicalReportTList!.isNotEmpty ? Container(
                                     margin: EdgeInsets.only(bottom: 20),
                                     child: ListView(
-                                      children: Examnation!
-                                          .map((ExamnationM inv) =>
-                                          SizedBox(
+                                      children: MedicalReportTList!
+                                          .map((MedicalReportM inv) =>
+                                      inv.html != "null"? SizedBox(
                                               child: GestureDetector(
                                                 onTap: () {
 
@@ -339,67 +350,39 @@ class _ExamnationState extends State<Examnation> {
                                                                           onPressed:
                                                                               () async {
                                                                             SINGLEEx
-                                                                                .setDATE(
+                                                                                .setdatee(
                                                                                 inv
-                                                                                    .ExDate
+                                                                                    .datee
                                                                                     .toString());
                                                                             SINGLEEx
-                                                                                .setNORMALRANGE(
+                                                                                .settimee(
                                                                                 inv
-                                                                                    .normalRange
+                                                                                    .timee
                                                                                     .toString());
                                                                             SINGLEEx
-                                                                                .setDOCTORNAME(
+                                                                                .setdoctorname(
                                                                                 inv
-                                                                                    .doctorName
+                                                                                    .doctorname
                                                                                     .toString());
                                                                             SINGLEEx
-                                                                                .setRESULT(
+                                                                                .sethtml(
                                                                                 inv
-                                                                                    .result
+                                                                                    .html
                                                                                     .toString());
                                                                             SINGLEEx
-                                                                                .setUNIT(
+                                                                                .setvisitno(
                                                                                 inv
-                                                                                    .unitDesc
-                                                                                    .toString());
-                                                                            SINGLEEx
-                                                                                .setSERVDESC(
-                                                                                inv
-                                                                                    .serVDESC
+                                                                                    .visitno
                                                                                     .toString());
 
-                                                                            SINGLEEx
-                                                                                .setServNo(
-                                                                                inv
-                                                                                    .servNo
-                                                                                    .toString());
-                                                                            SINGLEEx
-                                                                                .setOrderNo(
-                                                                                inv
-                                                                                    .orederNo
-                                                                                    .toString());
-
-
-                                                                            if (inv
-                                                                                .normalRange !=
-                                                                                "null") {
+ {
                                                                               Navigator
                                                                                   .push(
                                                                                 context,
                                                                                 MaterialPageRoute(
                                                                                     builder: (
                                                                                         context) =>
-                                                                                        ExamnationSingle()),
-                                                                              );
-                                                                            } else {
-                                                                              Navigator
-                                                                                  .push(
-                                                                                context,
-                                                                                MaterialPageRoute(
-                                                                                    builder: (
-                                                                                        context) =>
-                                                                                        ExamnationGroup()),
+                                                                                        MedicalReport()),
                                                                               );
                                                                             }
                                                                           },
@@ -423,22 +406,22 @@ class _ExamnationState extends State<Examnation> {
                                                                                 textAlign: TextAlign
                                                                                     .left,
                                                                                 inv
-                                                                                    .serVDESC
+                                                                                    .doctorname
                                                                                     .toString() ==
                                                                                     null
                                                                                     ||
                                                                                     inv
-                                                                                        .serVDESC
+                                                                                        .doctorname
                                                                                         .toString() ==
                                                                                         'NULL'
                                                                                     ||
                                                                                     inv
-                                                                                        .serVDESC
+                                                                                        .doctorname
                                                                                         .toString() ==
                                                                                         'null'
                                                                                     ? ''
                                                                                     : inv
-                                                                                    .serVDESC
+                                                                                    .doctorname
                                                                                     .toString()
                                                                                     .trim(),
                                                                                 style: ArabicTextStyle(
@@ -449,33 +432,33 @@ class _ExamnationState extends State<Examnation> {
                                                                                     fontWeight: FontWeight
                                                                                         .w900),),
                                                                             ),
-                                                                            Align(
+                                                                          /*  Align(
                                                                               alignment: Alignment
                                                                                   .topLeft,
                                                                               child: Text(
                                                                                   textAlign: TextAlign
                                                                                       .left,
                                                                                   inv
-                                                                                      .doctorName
+                                                                                      .datee
                                                                                       .toString() ==
                                                                                       null
                                                                                       ||
                                                                                       inv
-                                                                                          .doctorName
+                                                                                          .datee
                                                                                           .toString() ==
                                                                                           'NULL'
                                                                                       ||
                                                                                       inv
-                                                                                          .doctorName
+                                                                                          .datee
                                                                                           .toString() ==
                                                                                           'null'
                                                                                       ? ''
                                                                                       : "DR . " +
                                                                                       inv
-                                                                                          .doctorName
+                                                                                          .datee
                                                                                           .toString()
                                                                                           .trim()),
-                                                                            ),
+                                                                            ),*/
                                                                           ],
                                                                         ),
                                                                       ),
@@ -497,7 +480,7 @@ class _ExamnationState extends State<Examnation> {
                                                                               Text(
                                                                                   textAlign: TextAlign
                                                                                       .center,
-                                                                                  retMonth(inv.ExDate.toString()),
+                                                                                  retMonth(inv.datee.toString()),
                                                                                   style: TextStyle(
                                                                                       fontSize: 15,
                                                                                       fontWeight: FontWeight
@@ -506,7 +489,7 @@ class _ExamnationState extends State<Examnation> {
                                                                               Text(
                                                                                   textAlign: TextAlign
                                                                                       .center,
-                                                                                  retYear(inv.ExDate.toString()),
+                                                                                  retYear(inv.datee.toString()),
                                                                                   style: TextStyle(
                                                                                       fontSize: 15,
                                                                                       height: 1)),
@@ -516,7 +499,7 @@ class _ExamnationState extends State<Examnation> {
                                                                           SizedBox(
                                                                             width: 2,),
                                                                           Text(
-                                                                            retDay(inv.ExDate.toString()),
+                                                                            retDay(inv.datee.toString()),
                                                                             style: TextStyle(
                                                                                 fontSize: 30,
                                                                                 fontWeight: FontWeight
@@ -539,7 +522,7 @@ class _ExamnationState extends State<Examnation> {
                                                         )),
                                                   ],
                                                 ),
-                                              )))
+                                              )):Container())
                                           .toList(),
                                     ),
                                   ) : Image.asset(
@@ -565,39 +548,33 @@ class _ExamnationState extends State<Examnation> {
     ]);
   }
 
-  Future<List<ExamnationM>> getExamnation(BuildContext context,
+  Future<List<MedicalReportM>> getMedicalReportTList(BuildContext context,
       String patientid, String date) async {
-    var homeP = Provider.of<HomeProvider>(context, listen: false);
-
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.ExamnationURL);
+    Uri postsURL = Uri.parse(Globalvireables.GetMedicalReport);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
-      map['Date'] = date;
-      map['vno'] =
-
-      homeP.getvisitNo();
-
+      map['searchDate'] = date;
       http.Response res = await http.post(
         postsURL,
         body: map,
       );
 
       if (res.statusCode == 200) {
-        print("Examnation" + res.body.toString());
+        print("MedicalReportTList" + res.body.toString());
 
         List<dynamic> body = jsonDecode(res.body);
 
-        List<ExamnationM> Examnation = body
+        List<MedicalReportM> MedicalReportTList = body
             .map(
-              (dynamic item) => ExamnationM.fromJson(item),
+              (dynamic item) => MedicalReportM.fromJson(item),
         )
             .toList();
 
-        return Examnation;
+        return MedicalReportTList;
       } else {
-        throw "Unable to retrieve Examnation." + res.statusCode.toString();
+        throw "Unable to retrieve MedicalReportTList." + res.statusCode.toString();
       }
     } catch (e) {
       await showDialog(
@@ -611,8 +588,11 @@ class _ExamnationState extends State<Examnation> {
       );
     }
 
-    throw "Unable to retrieve Examnation.";
+    throw "Unable to retrieve MedicalReportTList.";
   }
+
+
+
 
   _onItemTapped(int index) {
     setState(() {
@@ -708,4 +688,60 @@ class _ExamnationState extends State<Examnation> {
 
     return newMonth + " " + d + "," + y;
   }
+
+
+
+
+  Future<List<ProfileM>> getProfile(BuildContext context) async {
+    Uri postsURL =
+    Uri.parse(Globalvireables.profileURL);
+    try {
+      var Loginproviderr = Provider.of<LoginProvider>(context, listen: false);
+
+
+
+      var map = new Map<String, dynamic>();
+      map['PatientNo'] = Loginproviderr.userId;
+      http.Response res = await http.post(
+        postsURL,
+        body: map,
+
+      );
+
+      if (res.statusCode == 200) {
+        print("Profile" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<ProfileM> Doctors = body
+            .map(
+              (dynamic item) => ProfileM.fromJson(item),
+        )
+            .toList();
+
+
+        Loginproviderr.setBdate(Doctors[0].bdate.toString());
+
+        return Doctors;
+      } else {
+        throw "Unable to retrieve Profile.";
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text('بيانات المريض'),
+          content: Text(e.toString()),
+          actions: <Widget>[],
+        ),
+      );
+    }
+
+    throw "Unable to retrieve Profile.";
+  }
+
+
+
+
 }

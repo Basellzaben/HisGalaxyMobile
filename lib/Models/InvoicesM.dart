@@ -77,7 +77,9 @@ class INVOICESAllModelS {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['deptNo'] = this.deptNo;
     data['servicE_TOTAL_AMT'] = this.servicETOTALAMT;
-    data['servicE_PATIENT_AMT'] = this.servicEPATIENTAMT;
+   // data['servicE_PATIENT_AMT'] = this.servicEPATIENTAMT;
+    data['servicE_PATIENT_AMT']=double.parse(this.servicETOTALAMT.toString())
+        - double.parse(this.servicEPAYORAMT.toString());
     data['servicE_PAYOR_AMT'] = this.servicEPAYORAMT;
     data['servicE_DETAILS_DESC'] = this.servicEDETAILSDESC;
     return data;

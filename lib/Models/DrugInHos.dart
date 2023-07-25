@@ -32,15 +32,15 @@ class DrugHosAllModelS {
   String? cname;
   String? qt;
   String? unit;
-  String? dos;
+  String? dose;
 
-  DrugHosAllModelS({this.cname, this.qt, this.unit, this.dos});
+  DrugHosAllModelS({this.cname, this.qt, this.unit, this.dose});
 
   DrugHosAllModelS.fromJson(Map<String, dynamic> json) {
     cname = json['cname'].toString() ??' ';
     qt = json['qt'].toString() ??' ';
     unit = json['unit'].toString() ??' ';
-    dos = json['dos'].toString() ??' ';
+    dose = json['dose'].toString()??'';
 
   }
 
@@ -49,7 +49,7 @@ class DrugHosAllModelS {
     data['cname'] = this.cname.toString()??' ';
     data['qt'] = this.qt.toString()??' ' ;
     data['unit'] = this.unit.toString()??' ';
-    data['dos'] = this.dos.toString()??' ';
+    data['dose'] = this.dose.toString()=='null'?? "- : -";
     return data;
   }
 }
