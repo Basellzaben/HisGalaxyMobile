@@ -7,6 +7,7 @@ import '../main.dart';
 class HomeProvider extends ChangeNotifier {
   String VisitDate="";
   String visitNo="";
+  String visittype="";
 
   getvisitNo() {
     return visitNo;
@@ -14,6 +15,15 @@ class HomeProvider extends ChangeNotifier {
 
   setvisitNo(String visitNo) {
     this.visitNo = visitNo;
+    notifyListeners();
+  }
+
+  getvisittype() {
+    return visittype;
+  }
+
+  setvisittype(String visittype) {
+    this.visittype = visittype;
     notifyListeners();
   }
 

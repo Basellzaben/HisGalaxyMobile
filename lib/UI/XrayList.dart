@@ -32,7 +32,7 @@ class XrayList extends StatefulWidget {
 class _XrayListState extends State<XrayList> {
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -52,7 +52,7 @@ class _XrayListState extends State<XrayList> {
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-    if(homeP.getVisitDate().toString().length==10)
+    //if(homeP.getVisitDate().toString().length==10)
 
     dateinputC.text = homeP.getVisitDate();
   }
@@ -238,7 +238,8 @@ class _XrayListState extends State<XrayList> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.11,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
+
                             child: FutureBuilder(
                               future: getXrayList(
                                   context,
@@ -292,7 +293,7 @@ class _XrayListState extends State<XrayList> {
                                                                           ThemP.getcolor()),
                                                                     ),
                                                                     child: Text(
-                                                                      'Show',
+                                                                      LanguageProvider.Llanguage("Show"),
                                                                       style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                           color: HexColor(Globalvireables
@@ -312,13 +313,22 @@ class _XrayListState extends State<XrayList> {
                                                                       ImgaeXrayProvide.setresult(inv.report.toString());
                                                                       ImgaeXrayProvide.setdate(inv.sdate.toString());
 
-
+if(inv.placeholder.toString().length>8 &&inv.placeholdeR_HTML.toString().length>8 )
                                                                           Navigator.push(
                                                                             context,
                                                                             MaterialPageRoute(
                                                                                 builder: (context) => XrayImage()),
                                                                           );
-
+else
+  await showDialog(
+    context: context,
+    builder: (context) =>
+    new AlertDialog(
+      title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+      content: Text(LanguageProvider.Llanguage('notfound')),
+      actions: <Widget>[],
+    ),
+  );
 
                                                                         },
                                                                   ),
@@ -367,9 +377,9 @@ class _XrayListState extends State<XrayList> {
                                                                                       .center,
                                                                                   retMonth(inv.sdate.toString()),
                                                                                   style: TextStyle(
-                                                                                      fontSize: 14,
+                                                                                      fontSize: 16,
                                                                                       fontWeight: FontWeight
-                                                                                          .bold,
+                                                                                          .w800,
                                                                                       height: 1)),
                                                                               Text(
                                                                                   textAlign: TextAlign
@@ -382,18 +392,19 @@ class _XrayListState extends State<XrayList> {
 
                                                                           ),
 
-                                                                          SizedBox(
-                                                                            width: 2,),
+                                                                          SizedBox(width: 2,),
                                                                           Text(
                                                                             retDay(inv.sdate.toString()),
                                                                             style: TextStyle(
-                                                                                fontSize: 30,
+                                                                                fontSize: 38,
                                                                                 fontWeight: FontWeight
-                                                                                    .bold,
+                                                                                    .w800,
                                                                                 color: HexColor(
                                                                                     ThemP
                                                                                         .getcolor())),
-                                                                          )
+                                                                              )
+
+
 
                                                                         ],),
                                                                     )
@@ -448,7 +459,8 @@ class _XrayListState extends State<XrayList> {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['searchDate'] = date;
-      map['vno'] = homeP.visitNo.toString().replaceAll('-', '');
+      map['vno'] = homeP.visitNo.toString();
+      map['VisitType'] = homeP.visittype.toString();
 
       http.Response res = await http.post(
         postsURL,
@@ -532,18 +544,44 @@ class _XrayListState extends State<XrayList> {
 
 
   String retDay(String DATE) {
-    var parts = DATE.split('-');
-    String d = parts[2].trim().substring(0, 2);
+    try {
+      var parts;
+      if(DATE.contains('-'))
+       parts = DATE.split('-');
+      else if(DATE.contains('  '))
+        parts = DATE.split('  ');
+      else
+        parts = DATE.split(' ');
 
-    return d.toString();
+      String d = parts[2].trim().substring(0, 2);
+
+      return d.toString();
+    }catch(_){
+
+      return '';
+    }
   }
 
 
   String retYear(String DATE) {
-    var parts = DATE.split('-');
+    try{
+    var parts ;
+
+    if(DATE.contains('-'))
+      parts = DATE.split('-');
+    else if(DATE.contains('  '))
+      parts = DATE.split('  ');
+    else
+      parts = DATE.split(' ');
+
     String y = parts[0].trim();
 
-    return y.toString();
+
+
+    return y.toString();}
+    catch(_){
+      return "";
+    }
   }
   String dattw(String date){
     var parts = date.split('-');
@@ -554,35 +592,47 @@ class _XrayListState extends State<XrayList> {
     return("");
 }
   String retMonth(String DATE) {
+    try{
+      var parts;
     String newMonth = "";
-    var parts = DATE.split('-');
+    if(DATE.contains('-'))
+     parts = DATE.split('-');
+    else if(DATE.contains('  '))
+      parts = DATE.split('  ');
+    else
+     parts = DATE.split(' ');
+
     int m = int.parse(parts[1].trim());
     if (m == 1) {
-      newMonth = 'Jan';
+      newMonth = 'JAN';
     } else if (m == 2) {
-      newMonth = 'Feb';
+      newMonth = 'FEB';
     } else if (m == 3) {
-      newMonth = 'Mar';
+      newMonth = 'MAR';
     } else if (m == 4) {
-      newMonth = 'Apr';
+      newMonth = 'APR';
     } else if (m == 5) {
-      newMonth = 'May';
+      newMonth = 'MAY';
     } else if (m == 6) {
-      newMonth = 'Jun';
+      newMonth = 'JUN';
     } else if (m == 7) {
-      newMonth = 'Jul';
+      newMonth = 'JUL';
     } else if (m == 8) {
-      newMonth = 'Aug';
+      newMonth = 'AUG';
     } else if (m == 9) {
-      newMonth = 'Sep';
+      newMonth = 'SEP';
     } else if (m == 10) {
-      newMonth = 'Oct';
+      newMonth = 'OCT';
     } else if (m == 11) {
-      newMonth = 'Nov';
+      newMonth = 'NOV';
     } else if (m == 12) {
-      newMonth = 'Dec';
+      newMonth = 'DEC';
     }
-    return newMonth.toString();
+    return newMonth.toString();}catch(_){
+
+      return "";
+
+    }
   }
 
 }

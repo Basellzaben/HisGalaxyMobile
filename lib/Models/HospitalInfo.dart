@@ -36,7 +36,7 @@ class HospitalInfo {
     phonE1 = json['phonE_1'];
 
     Terms = json['terms'];
-    Facebook = json['faceebook'];
+    Facebook = json['facebook'];
     Twitter = json['twitter'];
 
   }
@@ -52,7 +52,7 @@ class HospitalInfo {
     data['phonE_1'] = this.phonE1.toString()??'';
 
     data['terms'] = this.Terms.toString()??'';
-    data['faceebook'] = this.Facebook.toString()??'';
+    data['facebook'] = this.Facebook.toString()??'';
     data['twitter'] = this.Twitter.toString()??'';
 
     return data;

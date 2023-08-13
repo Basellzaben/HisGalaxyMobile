@@ -45,6 +45,9 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "selectvisitno":"يجب اختيار رقم الزياده لعرض تفاصيل التامين",
+    "notfound":"صوره الأشعة غير متوفره",
+    "Show":"عرض",
     "medicalreport":"تقرير طبي",
     "terms": "الشروط و الاحكام",
     "update": "تحديث",
@@ -205,6 +208,9 @@ class Language extends ChangeNotifier {
   };
 
   static Map<String, Object?> en = {
+    "Show":"Show",
+    "notfound":"Item not found",
+    "selectvisitno":"You must choose the excess number to view the insurance details",
     "loginandacept": "Agree and continue",
     "email": "Email",
     "doneupdte": "The information has been updated successfully",

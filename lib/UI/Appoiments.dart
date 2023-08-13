@@ -30,7 +30,7 @@ class Appoiments extends StatefulWidget {
 class _AppoimentsState extends State<Appoiments> {
   @override
   void initState() {
-    setsearch(context);
+    //setsearch(context);
     super.initState();
   }
 
@@ -51,9 +51,9 @@ var state=false;
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    dateinputC.text = homeP.getVisitDate();
+  //  dateinputC.text = homeP.getVisitDate();
   }
-
+  final key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
@@ -72,6 +72,7 @@ var state=false;
       ),
       Scaffold(
           bottomNavigationBar: BottomNavigationBar(
+            key: key,
             type: BottomNavigationBarType.fixed,
             elevation: 8,
             selectedItemColor: HexColor(Globalvireables.white),
@@ -219,7 +220,7 @@ child: Row(children: [
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.11,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
                             child: FutureBuilder(
                               future: getAppoiments(
                                 context,
@@ -251,7 +252,7 @@ child: Row(children: [
                                            inv.sessionDate.toString() == null
                                            ||  inv.sessionDate.toString() == 'NULL'
                                            || inv.sessionDate.toString() ==
-                                           'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length)
+                                           'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length-3)
 
                                                           .trim()),
                                                 ),
@@ -317,9 +318,9 @@ child: Row(children: [
                                                                                 .center,
                                                                             retMonth(inv.sessionDate.toString()),
                                                                             style: TextStyle(
-                                                                                fontSize: 14,
+                                                                                fontSize: 16,
                                                                                 fontWeight: FontWeight
-                                                                                    .bold,
+                                                                                    .w800,
                                                                                 height: 1)),
                                                                         Text(
                                                                             textAlign: TextAlign
@@ -336,9 +337,9 @@ child: Row(children: [
                                                                     Text(
                                                                       retDay(inv.sessionDate.toString()),
                                                                       style: TextStyle(
-                                                                          fontSize: 30,
+                                                                          fontSize: 35,
                                                                           fontWeight: FontWeight
-                                                                              .bold,
+                                                                              .w800,
                                                                           color: HexColor(
                                                                               ThemP
                                                                                   .getcolor())),
@@ -391,10 +392,25 @@ child: Row(children: [
     try {
       String state1='3649';
       String state2='2';
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      var type;
+       if(homeP.getvisittype()=='1' || homeP.getvisittype()=='2'||
+       homeP.getvisittype()=='3'||
+    homeP.getvisittype()=='4')
+         type = homeP.getvisittype();
+      else
+         type = '0';
+
+
+
+      print ("typerr" +" "+type);
 
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['searchDate'] = date;
+      map['VisitType'] = type;
       if(state){
         state1='3650';
         state2='1';
@@ -503,29 +519,29 @@ child: Row(children: [
     var parts = DATE.split('-');
     int m = int.parse(parts[1].trim());
     if (m == 1) {
-      newMonth = 'Jan';
+      newMonth = 'JAN';
     } else if (m == 2) {
-      newMonth = 'Feb';
+      newMonth = 'FEB';
     } else if (m == 3) {
-      newMonth = 'Mar';
+      newMonth = 'MAR';
     } else if (m == 4) {
-      newMonth = 'Apr';
+      newMonth = 'APR';
     } else if (m == 5) {
-      newMonth = 'May';
+      newMonth = 'MAY';
     } else if (m == 6) {
-      newMonth = 'Jun';
+      newMonth = 'JUN';
     } else if (m == 7) {
-      newMonth = 'Jul';
+      newMonth = 'JUL';
     } else if (m == 8) {
-      newMonth = 'Aug';
+      newMonth = 'AUG';
     } else if (m == 9) {
-      newMonth = 'Sep';
+      newMonth = 'SEP';
     } else if (m == 10) {
-      newMonth = 'Oct';
+      newMonth = 'OCT';
     } else if (m == 11) {
-      newMonth = 'Nov';
+      newMonth = 'NOV';
     } else if (m == 12) {
-      newMonth = 'Dec';
+      newMonth = 'DEC';
     }
     return newMonth.toString();
   }

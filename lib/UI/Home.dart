@@ -51,6 +51,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
+
     changepass(context);
     super.initState();
   }
@@ -275,6 +276,7 @@ class _HomeState extends State<Home> {
     homeP.setVisitDate('');
 
     homeP.setvisitNo('0');
+    homeP.setvisittype('0');
 
     });
     },
@@ -390,6 +392,12 @@ class _HomeState extends State<Home> {
               .toString()) ;
 
           dateinput.text=homeP.getVisitDate();
+
+
+          homeP.setvisittype(v
+              .VisitType
+              .toString()) ;
+
           setState(() {
 
           });
@@ -417,7 +425,6 @@ class _HomeState extends State<Home> {
               .w700),),
           Spacer(),
           Spacer(),
-          Spacer(),
           Text(
           v
               .visitDate
@@ -431,6 +438,23 @@ class _HomeState extends State<Home> {
           fontWeight: FontWeight
               .w700),),
           Spacer(),
+            Text(
+              gettypevisit(v
+                  .VisitType
+                  .toString()),
+              style: ArabicTextStyle(
+                  arabicFont: ArabicFont.tajawal,
+                  color: Colors
+                      .black,
+                  fontSize: 13 *
+                      unitHeightValue,
+                  fontWeight: FontWeight
+                      .w700),),
+            Spacer(),
+
+
+
+
 
           ],)
 
@@ -696,10 +720,22 @@ class _HomeState extends State<Home> {
     children: [
     GestureDetector(
     onTap: () {
+
+      if(homeP.getvisitNo().toString()!='0')
     Navigator.push(
     context,
     MaterialPageRoute(
     builder: (context) => Insurance()),);
+      else
+         showDialog(
+          context: context,
+          builder: (context) =>
+      new AlertDialog(
+        title: new Text(''),
+        content: Text(LanguageProvider.Llanguage('selectvisitno')),
+        actions: <Widget>[],
+      ),
+      );
     },
     child: Column(
     children: [
@@ -1393,6 +1429,10 @@ class _HomeState extends State<Home> {
       if (res.statusCode == 200) {
         List<dynamic> body = jsonDecode(res.body);
 
+
+
+        print(body.toString());
+
         List<VisitsM> visits = body
             .map(
               (dynamic item) => VisitsM.fromJson(item),
@@ -2015,6 +2055,24 @@ Spacer(),
     }
 
     throw "Unable to retrieve Profile.";
+  }
+
+  String gettypevisit(String string) {
+  var vname=string;
+  if(vname=='1'){
+    vname='طوارئ';
+  }else if(vname=='2'){
+    vname='كلى';
+  }if(vname=='3'){
+    vname='خارجي';
+  }if(vname=='4'){
+    vname='داخلي';
+  }
+
+
+  return "زيارة " +vname;
+
+
   }
 
 

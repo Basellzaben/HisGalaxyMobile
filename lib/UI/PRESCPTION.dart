@@ -28,7 +28,7 @@ class PRESCPTION extends StatefulWidget {
 class _PRESCPTIONState extends State<PRESCPTION> {
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -48,8 +48,8 @@ class _PRESCPTIONState extends State<PRESCPTION> {
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-    if(homeP.getVisitDate().toString().length==10)
-    dateinputC.text = homeP.getVisitDate();
+    //if(homeP.getVisitDate().toString().length==10)
+   // dateinputC.text = homeP.getVisitDate();
   }
 
   @override
@@ -164,12 +164,18 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                 ),
                                 suffixIcon: GestureDetector(
                                     onTap: () {
+
                                       print("ex 1");
                                       setState(() {
                                         dateinputC.text =
                                             LanguageProvider.Llanguage(
                                                 'SearchbyDate');
                                       });
+
+                                      setState(() {
+
+                                      });
+
                                     },
                                     child: Icon(color: Colors.redAccent,dateinputC.text.isEmpty ||
                                             dateinputC.text.toString() ==
@@ -206,7 +212,6 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                     firstDate: DateTime(2000),
                                     //DateTime.now() - not to allow to choose before today.
                                     lastDate: DateTime(2101));
-
                                 if (pickedDate != null) {
                                   String formattedDate =
                                       DateFormat('yyyy-MM-dd')
@@ -217,6 +222,9 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                         .toString(); //set output date to TextField value.
                                   });
                                 } else {
+                                  setState(() {
+                                  });
+
                                   print("Date is not selected");
                                 }
                               },
@@ -230,7 +238,8 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.11,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
+
                             child: FutureBuilder(
                               future: getPRESCPTION(
                                   context,
@@ -247,7 +256,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                 if (snapshot.hasData) {
                                   List<prescptionM>? PRESCPTION = snapshot.data;
                                   return PRESCPTION!.isNotEmpty? Container(
-                                    margin: EdgeInsets.only(bottom: 100),
+
 
 
 
@@ -309,14 +318,14 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                       Column(
                                                                         children: [
                                                                           Text(
-                                                                              textAlign: TextAlign
-                                                                                  .center,
+
+                                                                              textAlign: TextAlign.center,
                                                                               retMonth(inv.cdate.toString()),
-                                                                              style: TextStyle(
-                                                                                  fontSize: 15,
-                                                                                  fontWeight: FontWeight
-                                                                                      .w900,
-                                                                                  height: 1)),
+                                                                              style: TextStyle(fontSize: 15,
+                                                                              fontWeight: FontWeight.w900, height: 1)
+
+                                                                          ),
+
                                                                           Text(
                                                                               textAlign: TextAlign
                                                                                   .center,
@@ -660,7 +669,7 @@ SizedBox(height: 18,)
   }
 
   Future<List<prescptionM>> getPRESCPTION(
-      BuildContext context, String patientid, String date ) async {
+    BuildContext context, String patientid, String date ) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -670,6 +679,7 @@ SizedBox(height: 18,)
       map['PatientNo'] = patientid;
       map['Date'] = date;
       map['vno'] = homeP.getvisitNo();
+      map['VisitType'] = homeP.getvisittype();
 
       http.Response res = await http.post(
         postsURL,
@@ -771,29 +781,29 @@ SizedBox(height: 18,)
     var parts = DATE.split('-');
     int m = int.parse(parts[1].trim());
     if (m == 1) {
-      newMonth = 'Jan';
+      newMonth = 'JAN';
     } else if (m == 2) {
-      newMonth = 'Feb';
+      newMonth = 'FEB';
     } else if (m == 3) {
-      newMonth = 'Mar';
+      newMonth = 'MAR';
     } else if (m == 4) {
-      newMonth = 'Apr';
+      newMonth = 'APR';
     } else if (m == 5) {
-      newMonth = 'May';
+      newMonth = 'MAY';
     } else if (m == 6) {
-      newMonth = 'Jun';
+      newMonth = 'JUN';
     } else if (m == 7) {
-      newMonth = 'Jul';
+      newMonth = 'JUL';
     } else if (m == 8) {
-      newMonth = 'Aug';
+      newMonth = 'AUG';
     } else if (m == 9) {
-      newMonth = 'Sep';
+      newMonth = 'SEP';
     } else if (m == 10) {
-      newMonth = 'Oct';
+      newMonth = 'OCT';
     } else if (m == 11) {
-      newMonth = 'Nov';
+      newMonth = 'NOV';
     } else if (m == 12) {
-      newMonth = 'Dec';
+      newMonth = 'DEC';
     }
     return newMonth.toString();
   }

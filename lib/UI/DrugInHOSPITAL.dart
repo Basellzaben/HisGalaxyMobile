@@ -28,7 +28,7 @@ class DrugInHOSPITAL extends StatefulWidget {
 class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -48,8 +48,8 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-    if(homeP.getVisitDate().toString().length==10)
-    dateinputC.text = homeP.getVisitDate();
+   // if(homeP.getVisitDate().toString().length==10)
+    //dateinputC.text = homeP.getVisitDate();
   }
 
   @override
@@ -230,7 +230,8 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.11,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
+
                             child: FutureBuilder(
                               future: getDrugInHOSPITAL(
                                   context,
@@ -247,8 +248,6 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                 if (snapshot.hasData) {
                                   List<DrugInHos>? DrugInHOSPITAL = snapshot.data;
                                   return DrugInHOSPITAL!.isNotEmpty? Container(
-                                    margin: EdgeInsets.only(bottom: 100),
-
 
 
                                     child: ListView(
@@ -273,9 +272,9 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                               child: Text(
                                                                 retDay(inv.cdate.toString()),
                                                                 style: TextStyle(
-                                                                    fontSize: 30,
+                                                                    fontSize: 35,
                                                                     fontWeight: FontWeight
-                                                                        .bold,
+                                                                        .w800,
                                                                     color: HexColor(
                                                                         ThemP
                                                                             .getcolor())),
@@ -311,9 +310,9 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                   .center,
                                                                               retMonth(inv.cdate.toString()),
                                                                               style: TextStyle(
-                                                                                  fontSize: 14,
+                                                                                  fontSize: 16,
                                                                                   fontWeight: FontWeight
-                                                                                      .bold,
+                                                                                      .w800,
                                                                                   height: 1)),
                                                                           Text(
                                                                               textAlign: TextAlign
@@ -665,6 +664,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
       map['PatientNo'] = patientid;
       map['Date'] = date;
       map['vno'] = homeP.getvisitNo();
+
       http.Response res = await http.post(
         postsURL,
         body: map,
@@ -765,29 +765,29 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
     var parts = DATE.split('-');
     int m = int.parse(parts[1].trim());
     if (m == 1) {
-      newMonth = 'Jan';
+      newMonth = 'JAN';
     } else if (m == 2) {
-      newMonth = 'Feb';
+      newMonth = 'FEB';
     } else if (m == 3) {
-      newMonth = 'Mar';
+      newMonth = 'MAR';
     } else if (m == 4) {
-      newMonth = 'Apr';
+      newMonth = 'APR';
     } else if (m == 5) {
-      newMonth = 'May';
+      newMonth = 'MAY';
     } else if (m == 6) {
-      newMonth = 'Jun';
+      newMonth = 'JUN';
     } else if (m == 7) {
-      newMonth = 'Jul';
+      newMonth = 'JUL';
     } else if (m == 8) {
-      newMonth = 'Aug';
+      newMonth = 'AUG';
     } else if (m == 9) {
-      newMonth = 'Sep';
+      newMonth = 'SEP';
     } else if (m == 10) {
-      newMonth = 'Oct';
+      newMonth = 'OCT';
     } else if (m == 11) {
-      newMonth = 'Nov';
+      newMonth = 'NOV';
     } else if (m == 12) {
-      newMonth = 'Dec';
+      newMonth = 'DEC';
     }
     return newMonth.toString();
   }

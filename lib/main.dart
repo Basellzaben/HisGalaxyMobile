@@ -35,7 +35,7 @@ Future<void> main() async {
 
 
       ],
-      child:DevicePreview(enabled: true,builder:(context)=> const MyApp(),)));
+      child:DevicePreview(enabled: false,builder:(context)=> const MyApp(),)));
 }
 
 class MyApp extends StatelessWidget {

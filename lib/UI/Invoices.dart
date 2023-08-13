@@ -33,7 +33,7 @@ class _InvoicesState extends State<Invoices> {
   int selectedTile = -1;
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -217,7 +217,8 @@ if(homeP.getVisitDate().toString().length>7)
 SizedBox(height: 10,),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.1,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
+
                             child: FutureBuilder(
                               future: getInvoices(context, Loginprovider.userId , dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
                               builder: (BuildContext context,
@@ -226,7 +227,7 @@ SizedBox(height: 10,),
                                   List<InvoicesM>? Invoices = snapshot.data;
 
                                   return Invoices!.isNotEmpty? Container(
-                                    margin: EdgeInsets.only(bottom: 170),
+
                                     child: ListView(
                                       key: Key(selectedTile.toString()),
                                       children: Invoices
@@ -248,9 +249,9 @@ SizedBox(height: 10,),
                                                         child: Text(
                                                           retDay(inv.invDate.toString()),
                                                           style: TextStyle(
-                                                              fontSize: 34,
+                                                              fontSize: 35,
                                                               fontWeight: FontWeight
-                                                                  .bold,
+                                                                  .w800,
                                                               color: HexColor(
                                                                   ThemP
                                                                       .getcolor())),
@@ -280,9 +281,9 @@ SizedBox(height: 10,),
                                                                               .center,
                                                                           retMonth(inv.invDate.toString()),
                                                                           style: TextStyle(
-                                                                              fontSize: 16,
+                                                                              fontSize: 17,
                                                                               fontWeight: FontWeight
-                                                                                  .bold,
+                                                                                  .w800,
                                                                               height: 1)),
                                                                       Text(
                                                                           textAlign: TextAlign
@@ -353,7 +354,7 @@ SizedBox(height: 10,),
                                                                      child: Text(
                                                                        (double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
                                                                        -
-                                                                           double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())).toString()
+                                                                           double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())).toStringAsFixed(3).toString()
 
 
                                                                        /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
@@ -555,29 +556,29 @@ SizedBox(height: 15,),
     var parts = DATE.split('-');
     int m = int.parse(parts[1].trim());
     if (m == 1) {
-      newMonth = 'Jan';
+      newMonth = 'JAN';
     } else if (m == 2) {
-      newMonth = 'Feb';
+      newMonth = 'FEB';
     } else if (m == 3) {
-      newMonth = 'Mar';
+      newMonth = 'MAR';
     } else if (m == 4) {
-      newMonth = 'Apr';
+      newMonth = 'APR';
     } else if (m == 5) {
-      newMonth = 'May';
+      newMonth = 'MAY';
     } else if (m == 6) {
-      newMonth = 'Jun';
+      newMonth = 'JUN';
     } else if (m == 7) {
-      newMonth = 'Jul';
+      newMonth = 'JUL';
     } else if (m == 8) {
-      newMonth = 'Aug';
+      newMonth = 'AUG';
     } else if (m == 9) {
-      newMonth = 'Sep';
+      newMonth = 'SEP';
     } else if (m == 10) {
-      newMonth = 'Oct';
+      newMonth = 'OCT';
     } else if (m == 11) {
-      newMonth = 'Nov';
+      newMonth = 'NOV';
     } else if (m == 12) {
-      newMonth = 'Dec';
+      newMonth = 'DEC';
     }
     return newMonth.toString();
   }

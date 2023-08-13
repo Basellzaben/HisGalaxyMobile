@@ -227,76 +227,94 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
 
                                  )
 ,
-                                 Card(
-                                   shape: RoundedRectangleBorder(
-                                     borderRadius:
-                                     BorderRadius.circular(10),
-                                     // if you need this
-                                     side: BorderSide(
-                                       width: MediaQuery.of(context)
-                                           .size
-                                           .height,
-                                       //  color: Colors.black12.withOpacity(0.1),
+                                 GestureDetector(
+                                   onTap: () async {
+                                     String url="tel:+"+Doctors![0].phonE1.toString();
+                                     if (await canLaunch(url)) {
+                                     launch(url);
+                                     } else {
+                                     throw "Could not launch $url";
+                                     }
+                                   },
+                                   child: Card(
+                                     shape: RoundedRectangleBorder(
+                                       borderRadius:
+                                       BorderRadius.circular(10),
+                                       // if you need this
+                                       side: BorderSide(
+                                         width: MediaQuery.of(context)
+                                             .size
+                                             .height,
+                                         //  color: Colors.black12.withOpacity(0.1),
+                                       ),
+                                     ),
+                                     child: Row(
+                                       children: [
+                                         Padding(
+                                           padding: const EdgeInsets.all(10),
+                                           child: Icon(
+                                             Icons.phone,
+                                           ),
+                                         ),
+                                         Padding(
+                                           padding: const EdgeInsets.all(10),
+                                           child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].phonE1.toString():Doctors![0].phonE1.toString(),
+                                             style: TextStyle(
+                                                 fontWeight: FontWeight.w700,
+                                                 color: HexColor(Globalvireables
+                                                     .black),
+                                                 fontSize:
+                                                 18 *
+                                                     unitHeightValue),),),
+                                         ),
+                                       ],
                                      ),
                                    ),
-                                   child: Row(
-                                     children: [
-                                       Padding(
-                                         padding: const EdgeInsets.all(10),
-                                         child: Icon(
-                                           Icons.phone,
-                                         ),
-                                       ),
-                                       Padding(
-                                         padding: const EdgeInsets.all(10),
-                                         child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].phonE1.toString():Doctors![0].phonE1.toString(),
-                                           style: TextStyle(
-                                               fontWeight: FontWeight.w700,
-                                               color: HexColor(Globalvireables
-                                                   .black),
-                                               fontSize:
-                                               18 *
-                                                   unitHeightValue),),),
-                                       ),
-                                     ],
-                                   ),
-
                                  )
 ,
-                                 Card(
-                                   shape: RoundedRectangleBorder(
-                                     borderRadius:
-                                     BorderRadius.circular(10),
-                                     // if you need this
-                                     side: BorderSide(
-                                       width: MediaQuery.of(context)
-                                           .size
-                                           .height,
-                                       //  color: Colors.black12.withOpacity(0.1),
-                                     ),
-                                   ),
-                                   child: Row(
-                                     children: [
-                                       Padding(
-                                         padding: const EdgeInsets.all(10),
-                                         child: Icon(
-                                           Icons.link,
-                                         ),
-                                       ),
-                                       Padding(
-                                         padding: const EdgeInsets.all(10),
-                                         child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].websitEADDRESS.toString():Doctors![0].websitEADDRESS.toString(),
-                                           style: TextStyle(
-                                               fontWeight: FontWeight.w700,
-                                               color: HexColor(Globalvireables
-                                                   .black),
-                                               fontSize:
-                                               18 *
-                                                   unitHeightValue),),),
-                                       ),
-                                     ],
-                                   ),
+                                 GestureDetector(
+                                   onTap: (){
+                                     openUrl(Doctors![0].websitEADDRESS.toString().trim());
 
+                                   },
+                                   child: Card(
+                                     shape: RoundedRectangleBorder(
+                                       borderRadius:
+                                       BorderRadius.circular(10),
+                                       // if you need this
+                                       side: BorderSide(
+                                         width: MediaQuery.of(context)
+                                             .size
+                                             .height,
+                                         //  color: Colors.black12.withOpacity(0.1),
+                                       ),
+                                     ),
+                                     child: Row(
+                                       children: [
+                                         Padding(
+                                           padding: const EdgeInsets.all(10),
+                                           child: Icon(
+                                             Icons.link,
+                                           ),
+                                         ),
+                                         Padding(
+                                           padding: const EdgeInsets.all(10),
+                                           child: Container(
+                                             width: MediaQuery.of(context).size.width/1.5,
+                                             child: Center(child: Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].websitEADDRESS.toString():Doctors![0].websitEADDRESS.toString(),
+                                               style: TextStyle(
+                                                   fontWeight: FontWeight.w700,
+                                                   color: HexColor(Globalvireables
+                                                       .black),
+                                                   fontSize:
+                                                   18 *
+                                                       unitHeightValue),),),
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+
+                                   ),
                                  ),
 
 SizedBox(height: 30,),
@@ -306,7 +324,7 @@ Spacer(),
                            GestureDetector(
                            onTap: (){
 
-                             openUrl(Doctors![0].Twitter.toString().trim());
+                             openUrl(Doctors![0].Facebook.toString().trim());
 
                            },
                                        child: Image.asset(
@@ -320,7 +338,7 @@ Spacer(),
                                      GestureDetector(
                                        onTap: (){
 
-                                         openUrl(Doctors![0].Facebook.toString().trim());
+                                         openUrl(Doctors![0].Twitter.toString().trim());
 
                                        },
                                        child: Image.asset(
@@ -420,7 +438,7 @@ Spacer(),
         )
             .toList();
 
-
+print("facebookAPI "+Doctors[0].Facebook.toString());
 
         return Doctors;
       } else {
@@ -442,6 +460,9 @@ Spacer(),
   }
   Future<void> openUrl(String url) async {
     final _url = Uri.parse(url);
+
+    print("urrri "+url);
+
     if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) { // <--
       throw Exception('Could not launch $_url');
     }

@@ -248,9 +248,6 @@ var Terms='';
                                 GestureDetector(
                                     onTap: () async {
 
-
-
-
                                       showLoaderDialog( context);
                                     },
                                     child: Row(
@@ -279,7 +276,9 @@ var Terms='';
                                 SizedBox(
                                   height: 6,
                                 ),
-                                Divider(thickness: 1.0, color: Colors.black),
+                                Divider(
+                                    thickness: 1.0, color: Colors.black
+                                ),
 
                                 GestureDetector(
                                     onTap: () async {
@@ -374,7 +373,6 @@ var Terms='';
                                         )
                                       ],
                                     )),
-
 
                                 SizedBox(
                                   height: 40,

@@ -468,7 +468,7 @@ Spacer(),
                                                     Padding(
                                                       padding: const EdgeInsets.all(8.0),
                                                       child: Icon(
-                                                        Icons.change_circle,
+                                                        Icons.edit,
                                                       ),
                                                     )
                                                   ],
@@ -608,7 +608,7 @@ Spacer(),
                                                   Padding(
                                                     padding: const EdgeInsets.all(8.0),
                                                     child: Icon(
-                                                      Icons.change_circle,
+                                                      Icons.edit,
                                                     ),
                                                      )
 

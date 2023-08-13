@@ -381,9 +381,8 @@ class _ChangePassState extends State<ChangePass> {
               content: Text(LanguageProvider.Llanguage('anerror')),      actions: <Widget>[],
             ),
           );
+
         }
-
-
       } else {
         Navigator.pop(context);
 
@@ -394,7 +393,6 @@ class _ChangePassState extends State<ChangePass> {
       }
     } catch (e) {
       Navigator.pop(context);
-
       await showDialog(
         context: context,
         builder: (context) =>
@@ -403,6 +401,7 @@ class _ChangePassState extends State<ChangePass> {
           content: Text(LanguageProvider.Llanguage('anerror')),
           actions: <Widget>[],
         ),
+
       );
     }
 

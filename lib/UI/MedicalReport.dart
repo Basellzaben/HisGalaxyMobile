@@ -45,7 +45,7 @@ class MedicalReport extends StatefulWidget {
 class _MedicalReportState extends State<MedicalReport> {
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -67,7 +67,7 @@ class _MedicalReportState extends State<MedicalReport> {
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    dateinputC.text = homeP.getVisitDate();
+  //  dateinputC.text = homeP.getVisitDate();
   }
 
   GlobalKey globalKey = GlobalKey();

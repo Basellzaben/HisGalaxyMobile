@@ -11,7 +11,6 @@ import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-
 import '../Models/Doctor.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
@@ -23,18 +22,15 @@ class Doctors extends StatefulWidget {
   @override
   State<Doctors> createState() => _DoctorsState();
 }
-
 class _DoctorsState extends State<Doctors> {
   @override
   void initState() {
     super.initState();
   }
-
   @override
   void dispose() {
     super.dispose();
   }
-
   int selectedIndex = 1;
 
   final List<Widget> nav = [
@@ -193,10 +189,10 @@ class _DoctorsState extends State<Doctors> {
                         SizedBox(height: 10,),
                         Container(
                           color: Colors.transparent,
-
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width / 1.1,
-                            height: MediaQuery.of(context).size.height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
+
                             child: FutureBuilder(
                               future: getDoctors(context,"all"),
                               builder: (BuildContext context,
@@ -209,7 +205,6 @@ class _DoctorsState extends State<Doctors> {
                                   || map.depName.toString().contains(dateinputC.text.toString())
                                   ).toList();
                                   return Doctors!.isNotEmpty? Container(
-                                    margin: EdgeInsets.only(bottom: 90),
                                     child: ListView(
                                       children: Doctors!
                                           .map((Doctor Doctor) => SizedBox(

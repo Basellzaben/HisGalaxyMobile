@@ -40,7 +40,7 @@ class ExamnationSingle extends StatefulWidget {
 class _ExamnationSingleState extends State<ExamnationSingle> {
   @override
   void initState() {
-    setsearch(context);
+  //  setsearch(context);
     super.initState();
   }
 
@@ -62,7 +62,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    dateinputC.text = homeP.getVisitDate();
+   // dateinputC.text = homeP.getVisitDate();
   }
    GlobalKey globalKey = GlobalKey();
   Future<void> _capturePng() async {

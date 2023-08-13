@@ -32,7 +32,7 @@ class VitalSigns extends StatefulWidget {
 class _VitalSignsState extends State<VitalSigns> {
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -222,7 +222,9 @@ class _VitalSignsState extends State<VitalSigns> {
                                   child: ListView(
                                     children: VitalSigns!
                                         .map((VitalSignsM VitalSignsM) =>
-                                            SizedBox(
+                                    VitalSignsM.vITALSIGNSAllModelS!.isNotEmpty?
+
+                                    SizedBox(
                                                 child: Column(
                                               children: [
                                                 Padding(
@@ -233,7 +235,7 @@ class _VitalSignsState extends State<VitalSigns> {
                                                       child: Text(
                                                           retturndatenewformat(
                                                         VitalSignsM.datee
-                                                            .toString())+ " - " +VitalSignsM.vITALSIGNSAllModelS![0].reaDTIME.toString()
+                                                        .toString())+ " - " +VitalSignsM.vITALSIGNSAllModelS![0].reaDTIME.toString()
                                                         ,
                                                         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
@@ -401,7 +403,9 @@ class _VitalSignsState extends State<VitalSigns> {
                                                   ),*/
 
                                               ],
-                                            )))
+                                            ))
+                                        :SizedBox()
+                                    )
                                         .toList(),
                                   ),
                                 ):Image.asset(
@@ -441,6 +445,8 @@ class _VitalSignsState extends State<VitalSigns> {
       map['patientNo'] = patientNo;
       map['searchDate'] = searchDate;
       map['vno'] = homeP.getvisitNo();
+      map['VisitType'] = homeP.getvisittype();
+
       http.Response res = await http.post(
         postsURL,
         body: map,

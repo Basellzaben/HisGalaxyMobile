@@ -9,6 +9,7 @@ import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import '../Models/ChangePassM.dart';
 import '../Models/HospitalInfo.dart';
+import '../provider/HomeProvider.dart';
 import '../provider/HospitalProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
@@ -270,7 +271,7 @@ margin: EdgeInsets.only(top: 0),
                                   alignment: Alignment.topLeft,
                                   child: Container(
                                     margin: EdgeInsets.only(
-                                        left: 10, right: 10, top: 0),
+                                        left: 25, right: 25, top: 0),
                                     child: Row(
                                       children: [
                                         Checkbox(
@@ -509,6 +510,10 @@ margin: EdgeInsets.only(top: 0),
 
 
   Login(String username, String password, BuildContext context) async {
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+    homeP.setvisitNo('0');
+    homeP.setvisittype('0');
 
     getHospitalInf();
 

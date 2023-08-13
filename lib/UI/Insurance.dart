@@ -215,12 +215,13 @@ class _InsuranceState extends State<Insurance> {
                                                 Row(
                                                   children: [
                                                     SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.3,
                                                       child: Text(
                                                         LanguageProvider
                                                                     .getLanguage() ==
                                                                 "AR"
-                                                            ? "معلومات التامين :"
-                                                            : "Insurance information :",
+                                                            ? "معلومات التامين (نسبة مشاركة شركة التأمين) :"
+                                                            : "Insurance information (Insurance company participation rate) :",
                                                         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                           fontSize: 18 *
@@ -244,7 +245,7 @@ class _InsuranceState extends State<Insurance> {
                                                             radius: 60.0 *
                                                                 unitHeightValue,
                                                             lineWidth: 15.0,
-                                                            percent:( (100-double.parse(
+                                                            percent:( (double.parse(
                                                                     insurance
                                                                         .labPercent
                                                                         .toString()
@@ -252,9 +253,12 @@ class _InsuranceState extends State<Insurance> {
 
                                                             ) )/
                                                                 100),
-                                                            center: new Text(
-                                                                (100- double.parse(insurance.labPercent.toString()))
-                                                                  .toString(),
+                                                            center: Container (
+                                                                margin: EdgeInsets.only(top: 10),
+
+                                                                child:Text(
+                                                                ( double.parse(insurance.labPercent.toString()))
+                                                                  .toString()+'%',
                                                               style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                   fontWeight:
@@ -262,16 +266,18 @@ class _InsuranceState extends State<Insurance> {
                                                                           .w900,
                                                                   fontSize: 18 *
                                                                       unitHeightValue),
-                                                            ),
+                                                            )),
                                                             progressColor: HexColor(
                                                                ThemP.getcolor()),
                                                           ),
+
                                                           SizedBox(
                                                             height: 5,
-                                                          ),
+                                                            ),
+
                                                           Text(
                                                             LanguageProvider
-                                                                        .getLanguage() ==
+                                                            .getLanguage() ==
                                                                     "AR"
                                                                 ? "المختبر"
                                                                 : "lab",
@@ -282,6 +288,9 @@ class _InsuranceState extends State<Insurance> {
                                                                 fontSize: 18 * unitHeightValue
                                                             ),
                                                           )
+
+
+
                                                         ],
                                                       ),
                                                     ),
@@ -297,7 +306,7 @@ class _InsuranceState extends State<Insurance> {
                                                                 unitHeightValue,
                                                             lineWidth: 15.0,
                                                             percent:
-                                                              (100-double.parse(
+                                                              (double.parse(
                                                                 insurance
                                                                     .pharmacyPercent
                                                                     .toString()
@@ -307,7 +316,7 @@ class _InsuranceState extends State<Insurance> {
                                                                 /
                                                                 100,
                                                             center: new Text(
-                                                                (100- double.parse(insurance.pharmacyPercent.toString()))
+                                                                ( double.parse(insurance.pharmacyPercent.toString()))
                                                                     .toString()
                                                            ,
                                                               style: ArabicTextStyle(
@@ -358,7 +367,7 @@ class _InsuranceState extends State<Insurance> {
                                                                 unitHeightValue,
                                                             lineWidth: 15.0,
                                                             percent:
-                                                              (100-double.parse(
+                                                              (double.parse(
                                                                 insurance
                                                                     .servicePercent
                                                                     .toString()
@@ -368,7 +377,7 @@ class _InsuranceState extends State<Insurance> {
                                                                 /
                                                                 100,
                                                             center: new Text(
-                                                                (100- double.parse(insurance.servicePercent.toString()))
+                                                                ( double.parse(insurance.servicePercent.toString()))
                                                                     .toString()
                                                             ,
                                                               style: ArabicTextStyle(
@@ -414,7 +423,7 @@ class _InsuranceState extends State<Insurance> {
                                                                 unitHeightValue,
                                                             lineWidth: 15.0,
                                                             percent:
-                                                              (100-double.parse(
+                                                              (double.parse(
                                                                 insurance
                                                                     .suppliesPercent
                                                                     .toString()
@@ -424,7 +433,7 @@ class _InsuranceState extends State<Insurance> {
                                                                 /
                                                                 100,
                                                             center: new Text(
-                                                                (100- double.parse(insurance.suppliesPercent.toString()))
+                                                                (double.parse(insurance.suppliesPercent.toString()))
                                                                     .toString()
                                                             ,
                                                               style: ArabicTextStyle(
@@ -475,7 +484,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue,
                                                                 lineWidth: 15.0,
                                                                 percent:
-                                                                (100-double.parse(
+                                                                (double.parse(
                                                                     insurance
                                                                         .dischargePercent
                                                                         .toString()
@@ -485,7 +494,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     /
                                                                     100,
                                                                 center: new Text(
-                                                                  (100- double.parse(insurance.dischargePercent.toString()))
+                                                                  (double.parse(insurance.dischargePercent.toString()))
                                                                       .toString()
                                                                   ,
                                                                   style: ArabicTextStyle(
@@ -531,7 +540,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue,
                                                                 lineWidth: 15.0,
                                                                 percent:
-                                                                (100-double.parse(
+                                                                (double.parse(
                                                                     insurance
                                                                         .raysPercent
                                                                         .toString()
@@ -541,7 +550,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     /
                                                                     100,
                                                                 center: new Text(
-                                                                  (100- double.parse(insurance.raysPercent.toString()))
+                                                                  ( double.parse(insurance.raysPercent.toString()))
                                                                       .toString()
                                                                   ,
                                                                   style: ArabicTextStyle(
@@ -584,7 +593,6 @@ class _InsuranceState extends State<Insurance> {
                                                     Container(
                                                       margin: EdgeInsets.only(left: 20,right: 20),
                                                       child: Row(children: [
-
                                                         SizedBox(
                                                           child: Column(
                                                             children: [
@@ -593,7 +601,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     unitHeightValue,
                                                                 lineWidth: 15.0,
                                                                 percent:
-                                                                (100-double.parse(
+                                                                (double.parse(
                                                                     insurance
                                                                         .InPre
                                                                         .toString())
@@ -601,7 +609,7 @@ class _InsuranceState extends State<Insurance> {
                                                                     /
                                                                     100,
                                                                 center: new Text(
-                                                                  (100- double.parse(insurance.InPre.toString().substring(0,4)))
+                                                                  ( double.parse(insurance.InPre.toString()))
                                                                       .toString()
                                                                   ,
                                                                   style: ArabicTextStyle(
@@ -713,10 +721,10 @@ class _InsuranceState extends State<Insurance> {
 
 var dd= homeP.VisitDate.length<8?"202":homeP.VisitDate;
     print("ddfsdfsdd"+ dd);
-
+       homeP = Provider.of<HomeProvider>(context, listen: false);
       var map = new Map<String, dynamic>();
       map['PatientNo'] = p;
-      map['vno'] =dd;
+      map['vno'] = homeP.getvisitNo();
 
       http.Response res = await http.post(
         postsURL,
@@ -731,7 +739,19 @@ var dd= homeP.VisitDate.length<8?"202":homeP.VisitDate;
         (dynamic item) => InsuranceM.fromJson(item),)
         .toList();
 
-        return Doctors;
+       var x;
+       if(Doctors.length>1)
+        for(int i=0;i<Doctors.length;i++){
+          if(Doctors[i].companyEmpName!=null){
+            x=Doctors[i];
+          }
+        }
+       else
+         x=Doctors[0];
+
+        List<InsuranceM> Doctors2=[x];
+
+        return Doctors2;
       } else {
         throw "Unable to retrieve Doctors.";
       }

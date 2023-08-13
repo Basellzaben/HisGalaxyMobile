@@ -35,7 +35,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
   @override
   void initState() {
     getProfile(context);
-    setsearch(context);
+    //setsearch(context);
     super.initState();
   }
 
@@ -55,8 +55,8 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
-    if(homeP.getVisitDate().toString().length==10)
-    dateinputC.text = homeP.getVisitDate();
+    //if(homeP.getVisitDate().toString().length==10)
+   // dateinputC.text = homeP.getVisitDate();
   }
 
   @override
@@ -270,10 +270,8 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                 .of(context)
                                 .size
                                 .width / 1.11,
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height / 1.2,
+                            height: MediaQuery.of(context).size.height / 1.4,
+
                             child: FutureBuilder(
                               future: getMedicalReportTList(
                                 context,
@@ -286,7 +284,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                 if (snapshot.hasData) {
                                   List<MedicalReportM>? MedicalReportTList = snapshot.data;
                                   return MedicalReportTList!.isNotEmpty ? Container(
-                                    margin: EdgeInsets.only(bottom: 20),
+
                                     child: ListView(
                                       children: MedicalReportTList!
                                           .map((MedicalReportM inv) =>
@@ -336,7 +334,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                                                                     .getcolor()),
                                                                           ),
                                                                           child: Text(
-                                                                            'Show',
+                                                                            LanguageProvider.Llanguage('Show'),
                                                                             style: ArabicTextStyle(
                                                                                 arabicFont: ArabicFont
                                                                                     .tajawal,
@@ -482,9 +480,9 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                                                                       .center,
                                                                                   retMonth(inv.datee.toString()),
                                                                                   style: TextStyle(
-                                                                                      fontSize: 15,
+                                                                                      fontSize: 16,
                                                                                       fontWeight: FontWeight
-                                                                                          .bold,
+                                                                                          .w800,
                                                                                       height: 1)),
                                                                               Text(
                                                                                   textAlign: TextAlign
@@ -501,9 +499,9 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                                                           Text(
                                                                             retDay(inv.datee.toString()),
                                                                             style: TextStyle(
-                                                                                fontSize: 30,
+                                                                                fontSize: 35,
                                                                                 fontWeight: FontWeight
-                                                                                    .bold,
+                                                                                    .w800,
                                                                                 color: HexColor(
                                                                                     ThemP
                                                                                         .getcolor())),
@@ -553,9 +551,14 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(Globalvireables.GetMedicalReport);
     try {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['searchDate'] = date;
+      map['vno'] = homeP.getvisitNo();
+      map['VisitType'] = homeP.getvisittype();
+
       http.Response res = await http.post(
         postsURL,
         body: map,
@@ -661,29 +664,29 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
     String d = parts[2].trim();
 
     if (m == 1) {
-      newMonth = 'Jan';
+      newMonth = 'JAN';
     } else if (m == 2) {
-      newMonth = 'Feb';
+      newMonth = 'FEB';
     } else if (m == 3) {
-      newMonth = 'Mar';
+      newMonth = 'MAR';
     } else if (m == 4) {
-      newMonth = 'Apr';
+      newMonth = 'APR';
     } else if (m == 5) {
-      newMonth = 'May';
+      newMonth = 'MAY';
     } else if (m == 6) {
-      newMonth = 'Jun';
+      newMonth = 'JUN';
     } else if (m == 7) {
-      newMonth = 'Jul';
+      newMonth = 'JUL';
     } else if (m == 8) {
-      newMonth = 'Aug';
+      newMonth = 'AUG';
     } else if (m == 9) {
-      newMonth = 'Sep';
+      newMonth = 'SEP';
     } else if (m == 10) {
-      newMonth = 'Oct';
+      newMonth = 'OCT';
     } else if (m == 11) {
-      newMonth = 'Nov';
+      newMonth = 'NOV';
     } else if (m == 12) {
-      newMonth = 'Dec';
+      newMonth = 'DEC';
     }
 
     return newMonth + " " + d + "," + y;

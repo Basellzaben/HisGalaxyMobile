@@ -48,7 +48,7 @@ class ExamnationGroup extends StatefulWidget {
 class _ExamnationGroupState extends State<ExamnationGroup> {
   @override
   void initState() {
-    setsearch(context);
+   // setsearch(context);
     super.initState();
   }
 
@@ -69,7 +69,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    dateinputC.text = homeP.getVisitDate();
+  //  dateinputC.text = homeP.getVisitDate();
   }
    GlobalKey globalKey = GlobalKey();
   Future<void> _capturePng() async {
@@ -618,6 +618,7 @@ SizedBox(height: 6,),
       map['OrderNo'] = orderNo;
       map['ServNo'] = ServNo;
       map['vno'] = homeP.getvisitNo();
+      map['VisitType'] = homeP.getvisittype();
 
       http.Response res = await http.post(
         postsURL,

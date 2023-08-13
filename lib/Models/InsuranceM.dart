@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class InsuranceM {
   String? carde;
-  int? payorType;
-  int? payorNo;
-  int? insuranceType;
+
   double? labPercent;
   double? InPre;
   double? pharmacyPercent;
@@ -25,9 +23,7 @@ class InsuranceM {
         this.DischargePercent,
         this.raysPercent,
         this.carde,
-        this.payorType,
-        this.payorNo,
-        this.insuranceType,
+
         this.labPercent,
         this.pharmacyPercent,
         this.servicePercent,
@@ -44,9 +40,7 @@ class InsuranceM {
     DischargePercent=json['DischargePercent'];
     raysPercent=json['raysPercent'];
     carde=json['carde'];
-    payorType = json['payorType'];
-    payorNo = json['payorNo'];
-    insuranceType = json['insuranceType'];
+
     labPercent = json['labPercent'];
     pharmacyPercent = json['pharmacyPercent'];
     servicePercent = json['servicePercent'];
@@ -65,9 +59,7 @@ class InsuranceM {
     data['DischargePercent'] = this.DischargePercent;
     data['raysPercent'] = this.raysPercent;
     data['carde'] = this.carde;
-    data['payorType'] = this.payorType;
-    data['payorNo'] = this.payorNo;
-    data['insuranceType'] = this.insuranceType;
+
     data['labPercent'] = this.labPercent;
     data['pharmacyPercent'] = this.pharmacyPercent;
     data['servicePercent'] = this.servicePercent;
