@@ -740,17 +740,22 @@ var dd= homeP.VisitDate.length<8?"202":homeP.VisitDate;
         .toList();
 
        var x;
-       if(Doctors.length>1)
-        for(int i=0;i<Doctors.length;i++){
-          if(Doctors[i].companyEmpName!=null){
-            x=Doctors[i];
-          }
+        List<InsuranceM> Doctors2;
+        try {
+          if (Doctors.length > 1)
+            for (int i = 0; i < Doctors.length; i++) {
+              if (Doctors[i].companyEmpName != null) {
+                x = Doctors[i];
+              }
+            }
+          else
+            x = Doctors[0];
+
+          Doctors2 = [x];
+        }catch(_){
+          return Doctors;
+
         }
-       else
-         x=Doctors[0];
-
-        List<InsuranceM> Doctors2=[x];
-
         return Doctors2;
       } else {
         throw "Unable to retrieve Doctors.";
