@@ -435,10 +435,14 @@ SizedBox(height: 15,),
     Uri postsURL =
         Uri.parse(Globalvireables.InvoicesURL);
     try {
+
+      print("vnoo "+homeP.getvisittype());
+
       var map = new Map<String, dynamic>();
       map['patientNo'] = patientid;
       map['searchDate'] = date;
       map['vno'] =homeP.visitNo;
+      map['VisitType'] = homeP.getvisittype();
 
 
 

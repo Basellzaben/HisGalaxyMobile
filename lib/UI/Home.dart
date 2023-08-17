@@ -594,10 +594,24 @@ class _HomeState extends State<Home> {
 
     GestureDetector(
     onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => Invoices( )),);
+      if(homeP.getvisitNo().toString()!='0')
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Invoices( )),);
+      else
+        showDialog(
+          context: context,
+          builder: (context) =>
+          new AlertDialog(
+            title: new Text(LanguageProvider.Llanguage('note')),
+            content: Text(LanguageProvider.Llanguage('selectvisitno')),
+            actions: <Widget>[],
+          ),
+        );
+
+
+
     },
     child: Column(
     children: [
@@ -731,7 +745,7 @@ class _HomeState extends State<Home> {
           context: context,
           builder: (context) =>
       new AlertDialog(
-        title: new Text(''),
+        title: new Text(LanguageProvider.Llanguage('note')),
         content: Text(LanguageProvider.Llanguage('selectvisitno')),
         actions: <Widget>[],
       ),

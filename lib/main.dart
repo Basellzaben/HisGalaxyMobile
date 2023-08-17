@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       logoWidth: MediaQuery.of(context).size.width/2.5,
       loaderColor:HexColor(Globalvireables.basecolor),
       logo: Image.asset(
-        "assets/esraalogo.png",
+        "assets/newlogo.png",
       ),
       showLoader: true,
       title:  Text(

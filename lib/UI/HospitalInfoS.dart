@@ -140,7 +140,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                                    height: 200,
                                    child: Image(
                                        image: new AssetImage(
-                                           "assets/esraalogo.png")),
+                                           "assets/newlogo.png")),
                                  ),
                                  Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].desCA.toString():Doctors![0].desCE.toString(),
                                    style: TextStyle(

@@ -45,7 +45,7 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
-    "selectvisitno":"يجب اختيار رقم الزياده لعرض تفاصيل التامين",
+    "selectvisitno":"يجب اختيار زياره لعرض التفاصيل ",
     "notfound":"صوره الأشعة غير متوفره",
     "Show":"عرض",
     "medicalreport":"تقرير طبي",
@@ -153,6 +153,8 @@ class Language extends ChangeNotifier {
     "Departureendtime": "وقت نهاية المغادرة",
     "Send": "أرسال",
     "notes": "الملاحظات",
+    "note": "ملاحظة",
+
     "Departuretime": "مدة المغادرة",
     "vactioncount": "عدد ايام الاجازة",
     "vactiontype": "نوع الاجازة",
@@ -252,6 +254,8 @@ class Language extends ChangeNotifier {
     "Share": "Share",
     "Schedule": "Schedule",
     "History": "History",
+    "note": "note",
+
     "SearchbyDate": "Search by Date",
     "Searchbyvisit": "Search by Visit",
     "txxt": "Are you sure you want to logout ?",

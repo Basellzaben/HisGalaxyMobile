@@ -221,7 +221,7 @@ class _MedicalReportState extends State<MedicalReport> {
                                             height: 100,
                                             child: Image(
                                                 image: new AssetImage(
-                                                    "assets/esraalogo.png")),
+                                                    "assets/newlogo.png")),
                                           ),
                                           Text(
                                             "تقرير طبي",
@@ -241,32 +241,7 @@ class _MedicalReportState extends State<MedicalReport> {
                                           ),
                                           Row(
                                             children: [
-                                              Column(
-                                                children: [
-                                                  Text('رقم الزياره'
-                                                  ,
-                                                      style: ArabicTextStyle(
-                                                          arabicFont:
-                                                          ArabicFont.tajawal,
-                                                          color: HexColor(
-                                                              Globalvireables.black),
-                                                          fontSize:
-                                                          12 * unitHeightValue)),
-                                                  Text(
-                                                    SINGLEEx.visitno,
-                                                    style: ArabicTextStyle(
-                                                        arabicFont:
-                                                            ArabicFont.tajawal,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: HexColor(
-                                                            Globalvireables
-                                                                .black),
-                                                        fontSize: 14 *
-                                                            unitHeightValue),
-                                                  )
-                                                ],
-                                              ),
+                                            Spacer(),
                                               Spacer(),
                                               Column(
                                                 children: [
@@ -368,7 +343,7 @@ class _MedicalReportState extends State<MedicalReport> {
                                                       color: HexColor(
                                                           Globalvireables.black),
                                                       fontSize:
-                                                          14 * unitHeightValue),
+                                                          12 * unitHeightValue),
                                                 ),
                                               ),
                                               Text(' : اسم المريض'

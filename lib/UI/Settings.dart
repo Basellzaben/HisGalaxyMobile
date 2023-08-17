@@ -427,7 +427,7 @@ Spacer(),
     height: 100,
     child: Image(
         image: new AssetImage(
-            "assets/esraalogo.png")),
+            "assets/newlogo.png")),
   ),
   Spacer(),
 

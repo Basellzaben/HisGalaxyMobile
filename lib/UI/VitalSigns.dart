@@ -437,12 +437,12 @@ class _VitalSignsState extends State<VitalSigns> {
       BuildContext context, String patientNo, String searchDate) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-    print(" dateinput.text :"+ dateinput.text);
+    print(" dateinput.text :"+ patientNo);
 
     Uri postsURL = Uri.parse(Globalvireables.VitalSignsURL);
     try {
       var map = new Map<String, dynamic>();
-      map['patientNo'] = patientNo;
+      map['PatientNo'] = patientNo;
       map['searchDate'] = searchDate;
       map['vno'] = homeP.getvisitNo();
       map['VisitType'] = homeP.getvisittype();

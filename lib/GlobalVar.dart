@@ -14,6 +14,7 @@ class Globalvireables {
   static String grey="#707070";
   static String secondcolor2="#d0e8ee";
   static String connectIP="10.0.1.120:9999";
+  //static String connectIP="94.249.83.196:9072";
 
   static String loginAPI="http://"+Globalvireables.connectIP+"/api/auth/Mobilelogin";
   static String DoctorsURL="http://"+Globalvireables.connectIP+"/api/Doctor/GetDoctors";

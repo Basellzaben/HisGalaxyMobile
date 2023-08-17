@@ -234,7 +234,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
 
                             child: FutureBuilder(
                               future: getDrugInHOSPITAL(
-                                  context,
+                                context,
                                 Loginprovider.userId,
                                       dateinputC.text.isEmpty ||
                                       dateinputC.text.toString() ==
@@ -255,6 +255,8 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                           .map((DrugInHos inv) => SizedBox(
                                               child: GestureDetector(
                                            onTap: () {
+
+
 
                                                     },
                                                 child: Column(
@@ -347,8 +349,6 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
 
                                                                             GestureDetector(
                                                                                 onTap: () {
-
-
                                                                                   showDialog(
                                                                                     context: context,
                                                                                     builder: (BuildContext context) {
@@ -397,7 +397,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                                   fontSize: 22 * unitHeightValue)),
                                                                                         Text(
                                                                                                 textAlign: TextAlign.center,
-                                                                                               inv.drugHosAllModelS![i].qt.toString().substring(0,3)+" : "
+                                                                                               double.parse(inv.drugHosAllModelS![i].qt.toString()).toStringAsFixed(1)+" : "
                                                                                                 +(
                                                                                                     LanguageProvider.getLanguage()=='AR'?inv.drugHosAllModelS![i].unit.toString().split(':').last:
                                                                                                     inv.drugHosAllModelS![i].unit.toString().split(':').first

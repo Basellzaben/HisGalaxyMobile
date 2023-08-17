@@ -106,7 +106,7 @@ var LanguageProvider = Provider.of<Language>(context, listen: false);
                                         MediaQuery.of(context).size.width / 2,
                                     child: Image(
                                         image: new AssetImage(
-                                         "assets/esraalogo.png"))),
+                                         "assets/newlogo.png"))),
                               ),
           Container(
               alignment:Alignment.center,
