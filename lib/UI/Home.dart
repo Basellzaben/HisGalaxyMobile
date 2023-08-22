@@ -533,11 +533,26 @@ class _HomeState extends State<Home> {
     children: [
     GestureDetector(
     onTap: () async {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => Appoiments()),
-    );
+
+
+
+      if(homeP.getvisitNo().toString()!='0')
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Appoiments()),);
+      else
+        showDialog(
+          context: context,
+          builder: (context) =>
+          new AlertDialog(
+            title: new Text(LanguageProvider.Llanguage('note')),
+            content: Text(LanguageProvider.Llanguage('selectvisitno')),
+            actions: <Widget>[],
+          ),
+        );
+
+
     },
     child: Column(
     children: [
@@ -668,11 +683,24 @@ class _HomeState extends State<Home> {
     Spacer(),
     GestureDetector(
         onTap: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => XrayList()),
-          );
+
+          if(homeP.getvisitNo().toString()!='0')
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => XrayList()),);
+          else
+            showDialog(
+              context: context,
+              builder: (context) =>
+              new AlertDialog(
+                title: new Text(LanguageProvider.Llanguage('note')),
+                content: Text(LanguageProvider.Llanguage('selectvisitno')),
+                actions: <Widget>[],
+              ),
+            );
+
+
         },
 
 
@@ -804,10 +832,25 @@ class _HomeState extends State<Home> {
     Spacer(),
     GestureDetector(
     onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => VitalSigns()),);
+
+      if(homeP.getvisitNo().toString()!='0')
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => VitalSigns()),);
+      else
+        showDialog(
+          context: context,
+          builder: (context) =>
+          new AlertDialog(
+            title: new Text(LanguageProvider.Llanguage('note')),
+            content: Text(LanguageProvider.Llanguage('selectvisitno')),
+            actions: <Widget>[],
+          ),
+        );
+
+
+
     },
     child: Column(
     children: [
@@ -859,11 +902,24 @@ class _HomeState extends State<Home> {
     Spacer(),
     GestureDetector(
     onTap: () async {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => PRESCPTION()),
-    );},
+
+
+      if(homeP.getvisitNo().toString()!='0')
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PRESCPTION()),);
+      else
+        showDialog(
+          context: context,
+          builder: (context) =>
+          new AlertDialog(
+            title: new Text(LanguageProvider.Llanguage('note')),
+            content: Text(LanguageProvider.Llanguage('selectvisitno')),
+            actions: <Widget>[],
+          ),
+        );
+  },
       child: Column(
       children: [
       Container(
@@ -922,11 +978,26 @@ class _HomeState extends State<Home> {
     children: [
     GestureDetector(
     onTap: () async {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => Examnation()),
-    );},
+
+
+      if(homeP.getvisitNo().toString()!='0')
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Examnation()),);
+      else
+        showDialog(
+          context: context,
+          builder: (context) =>
+          new AlertDialog(
+            title: new Text(LanguageProvider.Llanguage('note')),
+            content: Text(LanguageProvider.Llanguage('selectvisitno')),
+            actions: <Widget>[],
+          ),
+        );
+
+
+    },
     child: Column(
     children: [
 
@@ -980,11 +1051,26 @@ class _HomeState extends State<Home> {
     Spacer(),
       GestureDetector(
         onTap: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DrugInHOSPITAL()),
-          );},
+
+
+          if(homeP.getvisitNo().toString()!='0')
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DrugInHOSPITAL()),);
+          else
+            showDialog(
+              context: context,
+              builder: (context) =>
+              new AlertDialog(
+                title: new Text(LanguageProvider.Llanguage('note')),
+                content: Text(LanguageProvider.Llanguage('selectvisitno')),
+                actions: <Widget>[],
+              ),
+            );
+
+
+},
         child: Column(
           children: [
             Container(
@@ -1039,11 +1125,27 @@ class _HomeState extends State<Home> {
 
       GestureDetector(
         onTap: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MedicalReportTList()),
-          );},
+
+
+          if(homeP.getvisitNo().toString()!='0')
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MedicalReportTList()),);
+          else
+            showDialog(
+              context: context,
+              builder: (context) =>
+              new AlertDialog(
+                title: new Text(LanguageProvider.Llanguage('note')),
+                content: Text(LanguageProvider.Llanguage('selectvisitno')),
+                actions: <Widget>[],
+              ),
+            );
+
+
+
+         },
         child: Column(
           children: [
             Container(

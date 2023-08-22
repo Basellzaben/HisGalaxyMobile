@@ -676,10 +676,20 @@ SizedBox(height: 18,)
     Uri postsURL = Uri.parse(Globalvireables.prescptionURL);
     try {
       var map = new Map<String, dynamic>();
+
+      var vtt;
+      if(homeP.getvisittype()=='2')
+      vtt='3';
+      else if(homeP.getvisittype()=='3')
+        vtt='2';
+      else
+        vtt=homeP.getvisittype();
+
+
       map['PatientNo'] = patientid;
       map['Date'] = date;
       map['vno'] = homeP.getvisitNo();
-      map['VisitType'] = homeP.getvisittype();
+      map['VisitType'] = vtt;
 
       http.Response res = await http.post(
         postsURL,

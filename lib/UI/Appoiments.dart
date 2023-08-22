@@ -280,14 +280,19 @@ child: Row(children: [
                                                                   children: [
                                                                     Align(
                                                                       alignment: Alignment.topLeft,
-                                                                      child: Text(
-                                                                        textAlign: TextAlign.left,
-                                                                        inv.doctornamEE.toString() == null
-                                                                            ||  inv.doctornamEE.toString() == 'NULL'
-                                                                            || inv.doctornamEE.toString() == 'null'? '' : inv.doctornamEE.toString()
-                                                                            .trim(),
-                                                                        style: ArabicTextStyle(
+                                                                      child: Container(
+                                                                        width: MediaQuery.of(context).size.width/1.3,
+                                                                        child: Text(
+                                                                          maxLines: 10,
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                          textAlign: TextAlign.left,
+                                                                          inv.doctornamEE.toString() == null
+                                                                              ||  inv.doctornamEE.toString() == 'NULL'
+                                                                              || inv.doctornamEE.toString() == 'null'? '' : inv.doctornamEE.toString()
+                                                                              .trim(),
+                                                                          style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,color: Colors.black,fontWeight: FontWeight.w900),),
+                                                                      ),
                                                                     ),
                                                                     Align(
                                                                       alignment: Alignment.topLeft,
@@ -397,7 +402,7 @@ child: Row(children: [
 
       var type;
        if(homeP.getvisittype()=='1' || homeP.getvisittype()=='2'||
-       homeP.getvisittype()=='3'||
+    homeP.getvisittype()=='3'||
     homeP.getvisittype()=='4')
          type = homeP.getvisittype();
       else

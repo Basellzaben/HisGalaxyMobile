@@ -237,7 +237,6 @@ SizedBox(height: 10,),
                                                     data : ThemeData().copyWith(dividerColor: Colors.transparent),
                                                     child: ExpansionTile(
 
-
                                                       key: Key((inv.invDate.toString().substring(0,4)).toString()),
                                                       initiallyExpanded: (inv.invDate.toString().substring(0,4)) == selectedTile,
                                                       leading: Padding(
@@ -318,7 +317,7 @@ SizedBox(height: 10,),
                                                             Spacer(),
                                                             Container(
                                                                 alignment: Alignment.center,
-                                                                width: 60,
+                                                                width: 70,
                                                                 child: Text("المجموع",style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
 

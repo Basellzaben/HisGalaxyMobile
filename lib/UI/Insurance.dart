@@ -515,8 +515,9 @@ class _InsuranceState extends State<Insurance> {
                                                                 LanguageProvider
                                                                     .getLanguage() ==
                                                                     "AR"
-                                                                    ? "الكشفيه"
-                                                                    : "discharge",
+                                                                    ? "وصفة الخروج"
+                                                                    : "exit recipes",
+
                                                                 style: ArabicTextStyle(
                                                                     arabicFont: ArabicFont.tajawal,
                                                                     fontWeight:
@@ -630,8 +631,8 @@ class _InsuranceState extends State<Insurance> {
                                                                 LanguageProvider
                                                                     .getLanguage() ==
                                                                     "AR"
-                                                                    ? "وصفة الخروج"
-                                                                    : "exit recipes",
+                                                                    ? "الكشفيه"
+                                                                    : "discharge",
                                                                 style: ArabicTextStyle(
                                                                     arabicFont: ArabicFont.tajawal,
                                                                     fontWeight:
@@ -720,19 +721,26 @@ class _InsuranceState extends State<Insurance> {
 
 
 var dd= homeP.VisitDate.length<8?"202":homeP.VisitDate;
-    print("ddfsdfsdd"+ dd);
+    print("ddfsdfsdd"+ homeP.getvisittype());
        homeP = Provider.of<HomeProvider>(context, listen: false);
+      var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+
+
       var map = new Map<String, dynamic>();
-      map['PatientNo'] = p;
+      map['PatientNo'] = Loginprovider.getuserId();
       map['vno'] = homeP.getvisitNo();
+      map['VisitType'] = homeP.getvisittype();
+
 
       http.Response res = await http.post(
         postsURL,
         body: map,);
 
-
       if (res.statusCode == 200) {
-        print("insurance" + res.body.toString());
+
+
+        print("INPUTJSON" + map.toString());
+        print("OUTPUTJSON" + res.body.toString());
 
         List<dynamic> body = jsonDecode(res.body);
         List<InsuranceM> Doctors = body.map(

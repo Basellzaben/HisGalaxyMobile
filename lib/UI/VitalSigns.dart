@@ -530,6 +530,11 @@ if(double.parse(result)>38.0){
     }else if(name=="الوزن"){
       C=Colors.green;
 
+  }else if(name=="سكري"){
+      if(double.parse(result)>120.0 || double.parse(result)<60.0){
+        C=Colors.redAccent;
+      }
+
   }else {
       C=Colors.green;
 
