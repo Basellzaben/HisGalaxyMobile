@@ -548,8 +548,13 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
 
   Future<List<MedicalReportM>> getMedicalReportTList(BuildContext context,
       String patientid, String date) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.GetMedicalReport);
+    Uri postsURL = Uri.parse(ip+Globalvireables.GetMedicalReport);
     try {
       var homeP = Provider.of<HomeProvider>(context, listen: false);
 
@@ -599,6 +604,16 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
 
   _onItemTapped(int index) {
     setState(() {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      if(index==1){
+        homeP.setVisitDate('');
+
+        homeP.setvisitNo('0');
+        homeP.setvisittype('0');
+
+      }
       selectedIndex = index;
       Navigator.push(
         context,
@@ -696,8 +711,14 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
 
 
   Future<List<ProfileM>> getProfile(BuildContext context) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.profileURL);
+    Uri.parse(ip+Globalvireables.profileURL);
     try {
       var Loginproviderr = Provider.of<LoginProvider>(context, listen: false);
 

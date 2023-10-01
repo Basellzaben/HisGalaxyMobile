@@ -565,10 +565,15 @@ class _ExamnationState extends State<Examnation> {
 
   Future<List<ExamnationM>> getExamnation(BuildContext context,
       String patientid, String date) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.ExamnationURL);
+    Uri postsURL = Uri.parse(ip+Globalvireables.ExamnationURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
@@ -616,6 +621,16 @@ class _ExamnationState extends State<Examnation> {
 
   _onItemTapped(int index) {
     setState(() {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      if(index==1){
+        homeP.setVisitDate('');
+
+        homeP.setvisitNo('0');
+        homeP.setvisittype('0');
+
+      }
       selectedIndex = index;
       Navigator.push(
         context,

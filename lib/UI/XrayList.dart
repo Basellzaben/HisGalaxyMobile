@@ -452,9 +452,14 @@ else
       BuildContext context, String patientid, String date) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
+
     print("dateOfApi"+homeP.visitNo+"ff");
 
-    Uri postsURL = Uri.parse(Globalvireables.XrayListURL);
+    Uri postsURL = Uri.parse(ip+Globalvireables.XrayListURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
@@ -498,6 +503,16 @@ else
 
   _onItemTapped(int index) {
     setState(() {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      if(index==1){
+        homeP.setVisitDate('');
+
+        homeP.setvisitNo('0');
+        homeP.setvisittype('0');
+
+      }
       selectedIndex = index;
       Navigator.push(
         context,

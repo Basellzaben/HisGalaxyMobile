@@ -315,8 +315,10 @@ class _ChangePassState extends State<ChangePass> {
 
    ChangePass(BuildContext context,String patientNo,String newPass) async {
 
+     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
 
-     print("userid :"+patientNo.toString());
+         print("userid :"+patientNo.toString());
 
     var LanguageProvider = Provider.of<Language>(context, listen: false);
 
@@ -330,7 +332,8 @@ class _ChangePassState extends State<ChangePass> {
 
 
     Uri postsURL =
-    Uri.parse(Globalvireables.ChangePassURL);
+    Uri.parse(     Loginprovider.getFirebaseIp().toString()+
+        Globalvireables.ChangePassURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;

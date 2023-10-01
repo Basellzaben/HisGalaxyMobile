@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../Models/Doctor.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -199,7 +200,8 @@ class _DoctorsState extends State<Doctors> {
                                   AsyncSnapshot<List<Doctor>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<Doctor>? Doctors2 = snapshot.data;
-                                  List<Doctor>? Doctors = Doctors2!.where((map)=>(map.firsT_NAME_A.toString() +
+                                  List<Doctor>? Doctors = Doctors2!.where(
+                                      (map)=>(map.firsT_NAME_A.toString() +
                                       " " + map.fatheR_NAME_A.toString() +
                                       " " + map.lasT_NAME_A.toString()).toString().contains(dateinputC.text.toString())
                                   || map.depName.toString().contains(dateinputC.text.toString())
@@ -245,31 +247,37 @@ class _DoctorsState extends State<Doctors> {
                                                                         children: [
                                                                           (Doctor.firsT_NAME_A.toString() +
                                                                               "" + Doctor.fatheR_NAME_A.toString() +
-                                                                              "" + Doctor.lasT_NAME_A.toString()).length<14? Text(
+                                                                              "" + Doctor.lasT_NAME_A.toString()).length<14? Container(
+                                                                            width: MediaQuery.of(context).size.width/2,
+                                                                                child: Text(
                                                                             maxLines: 2,
                                                                             overflow: TextOverflow.ellipsis,
                                                                             Doctor.firsT_NAME_A.toString() +
-                                                                                " " +
-                                                                                Doctor.fatheR_NAME_A.toString() +
-                                                                                " " +
-                                                                                Doctor.lasT_NAME_A.toString(),
+                                                                                  " " +
+                                                                                  Doctor.fatheR_NAME_A.toString() +
+                                                                                  " " +
+                                                                                  Doctor.lasT_NAME_A.toString(),
                                                                             style: ArabicTextStyle(
-                                                                                arabicFont: ArabicFont.tajawal,
-                                                                                fontSize: 18 * unitHeightValue,
-                                                                                fontWeight: FontWeight.w700,
-                                                                                color: Colors.black87),
-                                                                          ):
-                                                                          Text(
-                                                                            maxLines: 2,
-                                                                            overflow: TextOverflow.ellipsis,
-                                                                            Doctor.firsT_NAME_A.toString() +
-                                                                                " " +
-                                                                                Doctor.lasT_NAME_A.toString() ,
-                                                                            style: ArabicTextStyle(
-                                                                                arabicFont: ArabicFont.tajawal,
-                                                                                fontSize: 18 * unitHeightValue,
-                                                                                fontWeight: FontWeight.w700,
-                                                                                color: Colors.black87),
+                                                                                  arabicFont: ArabicFont.tajawal,
+                                                                                  fontSize: 18 * unitHeightValue,
+                                                                                  fontWeight: FontWeight.w700,
+                                                                                  color: Colors.black87),
+                                                                          ),
+                                                                              ):
+                                                                          Container(
+                                                                            width: MediaQuery.of(context).size.width/2,
+                                                                            child: Text(
+                                                                              maxLines: 2,
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                              Doctor.firsT_NAME_A.toString() +
+                                                                                  " " +
+                                                                                  Doctor.lasT_NAME_A.toString() ,
+                                                                              style: ArabicTextStyle(
+                                                                                  arabicFont: ArabicFont.tajawal,
+                                                                                  fontSize: 18 * unitHeightValue,
+                                                                                  fontWeight: FontWeight.w700,
+                                                                                  color: Colors.black87),
+                                                                            ),
                                                                           ),
                                                                           Spacer(),
                                                                         ],
@@ -316,29 +324,34 @@ class _DoctorsState extends State<Doctors> {
                                                                       children: [
                                                                         Spacer(),
 
-                                                                        Text(
-                                                                          maxLines: 2,
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          Doctor
-                                                                              .firsT_NAME_A
-                                                                              .toString() +
-                                                                              " " +
-                                                                              Doctor
-                                                                                  .fatheR_NAME_A
-                                                                                  .toString() +
-                                                                              " " +
-                                                                              Doctor
-                                                                                  .lasT_NAME_A
-                                                                                  .toString(),
-                                                                          style: ArabicTextStyle(
+                                                                        Container(
+                                                                          width: MediaQuery.of(context).size.width/2,
+
+                                                                          child: Text(
+                                                                            textAlign: TextAlign.right,
+                                                                            maxLines: 2,
+                                                                            overflow: TextOverflow.ellipsis,
+                                                                            Doctor
+                                                                                .firsT_NAME_A
+                                                                                .toString() +
+                                                                                " " +
+                                                                                Doctor
+                                                                                    .fatheR_NAME_A
+                                                                                    .toString() +
+                                                                                " " +
+                                                                                Doctor
+                                                                                    .lasT_NAME_A
+                                                                                    .toString(),
+                                                                            style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
-                                                                              fontSize: 16 *
-                                                                                  unitHeightValue,
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w700,
-                                                                              color: Colors
-                                                                                  .black87),
+                                                                                fontSize: 16 *
+                                                                                    unitHeightValue,
+                                                                                fontWeight:
+                                                                                FontWeight
+                                                                                    .w700,
+                                                                                color: Colors
+                                                                                    .black87),
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -400,8 +413,12 @@ class _DoctorsState extends State<Doctors> {
 
   Future<List<Doctor>> getDoctors(BuildContext context,String search) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
     Uri postsURL =
-        Uri.parse(Globalvireables.DoctorsURL);
+        Uri.parse(ip+Globalvireables.DoctorsURL);
     try {
       var map = new Map<String, dynamic>();
       map['lan'] = LanguageProvider.getLanguage();

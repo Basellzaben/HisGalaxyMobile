@@ -535,22 +535,10 @@ class _HomeState extends State<Home> {
     onTap: () async {
 
 
-
-      if(homeP.getvisitNo().toString()!='0')
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Appoiments()),);
-      else
-        showDialog(
-          context: context,
-          builder: (context) =>
-          new AlertDialog(
-            title: new Text(LanguageProvider.Llanguage('note')),
-            content: Text(LanguageProvider.Llanguage('selectvisitno')),
-            actions: <Widget>[],
-          ),
-        );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Appoiments()),);
 
 
     },
@@ -575,13 +563,13 @@ class _HomeState extends State<Home> {
     4.5,
     child: Column(
     children: [
-    Spacer(),
+      Spacer(),
       SvgPicture.asset("assets/Dates.svg",color: HexColor(ThemP.getcolor()),
         height: 50 * unitHeightValue,
         width: 50 * unitHeightValue,
       ),
+      Spacer(),
 
-    Spacer(),
     ],
     ),
     ),
@@ -590,18 +578,18 @@ class _HomeState extends State<Home> {
       ),
     Text(
     LanguageProvider.Llanguage("Appoiments"),
-
-
         style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
             color: HexColor(ThemP.getcolor()),
             fontSize: 13 * unitHeightValue,
             fontWeight: FontWeight.w700
         )
-
-
-
     ),
+
+
+
+
+
     ],
     ),
     ),
@@ -609,7 +597,11 @@ class _HomeState extends State<Home> {
 
     GestureDetector(
     onTap: () {
-      if(homeP.getvisitNo().toString()!='0')
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Invoices( )),);
+ /*     if(homeP.getvisitNo().toString()!='0')
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -623,7 +615,7 @@ class _HomeState extends State<Home> {
             content: Text(LanguageProvider.Llanguage('selectvisitno')),
             actions: <Widget>[],
           ),
-        );
+        );*/
 
 
 
@@ -684,12 +676,12 @@ class _HomeState extends State<Home> {
     GestureDetector(
         onTap: () async {
 
-          if(homeP.getvisitNo().toString()!='0')
+         // if(homeP.getvisitNo().toString()!='0')
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => XrayList()),);
-          else
+         /* else
             showDialog(
               context: context,
               builder: (context) =>
@@ -699,7 +691,7 @@ class _HomeState extends State<Home> {
                 actions: <Widget>[],
               ),
             );
-
+*/
 
         },
 
@@ -763,12 +755,12 @@ class _HomeState extends State<Home> {
     GestureDetector(
     onTap: () {
 
-      if(homeP.getvisitNo().toString()!='0')
+    //  if(homeP.getvisitNo().toString()!='0')
     Navigator.push(
     context,
     MaterialPageRoute(
     builder: (context) => Insurance()),);
-      else
+    /*  else
          showDialog(
           context: context,
           builder: (context) =>
@@ -777,7 +769,7 @@ class _HomeState extends State<Home> {
         content: Text(LanguageProvider.Llanguage('selectvisitno')),
         actions: <Widget>[],
       ),
-      );
+      );*/
     },
     child: Column(
     children: [
@@ -833,12 +825,12 @@ class _HomeState extends State<Home> {
     GestureDetector(
     onTap: () {
 
-      if(homeP.getvisitNo().toString()!='0')
+      //if(homeP.getvisitNo().toString()!='0')
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => VitalSigns()),);
-      else
+      /*else
         showDialog(
           context: context,
           builder: (context) =>
@@ -848,7 +840,7 @@ class _HomeState extends State<Home> {
             actions: <Widget>[],
           ),
         );
-
+*/
 
 
     },
@@ -904,12 +896,12 @@ class _HomeState extends State<Home> {
     onTap: () async {
 
 
-      if(homeP.getvisitNo().toString()!='0')
+     // if(homeP.getvisitNo().toString()!='0')
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => PRESCPTION()),);
-      else
+      /*else
         showDialog(
           context: context,
           builder: (context) =>
@@ -918,7 +910,7 @@ class _HomeState extends State<Home> {
             content: Text(LanguageProvider.Llanguage('selectvisitno')),
             actions: <Widget>[],
           ),
-        );
+        );*/
   },
       child: Column(
       children: [
@@ -980,12 +972,12 @@ class _HomeState extends State<Home> {
     onTap: () async {
 
 
-      if(homeP.getvisitNo().toString()!='0')
+    //  if(homeP.getvisitNo().toString()!='0')
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => Examnation()),);
-      else
+    /*  else
         showDialog(
           context: context,
           builder: (context) =>
@@ -994,7 +986,7 @@ class _HomeState extends State<Home> {
             content: Text(LanguageProvider.Llanguage('selectvisitno')),
             actions: <Widget>[],
           ),
-        );
+        );*/
 
 
     },
@@ -1053,12 +1045,12 @@ class _HomeState extends State<Home> {
         onTap: () async {
 
 
-          if(homeP.getvisitNo().toString()!='0')
+         // if(homeP.getvisitNo().toString()!='0')
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => DrugInHOSPITAL()),);
-          else
+      /*    else
             showDialog(
               context: context,
               builder: (context) =>
@@ -1067,7 +1059,7 @@ class _HomeState extends State<Home> {
                 content: Text(LanguageProvider.Llanguage('selectvisitno')),
                 actions: <Widget>[],
               ),
-            );
+            );*/
 
 
 },
@@ -1127,12 +1119,12 @@ class _HomeState extends State<Home> {
         onTap: () async {
 
 
-          if(homeP.getvisitNo().toString()!='0')
+        //  if(homeP.getvisitNo().toString()!='0')
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => MedicalReportTList()),);
-          else
+         /* else
             showDialog(
               context: context,
               builder: (context) =>
@@ -1141,7 +1133,7 @@ class _HomeState extends State<Home> {
                 content: Text(LanguageProvider.Llanguage('selectvisitno')),
                 actions: <Widget>[],
               ),
-            );
+            );*/
 
 
 
@@ -1434,45 +1426,9 @@ class _HomeState extends State<Home> {
     ),
 
 
-    /*     FutureBuilder(
-                              future: getDoctors(context),
-                              builder: (BuildContext context, AsyncSnapshot<List<Doctor>> snapshot) {
-                                if (snapshot.hasData) {
-                                  List<Doctor>? Doctors = snapshot.data;
-                                  return ListView(
-                                    children: Doctors!
-                                        .map(
-                                          (Doctor Doctor) => ListTile(
-
-                                        leading : Container(
-                                            child:  Card(
-                                        child: Row(
-                                        children: [
-                                      Container(
-                                        alignment: Alignment.topRight,
-                                        width: 40,
-                                        height: 40,
-                                        child: Image.asset(
-                                          "assets/doctor.png",
-                                        ),
-                                      ),
 
 
-                                      ],
 
-
-                                    ),
-                                  )
-                                        ),
-                                      ),
-                                    )
-                                        .toList(),
-                                  );
-                                } else {
-                                  return Center(child: CircularProgressIndicator());
-                                }
-                              },
-                            ),*/
     ],
     ),
     ),
@@ -1486,10 +1442,16 @@ class _HomeState extends State<Home> {
     );
   }
 
+
   Future<List<Doctor>> getDoctors(BuildContext context) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL =
-    Uri.parse(Globalvireables.DoctorsURL);
+    Uri.parse(ip+Globalvireables.DoctorsURL);
     try {
       var map = new Map<String, dynamic>();
       map['lan'] = LanguageProvider.getLanguage();
@@ -1530,10 +1492,14 @@ class _HomeState extends State<Home> {
 
     throw "Unable to retrieve Doctors.";
   }
-
   Future<List<VisitsM>> getvisits(BuildContext context, String p) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.VisitsApi);
+    Uri postsURL = Uri.parse(ip+Globalvireables.VisitsApi);
     try {
       var map = new Map<String, dynamic>();
       map['patientNo'] = p;
@@ -1573,7 +1539,6 @@ class _HomeState extends State<Home> {
 
     throw "Unable to retrieve Doctors.";
   }
-
   _onItemTapped(int index) {
 
 
@@ -1586,16 +1551,13 @@ class _HomeState extends State<Home> {
       );
     });}
   }
-
   int selectedIndex = 1;
-
   final List<Widget> nav = [
     Settings(),
     Home(),
     profile(),
   ];
-
-changepass(BuildContext c) async {
+  changepass(BuildContext c) async {
   var prefs = await SharedPreferences.getInstance();
 if(prefs.getString('changepass')==null || prefs.getString('changepass')!='yes'){
   showLoaderDialog(c);
@@ -2131,8 +2093,13 @@ Spacer(),
 
 
   Future<List<ProfileM>> getProfile(BuildContext context,String patientNo) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.profileURL);
+    Uri.parse(ip+Globalvireables.profileURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
 import 'package:local_auth/local_auth.dart';
@@ -260,7 +261,7 @@ margin: EdgeInsets.only(top: 0),
                                      /* Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                             builder: (context) => Index(),
-                                          ),
+                                          ),Login
                                           (Route<dynamic> route) => false);*/
                                     },
                                   ),
@@ -427,8 +428,6 @@ margin: EdgeInsets.only(top: 0),
                                     ),
                                     Spacer()
 
-
-
                                   ],
                                 ),
                               ):
@@ -511,15 +510,25 @@ margin: EdgeInsets.only(top: 0),
 
   Login(String username, String password, BuildContext context) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     homeP.setvisitNo('0');
     homeP.setvisittype('0');
 
+
+    var value = FirebaseDatabase.instance.reference();
+    var getValue = await value.child('ip').once();
+
+
+
+    Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+
+
+    //return getValue;
     getHospitalInf();
 
 
     prefs = await SharedPreferences.getInstance();
-    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var l = Provider.of<Language>(context, listen: false);
 
     showDialog(
@@ -542,8 +551,9 @@ margin: EdgeInsets.only(top: 0),
     print("wheeenuser" + json.toString());
 */
     try {
-      Uri apiUrl = Uri.parse(Globalvireables.loginAPI);
+      Uri apiUrl = Uri.parse(Loginprovider.getFirebaseIp().toString()+Globalvireables.loginAPI);
 
+      print(apiUrl.toString());
       http.Response response = await http
           .post(apiUrl, body:map,  )
           .whenComplete(() => Navigator.pop(context));
@@ -630,7 +640,11 @@ else
     var map = new Map<String, dynamic>();
     map['PatientNo'] = PatientNo;
 
-    Uri apiUrl = Uri.parse(Globalvireables.TermsACCSEPT);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
+    Uri apiUrl = Uri.parse(ip+Globalvireables.TermsACCSEPT);
 
     http.Response response = await http
         .post(apiUrl, body:map,  );
@@ -821,8 +835,13 @@ else
     String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
     String time = DateFormat("hh:mm:ss a").format(DateTime.now());
 
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.ChangeTermsACCSEPTURL);
+    Uri.parse(ip+Globalvireables.ChangeTermsACCSEPTURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
@@ -905,8 +924,12 @@ else
     var HosProvider = Provider.of<HospitalProvider>(context, listen: false);
     var LanguageProvider = Provider.of<Language>(context, listen: false);
 
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.HospitalInfoURL);
+    Uri.parse(Loginprovider.getFirebaseIp()+Globalvireables.HospitalInfoURL);
     print(Globalvireables.HospitalInfoURL.toString());
     try {
       http.Response res = await http.post(

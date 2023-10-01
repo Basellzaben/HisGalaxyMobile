@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hismobileapp/provider/HomeProvider.dart';
 import 'package:hismobileapp/provider/HospitalProvider.dart';
@@ -20,6 +21,8 @@ String language='';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   //final prefs = await SharedPreferences.getInstance();
   runApp(MultiProvider(
       providers: [
@@ -30,12 +33,9 @@ Future<void> main() async {
         ChangeNotifierProvider<SingleEXAMProvider>(create: (_) => SingleEXAMProvider()),
         ChangeNotifierProvider<Them>(create: (_) => Them()),
         ChangeNotifierProvider<HospitalProvider>(create: (_) => HospitalProvider()),
-
         ChangeNotifierProvider<MedicalREPProvider>(create: (_) => MedicalREPProvider()),
-
-
       ],
-      child:DevicePreview(enabled: true,builder:(context)=> const MyApp(),)));
+      child:DevicePreview(enabled: false,builder:(context)=> const MyApp(),)));
 }
 
 class MyApp extends StatelessWidget {

@@ -393,7 +393,11 @@ child: Row(children: [
   Future<List<AppoimentsM>> getAppoiments(
       BuildContext context, String patientid, String date) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.AppoimentsURL);
+
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+
+    Uri postsURL = Uri.parse( Loginprovider.getFirebaseIp().toString()+Globalvireables.AppoimentsURL);
     try {
       String state1='3649';
       String state2='2';

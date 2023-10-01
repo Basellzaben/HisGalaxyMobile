@@ -20,6 +20,20 @@ class LoginProvider extends ChangeNotifier {
 
   String Bdate="";
 
+
+  String FirebaseIp="";
+
+  getFirebaseIp() {
+    return FirebaseIp;
+  }
+
+  setFirebaseIp(String FirebaseIp) {
+    this.FirebaseIp = FirebaseIp;
+    notifyListeners();
+  }
+
+
+
   getBdate() {
     return Bdate;
   }

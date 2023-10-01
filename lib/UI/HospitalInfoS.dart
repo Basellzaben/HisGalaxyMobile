@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Models/HospitalInfo.dart';
+import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -420,8 +421,13 @@ Spacer(),
 
   Future<List<HospitalInfo>> getHospitalInf(BuildContext context) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.HospitalInfoURL);
+    Uri.parse(ip+Globalvireables.HospitalInfoURL);
     try {
       http.Response res = await http.post(
         postsURL,

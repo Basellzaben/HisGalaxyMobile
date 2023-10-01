@@ -224,119 +224,113 @@ class _VitalSignsState extends State<VitalSigns> {
                                         .map((VitalSignsM VitalSignsM) =>
                                     VitalSignsM.vITALSIGNSAllModelS!.isNotEmpty?
 
-                                    SizedBox(
-                                                child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child: Align(
-                                                      alignment:
-                                                          Alignment.topLeft,
-                                                      child: Text(
-                                                          retturndatenewformat(
-                                                        VitalSignsM.datee
-                                                        .toString())+ " - " +VitalSignsM.vITALSIGNSAllModelS![0].reaDTIME.toString()
-                                                        ,
-                                                        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                          color: HexColor(ThemP.getcolor()),
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.w700),
-                                                      )),
-                                                ),
+                                       Card(
+                                        child: ExpansionTile(
+                                        title:  Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                    child: Center(
+
+                                        child: Text(
+                                          retturndatenewformat(
+                                              VitalSignsM.datee
+                                                  .toString())+ " - " +VitalSignsM.vITALSIGNSAllModelS![0].reaDTIME.toString()
+                                          ,
+                                          style: ArabicTextStyle(
+                                              arabicFont: ArabicFont.tajawal,
+                                              color: HexColor(ThemP.getcolor()),
+                                              fontSize: 20,
+                                              fontWeight:
+                                              FontWeight.w700),
+                                        )),
+                                  ),
+
+                                    children: [
+                                    Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                              child: GridView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 0.0,
+                              mainAxisSpacing: 0.0,
+                              ),
+                              itemCount: VitalSignsM.vITALSIGNSAllModelS!.asMap().length,
+                              itemBuilder: (context, index) {
+                              return Container(
+                              color: Colors.transparent,
+                              child: Column(
+                              children: [
+                              SizedBox(height: 15,),
+                              CircularPercentIndicator(
+                              radius: 50.0 *
+                              unitHeightValue,
+                              lineWidth: 10.0,
+                              percent: 0.50,
+                              progressColor:
+                              present(VitalSignsM
+                                  .vITALSIGNSAllModelS![
+                              index]
+                                  .desCA
+                                  .toString()
+                              ,VitalSignsM
+                                  .vITALSIGNSAllModelS![
+                              index]
+                                  .vitaLSIGNREAD
+                                  .toString()),
+                              center: new Text(
+
+                              VitalSignsM
+                                  .vITALSIGNSAllModelS![
+                              index]
+                                  .vitaLSIGNREAD
+                                  .toString(),
+                              style: ArabicTextStyle(
+                              arabicFont: ArabicFont.tajawal,
+                              fontWeight:
+                              FontWeight
+                                  .w900,
+                              fontSize: 18 *
+                              unitHeightValue),
+                              ),
+
+                              ),
+                              SizedBox(
+                              height: 15,
+                              ),
+                              Expanded(
+                              child: Text(
+                              textAlign: TextAlign.center,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              VitalSignsM.vITALSIGNSAllModelS![index]
+                                  .desCA
+                                  .toString(),
+                              style: ArabicTextStyle(
+                              arabicFont: ArabicFont.tajawal,
+                              fontWeight:
+                              FontWeight
+                                  .w700,
+                              fontSize: 16 *
+                              unitHeightValue),
+                              ),
+
+                              )
+                              ],
+                              ),
+                              );
+                              },
+                              ),
+                              ),
+                              ),
+                                    ],
+                                  ),
+                                )
 
 
-                                                   Card(
-                                                     shape: RoundedRectangleBorder(
-                                                     borderRadius: BorderRadius.circular(30),
-                                                     side: BorderSide(
-                                                       width: MediaQuery.of(context)
-                                                           .size
-                                                           .height,
-                                                       //  color: Colors.black12.withOpacity(0.1),
-                                                     ),
-                                                   ),
-                                                     child: Padding(
-                                                       padding: const EdgeInsets.all(8.0),
-                                                       child: SizedBox(
-                                                         child: GridView.builder(
-                                                          physics: NeverScrollableScrollPhysics(),
-                                                          shrinkWrap: true,
-                                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                            crossAxisCount: 2,
-                                                            crossAxisSpacing: 0.0,
-                                                            mainAxisSpacing: 0.0,
-                                                          ),
-                                                          itemCount: VitalSignsM.vITALSIGNSAllModelS!.asMap().length,
-                                                          itemBuilder: (context, index) {
-                                                            return Container(
-                                                                color: Colors.transparent,
-                                                                child: Column(
-                                                                  children: [
-                                                                    SizedBox(height: 15,),
-                                                                    CircularPercentIndicator(
-                                                                      radius: 50.0 *
-                                                                          unitHeightValue,
-                                                                      lineWidth: 10.0,
-                                                                      percent: 0.50,
-                                                                      progressColor:
-                                                                          present(VitalSignsM
-                                                                              .vITALSIGNSAllModelS![
-                                                                          index]
-                                                                              .desCA
-                                                                              .toString()
-                                                                              ,VitalSignsM
-                                                                              .vITALSIGNSAllModelS![
-                                                                          index]
-                                                                              .vitaLSIGNREAD
-                                                                              .toString()),
-                                                                      center: new Text(
 
-                                                                        VitalSignsM
-                                                                            .vITALSIGNSAllModelS![
-                                                                        index]
-                                                                            .vitaLSIGNREAD
-                                                                            .toString(),
-                                                                        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .w900,
-                                                                            fontSize: 18 *
-                                                                                unitHeightValue),
-                                                                      ),
 
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height: 15,
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: Text(
-                                                                        textAlign: TextAlign.center,
-                                                                        maxLines: 3,
-                                                                        overflow: TextOverflow.ellipsis,
-                                                                        VitalSignsM.vITALSIGNSAllModelS![index]
-                                                                            .desCA
-                                                                            .toString(),
-                                                                        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .w700,
-                                                                            fontSize: 16 *
-                                                                                unitHeightValue),
-                                                                      ),
-
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                            );
-                                                          },
-                                                  ),
-                                                       ),
-                                                     ),
-                                                   ),
 
                                                 /* SizedBox(
                                                     child: GridView.builder(
@@ -402,8 +396,7 @@ class _VitalSignsState extends State<VitalSigns> {
                                                     ),
                                                   ),*/
 
-                                              ],
-                                            ))
+
                                         :SizedBox()
                                     )
                                         .toList(),
@@ -434,12 +427,18 @@ class _VitalSignsState extends State<VitalSigns> {
 
 
 
+
+
       BuildContext context, String patientNo, String searchDate) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
     print(" dateinput.text :"+ patientNo);
 
-    Uri postsURL = Uri.parse(Globalvireables.VitalSignsURL);
+    Uri postsURL = Uri.parse(ip+Globalvireables.VitalSignsURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
@@ -483,6 +482,16 @@ class _VitalSignsState extends State<VitalSigns> {
 
   _onItemTapped(int index) {
     setState(() {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      if(index==1){
+        homeP.setVisitDate('');
+
+        homeP.setvisitNo('0');
+        homeP.setvisittype('0');
+
+      }
       selectedIndex = index;
       Navigator.push(
         context,

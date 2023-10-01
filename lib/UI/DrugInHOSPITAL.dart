@@ -656,9 +656,13 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
       BuildContext context, String patientid, String date ) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     print('ordernoo '+homeP.getvisitNo());
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(Globalvireables.DrugInHOSPITALURL);
+    Uri postsURL = Uri.parse(ip+Globalvireables.DrugInHOSPITALURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
@@ -701,6 +705,17 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
 
   _onItemTapped(int index) {
     setState(() {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      if(index==1){
+        homeP.setVisitDate('');
+
+        homeP.setvisitNo('0');
+        homeP.setvisittype('0');
+
+      }
+
       selectedIndex = index;
       Navigator.push(
         context,

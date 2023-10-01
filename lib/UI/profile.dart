@@ -677,10 +677,12 @@ Spacer(),
           content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
         ));
 
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
 
 
     Uri postsURL =
-    Uri.parse(Globalvireables.UpdateInformationURL);
+    Uri.parse(ip+Globalvireables.UpdateInformationURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
@@ -773,8 +775,12 @@ Spacer(),
           content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
         ));
 
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.UpdateInformationURL);
+    Uri.parse(ip+Globalvireables.UpdateInformationURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
@@ -853,8 +859,14 @@ Spacer(),
 
 
   Future<List<ProfileM>> getProfile(BuildContext context,String patientNo) async {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
+
     Uri postsURL =
-    Uri.parse(Globalvireables.profileURL);
+    Uri.parse(ip+Globalvireables.profileURL);
     try {
 
       print("patientNo" + patientNo.toString());

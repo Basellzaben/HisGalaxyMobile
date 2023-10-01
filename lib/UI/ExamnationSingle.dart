@@ -521,6 +521,16 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
   }
   _onItemTapped(int index) {
     setState(() {
+      var homeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+      if(index==1){
+        homeP.setVisitDate('');
+
+        homeP.setvisitNo('0');
+        homeP.setvisittype('0');
+
+      }
       selectedIndex = index;
       Navigator.push(
         context,
