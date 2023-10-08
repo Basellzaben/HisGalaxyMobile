@@ -636,7 +636,33 @@ SizedBox(width: 3,),
                               unitHeightValue),
                               ),
 
-                              )
+                              ),
+
+                                VitalSignsM.vITALSIGNSAllModelS![index]
+                                    .desCA
+                                    .toString()=="ضغط"?
+                                Expanded(child: Text('129/84 -  120/80'+"الحد الطبيعي : ")):Container(),
+
+                                VitalSignsM.vITALSIGNSAllModelS![index]
+                                    .desCA
+                                    .toString()=="حرارة"?
+                                Expanded(child:Text("الحد الطبيعي : 37.2 - 36.1")):Container(),
+
+                                VitalSignsM.vITALSIGNSAllModelS![index]
+                                    .desCA
+                                    .toString()=="النبض"?
+                                Expanded(child:Text("الحد الطبيعي : 100 - 60")):Container(),
+                                VitalSignsM.vITALSIGNSAllModelS![index]
+                                    .desCA
+                                    .toString()=="معدل الاكسجين"?
+                                Expanded(child:Text("الحد الطبيعي : %100 - %60")):Container(),
+                                VitalSignsM.vITALSIGNSAllModelS![index]
+                                    .desCA
+                                    .toString()=="سكري"?
+                                Expanded(child:Text("الحد الطبيعي : 120 - 60")):Container()
+
+
+
                               ],
                               ),
                               );

@@ -47,13 +47,16 @@ class _AppoimentsState extends State<Appoiments> {
     profile(),
   ];
   TextEditingController dateinputC = TextEditingController();
-var state=false;
+  var state = false;
+
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-  //  dateinputC.text = homeP.getVisitDate();
+    //  dateinputC.text = homeP.getVisitDate();
   }
+
   final key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
@@ -62,7 +65,7 @@ var state=false;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     var ThemP = Provider.of<Them>(context, listen: false);
-    
+
     return Stack(children: <Widget>[
       Image.asset(
         "assets/background.png",
@@ -100,7 +103,7 @@ var state=false;
             showUnselectedLabels: true,
             currentIndex: selectedIndex,
             selectedIconTheme:
-            IconThemeData(color: HexColor(Globalvireables.white)),
+                IconThemeData(color: HexColor(Globalvireables.white)),
             onTap: _onItemTapped,
           ),
           appBar: AppBar(
@@ -138,7 +141,6 @@ var state=false;
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 1.2,
                     decoration: BoxDecoration(
-
                       image: DecorationImage(
                         image: AssetImage("assets/background.png"),
                         fit: BoxFit.cover,
@@ -156,60 +158,65 @@ var state=false;
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
-
-child: Row(children: [
-   SizedBox(
-      height: 50,
-      width: MediaQuery.of(context).size.width / 2.5,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary:
-    state?  HexColor(ThemP.getcolor()): HexColor(Globalvireables.grey),
-        ),
-        child: Text(
-        LanguageProvider.Llanguage('History') ,
-          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-              color: HexColor(Globalvireables.white),
-              fontSize: 15 * unitHeightValue),
-        ),
-        onPressed: () async {
-          if(!state){
-            setState(() {
-              state=true;
-            });
-          }
-     },
-    ),
-  )
-  ,Spacer(),
-  SizedBox(
-    height: 50,
-    width: MediaQuery.of(context).size.width / 2.5,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary:
-        state?  HexColor(Globalvireables.grey): HexColor(ThemP.getcolor()),),
-      child: Text(LanguageProvider.Llanguage('Schedule'),
-        style: ArabicTextStyle(
-        arabicFont: ArabicFont.tajawal,
-        color: HexColor(Globalvireables.white),
-        fontSize: 15 * unitHeightValue),
-      ),
-      onPressed: () async {
-       if(state){
-         setState(() {
-           state=false;
-         });
-
-       }
-
-      },
-    ),
-  )
-
-],),
-
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: state
+                                            ? HexColor(ThemP.getcolor())
+                                            : HexColor(Globalvireables.grey),
+                                      ),
+                                      child: Text(
+                                        LanguageProvider.Llanguage('History'),
+                                        style: ArabicTextStyle(
+                                            arabicFont: ArabicFont.tajawal,
+                                            color:
+                                                HexColor(Globalvireables.white),
+                                            fontSize: 15 * unitHeightValue),
+                                      ),
+                                      onPressed: () async {
+                                        if (!state) {
+                                          setState(() {
+                                            state = true;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  SizedBox(
+                                    height: 50,
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: state
+                                            ? HexColor(Globalvireables.grey)
+                                            : HexColor(ThemP.getcolor()),
+                                      ),
+                                      child: Text(
+                                        LanguageProvider.Llanguage('Schedule'),
+                                        style: ArabicTextStyle(
+                                            arabicFont: ArabicFont.tajawal,
+                                            color:
+                                                HexColor(Globalvireables.white),
+                                            fontSize: 15 * unitHeightValue),
+                                      ),
+                                      onPressed: () async {
+                                        if (state) {
+                                          setState(() {
+                                            state = false;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -223,155 +230,139 @@ child: Row(children: [
                             height: MediaQuery.of(context).size.height / 1.4,
                             child: FutureBuilder(
                               future: getAppoiments(
-                                context,
-                                  Loginprovider.userId,"20"
-
-                              ),
-                              builder: (BuildContext context, AsyncSnapshot<List<AppoimentsM>> snapshot) {
+                                  context, Loginprovider.userId, "20"),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<AppoimentsM>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<AppoimentsM>? Appoiments = snapshot.data;
 
-                                 return Appoiments!.isNotEmpty? ListView(
-                                    children: Appoiments!
-                                        .map((AppoimentsM inv) =>
-                                        SizedBox(
-                                        child: GestureDetector(
-                                          onTap: () {
-
-
-                                          },
-                                          child: Column(
-                                           children: [
-                                           SizedBox(height: 10,),
-                                           // Padding(
-                                           // padding: const EdgeInsets.all(8.0),
-                                           // child: Align(
-                                           // alignment: Alignment.topLeft,
-                                           // child: Text(
-                                           // textAlign: TextAlign.left,
-                                           // inv.sessionDate.toString() == null
-                                           // ||  inv.sessionDate.toString() == 'NULL'
-                                           // || inv.sessionDate.toString() ==
-                                           // 'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length-3)
-                                           //
-                                           //                .trim()),
-                                           //      ),
-                                           //    ),
-                                              Card(
-                                                  color: Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color: HexColor(
-                                                            ThemP.getcolor()),
-                                                        width: 1),
-                                                    borderRadius:
-                                                    BorderRadius.circular(10),
-                                                  ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(13),
-                                                    child: SizedBox(
-                                                      child: Column(
-                                                        children: [
-                                                          Row(
-                                                            children: [
-
-                                                              Expanded(
+                                  return Appoiments!.isNotEmpty
+                                      ? ListView(
+                                          children: Appoiments!
+                                              .map((AppoimentsM inv) =>
+                                                  SizedBox(
+                                                      child: GestureDetector(
+                                                    onTap: () {},
+                                                    child: Column(
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        // Padding(
+                                                        // padding: const EdgeInsets.all(8.0),
+                                                        // child: Align(
+                                                        // alignment: Alignment.topLeft,
+                                                        // child: Text(
+                                                        // textAlign: TextAlign.left,
+                                                        // inv.sessionDate.toString() == null
+                                                        // ||  inv.sessionDate.toString() == 'NULL'
+                                                        // || inv.sessionDate.toString() ==
+                                                        // 'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length-3)
+                                                        //
+                                                        //                .trim()),
+                                                        //      ),
+                                                        //    ),
+                                                        Card(
+                                                            color: Colors.white,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              side: BorderSide(
+                                                                  color: HexColor(
+                                                                      ThemP
+                                                                          .getcolor()),
+                                                                  width: 1),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(13),
+                                                              child: SizedBox(
                                                                 child: Column(
                                                                   children: [
-                                                                    Align(
-                                                                      alignment: Alignment.topLeft,
-                                                                      child: Container(
-                                                                        width: MediaQuery.of(context).size.width/1.3,
-                                                                        child: Text(
-                                                                          maxLines: 10,
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          textAlign: TextAlign.left,
-                                                                          inv.doctornamEE.toString() == null
-                                                                              ||  inv.doctornamEE.toString() == 'NULL'
-                                                                              || inv.doctornamEE.toString() == 'null'? '' : inv.doctornamEE.toString()
-                                                                              .trim(),
-                                                                          style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,color: Colors.black,fontWeight: FontWeight.w900),),
-                                                                      ),
-                                                                    ),
-                                                                    Align(
-                                                                      alignment: Alignment.topLeft,
-                                                                      child: Text(
-                                                                          textAlign: TextAlign.left,
-                                                                          inv.sessionNameE.toString() == null
-                                                                              ||  inv.sessionNameE.toString() == 'NULL'
-                                                                              || inv.sessionNameE.toString() ==
-                                                                              'null'? '' : "DR . "+inv.sessionNameE.toString()
-                                                                              .trim()),
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Align(
+                                                                                alignment: Alignment.topLeft,
+                                                                                child: Container(
+                                                                                  width: MediaQuery.of(context).size.width / 1.3,
+                                                                                  child: Text(
+                                                                                    maxLines: 10,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                    textAlign: TextAlign.left,
+                                                                                    inv.doctornamEE.toString() == null || inv.doctornamEE.toString() == 'NULL' || inv.doctornamEE.toString() == 'null' ? '' : inv.doctornamEE.toString().trim(),
+                                                                                    style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, color: Colors.black, fontWeight: FontWeight.w900),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              Align(
+                                                                                alignment: Alignment.topLeft,
+                                                                                child: Text(textAlign: TextAlign.left, inv.sessionNameE.toString() == null || inv.sessionNameE.toString() == 'NULL' || inv.sessionNameE.toString() == 'null' ? '' : "DR . " + inv.sessionNameE.toString().trim()),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                          child: Container(
+                                                                              color: HexColor(ThemP.getcolor()),
+                                                                              child: SizedBox(
+                                                                                height: 50,
+                                                                                width: 2,
+                                                                              )),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          child:
+                                                                            Row(
+                                                                            children: [
+                                                                              Column(
+                                                                                children: [
+                                                                                  Text(textAlign: TextAlign.center, retMonth(inv.sessionDate.toString()), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, height: 1)),
+                                                                                  Text(textAlign: TextAlign.center, retYear(inv.sessionDate.toString()), style: TextStyle(fontSize: 14, height: 1)),
+                                                                                ],
+                                                                              ),
+                                                                              SizedBox(
+                                                                                width: 2,
+                                                                              ),
+                                                                              Text(
+                                                                                retDay(inv.sessionDate.toString()),
+                                                                                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w800, color: HexColor(ThemP.getcolor())),
+                                                                              )
+                                                                            ],
+                                                                          ),
+
+
+
+
+
+
+
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ],
                                                                 ),
                                                               ),
-                                                              Padding(
-                                                                padding: const EdgeInsets.all(8.0),
-                                                                child: Container(
-                                                                    color: HexColor(ThemP.getcolor()),
-                                                                    child: SizedBox(height: 50,width: 2,)),
-                                                              ),
-                                                              SizedBox(
-                                                                child: Row(
-                                                                  children: [
-                                                                    Column(
-                                                                      children: [
-                                                                        Text(
-                                                                            textAlign: TextAlign
-                                                                                .center,
-                                                                            retMonth(inv.sessionDate.toString()),
-                                                                            style: TextStyle(
-                                                                                fontSize: 16,
-                                                                                fontWeight: FontWeight
-                                                                                    .w800,
-                                                                                height: 1)),
-                                                                        Text(
-                                                                            textAlign: TextAlign
-                                                                                .center,
-                                                                            retYear(inv.sessionDate.toString()),
-                                                                            style: TextStyle(
-                                                                                fontSize: 14,
-                                                                                height: 1)),
-                                                                      ],
-
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 2,),
-                                                                    Text(
-                                                                      retDay(inv.sessionDate.toString()),
-                                                                      style: TextStyle(
-                                                                          fontSize: 35,
-                                                                          fontWeight: FontWeight
-                                                                              .w800,
-                                                                          color: HexColor(
-                                                                              ThemP
-                                                                                  .getcolor())),
-                                                                    )
-
-                                                                  ],),
-                                                              )
-,
-                                                            ],
-                                                          ),
-
-
-
-                                                        ],
-                                                      ),
+                                                            )),
+                                                      ],
                                                     ),
-                                                  )),
-                                            ],
-                                          ),
-                                        )))
-                                        .toList(),
-                                  ):Image.asset(
-                                "assets/null.png",
-                                height: 100,
-                                width: 100,
-                                );
-
+                                                  )))
+                                              .toList(),
+                                        )
+                                      : Image.asset(
+                                          "assets/null.png",
+                                          height: 100,
+                                          width: 100,
+                                        );
                                 } else {
                                   return Center(
                                       child: CircularProgressIndicator());
@@ -394,35 +385,33 @@ child: Row(children: [
       BuildContext context, String patientid, String date) async {
     var LanguageProvider = Provider.of<Language>(context, listen: false);
 
-
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
-    Uri postsURL = Uri.parse( Loginprovider.getFirebaseIp().toString()+Globalvireables.AppoimentsURL);
+    Uri postsURL = Uri.parse(Loginprovider.getFirebaseIp().toString() +
+        Globalvireables.AppoimentsURL);
     try {
-      String state1='3649';
-      String state2='2';
+      String state1 = '3649';
+      String state2 = '2';
       var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-
       var type;
-       if(homeP.getvisittype()=='1' || homeP.getvisittype()=='2'||
-    homeP.getvisittype()=='3'||
-    homeP.getvisittype()=='4')
-         type = homeP.getvisittype();
+      if (homeP.getvisittype() == '1' ||
+          homeP.getvisittype() == '2' ||
+          homeP.getvisittype() == '3' ||
+          homeP.getvisittype() == '4')
+        type = homeP.getvisittype();
       else
-         type = '0';
+        type = '0';
 
-
-
-      print ("typerr" +" "+type);
+      print("typerr" + " " + type);
 
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
       map['searchDate'] = date;
       map['VisitType'] = type;
-      if(state){
-        state1='3650';
-        state2='1';
+      if (state) {
+        state1 = '3650';
+        state2 = '1';
       }
       map['state'] = state1;
       map['state2'] = state2;
@@ -439,7 +428,7 @@ child: Row(children: [
         List<AppoimentsM> Appoiments = body
             .map(
               (dynamic item) => AppoimentsM.fromJson(item),
-        )
+            )
             .toList();
 
         return Appoiments;
@@ -506,15 +495,12 @@ child: Row(children: [
     return newMonth + " " + d + "," + y;
   }
 
-
-
   String retDay(String DATE) {
     var parts = DATE.split('-');
     String d = parts[2].trim().substring(0, 2);
 
     return d.toString();
   }
-
 
   String retYear(String DATE) {
     var parts = DATE.split('-');
@@ -554,5 +540,4 @@ child: Row(children: [
     }
     return newMonth.toString();
   }
-
 }
