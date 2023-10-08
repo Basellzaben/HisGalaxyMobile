@@ -209,6 +209,280 @@ class _VitalSignsState extends State<VitalSigns> {
                             },
                           ),
                         ),
+
+
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+
+                                return Expanded(
+                                  child: AlertDialog(
+                                    insetPadding: EdgeInsets.zero,
+                                    content: Directionality(
+                                      textDirection: LanguageProvider.getDirectionPres(),
+                                      child: RepaintBoundary(
+                                        child: SingleChildScrollView(
+                                          child: RepaintBoundary(
+                                            child: Column(
+                                              children: [
+
+                                                RepaintBoundary(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(0.0),
+                                                    child: Column(children: [
+
+                                                      Center(
+                                                        child: Text(
+                                                          LanguageProvider.Llanguage('normallevel'),
+                                                          style: ArabicTextStyle(
+                                                              arabicFont: ArabicFont.tajawal,
+                                                              color: Colors.black45,
+                                                              fontSize: 15 * unitHeightValue),
+                                                        ),
+                                                      ),
+
+                                                      Divider(thickness: 0.3, color: Colors.black),
+
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: 4,right: 4,top: 10),
+                                                        child: Row(children: [
+                                                          Container(
+                                                              alignment: Alignment.center,
+                                                              child: Text("اسم المؤشر",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              alignment: Alignment.center,
+                                                              child: Text("الحد الأعلى",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              alignment: Alignment.center,
+                                                              child: Text("الحد الادنى",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+
+
+                                                        ],),
+                                                      ),
+
+
+
+
+
+
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: 4,right: 4,top: 10),
+                                                        child: Row(children: [
+                                                          Container(
+                                                            width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("الضغط",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("129/84",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("120/80",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+
+
+                                                        ],),
+                                                      ),
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: 4,right: 4,top: 10),
+                                                        child: Row(children: [
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("معدل التنفس",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("16",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("12",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+
+
+                                                        ],),
+                                                      ),
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: 4,right: 4,top: 10),
+                                                        child: Row(children: [
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("نسبه الاكسجين",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("100%",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("95%",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+
+
+                                                        ],),
+                                                      ),
+
+
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: 4,right: 4,top: 10),
+                                                        child: Row(children: [
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("حراره الجسم",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("37.2",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("36.1",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+
+
+                                                        ],),
+                                                      ),
+
+
+
+                                                      Padding(
+                                                        padding: EdgeInsets.only(left: 4,right: 4,top: 10),
+                                                        child: Row(children: [
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("دقات القلب",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("100",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+                                                          Spacer(),
+                                                          Container(
+                                                              width: MediaQuery.of(context).size.width/4,
+                                                              alignment: Alignment.center,
+                                                              child: Text("60",style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black),)),
+
+
+                                                        ],),
+                                                      ),
+
+
+SizedBox(height: 30,),
+
+                                                      Text(
+                                                       'تنبيه : جميع النسب المذكورة تقريبية وتعتمد على عوامل كثيرة، لذا يجب عليك استشارة طبيبك للحصول على المعلومات',
+                                                        style: ArabicTextStyle(
+                                                            arabicFont: ArabicFont.tajawal,
+                                                            color: Colors.black45,
+                                                            fontSize: 15 * unitHeightValue),
+                                                      ),
+
+                                                      SizedBox(height: 30,),
+
+                                                      TextButton(
+                                                        // textColor: Colors.black,
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+
+
+                                                        },
+                                                        child: Text(
+                                                          LanguageProvider.Llanguage('cancel'),
+                                                          style: ArabicTextStyle(
+                                                              arabicFont: ArabicFont.tajawal,
+                                                              color: Colors.black87,
+                                                              fontSize: 15 *
+                                                                  unitHeightValue),
+                                                        ),
+                                                      ),
+
+
+
+                                                    ],),
+                                                  ),
+                                                ),
+
+
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    actions: [
+
+
+                                    ],
+                                  ),
+                                );
+
+                              },
+                            );
+
+                          },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15,bottom: 15),
+                        child: Row(children: [
+
+Spacer(),
+
+
+                                   Text(
+                                     LanguageProvider.Llanguage('normallevel'),
+                                      style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                          color: Colors.black45,
+                                          fontSize: 15 * unitHeightValue),
+                                    ),
+SizedBox(width: 3,),
+                          Icon(
+                            Icons.info_outline_rounded,
+                            color: Colors.black38,
+                            size: 25.0,
+                          ),
+
+                        ],),
+                      ),
+                    ),
+
+
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.1,
                           height: MediaQuery.of(context).size.height / 1.24,
@@ -228,7 +502,53 @@ class _VitalSignsState extends State<VitalSigns> {
                                         child: ExpansionTile(
                                         title:  Padding(
                                         padding: EdgeInsets.all(8.0),
-                                    child: Center(
+                                    child:
+
+                                    SizedBox(
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Text(
+                                                  textAlign: TextAlign
+                                                      .center,
+                                                  retMonth( VitalSignsM.datee.toString()),
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight
+                                                          .w800,
+                                                      height: 1)),
+                                              Text(
+                                                  textAlign: TextAlign
+                                                      .center,
+                                                  retYear( VitalSignsM.datee.toString()),
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      height: 1)),
+                                            ],
+
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              color:Colors.black,
+                                              height: 33,width: 1.8,),
+                                          ),
+                                          Text(
+                                            retDay( VitalSignsM.datee.toString()),
+                                            style: TextStyle(
+                                                fontSize: 35,
+                                                fontWeight: FontWeight
+                                                    .w800,
+                                                color: HexColor(
+                                                    ThemP
+                                                        .getcolor())),
+                                          )
+
+                                        ],),
+                                    )
+
+                                          /*Center(
 
                                         child: Text(
                                           retturndatenewformat(
@@ -241,7 +561,7 @@ class _VitalSignsState extends State<VitalSigns> {
                                               fontSize: 20,
                                               fontWeight:
                                               FontWeight.w700),
-                                        )),
+                                        ))*/,
                                   ),
 
                                     children: [
@@ -599,6 +919,52 @@ if(double.parse(result)>38.0){
 
 return newMonth+" "+ d+","+y ;
 
+  }
+  String retDay(String DATE) {
+    var parts = DATE.split('-');
+    String d = parts[2].trim().substring(0, 2);
+
+    return d.toString();
+  }
+
+
+  String retYear(String DATE) {
+    var parts = DATE.split('-');
+    String y = parts[0].trim();
+
+    return y.toString();
+  }
+
+  String retMonth(String DATE) {
+    String newMonth = "";
+    var parts = DATE.split('-');
+    int m = int.parse(parts[1].trim());
+    if (m == 1) {
+      newMonth = 'JAN';
+    } else if (m == 2) {
+      newMonth = 'FEB';
+    } else if (m == 3) {
+      newMonth = 'MAR';
+    } else if (m == 4) {
+      newMonth = 'APR';
+    } else if (m == 5) {
+      newMonth = 'MAY';
+    } else if (m == 6) {
+      newMonth = 'JUN';
+    } else if (m == 7) {
+      newMonth = 'JUL';
+    } else if (m == 8) {
+      newMonth = 'AUG';
+    } else if (m == 9) {
+      newMonth = 'SEP';
+    } else if (m == 10) {
+      newMonth = 'OCT';
+    } else if (m == 11) {
+      newMonth = 'NOV';
+    } else if (m == 12) {
+      newMonth = 'DEC';
+    }
+    return newMonth.toString();
   }
 
 }

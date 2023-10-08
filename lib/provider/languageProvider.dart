@@ -48,6 +48,8 @@ class Language extends ChangeNotifier {
     "selectvisitno":"يجب اختيار زياره لعرض التفاصيل ",
     "notfound":"صوره الأشعة غير متوفره",
     "Show":"عرض",
+    "normallevel":"المستويات الطبيعية للمؤشرات حيوية",
+
     "medicalreport":"تقرير طبي",
     "terms": "الشروط و الاحكام",
     "update": "تحديث",
@@ -93,7 +95,7 @@ class Language extends ChangeNotifier {
     "Rayr": "تقارير الأشعة",
     "examination": "الفحوصات",
     "Prescription": "وصفات الخروج",
-    "Vitalsigns": "العلامات حيوية",
+    "Vitalsigns": "المؤشرات حيوية",
     "Appoiments": "المواعيد",
     "Invoices": "الفواتير",
     "Payments": "الدفعات",
@@ -210,6 +212,7 @@ class Language extends ChangeNotifier {
   };
 
   static Map<String, Object?> en = {
+    "normallevel":"Normal levels of vital signs",
     "Show":"Show",
     "notfound":"Item not found",
     "selectvisitno":"You must choose the excess number to view the insurance details",

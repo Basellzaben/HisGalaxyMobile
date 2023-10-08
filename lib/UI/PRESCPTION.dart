@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
@@ -20,6 +21,66 @@ import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:arabic_font/arabic_font.dart';
+import 'dart:convert';
+import 'dart:ui';
+import 'dart:ui';
+import 'package:arabic_font/arabic_font.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/profile.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:provider/provider.dart';
+import '../GlobalVar.dart';
+import '../HexaColor.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+
+import '../Models/InvoicesM.dart';
+import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
+import '../provider/Them.dart';
+import '../provider/languageProvider.dart';
+import '../widget/Widgets.dart';
+import 'Home.dart';
+import 'Settings.dart';
+import 'package:intl/intl.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:arabic_font/arabic_font.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/profile.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../GlobalVar.dart';
+import '../HexaColor.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:core';
+import 'dart:ui' as ui;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../main.dart';
+import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
+import '../provider/SingleEXAMProvider.dart';
+import '../provider/Them.dart';
+import '../provider/languageProvider.dart';
+import '../widget/Widgets.dart';
+import 'Home.dart';
+import 'Settings.dart';
+import 'package:intl/intl.dart';
+
 class PRESCPTION extends StatefulWidget {
   @override
   State<PRESCPTION> createState() => _PRESCPTIONState();
@@ -45,6 +106,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
     profile(),
   ];
   TextEditingController dateinputC = TextEditingController();
+  GlobalKey globalKey = GlobalKey();
 
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
@@ -477,8 +539,346 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                             ),
 
 
+
+
+
+
                                                                           ],),
                                                                         ),
+
+
+
+
+
+                                                                        Align(
+                                                                          alignment: Alignment.bottomCenter,
+                                                                          child: Container(
+                                                                            height: 50,
+                                                                            width:
+                                                                            MediaQuery.of(context).size.width /1.6,
+                                                                            margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                                            color: HexColor(Globalvireables.white),
+                                                                            child: ElevatedButton(
+                                                                              style: ElevatedButton.styleFrom(
+                                                                                primary: HexColor(ThemP.getcolor()),),
+                                                                              child:
+
+                                                                              Icon(
+                                                                                Icons.cloud_download,
+                                                                                color: Colors.white,
+                                                                                size: 30.0,
+                                                                              ),
+
+
+                                                                              onPressed: () async {
+
+                                                                                showDialog(
+                                                                                  context: context,
+                                                                                  builder: (BuildContext context) {
+
+                                                                                    return Expanded(
+                                                                                      child: AlertDialog(
+                                                                                        insetPadding: EdgeInsets.zero,
+                                                                                        content: Directionality(
+                                                                                          textDirection: LanguageProvider.getDirectionPres(),
+                                                                                          child: RepaintBoundary(
+                                                                                            child: SingleChildScrollView(
+                                                                                              child: RepaintBoundary(
+                                                                                                child: Column(
+                                                                                                  children: [
+
+                                                                                                    RepaintBoundary(
+                                                                                                      key: globalKey,
+                                                                                                      child: Container(
+                                                                                                        height: MediaQuery.of(context).size.height/2,
+                                                                                                        child: Padding(
+                                                                                                          padding: const EdgeInsets.all(0.0),
+                                                                                                          child: Column(children: [
+
+                                                                                                            Column(children: [
+                                                                                                              Row(
+                                                                                                                children: [
+                                                                                                                  Spacer(),
+                                                                                                                  Spacer(),
+                                                                                                                  Column(
+                                                                                                                    children: [
+                                                                                                                      Text(
+                                                                                                                        'MARKA SPECIALITY HOSPITAL',
+                                                                                                                        style: TextStyle(
+                                                                                                                            fontWeight: FontWeight.w700,
+                                                                                                                            color: HexColor(Globalvireables
+                                                                                                                                .black),
+                                                                                                                            fontSize:
+                                                                                                                            12 *
+                                                                                                                                unitHeightValue),
+                                                                                                                      ),
+                                                                                                                      Text(
+
+                                                                                                                        'prescription',
+                                                                                                                        style: TextStyle(
+                                                                                                                            fontWeight: FontWeight.w700,
+                                                                                                                            color: HexColor(Globalvireables
+                                                                                                                                .black),
+                                                                                                                            fontSize:
+                                                                                                                            12 *
+                                                                                                                                unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ],
+                                                                                                                  ),
+                                                                                                                  Spacer(),
+                                                                                                                  Container(
+                                                                                                                      width:60,
+                                                                                                                      height:60,
+                                                                                                                      child: Image(
+                                                                                                                          image: new AssetImage(
+                                                                                                                              "assets/newlogo.png")))
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                              Divider(thickness: 1.0, color: Colors.black),
+                                                                                                            ],),
+                                                                                                            Row(children: [ Text(
+                                                                                                              LanguageProvider.getLanguage()=='AR'?'اسم المريض : ':'Patient Name : ',
+                                                                                                              style: TextStyle(
+                                                                                                                  fontWeight: FontWeight.w700,
+                                                                                                                  color: HexColor(Globalvireables
+                                                                                                                      .black),
+                                                                                                                  fontSize:
+                                                                                                                  12 *
+                                                                                                                      unitHeightValue),
+                                                                                                            ),
+                                                                                                              Text(
+                                                                                                                Loginprovider.nameE,
+                                                                                                                style: TextStyle(
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+                                                                                                              Spacer(),
+
+                                                                                                            ],),
+                                                                                                            Row(children: [
+                                                                                                              Text(
+                                                                                                                LanguageProvider.getLanguage()=='AR'?'التاريخ :':'Date :',
+                                                                                                                style: TextStyle(
+                                                                                                                    fontWeight: FontWeight.w700,
+
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+                                                                                                              Text(
+                                                                                                                inv.cdate.toString(),
+                                                                                                                style: TextStyle(
+
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+                                                                                                              Spacer(),
+
+                                                                                                            ],)
+                                                                                                            ,
+                                                                                                            Row(children: [
+                                                                                                              Text(
+                                                                                                                LanguageProvider.getLanguage()=='AR'?'رقم المريض : ':'Patient No : ',
+                                                                                                                style: TextStyle(
+                                                                                                                    fontWeight: FontWeight.w700,
+
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+                                                                                                              Text(
+                                                                                                                Loginprovider.id,
+                                                                                                                style: TextStyle(
+
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+
+
+                                                                                                              Spacer(),
+
+
+                                                                                                            ],),
+
+                                                                                                            Row(children: [
+                                                                                                              Text(
+                                                                                                                LanguageProvider.getLanguage()=='AR'?'اسم الطبيب : ':'Doctor Name : ',
+                                                                                                                style: TextStyle(
+                                                                                                                    fontWeight: FontWeight.w700,
+
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+                                                                                                              Text(
+                                                                                                                inv.doctorname.toString(),
+                                                                                                                style: TextStyle(
+
+                                                                                                                    color: HexColor(Globalvireables
+                                                                                                                        .black),
+                                                                                                                    fontSize:
+                                                                                                                    12 *
+                                                                                                                        unitHeightValue),
+                                                                                                              ),
+
+
+                                                                                                              Spacer(),
+
+
+                                                                                                            ],),
+
+
+                                                                                                            Divider(thickness: 0.3, color: Colors.black),
+                                                                                                            Padding(
+                                                                                                              padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                                                                              child: Row(children: [
+                                                                                                                Container(
+                                                                                                                    width: 120,
+                                                                                                                    child: Text("اسم الدواء",style: ArabicTextStyle(
+                                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                                Spacer(),
+                                                                                                                Container(
+                                                                                                                    alignment: Alignment.center,
+                                                                                                                    width: 70,
+                                                                                                                    child: Text("الكميه",style: ArabicTextStyle(
+                                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                                Spacer(),
+
+                                                                                                                Container(
+                                                                                                                    alignment: Alignment.center,
+                                                                                                                    child: Text("التعليمات",style: ArabicTextStyle(
+                                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+
+                                                                                                              ],),
+                                                                                                            ),
+
+                                                                                                            Column(children: [
+                                                                                                              for(int i=0;i<inv.prescptionHdrModels!.length;i++)
+                                                                                                                Padding(
+                                                                                                                  padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                                                                                  child: Container(
+                                                                                                                    child: Row(children: [
+
+                                                                                                                      Container(
+                                                                                                                          width: 120,
+                                                                                                                          child: Text(
+inv.prescptionHdrModels![i].cname.toString()
+
+                                                                                                                            ,style: ArabicTextStyle(
+                                                                                                                              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black),)),
+                                                                                                                      Spacer(),
+                                                                                                                      Container(
+                                                                                                                          width: 70,
+                                                                                                                          child: Text(
+                                                                                                                            textAlign: TextAlign.left,
+
+
+                                                                                                                            inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
+                                                                                                                                +(
+                                                                                                                                LanguageProvider.getLanguage()=='AR'?inv.prescptionHdrModels![i].unit.toString().split(':').last:
+                                                                                                                                inv.prescptionHdrModels![i].unit.toString().split(':').first
+                                                                                                                            ),
+
+                                                                                                                            style: ArabicTextStyle(
+                                                                                                                                arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                                      Spacer(),
+                                                                                                                      Container(
+                                                                                                                          alignment: Alignment.center,
+                                                                                                                          width: 60,
+                                                                                                                          child: Text(
+                                                                                                                            inv.prescptionHdrModels![i].dos.toString()
+
+
+                                                                                                                            /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
+                                                                                                                              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black),)),
+
+
+
+                                                                                                                    ],),
+                                                                                                                  ),
+                                                                                                                ),
+
+
+
+
+                                                                                                            ],),
+
+
+
+                                                                                                          ],),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Align(
+                                                                                                        alignment: Alignment.bottomCenter,
+                                                                                                        child: Container(
+                                                                                                            height: 50,
+                                                                                                            width:
+                                                                                                            MediaQuery.of(context).size.width / 1.6,
+                                                                                                            margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                                                                            color: HexColor(Globalvireables.white),
+                                                                                                            child: ElevatedButton(
+                                                                                                                style: ElevatedButton.styleFrom(
+                                                                                                                  primary: HexColor(ThemP.getcolor()),),
+                                                                                                                child:   Icon(
+                                                                                                                  Icons.cloud_download,
+                                                                                                                  color: Colors.white,
+                                                                                                                  size: 30.0,
+                                                                                                                ),
+                                                                                                                onPressed: () async {
+                                                                                                                  _takeScreenshot();
+
+
+                                                                                                                })))
+
+
+
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        actions: [
+
+
+                                                                                        ],
+                                                                                      ),
+                                                                                    );
+
+                                                                                  },
+                                                                                );
+
+
+
+
+                                                                                //    _takeScreenshot();
+                                                                                //  _capturePng();
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                        ),
+
+
+
+
+
+
                                                                       ],
                                                                     ),
                                                                   ),
@@ -831,5 +1231,37 @@ SizedBox(height: 18,)
       newMonth = 'DEC';
     }
     return newMonth.toString();
+  }
+  void _takeScreenshot() async {
+    RenderRepaintBoundary boundary =
+    globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+
+    ui.Image image = await boundary.toImage();
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData != null) {
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return  PdfPreview(
+            build: (context) => makePdf(pngBytes),
+          );
+        },
+      );
+    }
+  }
+  Future<Uint8List> makePdf(Uint8List byteList) async {
+    final pdf = pw.Document();
+    pdf.addPage(
+        pw.Page(
+            margin: const pw.EdgeInsets.all(10),
+            pageFormat: PdfPageFormat.a4,
+            build: (context) {
+              return  pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
+
+            }
+        ));
+    return pdf.save();
   }
 }

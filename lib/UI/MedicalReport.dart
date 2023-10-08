@@ -406,12 +406,12 @@ class _MedicalReportState extends State<MedicalReport> {
                                 style: ElevatedButton.styleFrom(
                                   primary: HexColor(ThemP.getcolor()),
                                 ),
-                                child: Text(
-                                  LanguageProvider.Llanguage('download'),
-                                  style: ArabicTextStyle(
-                                      arabicFont: ArabicFont.tajawal,
-                                      color: HexColor(Globalvireables.white),
-                                      fontSize: 13 * unitHeightValue),
+                                child:
+
+                                Icon(
+                                  Icons.cloud_download,
+                                  color: Colors.white,
+                                  size: 30.0,
                                 ),
                                 onPressed: () async {
                                   _takeScreenshot();

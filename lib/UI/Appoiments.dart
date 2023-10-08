@@ -243,20 +243,20 @@ child: Row(children: [
                                           child: Column(
                                            children: [
                                            SizedBox(height: 10,),
-                                           Padding(
-                                           padding: const EdgeInsets.all(8.0),
-                                           child: Align(
-                                           alignment: Alignment.topLeft,
-                                           child: Text(
-                                           textAlign: TextAlign.left,
-                                           inv.sessionDate.toString() == null
-                                           ||  inv.sessionDate.toString() == 'NULL'
-                                           || inv.sessionDate.toString() ==
-                                           'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length-3)
-
-                                                          .trim()),
-                                                ),
-                                              ),
+                                           // Padding(
+                                           // padding: const EdgeInsets.all(8.0),
+                                           // child: Align(
+                                           // alignment: Alignment.topLeft,
+                                           // child: Text(
+                                           // textAlign: TextAlign.left,
+                                           // inv.sessionDate.toString() == null
+                                           // ||  inv.sessionDate.toString() == 'NULL'
+                                           // || inv.sessionDate.toString() ==
+                                           // 'null'? '' : inv.sessionDate.toString().substring(10,inv.sessionDate.toString().length-3)
+                                           //
+                                           //                .trim()),
+                                           //      ),
+                                           //    ),
                                               Card(
                                                   color: Colors.white,
                                                   shape: RoundedRectangleBorder(

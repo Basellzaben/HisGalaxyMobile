@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:ui';
+import 'dart:ui';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
@@ -14,6 +18,39 @@ import 'package:http/http.dart' as http;
 import '../Models/InvoicesM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
+import '../provider/Them.dart';
+import '../provider/languageProvider.dart';
+import '../widget/Widgets.dart';
+import 'Home.dart';
+import 'Settings.dart';
+import 'package:intl/intl.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:arabic_font/arabic_font.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/profile.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../GlobalVar.dart';
+import '../HexaColor.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:core';
+import 'dart:ui' as ui;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../main.dart';
+import '../provider/HomeProvider.dart';
+import '../provider/LoginProvider.dart';
+import '../provider/SingleEXAMProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
@@ -36,6 +73,12 @@ class _InvoicesState extends State<Invoices> {
    // setsearch(context);
     super.initState();
   }
+
+
+  final List<GlobalObjectKey<FormState>> formKeyList = List.generate(10, (index) => GlobalObjectKey<FormState>(index));
+
+
+  GlobalKey globalKey = GlobalKey();
 
   @override
   void dispose() {
@@ -232,177 +275,498 @@ SizedBox(height: 10,),
                                       key: Key(selectedTile.toString()),
                                       children: Invoices
                                       .map((InvoicesM inv) => SizedBox(
-                                       child: Card(
-                                                  child:  Theme(
-                                                    data : ThemeData().copyWith(dividerColor: Colors.transparent),
-                                                    child: ExpansionTile(
 
-                                                      key: Key((inv.invDate.toString().substring(0,4)).toString()),
-                                                      initiallyExpanded: (inv.invDate.toString().substring(0,4)) == selectedTile,
-                                                      leading: Padding(
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        child: Icon(Icons.expand_more_sharp),
-                                                      ),
-                                                      trailing:  Padding(
-                                                        padding: const EdgeInsets.only(left: 0),
-                                                        child: Text(
-                                                          retDay(inv.invDate.toString()),
-                                                          style: TextStyle(
-                                                              fontSize: 35,
-                                                              fontWeight: FontWeight
-                                                                  .w800,
-                                                              color: HexColor(
-                                                                  ThemP
-                                                                      .getcolor())),
+                                         child: Card(
+                                                    child:  Theme(
+                                                      data : ThemeData().copyWith(dividerColor: Colors.transparent),
+                                                      child: ExpansionTile(
+
+                                                        key: Key((inv.invDate.toString().substring(0,4)).toString()),
+                                                        initiallyExpanded: (inv.invDate.toString().substring(0,4)) == selectedTile,
+                                                        leading: Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Icon(Icons.expand_more_sharp),
                                                         ),
-                                                      ),
-                                                        title:Row(
-                                                          children: [
+                                                        trailing:  Padding(
+                                                          padding: const EdgeInsets.only(left: 0),
+                                                          child: Text(
+                                                            retDay(inv.invDate.toString()),
+                                                            style: TextStyle(
+                                                                fontSize: 35,
+                                                                fontWeight: FontWeight
+                                                                    .w800,
+                                                                color: HexColor(
+                                                                    ThemP
+                                                                        .getcolor())),
+                                                          ),
+                                                        ),
+                                                          title:Row(
+                                                            children: [
 
-                                                            Spacer(),
-                                                            Align(alignment: Alignment.topLeft,child: Text(inv.bilLTOTALVALUE.toString()+" JD",
-                                                              style: ArabicTextStyle(
+                                                              Spacer(),
+                                                              Align(alignment: Alignment.topLeft,child: Text(inv.bilLTOTALVALUE.toString()+" JD",
+                                                                style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,fontWeight: FontWeight.w900,fontSize: 22*unitHeightValue,color: Colors.black),)),
-                                                            Padding(
-                                                              padding: const EdgeInsets.all(8.0),
-                                                              child: Container(
-                                                                  color: HexColor(ThemP.getcolor()),
-                                                                  child: SizedBox(height: 50,width: 2,)),
-                                                            ),
-                                                            SizedBox(
-                                                              child: Row(
-                                                                children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.all(8.0),
+                                                                child: Container(
+                                                                    color: HexColor(ThemP.getcolor()),
+                                                                    child: SizedBox(height: 50,width: 2,)),
+                                                              ),
+                                                              SizedBox(
+                                                                child: Row(
+                                                                  children: [
 
-                                                                  Column(
-                                                                    children: [
-                                                                      Text(
-                                                                          textAlign: TextAlign
-                                                                              .center,
-                                                                          retMonth(inv.invDate.toString()),
-                                                                          style: TextStyle(
-                                                                              fontSize: 17,
-                                                                              fontWeight: FontWeight
-                                                                                  .w800,
-                                                                              height: 1)),
-                                                                      Text(
-                                                                          textAlign: TextAlign
-                                                                              .center,
-                                                                          retYear(inv.invDate.toString()),
-                                                                          style: TextStyle(
-                                                                              fontSize: 16,
-                                                                              height: 1)),
-                                                                    ],
+                                                                    Column(
+                                                                      children: [
+                                                                        Text(
+                                                                            textAlign: TextAlign
+                                                                                .center,
+                                                                            retMonth(inv.invDate.toString()),
+                                                                            style: TextStyle(
+                                                                                fontSize: 17,
+                                                                                fontWeight: FontWeight
+                                                                                    .w800,
+                                                                                height: 1)),
+                                                                        Text(
+                                                                            textAlign: TextAlign
+                                                                                .center,
+                                                                            retYear(inv.invDate.toString()),
+                                                                            style: TextStyle(
+                                                                                fontSize: 16,
+                                                                                height: 1)),
+                                                                      ],
 
-                                                                  ),
-
-
-
-                                                                ],),
-                                                            )
-                                                             ],
-                                                        ),
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                          child: Row(children: [
-                                                            Container(
-                                                                width: 120,
-                                                                child: Text("اسم الاجراء",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                            Spacer(),
-                                                            Container(
-                                                                alignment: Alignment.center,
-                                                                child: Text("دفعه المريض",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                            Spacer(),
-                                                            Container(
-                                                                alignment: Alignment.center,
-                                                                width: 70,
-                                                                child: Text("المجموع",style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                    ),
 
 
-                                                          ],),
-                                                        ),
 
-                                                        Column(children: [
-                                                          for(int i=0;i<inv.iNVOICESAllModelS!.length;i++)
+                                                                  ],),
+                                                              )
+                                                               ],
+                                                          ),
+                                                        children: [
                                                           Padding(
                                                             padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                            child: Container(
-                                                              child: Row(children: [
-
-                                                                Container(
-                                                                      width: 120,
-                                                                      child: Text(
-
-                                                                         inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList().length>2?
-                                                                          LanguageProvider.getLanguage()=='AR'
-                                                                          ?inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[2].toString()
-                                                                          :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[1].toString()
-
-                                                                             :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[0].toString()
-                                                                             
-
-                                                                        ,style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                   Spacer(),
-                                                                   Container(
-                                                                    alignment: Alignment.center,
-                                                                    width: 60,
-                                                                     child: Text(
-                                                                       (double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
-                                                                       -
-                                                                           double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())).toStringAsFixed(3).toString()
+                                                            child: Row(children: [
+                                                              Container(
+                                                                  width: 120,
+                                                                  child: Text("اسم الاجراء",style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                              Spacer(),
+                                                              Container(
+                                                                  alignment: Alignment.center,
+                                                                  child: Text("دفعه المريض",style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                              Spacer(),
+                                                              Container(
+                                                                  alignment: Alignment.center,
+                                                                  width: 70,
+                                                                  child: Text("المجموع",style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
 
 
-                                                                       /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                   Spacer(),
-
-                                                                Container(
-                                                                    width: 70,
-                                                                    child: Text(
-                                                                      textAlign: TextAlign.left,
-                                                                      inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-
-                                                              ],),
-                                                            ),
+                                                            ],),
                                                           ),
 
-                                                        ],),
+                                                          Column(children: [
+                                                            for(int i=0;i<inv.iNVOICESAllModelS!.length;i++)
+                                                            Padding(
+                                                              padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                              child: Container(
+                                                                child: Row(children: [
+
+                                                                  Container(
+                                                                        width: 120,
+                                                                        child: Text(
+
+                                                                           inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList().length>2?
+                                                                            LanguageProvider.getLanguage()=='AR'
+                                                                            ?inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[2].toString()
+                                                                            :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[1].toString()
+
+                                                                               :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[0].toString()
+
+
+                                                                          ,style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                     Spacer(),
+                                                                     Container(
+                                                                      alignment: Alignment.center,
+                                                                      width: 60,
+                                                                       child: Text(
+                                                                         (double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
+                                                                         -
+                                                                             double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())).toStringAsFixed(3).toString()
+
+
+                                                                         /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                     Spacer(),
+
+                                                                  Container(
+                                                                      width: 70,
+                                                                      child: Text(
+                                                                        textAlign: TextAlign.left,
+                                                                        inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
+            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+
+                                                                ],),
+                                                              ),
+                                                            ),
+
+                                                          ],),
 
 SizedBox(height: 15,),
 
-                                                        Padding(
-                                                          padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                          child: Row(children: [
-                                                            Container(
-                                                                alignment: Alignment.center,
-                                                                child: Text( LanguageProvider.getLanguage()=='AR'?'المجموع  ':'Total  ',style: ArabicTextStyle(
-                                                                    arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                            Spacer(),
-                                                            Container(
-                                                                alignment: Alignment.center,
-                                                                child: Text(inv.patienTTOTALVALUE.toString(),style: ArabicTextStyle(
-                                                                    arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                            Spacer(),
-                                                            Container(
-                                                                alignment: Alignment.center,
-                                                                child: Text(inv.bilLTOTALVALUE.toString(),style: ArabicTextStyle(
-                                                                    arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                          Padding(
+                                                            padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                            child: Row(children: [
+                                                              Container(
+                                                                  alignment: Alignment.center,
+                                                                  child: Text( LanguageProvider.getLanguage()=='AR'?'المجموع  ':'Total  ',style: ArabicTextStyle(
+                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                              Spacer(),
+                                                              Container(
+                                                                  alignment: Alignment.center,
+                                                                  child: Text(inv.patienTTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                              Spacer(),
+                                                              Container(
+                                                                  alignment: Alignment.center,
+                                                                  child: Text(inv.bilLTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
 
 
-                                                          ],),
-                                                        ),
-
-                                                      ],
-                                                    ),
-                                                  )
+                                                            ],),
+                                                          ),
 
 
-                                              )
+
+                                                          Align(
+                                                            alignment: Alignment.bottomCenter,
+                                                            child: Container(
+                                                              height: 50,
+                                                              width:
+                                                              MediaQuery.of(context).size.width / 1.6,
+                                                              margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                              color: HexColor(Globalvireables.white),
+                                                              child: ElevatedButton(
+                                                                style: ElevatedButton.styleFrom(
+                                                                  primary: HexColor(ThemP.getcolor()),),
+                                                                child:
+
+                                                                Icon(
+                                                                  Icons.cloud_download,
+                                                                  color: Colors.white,
+                                                                  size: 30.0,
+                                                                ),
+                                                                onPressed: () async {
+
+                                                                  showDialog(
+                                                                    context: context,
+                                                                    builder: (BuildContext context) {
+
+                                                                    return Expanded(
+                                                                          child: AlertDialog(
+                                                                            insetPadding: EdgeInsets.zero,
+                                                                            content: Directionality(
+                                                                              textDirection: LanguageProvider.getDirectionPres(),
+                                                                              child: RepaintBoundary(
+                                                                                child: SingleChildScrollView(
+                                                                                  child: RepaintBoundary(
+                                                                                    child: Column(
+                                                                                    children: [
+
+                                                                                      RepaintBoundary(
+                                                                                        key: globalKey,
+                                                                                        child: Padding(
+                                                                                          padding: const EdgeInsets.all(0.0),
+                                                                                          child: Column(children: [
+
+                                                                                          Column(children: [
+                                                                                            Row(
+                                                                                              children: [
+                                                                                                Spacer(),
+                                                                                                Spacer(),
+                                                                                                Column(
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      'MARKA SPECIALITY HOSPITAL',
+                                                                                                      style: TextStyle(
+                                                                                                          fontWeight: FontWeight.w700,
+                                                                                                          color: HexColor(Globalvireables
+                                                                                                              .black),
+                                                                                                          fontSize:
+                                                                                                          12 *
+                                                                                                              unitHeightValue),
+                                                                                                    ),
+                                                                                                    Text(
+
+                                                                                                      'Invoice',
+                                                                                                      style: TextStyle(
+                                                                                                          fontWeight: FontWeight.w700,
+                                                                                                          color: HexColor(Globalvireables
+                                                                                                              .black),
+                                                                                                          fontSize:
+                                                                                                          12 *
+                                                                                                              unitHeightValue),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                Spacer(),
+                                                                                                Container(
+                                                                                                    width:60,
+                                                                                                    height:60,
+                                                                                                    child: Image(
+                                                                                                        image: new AssetImage(
+                                                                                                            "assets/newlogo.png")))
+                                                                                              ],
+                                                                                            ),
+                                                                                            Divider(thickness: 1.0, color: Colors.black),
+                                                                                          ],),
+                                                                                          Row(children: [ Text(
+                                                                                            LanguageProvider.getLanguage()=='AR'?'اسم المريض : ':'Patient Name : ',
+                                                                                            style: TextStyle(
+                                                                                                fontWeight: FontWeight.w700,
+                                                                                                color: HexColor(Globalvireables
+                                                                                                    .black),
+                                                                                                fontSize:
+                                                                                                12 *
+                                                                                                    unitHeightValue),
+                                                                                          ),
+                                                                                            Text(
+                                                                                              Loginprovider.nameE,
+                                                                                              style: TextStyle(
+                                                                                                  color: HexColor(Globalvireables
+                                                                                                      .black),
+                                                                                                  fontSize:
+                                                                                                  12 *
+                                                                                                      unitHeightValue),
+                                                                                            ),
+                                                                                            Spacer(),
+
+                                                                                          ],),
+                                                                                          Row(children: [
+                                                                                            Text(
+                                                                                              LanguageProvider.getLanguage()=='AR'?'التاريخ :':'Date :',
+                                                                                              style: TextStyle(
+                                                                                                  fontWeight: FontWeight.w700,
+
+                                                                                                  color: HexColor(Globalvireables
+                                                                                                      .black),
+                                                                                                  fontSize:
+                                                                                                  12 *
+                                                                                                      unitHeightValue),
+                                                                                            ),
+                                                                                            Text(
+                                                                                              inv.invDate.toString(),
+                                                                                              style: TextStyle(
+
+                                                                                                  color: HexColor(Globalvireables
+                                                                                                      .black),
+                                                                                                  fontSize:
+                                                                                                  12 *
+                                                                                                      unitHeightValue),
+                                                                                            ),
+                                                                                            Spacer(),
+
+                                                                                          ],)
+                                                                                          ,
+                                                                                          Row(children: [
+                                                                                            Text(
+                                                                                              LanguageProvider.getLanguage()=='AR'?'رقم المريض : ':'Patient No : ',
+                                                                                              style: TextStyle(
+                                                                                                  fontWeight: FontWeight.w700,
+
+                                                                                                  color: HexColor(Globalvireables
+                                                                                                      .black),
+                                                                                                  fontSize:
+                                                                                                  12 *
+                                                                                                      unitHeightValue),
+                                                                                            ),
+                                                                                            Text(
+                                                                                              Loginprovider.id,
+                                                                                              style: TextStyle(
+
+                                                                                                  color: HexColor(Globalvireables
+                                                                                                      .black),
+                                                                                                  fontSize:
+                                                                                                  12 *
+                                                                                                      unitHeightValue),
+                                                                                            ),
+
+
+                                                                                            Spacer(),
+
+
+                                                                                          ],),
+
+
+                                                                                          Divider(thickness: 0.3, color: Colors.black),
+
+
+                                                                                          Padding(
+                                                                                            padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                                                            child: Row(children: [
+                                                                                              Container(
+                                                                                                  width: 120,
+                                                                                                  child: Text("اسم الاجراء",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text("دفعه المريض",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  alignment: Alignment.center,
+                                                                                                  width: 70,
+                                                                                                  child: Text("المجموع",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+
+
+                                                                                            ],),
+                                                                                          ),
+
+                                                                                          Column(children: [
+                                                                                            for(int i=0;i<inv.iNVOICESAllModelS!.length;i++)
+                                                                                              Padding(
+                                                                                                padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                                                                child: Container(
+                                                                                                  child: Row(children: [
+
+                                                                                                    Container(
+                                                                                                        width: 120,
+                                                                                                        child: Text(
+
+                                                                                                          inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList().length>2?
+                                                                                                          LanguageProvider.getLanguage()=='AR'
+                                                                                                              ?inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[2].toString()
+                                                                                                              :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[1].toString()
+
+                                                                                                              :inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList()[0].toString()
+
+
+                                                                                                          ,style: ArabicTextStyle(
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                    Spacer(),
+                                                                                                    Container(
+                                                                                                        alignment: Alignment.center,
+                                                                                                        width: 60,
+                                                                                                        child: Text(
+                                                                                                          (double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
+                                                                                                              -
+                                                                                                              double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())).toStringAsFixed(3).toString()
+
+
+                                                                                                          /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                    Spacer(),
+
+                                                                                                    Container(
+                                                                                                        width: 70,
+                                                                                                        child: Text(
+                                                                                                          textAlign: TextAlign.left,
+                                                                                                          inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+
+                                                                                                  ],),
+                                                                                                ),
+                                                                                              ),
+
+
+
+
+                                                                                          ],),
+
+                                                                                          SizedBox(height: 15,),
+
+                                                                                          Padding(
+                                                                                            padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                                                            child: Row(children: [
+                                                                                              Container(
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text( LanguageProvider.getLanguage()=='AR'?'المجموع  ':'Total  ',style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text(inv.patienTTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text(inv.bilLTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+
+
+                                                                                            ],),
+                                                                                          ),
+
+                                                                                          ],),
+                                                                                        ),
+                                                                                      ),
+                                                                                      Align(
+                                                                                          alignment: Alignment.bottomCenter,
+                                                                                          child: Container(
+                                                                                              height: 50,
+                                                                                              width:
+                                                                                              MediaQuery.of(context).size.width / 1.6,
+                                                                                              margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                                                              color: HexColor(Globalvireables.white),
+                                                                                              child: ElevatedButton(
+                                                                                                  style: ElevatedButton.styleFrom(
+                                                                                                    primary: HexColor(ThemP.getcolor()),),
+                                                                                                  child:
+
+                                                                                                  Icon(
+                                                                                                    Icons.cloud_download,
+                                                                                                    color: Colors.white,
+                                                                                                    size: 30.0,
+                                                                                                  ),
+                                                                                                  onPressed: () async {
+                                                                                                    _takeScreenshot();
+
+
+                                                                                                  })))
+
+
+
+                                                                                    ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            actions: [
+
+
+                                                                            ],
+                                                                          ),
+                                                                        );
+
+                                                                    },
+                                                                  );
+
+
+
+
+                                                              //    _takeScreenshot();
+                                                                  //  _capturePng();
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+
+
+                                                        ],
+                                                      ),
+                                                    )
+
+
+                                                ),
+
                                        )).toList(),),
                                   ):Image.asset(
                                     "assets/null.png",
@@ -601,4 +965,37 @@ SizedBox(height: 15,),
     return newMonth.toString();
   }
 
+  void _takeScreenshot() async {
+    RenderRepaintBoundary boundary =
+    globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+
+    ui.Image image = await boundary.toImage();
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (byteData != null) {
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return  PdfPreview(
+            build: (context) => makePdf(pngBytes),
+          );
+        },
+      );
+    }
+  }
+
+  Future<Uint8List> makePdf(Uint8List byteList) async {
+    final pdf = pw.Document();
+    pdf.addPage(
+        pw.Page(
+            margin: const pw.EdgeInsets.all(10),
+            pageFormat: PdfPageFormat.a4,
+            build: (context) {
+              return  pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
+
+            }
+        ));
+    return pdf.save();
+  }
 }

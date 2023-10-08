@@ -534,14 +534,20 @@ SizedBox(height: 6,),
                                   primary:
                                   HexColor(ThemP.getcolor()),
                                 ),
-                                child: Text(
+                                child:
+
+                                Icon(
+                                  Icons.cloud_download,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),/*Text(
                                  LanguageProvider.Llanguage('download'),
                                   style: ArabicTextStyle(
                                       arabicFont: ArabicFont.tajawal,
                                       color:
                                       HexColor(Globalvireables.white),
                                       fontSize: 13 * unitHeightValue),
-                                ),
+                                ),*/
                                 onPressed: () async {
                                   _takeScreenshot();
                                 //  _capturePng();
