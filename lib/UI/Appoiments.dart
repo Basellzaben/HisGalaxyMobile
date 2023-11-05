@@ -230,7 +230,7 @@ class _AppoimentsState extends State<Appoiments> {
                             height: MediaQuery.of(context).size.height / 1.4,
                             child: FutureBuilder(
                               future: getAppoiments(
-                                  context, Loginprovider.userId, "20"),
+                                  context, Loginprovider.getuserId(), "20"),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<AppoimentsM>> snapshot) {
                                 if (snapshot.hasData) {
@@ -359,7 +359,7 @@ class _AppoimentsState extends State<Appoiments> {
                                               .toList(),
                                         )
                                       : Image.asset(
-                                          "assets/null.png",
+                                          "assets/null5.png",
                                           height: 100,
                                           width: 100,
                                         );
@@ -438,10 +438,12 @@ class _AppoimentsState extends State<Appoiments> {
     } catch (e) {
       await showDialog(
         context: context,
-        builder: (context) => new AlertDialog(
-          title: new Text('بيانات المواعي'),
-          content: Text(e.toString()),
-          actions: <Widget>[],
+        builder: (context) => Expanded(
+          child: new AlertDialog(
+            title: new Text('بيانات المواعي'),
+            content: Text(e.toString()),
+            actions: <Widget>[],
+          ),
         ),
       );
     }

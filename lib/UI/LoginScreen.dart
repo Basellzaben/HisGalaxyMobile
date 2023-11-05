@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
@@ -10,6 +11,7 @@ import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import '../Models/ChangePassM.dart';
 import '../Models/HospitalInfo.dart';
+import '../Models/NotificationsM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/HospitalProvider.dart';
 import '../provider/Them.dart';
@@ -33,6 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _ipControler = TextEditingController();
+
+
 
 
   var check = false;
@@ -93,6 +97,87 @@ var LanguageProvider = Provider.of<Language>(context, listen: false);
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+
+
+
+                        GestureDetector(
+                          onTap: () async {
+
+                            setState(() {
+                              if (LanguageProvider.getLanguage() ==
+                                  'AR') {
+                                LanguageProvider.setLanguage('EN');
+                              } else {
+                                LanguageProvider.setLanguage('AR');
+                              }
+                            });
+                            SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                            pref.setString(
+                                'language', LanguageProvider.langg);
+                          },
+                          child: Row(children: [
+
+                                                /*    GestureDetector(
+                              onTap: () async {
+
+                                setState(() {
+                                  if (LanguageProvider.getLanguage() ==
+                                      'AR') {
+                                    LanguageProvider.setLanguage('EN');
+                                  } else {
+                                    LanguageProvider.setLanguage('AR');
+                                  }
+                                });
+                                SharedPreferences pref =
+                                await SharedPreferences.getInstance();
+                                pref.setString(
+                                    'language', LanguageProvider.langg);
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.language,
+                                    color:
+                                    HexColor(ThemP.getcolor()),
+                                    size: 35 * unitHeightValue,
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    LanguageProvider.getLanguage(),
+                                    style: ArabicTextStyle(
+                                      arabicFont: ArabicFont.tajawal,
+                                      fontSize: 15.5 * unitHeightValue,
+                                      color: HexColor(Globalvireables.grey),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),*/
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                LanguageProvider.getLanguage(),
+                                style: ArabicTextStyle(
+                                  arabicFont: ArabicFont.tajawal,
+                                  fontSize: 15.5 * unitHeightValue,
+                                  color: HexColor(Globalvireables.grey),
+                                ),
+                              ),
+                            ),
+                                SizedBox(width: 4,),
+                                Icon(
+                                  Icons.language,
+                                  color:
+                                  HexColor(ThemP.getcolor()),
+                                  size: 30 * unitHeightValue,
+                                ),
+
+
+                          ],),
+                        ),
+
                         Container(
                           margin: EdgeInsets.only(top: 30),
                           width: MediaQuery.of(context).size.width / 1,
@@ -495,7 +580,7 @@ margin: EdgeInsets.only(top: 0),
       && prefs.getString('password').toString()!=null){
         _passController.text= prefs.getString('password').toString();
         _emailController.text= prefs.getString('username').toString();
-
+        Login(_emailController.text.toString(),_passController.text.toString(),context);
         check=true;
       }else{
         _passController.text='';
@@ -575,12 +660,27 @@ margin: EdgeInsets.only(top: 0),
       Loginprovider.setuserType(jsonResponse["userType"].toString());
       Loginprovider.setcreatedDate(jsonResponse["createdDate"].toString());
 
+      Loginprovider.      setParentuserId
+        (jsonResponse["userId"].toString());
+
+      Loginprovider.setparentnamea(jsonResponse["nameA"].toString());
+      Loginprovider.setparentnamee(jsonResponse["nameE"].toString());
+
+
+
+      var prefs = await SharedPreferences.getInstance();
+
+      prefs.setString('userId',jsonResponse["userId"].toString());
+
+
+      prefs.setString('parent',jsonResponse["userId"].toString());
 
       print(jsonResponse["nameA"]+"UUU");
       print(jsonResponse["nameE"]+"UUU2");
+      print('EnableApp : '+jsonResponse["enableApp"].toString());
 
-        if (jsonResponse["username"] == username) {
-
+        if (jsonResponse["username"] == username )
+          if (jsonResponse["enableApp"].toString()=='1' ){
           prefs = await SharedPreferences.getInstance();
 
           if(check){
@@ -588,8 +688,7 @@ margin: EdgeInsets.only(top: 0),
             prefs.setString('password',password);
           }
 
-
-if(jsonResponse["userType"].toString()!='2'){
+if(jsonResponse["userType"].toString()!='2'  ){
   showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -864,12 +963,8 @@ else
               (dynamic item) => ChangePassM.fromJson(item),
         )
             .toList();
-
-
         if(Doctorss[0].response=='1S'){
-
           Navigator.pop(context);
-
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (context) => Home(),
@@ -966,7 +1061,7 @@ else
         builder: (context) =>
         new AlertDialog(
           title: new Text(LanguageProvider.Llanguage('anerrortitle')),
-          content: Text(LanguageProvider.Llanguage('anerror')),
+          content: Text(LanguageProvider.Llanguage('anerror') +e.toString()),
 
           actions: <Widget>[],
         ),
@@ -975,6 +1070,76 @@ else
 
     throw "Unable to retrieve Doctors.";
   }
+
+
+  Future<List<NotificationsM>> getnotifications() async {
+    var HosProvider = Provider.of<HospitalProvider>(context, listen: false);
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+
+    var value = FirebaseDatabase.instance.reference();
+    var getValue = await value.child('ip').once();
+
+
+
+    Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+
+
+
+
+
+    Uri postsURL =
+    Uri.parse(Loginprovider.getFirebaseIp()+Globalvireables.HospitalInfoURL);
+    print(Globalvireables.HospitalInfoURL.toString());
+
+    var map = new Map<String, dynamic>();
+    map['PatientNo'] = '43506';
+
+
+    try {
+      http.Response res = await http.post(
+        postsURL,
+        body: map,
+
+      );
+
+      if (res.statusCode == 200) {
+        print("Doctors" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        print(res.body.toString()+"resresresres");
+
+
+
+        List<NotificationsM> HINFO = body
+            .map(
+              (dynamic item) => NotificationsM.fromJson(item),
+        )
+            .toList();
+
+        print(HINFO[0].dtl.toString()+"sdafdsf");
+
+        return HINFO;
+      } else {
+        throw "Unable to retrieve Doctors. orrr";
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror') +e.toString()),
+
+          actions: <Widget>[],
+        ),
+      );
+    }
+
+    throw "Unable to retrieve Doctors.";
+  }
+
+
 
 
 }

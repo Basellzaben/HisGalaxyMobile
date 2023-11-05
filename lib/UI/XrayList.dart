@@ -243,12 +243,12 @@ class _XrayListState extends State<XrayList> {
                             child: FutureBuilder(
                               future: getXrayList(
                                   context,
-                                Loginprovider.userId,
+                                Loginprovider.getuserId(),
                                   dateinputC.text.isEmpty ||
                                           dateinputC.text.toString() ==
                                               LanguageProvider.Llanguage(
                                                   'SearchbyDate')
-                                      ? "20"
+                                      ? "202"
                                       : dateinputC.text.toString(),
 
                               ),
@@ -299,7 +299,7 @@ class _XrayListState extends State<XrayList> {
                                                                           color: HexColor(Globalvireables
                                                                               .white),
                                                                           fontSize:
-                                                                              13 *
+                                                                              12 *
                                                                                   unitHeightValue),
                                                                     ),
                                                                     onPressed:
@@ -425,7 +425,7 @@ else
                                             )))
                                         .toList(),
                                   ):Image.asset(
-                                    "assets/null.png",
+                                    "assets/null5.png",
                                     height: 100,
                                     width: 100,
                                   );

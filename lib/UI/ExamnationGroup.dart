@@ -409,7 +409,7 @@ SizedBox(height: 6,),
                                         child: FutureBuilder(
                                           future: getExamnation(
                                             context,
-                                            Loginprovider.userId,
+                                            Loginprovider.getuserId(),
                                               '20',
                                               SINGLEEx.getOrderNo(),
                                               SINGLEEx.getServNo(),
@@ -477,7 +477,7 @@ SizedBox(height: 6,),
                                                 ))
                                                     .toList(),
                                               ):Image.asset(
-                                                "assets/null.png",
+                                                "assets/null5.png",
                                                 height: 100,
                                                 width: 100,
                                               );
@@ -491,18 +491,15 @@ SizedBox(height: 6,),
 
 
 
-
-
-
                                     ],),
                                   ),
                                 ),
                               ),
-                              Image.asset(
+                             /* Image.asset(
                                 "assets/fotter.jpg",
                                 width: MediaQuery.of(context).size.width,
                               ),
-                              
+                              */
                               
                               
                             ],),

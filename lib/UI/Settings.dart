@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:app_settings/app_settings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +7,7 @@ import 'package:hismobileapp/UI/LoginScreen.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
@@ -18,6 +19,7 @@ import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
 import 'ChangePass.dart';
+import 'Family.dart';
 import 'Home.dart';
 import 'package:arabic_font/arabic_font.dart';
 import 'package:http/http.dart' as http;
@@ -32,7 +34,6 @@ class _SettingsState extends State<Settings> {
   @override
   void initState() {
     getHospitalInf();
-
     super.initState();
   }
 
@@ -132,467 +133,593 @@ var Terms='';
                       child: Align(
                           alignment: Alignment.topLeft,
                           child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Align(
-                                    alignment: LanguageProvider.Align(),
-                                    child: Text(
-                                      LanguageProvider.Llanguage("general"),
-                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                          fontSize: 17.5 * unitHeightValue,
-                                          color: HexColor(Globalvireables.grey),
-                                          fontWeight: FontWeight.w500),
-                                    )),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-
-                                    setState(() {
-                                      if (LanguageProvider.getLanguage() ==
-                                          'AR') {
-                                        LanguageProvider.setLanguage('EN');
-                                      } else {
-                                        LanguageProvider.setLanguage('AR');
-                                      }
-                                    });
-                                    SharedPreferences pref =
-                                        await SharedPreferences.getInstance();
-                                    pref.setString(
-                                        'language', LanguageProvider.langg);
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.language,
-                                        color:
-                                            HexColor(ThemP.getcolor()),
-                                        size: 35 * unitHeightValue,
-                                      ),
-                                      SizedBox(
-                                        width: 6,
-                                      ),
-                                      Text(
-                                        LanguageProvider.Llanguage('language'),
-                                        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                            fontSize: 17.5 * unitHeightValue,
-                                            color:
-                                                HexColor(Globalvireables.black),
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        LanguageProvider.getLanguage(),
-                                        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                          fontSize: 15.5 * unitHeightValue,
-                                          color: HexColor(Globalvireables.grey),
-                                        ),
-                                      ),
-                                    ],
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 20,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Divider(thickness: 1.0, color: Colors.black),
-                                GestureDetector(
-                                  onTap: () async {
-
-
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ChangePass()),
-                                    );
-
-
-
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.change_circle_outlined,
-                                        color:
-                                            HexColor(ThemP.getcolor()),
-                                        size: 35 * unitHeightValue,
-                                      ),
-                                      SizedBox(
-                                        width: 6,
-                                      ),
-                                      Text(
-                                        LanguageProvider.Llanguage('Gangepasswor'),
+                                  Align(
+                                      alignment: LanguageProvider.Align(),
+                                      child: Text(
+                                        LanguageProvider.Llanguage("general"),
                                         style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
+                                          arabicFont: ArabicFont.tajawal,
                                             fontSize: 17.5 * unitHeightValue,
-                                            color:HexColor(Globalvireables.black),
-                                            fontWeight: FontWeight.w400),
-                                      )
-                                    ],
+                                            color: HexColor(Globalvireables.grey),
+                                            fontWeight: FontWeight.w500),
+                                      )),
+                                  SizedBox(
+                                    height: 20,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Divider(thickness: 1.0, color: Colors.black),
-
-                                GestureDetector(
+                                  GestureDetector(
                                     onTap: () async {
 
-                                      showLoaderDialog( context);
+                                      setState(() {
+                                        if (LanguageProvider.getLanguage() ==
+                                            'AR') {
+                                          LanguageProvider.setLanguage('EN');
+                                        } else {
+                                          LanguageProvider.setLanguage('AR');
+                                        }
+                                      });
+                                      SharedPreferences pref =
+                                          await SharedPreferences.getInstance();
+                                      pref.setString(
+                                          'language', LanguageProvider.langg);
                                     },
                                     child: Row(
                                       children: [
                                         Icon(
-                                          Icons.color_lens_outlined,
-                                          color: HexColor(
-                                              ThemP.getcolor()),
+                                          Icons.language,
+                                          color:
+                                              HexColor(ThemP.getcolor()),
                                           size: 35 * unitHeightValue,
                                         ),
                                         SizedBox(
                                           width: 6,
                                         ),
                                         Text(
-                                          LanguageProvider.Llanguage('theme'),
+                                          LanguageProvider.Llanguage('language'),
                                           style: ArabicTextStyle(
-                                              arabicFont: ArabicFont.tajawal,
+                                          arabicFont: ArabicFont.tajawal,
                                               fontSize: 17.5 * unitHeightValue,
-                                              color: HexColor(
-                                                  Globalvireables.black),
+                                              color:
+                                                  HexColor(Globalvireables.black),
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Spacer(),
+                                        Text(
+                                          LanguageProvider.getLanguage(),
+                                          style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                            fontSize: 15.5 * unitHeightValue,
+                                            color: HexColor(Globalvireables.grey),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Divider(thickness: 1.0, color: Colors.black),
+                                  GestureDetector(
+                                    onTap: () async {
+
+
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ChangePass()),
+                                      );
+
+
+
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.change_circle_outlined,
+                                          color:
+                                              HexColor(ThemP.getcolor()),
+                                          size: 35 * unitHeightValue,
+                                        ),
+                                        SizedBox(
+                                          width: 6,
+                                        ),
+                                        Text(
+                                          LanguageProvider.Llanguage('Gangepasswor'),
+                                          style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                              fontSize: 17.5 * unitHeightValue,
+                                              color:HexColor(Globalvireables.black),
                                               fontWeight: FontWeight.w400),
                                         )
                                       ],
-                                    )),
+                                    ),
+                                  ),
+
+
+                                  //////////////////////////////////
+
+
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Divider(thickness: 1.0, color: Colors.black),
+                                  GestureDetector(
+                                    onTap: () async {
+
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Family()),
+                                      );
+
+
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.family_restroom_sharp,
+                                          color:
+                                          HexColor(ThemP.getcolor()),
+                                          size: 35 * unitHeightValue,
+                                        ),
+                                        SizedBox(
+                                          width: 6,
+                                        ),
+                                        Text(
+                                          LanguageProvider.Llanguage('family'),
+                                          style: ArabicTextStyle(
+                                              arabicFont: ArabicFont.tajawal,
+                                              fontSize: 17.5 * unitHeightValue,
+                                              color:HexColor(Globalvireables.black),
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+
+
+                                  //////////////////////////////////
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Divider(thickness: 1.0, color: Colors.black),
+
+                                  GestureDetector(
+                                      onTap: () async {
+
+                                        showLoaderDialog( context);
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.color_lens_outlined,
+                                            color: HexColor(
+                                                ThemP.getcolor()),
+                                            size: 35 * unitHeightValue,
+                                          ),
+                                          SizedBox(
+                                            width: 6,
+                                          ),
+                                          Text(
+                                            LanguageProvider.Llanguage('theme'),
+                                            style: ArabicTextStyle(
+                                                arabicFont: ArabicFont.tajawal,
+                                                fontSize: 17.5 * unitHeightValue,
+                                                color: HexColor(
+                                                    Globalvireables.black),
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      )),
+
+                                  ///////////////////////////
+
+
+
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Divider(
+                                      thickness: 1.0, color: Colors.black
+                                  ),
+
+                                  GestureDetector(
+                                      onTap: () {
+
+                                        AppSettings.openAppSettings(type:AppSettingsType.notification);
+
+                                        },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.settings_applications_sharp,
+                                            color: HexColor(
+                                                ThemP.getcolor()),
+                                            size: 35 * unitHeightValue,
+                                          ),
+                                          SizedBox(
+                                            width: 6,
+                                          ),
+                                          Text(
+                                            LanguageProvider.Llanguage('Applicationpermissions'),
+                                            style: ArabicTextStyle(
+                                                arabicFont: ArabicFont.tajawal,
+                                                fontSize: 17.5 * unitHeightValue,
+                                                color: HexColor(
+                                                    Globalvireables.black),
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      )),
+
+
+
+
+
+                                  ///////////////////////////
+
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Divider(
+                                      thickness: 1.0, color: Colors.black
+                                  ),
+
+                                  GestureDetector(
+                                      onTap: () async {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                                title: Text(
+                                                    LanguageProvider.Llanguage('Logout'),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        fontSize: 22 *
+                                                            unitHeightValue)),
+                                                content: Text(
+                                                  LanguageProvider.Llanguage("txxt"),
+                                                  style: ArabicTextStyle(
+                                                      arabicFont: ArabicFont.tajawal,
+                                                      fontSize:
+                                                      14 * unitHeightValue),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    //  textColor: Colors.black,
+                                                    onPressed: () {
+
+                                                      cleanRemember();
+
+                                                      Navigator.of(context)
+                                                          .pushAndRemoveUntil(
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                LoginScreen(),
+                                                          ),
+                                                              (Route<dynamic>
+                                                          route) =>
+                                                          false);
+                                                    },
+                                                    child: Text(
+                                                      LanguageProvider.Llanguage('Logout'),
+                                                      style: ArabicTextStyle(
+                                                          arabicFont: ArabicFont.tajawal,
+                                                          color: Colors.redAccent,
+                                                          fontSize: 15 *
+                                                              unitHeightValue),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    // textColor: Colors.black,
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+
+
+                                                    },
+                                                    child: Text(
+                                                      LanguageProvider.Llanguage('cancel'),
+                                                      style: ArabicTextStyle(
+                                                          arabicFont: ArabicFont.tajawal,
+                                                          color: Colors.black87,
+                                                          fontSize: 15 *
+                                                              unitHeightValue),
+                                                    ),
+                                                  ),
+                                                ],
+
+
+
+
+
+
+                                              );
+
+                                          },
+                                        );
+                                        //Widgets.ShowLoaderDialog(context, "Logout","");
+                                        /*Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                          builder: (context) => LoginScreen(),
+                                        ),
+                                            (Route<dynamic> route) => false);*/
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.logout_outlined,
+                                            color: HexColor(
+                                                ThemP.getcolor()),
+                                            size: 35 * unitHeightValue,
+                                          ),
+                                          SizedBox(
+                                            width: 6,
+                                          ),
+                                          Text(
+                                            LanguageProvider.Llanguage('Logout'),
+                                            style: ArabicTextStyle(
+                                                arabicFont: ArabicFont.tajawal,
+                                                fontSize: 17.5 * unitHeightValue,
+                                                color: HexColor(
+                                                    Globalvireables.black),
+                                                fontWeight: FontWeight.w400),
+                                          )
+                                        ],
+                                      )),
+
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+                                  Align(
+                                      alignment: LanguageProvider.Align(),
+                                      child: Text(
+                                        LanguageProvider.Llanguage("Feedback"),
+                                        style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                            fontSize: 17.5 * unitHeightValue,
+                                            color:
+                                                HexColor(Globalvireables.black),
+                                            fontWeight: FontWeight.w400),
+                                      )),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  GestureDetector(
+                                  onTap: ()  {
+
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              title: Center(
+                                                child: Text(
+                                                    textAlign: TextAlign.center,
+
+                                                    LanguageProvider.Llanguage("Feedback"),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        fontSize: 22 *
+                                                            unitHeightValue)),
+                                              ),
+                                              content: Text(
+                                                textAlign: TextAlign.center,
+
+                                                LanguageProvider.Llanguage("descapp"),
+                                                style: ArabicTextStyle(
+                                                    arabicFont: ArabicFont.tajawal,
+                                                    fontSize:
+                                                    16 * unitHeightValue),
+                                              ),
+                                              actions: [
+
+                              Row(children: [
+                              Spacer(),
+                                SizedBox(
+                                  width: 100,
+                                  height: 100,
+                                  child: Image(
+                                      image: new AssetImage(
+                                          "assets/newlogo.png")),
+                                ),
+                                Spacer(),
 
                                 SizedBox(
-                                  height: 6,
+                                  width: 120,
+                                  height: 120,
+                                  child: Image(
+                                      image: new AssetImage(
+                                          "assets/logo.png")),
                                 ),
-                                Divider(
-                                    thickness: 1.0, color: Colors.black
-                                ),
+                                Spacer(),
 
-                                GestureDetector(
+
+                              ],)
+
+                                              ],
+
+                                          );
+                                        },
+                                      );
+
+
+
+
+
+
+
+
+                                  },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.report_gmailerrorred,
+                                          color:
+                                              HexColor(ThemP.getcolor()),
+                                          size: 35 * unitHeightValue,
+                                        ),
+                                        SizedBox(
+                                          width: 6,
+                                        ),
+                                        Text(
+                                          LanguageProvider.Llanguage("Feedback"),
+                                          style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                              fontSize: 17.5 * unitHeightValue,
+                                              color:
+                                                  HexColor(Globalvireables.black),
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  Divider(thickness: 1.0, color: Colors.black),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      // Share.share( 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+"3284"+"&key_images=true');
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HospitalInfoS()),
+                                      );
+                                    },
+                                    child: Row(children: [
+                                      Icon(
+                                        Icons.message_outlined,
+                                        color: HexColor(ThemP.getcolor()),
+                                        size: 35 * unitHeightValue,
+                                      ),
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        LanguageProvider.Llanguage("HospitalInfoS"),
+                                        style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                            fontSize: 17.5 * unitHeightValue,
+                                            color: HexColor(Globalvireables.black),
+                                            fontWeight: FontWeight.w500),
+                                      )
+                                    ]),
+                                  )
+                              ,
+
+                                  Divider(thickness: 1.0, color: Colors.black),
+                                  SizedBox(
+                                    height: 6,
+                                  ),
+                                  GestureDetector(
                                     onTap: () async {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return Expanded(
-                                            child: AlertDialog(
-                                              title: Text(
-                                                  LanguageProvider.Llanguage('Logout'),
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      fontSize: 22 *
-                                                          unitHeightValue)),
+                                          return AlertDialog(
+                                              title: Center(
+                                                child: Text(
+                                                    textAlign: TextAlign.center,
+
+                                                    LanguageProvider.Llanguage("terms"),
+                                                    style: ArabicTextStyle(
+                                                        arabicFont: ArabicFont.tajawal,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w700,
+                                                        fontSize: 16 *
+                                                            unitHeightValue)),
+                                              ),
                                               content: Text(
-                                                LanguageProvider.Llanguage("txxt"),
+                                               Terms,
+                                                textAlign: TextAlign.center,
+
                                                 style: ArabicTextStyle(
                                                     arabicFont: ArabicFont.tajawal,
                                                     fontSize:
-                                                    14 * unitHeightValue),
+                                                    16 * unitHeightValue),
                                               ),
                                               actions: [
-                                                TextButton(
-                                                  //  textColor: Colors.black,
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pushAndRemoveUntil(
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              LoginScreen(),
-                                                        ),
-                                                            (Route<dynamic>
-                                                        route) =>
-                                                        false);
-                                                  },
-                                                  child: Text(
-                                                    LanguageProvider.Llanguage('Logout'),
-                                                    style: ArabicTextStyle(
-                                                        arabicFont: ArabicFont.tajawal,
-                                                        color: Colors.redAccent,
-                                                        fontSize: 15 *
-                                                            unitHeightValue),
-                                                  ),
-                                                ),
-                                                TextButton(
-                                                  // textColor: Colors.black,
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
 
 
-                                                  },
-                                                  child: Text(
-                                                    LanguageProvider.Llanguage('cancel'),
-                                                    style: ArabicTextStyle(
-                                                        arabicFont: ArabicFont.tajawal,
-                                                        color: Colors.black87,
-                                                        fontSize: 15 *
-                                                            unitHeightValue),
-                                                  ),
-                                                ),
                                               ],
 
-
-
-
-
-
-                                            ),
                                           );
                                         },
                                       );
-                                      //Widgets.ShowLoaderDialog(context, "Logout","");
-                                      /*Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => LoginScreen(),
-          ),
-              (Route<dynamic> route) => false);*/
+
+
+
+
                                     },
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.logout_outlined,
-                                          color: HexColor(
-                                              ThemP.getcolor()),
-                                          size: 35 * unitHeightValue,
-                                        ),
-                                        SizedBox(
-                                          width: 6,
-                                        ),
-                                        Text(
-                                          LanguageProvider.Llanguage('Logout'),
-                                          style: ArabicTextStyle(
-                                              arabicFont: ArabicFont.tajawal,
-                                              fontSize: 17.5 * unitHeightValue,
-                                              color: HexColor(
-                                                  Globalvireables.black),
-                                              fontWeight: FontWeight.w400),
-                                        )
-                                      ],
-                                    )),
-
-                                SizedBox(
-                                  height: 40,
-                                ),
-                                Align(
-                                    alignment: LanguageProvider.Align(),
-                                    child: Text(
-                                      LanguageProvider.Llanguage("Feedback"),
-                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                          fontSize: 17.5 * unitHeightValue,
-                                          color:
-                                              HexColor(Globalvireables.black),
-                                          fontWeight: FontWeight.w400),
-                                    )),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                GestureDetector(
-                                onTap: ()  {
-
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Expanded(
-                                          child: AlertDialog(
-                                            title: Center(
-                                              child: Text(
-                                                  textAlign: TextAlign.center,
-
-                                                  LanguageProvider.Llanguage("Feedback"),
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      fontSize: 22 *
-                                                          unitHeightValue)),
-                                            ),
-                                            content: Text(
-                                              textAlign: TextAlign.center,
-
-                                              LanguageProvider.Llanguage("descapp"),
-                                              style: ArabicTextStyle(
-                                                  arabicFont: ArabicFont.tajawal,
-                                                  fontSize:
-                                                  16 * unitHeightValue),
-                                            ),
-                                            actions: [
-
-Row(children: [
-Spacer(),
-  SizedBox(
-    width: 100,
-    height: 100,
-    child: Image(
-        image: new AssetImage(
-            "assets/newlogo.png")),
-  ),
-  Spacer(),
-
-  SizedBox(
-    width: 120,
-    height: 120,
-    child: Image(
-        image: new AssetImage(
-            "assets/logo.png")),
-  ),
-  Spacer(),
-
-
-],)
-
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-
-
-
-
-
-
-
-
-    },
-                                  child: Row(
-                                    children: [
+                                    child: Row(children: [
                                       Icon(
-                                        Icons.report_gmailerrorred,
-                                        color:
-                                            HexColor(ThemP.getcolor()),
+                                        Icons.privacy_tip,
+                                        color: HexColor(ThemP.getcolor()),
                                         size: 35 * unitHeightValue,
                                       ),
                                       SizedBox(
                                         width: 6,
                                       ),
                                       Text(
-                                        LanguageProvider.Llanguage("Feedback"),
+                                        LanguageProvider.Llanguage("terms"),
                                         style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
+                                            arabicFont: ArabicFont.tajawal,
                                             fontSize: 17.5 * unitHeightValue,
-                                            color:
-                                                HexColor(Globalvireables.black),
-                                            fontWeight: FontWeight.w400),
+                                            color: HexColor(Globalvireables.black),
+                                            fontWeight: FontWeight.w500),
                                       )
-                                    ],
+                                    ]),
+                                  )
+
+                              ,
+
+                                  Divider(thickness: 1.0, color: Colors.black),
+                                  SizedBox(
+                                  height: 6,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Divider(thickness: 1.0, color: Colors.black),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                GestureDetector(
+                                  GestureDetector(
                                   onTap: () async {
-                                    // Share.share( 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+"3284"+"&key_images=true');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HospitalInfoS()),
-                                    );
+                                  Share.share(subject:'Marka Hospital - ', 'https://play.google.com/store/apps/details?id=com.galaxygroup.hismobileapp');
                                   },
                                   child: Row(children: [
-                                    Icon(
-                                      Icons.message_outlined,
-                                      color: HexColor(ThemP.getcolor()),
-                                      size: 35 * unitHeightValue,
-                                    ),
-                                    SizedBox(
-                                      width: 6,
-                                    ),
-                                    Text(
-                                      LanguageProvider.Llanguage("HospitalInfoS"),
-                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                          fontSize: 17.5 * unitHeightValue,
-                                          color: HexColor(Globalvireables.black),
-                                          fontWeight: FontWeight.w500),
-                                    )
+                                  Icon(
+                                  Icons.share,
+                                  color: HexColor(ThemP.getcolor()),
+                                  size: 35 * unitHeightValue,
+                                  ),
+                                  SizedBox(
+                                  width: 6,
+                                  ),
+                                  Text(
+                                  LanguageProvider.Llanguage("shareapp"),
+                                  style: ArabicTextStyle(
+                                  arabicFont: ArabicFont.tajawal,
+                                  fontSize: 17.5 * unitHeightValue,
+                                  color: HexColor(Globalvireables.black),
+                                  fontWeight: FontWeight.w500),
+                                  )
                                   ]),
-                                )
-,
-
-                                Divider(thickness: 1.0, color: Colors.black),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Expanded(
-                                          child: AlertDialog(
-                                            title: Center(
-                                              child: Text(
-                                                  textAlign: TextAlign.center,
-
-                                                  LanguageProvider.Llanguage("terms"),
-                                                  style: ArabicTextStyle(
-                                                      arabicFont: ArabicFont.tajawal,
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w700,
-                                                      fontSize: 16 *
-                                                          unitHeightValue)),
-                                            ),
-                                            content: Text(
-                                             Terms,
-                                              textAlign: TextAlign.center,
-
-                                              style: ArabicTextStyle(
-                                                  arabicFont: ArabicFont.tajawal,
-                                                  fontSize:
-                                                  16 * unitHeightValue),
-                                            ),
-                                            actions: [
-
-
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
+                                  )
 
 
 
 
-                                  },
-                                  child: Row(children: [
-                                    Icon(
-                                      Icons.privacy_tip,
-                                      color: HexColor(ThemP.getcolor()),
-                                      size: 35 * unitHeightValue,
-                                    ),
-                                    SizedBox(
-                                      width: 6,
-                                    ),
-                                    Text(
-                                      LanguageProvider.Llanguage("terms"),
-                                      style: ArabicTextStyle(
-                                          arabicFont: ArabicFont.tajawal,
-                                          fontSize: 17.5 * unitHeightValue,
-                                          color: HexColor(Globalvireables.black),
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ]),
-                                )
-
-
-
-                              ],
+                                ],
+                              ),
                             ),
                           )),
                     ),
@@ -888,6 +1015,13 @@ SizedBox(height: 15,),
 
     throw "Unable to retrieve Doctors.";
   }
+  cleanRemember() async {
+   var prefs = await SharedPreferences.getInstance();
 
+      prefs.setString('username','');
+   prefs.setString('password','');
+   prefs.setString('userId','');
+
+  }
 
 }

@@ -21,7 +21,44 @@ class LoginProvider extends ChangeNotifier {
   String Bdate="";
 
 
+  String ParentuserId="";
+  String parentnamea="";
+  String parentnamee="";
+
+
   String FirebaseIp="";
+
+  getparentnamee() {
+    return parentnamee;
+  }
+
+  setparentnamee(String parentnamee) {
+    this.parentnamee = parentnamee;
+    notifyListeners();
+  }
+
+  getparentnamea() {
+    return parentnamea;
+  }
+
+  setparentnamea(String parentnamea) {
+    this.parentnamea = parentnamea;
+    notifyListeners();
+  }
+
+
+  getParentuserId() {
+    return ParentuserId;
+  }
+
+  setParentuserId(String ParentuserId) {
+    this.ParentuserId = ParentuserId;
+    notifyListeners();
+  }
+
+
+
+
 
   getFirebaseIp() {
     return FirebaseIp;

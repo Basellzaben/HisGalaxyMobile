@@ -275,7 +275,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                             child: FutureBuilder(
                               future: getMedicalReportTList(
                                 context,
-                                Loginprovider.userId,
+                                Loginprovider.getuserId(),
                                   dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text
 
                               ),
@@ -342,7 +342,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                                                                     Globalvireables
                                                                                         .white),
                                                                                 fontSize:
-                                                                                14 *
+                                                                                12 *
                                                                                     unitHeightValue),
                                                                           ),
                                                                           onPressed:
@@ -524,7 +524,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                           .toList(),
                                     ),
                                   ) : Image.asset(
-                                    "assets/null.png",
+                                    "assets/null5.png",
                                     height: 100,
                                     width: 100,
                                   );

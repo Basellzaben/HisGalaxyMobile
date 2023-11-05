@@ -25,6 +25,7 @@ import 'Settings.dart';
 import 'package:intl/intl.dart';
 import 'package:arabic_font/arabic_font.dart';
 
+
 class Examnation extends StatefulWidget {
   @override
   State<Examnation> createState() => _ExamnationState();
@@ -264,7 +265,7 @@ class _ExamnationState extends State<Examnation> {
                             child: FutureBuilder(
                               future: getExamnation(
                                 context,
-                                Loginprovider.userId,
+                                Loginprovider.getuserId(),
                                   dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text
 
                               ),
@@ -331,7 +332,7 @@ class _ExamnationState extends State<Examnation> {
                                                                                     Globalvireables
                                                                                         .white),
                                                                                 fontSize:
-                                                                                14 *
+                                                                                12 *
                                                                                     unitHeightValue),
                                                                           ),
                                                                           onPressed:
@@ -541,7 +542,7 @@ class _ExamnationState extends State<Examnation> {
                                           .toList(),
                                     ),
                                   ) : Image.asset(
-                                    "assets/null.png",
+                                    "assets/null5.png",
                                     height: 100,
                                     width: 100,
                                   );

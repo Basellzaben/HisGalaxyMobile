@@ -4,7 +4,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 
 
-class Globalvireables {
+ class Globalvireables {
 
   static String basecolor="#3268BA";
   static String secondcolor="#B6D0E2";
@@ -34,12 +34,12 @@ class Globalvireables {
   static String ChangePassURL="/api/PasswordCangeController/PasswordCange";
   static String DrugInHOSPITALURL="/api/prespctionHoo/GetprespctionHoo";
   static String TermsACCSEPT="/api/Terms/GetTermsAP";
-
   static String ChangeTermsACCSEPTURL="/api/TermsAController/TermsACange";
   static String UpdateInformationURL="/api/UpdateinfoControler/UpdateInfo";
-
   static String GetMedicalReport="/api/MedicalReport/GetMedicalReport";
-
+  static String AddFamily="/api/AddFamilyController/AddFamily";
+  static String GETFamily="/api/GetFamilyController/GetFamily";
+  static String NotificationURL="http://94.249.83.196:8055/api/Notificationscontroller/Notifications";
 
 
   /* static String loginAPI="http://"+Globalvireables.connectIP+"/api/auth/Mobilelogin";
@@ -58,12 +58,11 @@ class Globalvireables {
   static String ChangePassURL="http://"+Globalvireables.connectIP+"/api/PasswordCangeController/PasswordCange";
   static String DrugInHOSPITALURL="http://"+Globalvireables.connectIP+"/api/prespctionHoo/GetprespctionHoo";
   static String TermsACCSEPT="http://"+Globalvireables.connectIP+"/api/Terms/GetTermsAP";
-
   static String ChangeTermsACCSEPTURL="http://"+Globalvireables.connectIP+"/api/TermsAController/TermsACange";
   static String UpdateInformationURL="http://"+Globalvireables.connectIP+"/api/UpdateinfoControler/UpdateInfo";
-
   static String GetMedicalReport="http://"+Globalvireables.connectIP+"/api/MedicalReport/GetMedicalReport";
 */
+
   static String them1="#229954";
   static String them2="#2E86C1";
   static String them3="#8E44AD";

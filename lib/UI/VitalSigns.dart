@@ -217,8 +217,7 @@ class _VitalSignsState extends State<VitalSigns> {
                               context: context,
                               builder: (BuildContext context) {
 
-                                return Expanded(
-                                  child: AlertDialog(
+                                return  AlertDialog(
                                     insetPadding: EdgeInsets.zero,
                                     content: Directionality(
                                       textDirection: LanguageProvider.getDirectionPres(),
@@ -450,8 +449,8 @@ SizedBox(height: 30,),
 
 
                                     ],
-                                  ),
-                                );
+                                  );
+
 
                               },
                             );
@@ -487,7 +486,7 @@ SizedBox(width: 3,),
                           width: MediaQuery.of(context).size.width / 1.1,
                           height: MediaQuery.of(context).size.height / 1.24,
                           child: FutureBuilder(
-                            future: getVitalSigns(context, Loginprovider.userId, dateinput.text.isEmpty||dateinput.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinput.text),
+                            future: getVitalSigns(context, Loginprovider.getuserId(), dateinput.text.isEmpty||dateinput.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinput.text),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<VitalSignsM>> snapshot) {
                               if (snapshot.hasData) {
@@ -748,7 +747,7 @@ SizedBox(width: 3,),
                                         .toList(),
                                   ),
                                 ):Image.asset(
-                              "assets/null.png",
+                              "assets/null5.png",
                               height: 100,
                               width: 100,
                               );

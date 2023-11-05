@@ -45,6 +45,15 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "Applicationpermissions":"صلاحيات التطبيق",
+    "change":"تفعيل",
+    "change2":"مفعل",
+"shareapp":"شارك التطبيق",
+
+    "relation":"صلة القرابة",
+    "childid":"رقم ملف المريض ",
+    "Addfimilypersion":"أضف أحد أفراد العائلة",
+    "family":"العائلة",
     "selectvisitno":"يجب اختيار زياره لعرض التفاصيل ",
     "notfound":"صوره الأشعة غير متوفره",
     "Show":"عرض",
@@ -100,7 +109,8 @@ class Language extends ChangeNotifier {
     "Invoices": "الفواتير",
     "Payments": "الدفعات",
     "Insurance": "التامين",
-    "AlEsraaHospital": "Galaxy His",
+    "AlEsraaHospital": "مستشفى ماركا التخصصي",
+
     "language": "تغيير اللغه",
     "loading": "يجب الانتظار لحين جلب الوقت...",
     "previoustime": "وقت الانصراف السابق",
@@ -207,11 +217,25 @@ class Language extends ChangeNotifier {
     "dsuccessfully": "تم تنزيل الصوره بنجاح",
     "phone": "رقم الهاتف",
     "doneupdte": "تم تحديث المعلومات بنجاح",
+    "Add":"إضافة",
+
     "descapp":
         "طورت مجموعة المجرة هذه المنصة لتمكنك من عرض ملفك الطبي في مستشفى ماركا التخصصي ، يمكنك الاطلاع على المواعيد الطبية في العيادات المتخصصة والاطلاع على الأدوية الحالية والحساسية واللقاحات ونتائج الفحوصات المخبرية والعلامات الحيوية",
   };
 
   static Map<String, Object?> en = {
+    "relation":"relative relation",
+    "childid":"Patient file number",
+    "family":"family",
+    "Applicationpermissions":"Application permissions",
+
+    "change":"active",
+    "change2":"Enabled",
+    "AlEsraaHospital": "Marka Specialized Hospital",
+    "shareapp":"Share APP",
+
+    "Add":"Add",
+    "Addfimilypersion":"Add a family member",
     "normallevel":"Normal levels of vital signs",
     "Show":"Show",
     "notfound":"Item not found",
@@ -283,7 +307,6 @@ class Language extends ChangeNotifier {
     "Invoices": "Invoices",
     "Payments": "Payments",
     "Insurance": "Insurance",
-    "AlEsraaHospital": "Galaxy His",
     "username": "username ",
     "metr": "mtr",
     "checkin": "check in",

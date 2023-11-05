@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
@@ -263,7 +264,7 @@ SizedBox(height: 10,),
                             height: MediaQuery.of(context).size.height / 1.4,
 
                             child: FutureBuilder(
-                              future: getInvoices(context, Loginprovider.userId , dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
+                              future: getInvoices(context, Loginprovider.getuserId() , dateinputC.text.isEmpty||dateinputC.text.toString()==LanguageProvider.Llanguage('SearchbyDate')?"202":dateinputC.text),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<InvoicesM>> snapshot) {
                                 if (snapshot.hasData ) {
@@ -275,12 +276,10 @@ SizedBox(height: 10,),
                                       key: Key(selectedTile.toString()),
                                       children: Invoices
                                       .map((InvoicesM inv) => SizedBox(
-
                                          child: Card(
                                                     child:  Theme(
                                                       data : ThemeData().copyWith(dividerColor: Colors.transparent),
                                                       child: ExpansionTile(
-
                                                         key: Key((inv.invDate.toString().substring(0,4)).toString()),
                                                         initiallyExpanded: (inv.invDate.toString().substring(0,4)) == selectedTile,
                                                         leading: Padding(
@@ -346,6 +345,28 @@ SizedBox(height: 10,),
                                                                ],
                                                           ),
                                                         children: [
+
+
+                                                          Row(
+                                                            children: [
+                                                              Spacer(),
+                                                              Padding(
+                                                                padding: const EdgeInsets.all(8.0),
+                                                                child: SizedBox(
+                                                                  width: MediaQuery.of(context).size.width/2,
+                                                                  height: 40,
+                                                                  child: SfBarcodeGenerator(
+                                                                    value: inv.invId.toString(),
+                                                                    symbology: Code128(),
+                                                                    showValue: false,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+
+
+
                                                           Padding(
                                                             padding: EdgeInsets.only(left: 16,right: 16,top: 6),
                                                             child: Row(children: [
@@ -467,8 +488,7 @@ SizedBox(height: 15,),
                                                                     context: context,
                                                                     builder: (BuildContext context) {
 
-                                                                    return Expanded(
-                                                                          child: AlertDialog(
+                                                                    return  AlertDialog(
                                                                             insetPadding: EdgeInsets.zero,
                                                                             content: Directionality(
                                                                               textDirection: LanguageProvider.getDirectionPres(),
@@ -503,7 +523,7 @@ SizedBox(height: 15,),
                                                                                                     ),
                                                                                                     Text(
 
-                                                                                                      'Invoice',
+                                                                                                      'مستشفى ماركا التخصصي',
                                                                                                       style: TextStyle(
                                                                                                           fontWeight: FontWeight.w700,
                                                                                                           color: HexColor(Globalvireables
@@ -524,76 +544,227 @@ SizedBox(height: 15,),
                                                                                               ],
                                                                                             ),
                                                                                             Divider(thickness: 1.0, color: Colors.black),
+
+
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(15.0),
+                                                                                              child: Container(
+                                                                                                decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.black12,
+
+                                                                                                ),
+                                                                                                width: MediaQuery.of(context).size.width/2,
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+
+                                                                                                    'فاتورة المريض ',
+                                                                                                    style: TextStyle(
+                                                                                                        fontWeight: FontWeight.w900,
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+
+
+                                                                                            Row(
+                                                                                              children: [
+                                                                                                Spacer(),
+                                                                                                Padding(
+                                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                                  child: SizedBox(
+                                                                                                    width: MediaQuery.of(context).size.width/2,
+                                                                                                    height: 40,
+                                                                                                    child: SfBarcodeGenerator(
+                                                                                                      value: inv.invId.toString(),
+                                                                                                      symbology: Code128(),
+                                                                                                      showValue: true,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Spacer(),
+
+                                                                                              ],
+                                                                                            ),
+
+
                                                                                           ],),
-                                                                                          Row(children: [ Text(
-                                                                                            LanguageProvider.getLanguage()=='AR'?'اسم المريض : ':'Patient Name : ',
-                                                                                            style: TextStyle(
-                                                                                                fontWeight: FontWeight.w700,
-                                                                                                color: HexColor(Globalvireables
-                                                                                                    .black),
-                                                                                                fontSize:
-                                                                                                12 *
-                                                                                                    unitHeightValue),
-                                                                                          ),
-                                                                                            Text(
-                                                                                              Loginprovider.nameE,
-                                                                                              style: TextStyle(
-                                                                                                  color: HexColor(Globalvireables
-                                                                                                      .black),
-                                                                                                  fontSize:
-                                                                                                  12 *
-                                                                                                      unitHeightValue),
+                                                                                          Row(children: [
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(3.0),
+                                                                                              child: Container(
+                                                                                              width: MediaQuery.of(context).size.width/2.6,
+                                                                                              decoration: BoxDecoration(
+                                                                                                border: Border.all(color: Colors.black),
+                                                                                                color: Colors.transparent,
+
+                                                                                              ),
+                                                                                              child: Padding(
+                                                                                                padding: const EdgeInsets.all(3.0),
+                                                                                                child: Text(
+                                                                                                  textAlign: TextAlign.center,
+                                                                                                  LanguageProvider.getLanguage()=='AR'?'اسم المريض  ':'Patient Name  ',
+                                                                                                  style: TextStyle(
+                                                                                                      fontWeight: FontWeight.w700,
+                                                                                                      color: HexColor(Globalvireables
+                                                                                                          .black),
+                                                                                                      fontSize:
+                                                                                                      12 *
+                                                                                                          unitHeightValue),
+                                                                                                ),
+                                                                                              ),
+                                                                                                                                                                                        ),
+                                                                                            ),
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(3.0),
+                                                                                              child: Container(
+                                                                                                width: MediaQuery.of(context).size.width/2.3,
+
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.transparent,
+
+                                                                                                ),
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+                                                                                                    Loginprovider.nameE,
+                                                                                                    style: TextStyle(
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
                                                                                             ),
                                                                                             Spacer(),
 
                                                                                           ],),
                                                                                           Row(children: [
-                                                                                            Text(
-                                                                                              LanguageProvider.getLanguage()=='AR'?'التاريخ :':'Date :',
-                                                                                              style: TextStyle(
-                                                                                                  fontWeight: FontWeight.w700,
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(3.0),
+                                                                                              child: Container(
+                                                                                                width: MediaQuery.of(context).size.width/2.6,
 
-                                                                                                  color: HexColor(Globalvireables
-                                                                                                      .black),
-                                                                                                  fontSize:
-                                                                                                  12 *
-                                                                                                      unitHeightValue),
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.transparent,
+
+                                                                                                ),
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+
+                                                                                                    LanguageProvider.getLanguage()=='AR'?'التاريخ ':'Date ',
+                                                                                                    style: TextStyle(
+                                                                                                        fontWeight: FontWeight.w700,
+
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
                                                                                             ),
-                                                                                            Text(
-                                                                                              inv.invDate.toString(),
-                                                                                              style: TextStyle(
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(3.0),
+                                                                                              child: Container(
+                                                                                                width: MediaQuery.of(context).size.width/2.3,
 
-                                                                                                  color: HexColor(Globalvireables
-                                                                                                      .black),
-                                                                                                  fontSize:
-                                                                                                  12 *
-                                                                                                      unitHeightValue),
+                                                                                                decoration: BoxDecoration(
+                                                                                                border: Border.all(color: Colors.black),
+                                                                                                color: Colors.transparent,
+
+                                                                                              ),
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+
+                                                                                                    inv.invDate.toString(),
+                                                                                                    style: TextStyle(
+
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
                                                                                             ),
                                                                                             Spacer(),
 
                                                                                           ],)
                                                                                           ,
                                                                                           Row(children: [
-                                                                                            Text(
-                                                                                              LanguageProvider.getLanguage()=='AR'?'رقم المريض : ':'Patient No : ',
-                                                                                              style: TextStyle(
-                                                                                                  fontWeight: FontWeight.w700,
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(3.0),
+                                                                                              child: Container(
+                                                                                                width: MediaQuery.of(context).size.width/2.6,
 
-                                                                                                  color: HexColor(Globalvireables
-                                                                                                      .black),
-                                                                                                  fontSize:
-                                                                                                  12 *
-                                                                                                      unitHeightValue),
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.transparent,
+
+                                                                                                ),
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+
+                                                                                                    LanguageProvider.getLanguage()=='AR'?'رقم المريض  ':'Patient No  ',
+                                                                                                    style: TextStyle(
+                                                                                                        fontWeight: FontWeight.w700,
+
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
                                                                                             ),
-                                                                                            Text(
-                                                                                              Loginprovider.id,
-                                                                                              style: TextStyle(
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(3.0),
+                                                                                              child: Container(
+                                                                                                width: MediaQuery.of(context).size.width/2.3,
 
-                                                                                                  color: HexColor(Globalvireables
-                                                                                                      .black),
-                                                                                                  fontSize:
-                                                                                                  12 *
-                                                                                                      unitHeightValue),
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.transparent,
+
+                                                                                                ),
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+
+                                                                                                    Loginprovider.id,
+                                                                                                    style: TextStyle(
+
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
                                                                                             ),
 
 
@@ -603,28 +774,222 @@ SizedBox(height: 15,),
                                                                                           ],),
 
 
-                                                                                          Divider(thickness: 0.3, color: Colors.black),
+                                                                                            Row(children: [
+                                                                                              Padding(
+                                                                                                padding: const EdgeInsets.all(3.0),
+                                                                                                child: Container(
+                                                                                                  width: MediaQuery.of(context).size.width/2.6,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  child: Padding(
+                                                                                                    padding: const EdgeInsets.all(3.0),
+                                                                                                    child: Text(
+                                                                                                      textAlign: TextAlign.center,
+
+                                                                                                      LanguageProvider.getLanguage()=='AR'?'رقم الفاتوره  ':'Patient No  ',
+                                                                                                      style: TextStyle(
+                                                                                                          fontWeight: FontWeight.w700,
+
+                                                                                                          color: HexColor(Globalvireables
+                                                                                                              .black),
+                                                                                                          fontSize:
+                                                                                                          12 *
+                                                                                                              unitHeightValue),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: const EdgeInsets.all(3.0),
+                                                                                                child: Container(
+                                                                                                  width: MediaQuery.of(context).size.width/2.3,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  child: Padding(
+                                                                                                    padding: const EdgeInsets.all(3.0),
+                                                                                                    child: Text(
+                                                                                                      textAlign: TextAlign.center,
+
+                                                                                                      inv.invId.toString(),
+                                                                                                      style: TextStyle(
+
+                                                                                                          color: HexColor(Globalvireables
+                                                                                                              .black),
+                                                                                                          fontSize:
+                                                                                                          12 *
+                                                                                                              unitHeightValue),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+
+
+                                                                                              Spacer(),
+
+
+                                                                                            ],),
+
+                                                                                            Row(children: [
+                                                                                              Padding(
+                                                                                                padding: const EdgeInsets.all(3.0),
+                                                                                                child: Container(
+                                                                                                  width: MediaQuery.of(context).size.width/2.6,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  child: Padding(
+                                                                                                    padding: const EdgeInsets.all(3.0),
+                                                                                                    child: Text(
+                                                                                                      textAlign: TextAlign.center,
+
+                                                                                                      LanguageProvider.getLanguage()=='AR'?'تاريخ الاصدار  ':'Patient No  ',
+                                                                                                      style: TextStyle(
+                                                                                                          fontWeight: FontWeight.w700,
+
+                                                                                                          color: HexColor(Globalvireables
+                                                                                                              .black),
+                                                                                                          fontSize:
+                                                                                                          12 *
+                                                                                                              unitHeightValue),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: const EdgeInsets.all(3.0),
+                                                                                                child: Container(
+                                                                                                  width: MediaQuery.of(context).size.width/2.3,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  child: Padding(
+                                                                                                    padding: const EdgeInsets.all(3.0),
+                                                                                                    child: Text(
+                                                                                                      textAlign: TextAlign.center,
+
+                                                                                                      DateTime.now().toString(),
+                                                                                                      style: TextStyle(
+
+                                                                                                          color: HexColor(Globalvireables
+                                                                                                              .black),
+                                                                                                          fontSize:
+                                                                                                          12 *
+                                                                                                              unitHeightValue),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+
+
+                                                                                              Spacer(),
+
+
+                                                                                            ],),
+
+
+
+
+SizedBox(height: 10,),
+
+                                                                                            Padding(
+                                                                                              padding: const EdgeInsets.all(4.0),
+                                                                                              child: Container(
+                                                                                                decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.black12,
+
+                                                                                                ),
+                                                                                                width: MediaQuery.of(context).size.width/1.2,
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.all(4.0),
+                                                                                                  child: Text(
+                                                                                                    textAlign: TextAlign.center,
+
+                                                                                                    'الخدمات المقدمة للمريض ',
+                                                                                                    style: TextStyle(
+                                                                                                        fontWeight: FontWeight.w900,
+                                                                                                        color: HexColor(Globalvireables
+                                                                                                            .black),
+                                                                                                        fontSize:
+                                                                                                        12 *
+                                                                                                            unitHeightValue),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
 
 
                                                                                           Padding(
                                                                                             padding: EdgeInsets.only(left: 16,right: 16,top: 6),
                                                                                             child: Row(children: [
                                                                                               Container(
-                                                                                                  width: 120,
-                                                                                                  child: Text("اسم الاجراء",style: ArabicTextStyle(
-                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                                                              Spacer(),
-                                                                                              Container(
-                                                                                                  alignment: Alignment.center,
-                                                                                                  child: Text("دفعه المريض",style: ArabicTextStyle(
-                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
-                                                                                              Spacer(),
-                                                                                              Container(
-                                                                                                  alignment: Alignment.center,
-                                                                                                  width: 70,
-                                                                                                  child: Text("المجموع",style: ArabicTextStyle(
-                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
 
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                width: MediaQuery.of(context).size.width/5,
+                                                                                                  height: 34,
+                                                                                                  alignment: Alignment.center,
+
+                                                                                                  child: Text(
+                                                                                                    "الخدمة",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
+                                                                                              Spacer(),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  height: 34,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text("مبلغ المريض",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  height: 34,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text("مبلغ التامين",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
+                                                                                              Spacer(),
+                                                                                              Container(
+                                                                                                  height: 34,
+
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text("المجموع",style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
 
                                                                                             ],),
                                                                                           ),
@@ -637,7 +1002,14 @@ SizedBox(height: 15,),
                                                                                                   child: Row(children: [
 
                                                                                                     Container(
-                                                                                                        width: 120,
+                                                                                                        width: MediaQuery.of(context).size.width/5,
+                                                                                                        height: 34,
+
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          border: Border.all(color: Colors.black),
+                                                                                                          color: Colors.transparent,
+
+                                                                                                        ),
                                                                                                         child: Text(
 
                                                                                                           inv.iNVOICESAllModelS![i].servicEDETAILSDESC.toString().split(':').toList().length>2?
@@ -649,11 +1021,18 @@ SizedBox(height: 15,),
 
 
                                                                                                           ,style: ArabicTextStyle(
-                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
                                                                                                     Spacer(),
                                                                                                     Container(
+                                                                                                        width: MediaQuery.of(context).size.width/5,
+                                                                                                        height: 34,
+
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          border: Border.all(color: Colors.black),
+                                                                                                          color: Colors.transparent,
+
+                                                                                                        ),
                                                                                                         alignment: Alignment.center,
-                                                                                                        width: 60,
                                                                                                         child: Text(
                                                                                                           (double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
                                                                                                               -
@@ -661,15 +1040,37 @@ SizedBox(height: 15,),
 
 
                                                                                                           /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
-                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
                                                                                                     Spacer(),
 
                                                                                                     Container(
-                                                                                                        width: 70,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          border: Border.all(color: Colors.black),
+                                                                                                          color: Colors.transparent,
+
+                                                                                                        ),
+                                                                                                        width: MediaQuery.of(context).size.width/5,
+                                                                                                        height: 34,
+
                                                                                                         child: Text(
-                                                                                                          textAlign: TextAlign.left,
+                                                                                                          textAlign: TextAlign.center,
+                                                                                                          ( double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString()) - ((double.parse(inv.iNVOICESAllModelS![i].servicETOTALAMT.toString())
+                                                                                                              -
+                                                                                                              double.parse(inv.iNVOICESAllModelS![i].servicEPAYORAMT.toString())))  ).toStringAsFixed(3).toString(),style: ArabicTextStyle(
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
+
+                                                                                                    Container(     decoration: BoxDecoration(
+                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                      color: Colors.transparent,
+
+                                                                                                    ),
+                                                                                                        width: MediaQuery.of(context).size.width/5,
+                                                                                                        height: 34,
+
+                                                                                                        child: Text(
+                                                                                                          textAlign: TextAlign.center,
                                                                                                           inv.iNVOICESAllModelS![i].servicETOTALAMT.toString(),style: ArabicTextStyle(
-                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                            arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w400),)),
 
                                                                                                   ],),
                                                                                                 ),
@@ -680,29 +1081,165 @@ SizedBox(height: 15,),
 
                                                                                           ],),
 
-                                                                                          SizedBox(height: 15,),
+                                                                                          SizedBox(height: 0,),
 
                                                                                           Padding(
-                                                                                            padding: EdgeInsets.only(left: 16,right: 16,top: 6),
+                                                                                            padding: EdgeInsets.only(left: 16,right: 16,top: 0),
                                                                                             child: Row(children: [
                                                                                               Container(
+                                                                                            decoration: BoxDecoration(
+                                                                                            border: Border.all(color: Colors.black),
+                                                                                            color: Colors.transparent,
+
+                                                                                          ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
                                                                                                   alignment: Alignment.center,
                                                                                                   child: Text( LanguageProvider.getLanguage()=='AR'?'المجموع  ':'Total  ',style: ArabicTextStyle(
-                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w700),)),
                                                                                               Spacer(),
                                                                                               Container(
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                    color: Colors.transparent,
+
+                                                                                                  ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
                                                                                                   alignment: Alignment.center,
                                                                                                   child: Text(inv.patienTTOTALVALUE.toString(),style: ArabicTextStyle(
-                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w700),)),
                                                                                               Spacer(),
-                                                                                              Container(
+                                                                                              Container( decoration: BoxDecoration(
+                                                                                                border: Border.all(color: Colors.black),
+                                                                                                color: Colors.transparent,
+
+                                                                                              ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
+                                                                                                  alignment: Alignment.center,
+                                                                                                  child: Text(
+
+                                                                                                    (double.parse(inv.bilLTOTALVALUE.toString())
+                                                                                                    -
+                                                                                                        double.parse(inv.patienTTOTALVALUE.toString())).toStringAsFixed(3)
+
+
+                                                                                                  ,style: ArabicTextStyle(
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w700),)),
+                                                                                              Spacer(),
+                                                                                              Container( decoration: BoxDecoration(
+                                                                                                border: Border.all(color: Colors.black),
+                                                                                                color: Colors.transparent,
+
+                                                                                              ),
+                                                                                                  width: MediaQuery.of(context).size.width/5,
                                                                                                   alignment: Alignment.center,
                                                                                                   child: Text(inv.bilLTOTALVALUE.toString(),style: ArabicTextStyle(
-                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 16*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w900),)),
+                                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w700),)),
 
 
                                                                                             ],),
                                                                                           ),
+                                                                                            SizedBox(height: 20,),
+
+Padding(
+
+  padding: EdgeInsets.only(left: 16,right: 16,top: 0),
+
+  child: Column(children: [
+                                                                                              Row(children: [
+                                                                                                Container( decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.black12,
+
+                                                                                                ),
+                                                                                                    width: MediaQuery.of(context).size.width/2,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    child: Text('صافي المريض',style: ArabicTextStyle(
+                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w500),)),
+
+
+
+                                                                                                Container( decoration: BoxDecoration(
+                                                                                                  border: Border.all(color: Colors.black),
+                                                                                                  color: Colors.transparent,
+
+                                                                                                ),
+                                                                                                    width: MediaQuery.of(context).size.width/5,
+                                                                                                    alignment: Alignment.center,
+                                                                                                    child: Text(inv.patienTTOTALVALUE.toString(),style: ArabicTextStyle(
+                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w500),)),
+
+
+
+                                                                                              ],)
+
+,
+    Row(children: [
+      Container( decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        color: Colors.black12,
+
+      ),
+          width: MediaQuery.of(context).size.width/2,
+          alignment: Alignment.center,
+          child: Text('المبلغ المطلوب من التامين',style: ArabicTextStyle(
+              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w500),)),
+
+
+
+      Container( decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        color: Colors.transparent,
+
+      ),
+          width: MediaQuery.of(context).size.width/5,
+          alignment: Alignment.center,
+          child: Text( (double.parse(inv.bilLTOTALVALUE.toString())
+              -
+              double.parse(inv.patienTTOTALVALUE.toString())).toStringAsFixed(3),style: ArabicTextStyle(
+              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w500),)),
+
+
+
+    ],),
+
+
+    Row(children: [
+      Container( decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        color: Colors.black12,
+
+      ),
+          width: MediaQuery.of(context).size.width/2,
+          alignment: Alignment.center,
+          child: Text('صافي الخصم',style: ArabicTextStyle(
+              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w500),)),
+
+
+
+      Container( decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        color: Colors.transparent,
+
+      ),
+          width: MediaQuery.of(context).size.width/5,
+          alignment: Alignment.center,
+          child: Text( (double.parse(inv.patienTTOTALDISCOUNT.toString())
+              +
+              double.parse(inv.payoRTOTALDISCOUNT.toString())).toStringAsFixed(3),style: ArabicTextStyle(
+              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w500),)),
+
+
+
+    ],),
+
+
+
+
+                                                                                            ],),
+)
+
+
+
 
                                                                                           ],),
                                                                                         ),
@@ -743,8 +1280,8 @@ SizedBox(height: 15,),
 
 
                                                                             ],
-                                                                          ),
-                                                                        );
+                                                                          );
+
 
                                                                     },
                                                                   );
@@ -766,10 +1303,9 @@ SizedBox(height: 15,),
 
 
                                                 ),
-
                                        )).toList(),),
                                   ):Image.asset(
-                                    "assets/null.png",
+                                    "assets/null5.png",
                                     height: 100,
                                     width: 100,
                                     );

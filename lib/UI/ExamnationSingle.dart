@@ -91,9 +91,10 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return  PdfPreview(
-            build: (context) => makePdf(pngBytes),
-          );
+          return   PdfPreview(
+              build: (context) => makePdf(pngBytes),
+            );
+
         },
       );
     }
@@ -451,10 +452,10 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                                   ),
                                 ),
                               ),
-                              Image.asset(
+                            /*  Image.asset(
                                 "assets/fotter.jpg",
                                 width: MediaQuery.of(context).size.width,
-                              ),
+                              ),*/
                             ],),
                           ),
 

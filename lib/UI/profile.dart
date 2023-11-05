@@ -135,7 +135,7 @@ class _profileState extends State<profile> {
                         width: MediaQuery.of(context).size.width / 1.1,
                         height: MediaQuery.of(context).size.height / 1.2,
                         child: FutureBuilder(
-                          future: getProfile(context,Loginprovider.userId),
+                          future: getProfile(context,Loginprovider.getuserId()),
                           builder: (BuildContext context,
                               AsyncSnapshot<List<ProfileM>> snapshot) {
                             if (snapshot.hasData) {
@@ -406,7 +406,7 @@ SizedBox(height: 20,),
                                                                     fontSize: 13 * unitHeightValue),
                                                               ),
                                                               onPressed: () async {
-                                                                UpdateInformationTel(context,Loginprovider.userId,_phoneController.text);
+                                                                UpdateInformationTel(context,Loginprovider.getuserId(),_phoneController.text);
 
                                                               },
                                                             ),
@@ -554,7 +554,7 @@ Spacer(),
                                                                     fontSize: 13 * unitHeightValue),
                                                               ),
                                                               onPressed: () async {
-                                                                UpdateInformationEmail(context,Loginprovider.userId,_emailController.text);
+                                                                UpdateInformationEmail(context,Loginprovider.getuserId(),_emailController.text);
                                                               },
                                                             ),
                                                           ),
@@ -873,12 +873,15 @@ Spacer(),
 
 
       var map = new Map<String, dynamic>();
-      map['PatientNo'] = patientNo;
+      map['PatientNo'] = Loginprovider.getuserId();
       http.Response res = await http.post(
         postsURL,
         body: map,
 
       );
+
+      print("Profileinput" + map.toString());
+
 
       if (res.statusCode == 200) {
         print("Profile" + res.body.toString());

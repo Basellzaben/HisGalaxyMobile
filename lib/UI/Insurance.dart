@@ -143,7 +143,7 @@ class _InsuranceState extends State<Insurance> {
                             width: MediaQuery.of(context).size.width / 1.1,
                             height: MediaQuery.of(context).size.height / 1.2,
                             child: FutureBuilder(
-                              future: getInsurance(context, Loginprovider.userId),
+                              future: getInsurance(context, Loginprovider.getuserId()),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<InsuranceM>> snapshot) {
                                 if (snapshot.hasData) {

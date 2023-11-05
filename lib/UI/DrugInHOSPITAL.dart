@@ -235,7 +235,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                             child: FutureBuilder(
                               future: getDrugInHOSPITAL(
                                 context,
-                                Loginprovider.userId,
+                                Loginprovider.getuserId(),
                                       dateinputC.text.isEmpty ||
                                       dateinputC.text.toString() ==
                                       LanguageProvider.Llanguage(
@@ -630,7 +630,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                           .toList(),
                                     ),
                                   ):Image.asset(
-                                    "assets/null.png",
+                                    "assets/null5.png",
                                     height: 100,
                                     width: 100,
                                   );

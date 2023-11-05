@@ -282,7 +282,7 @@ class _MedicalReportState extends State<MedicalReport> {
                                                           fontSize:
                                                           12 * unitHeightValue)),
                                                   Text(
-                                                    Loginprovider.userId,
+                                                    Loginprovider.getuserId(),
                                                     style: ArabicTextStyle(
                                                         arabicFont:
                                                             ArabicFont.tajawal,

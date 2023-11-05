@@ -11,7 +11,7 @@ import '../provider/Them.dart';
 class Widgets {
 
   static Widget Appbar(BuildContext context,
-  String title, double unitHeightValue,String lan, TextDirection direction) {
+  String title, double unitHeightValue,String lan, TextDirection direction,[String? shown='true']) {
     var ThemP = Provider.of<Them>(context, listen: false);
 
     if(lan=="EN"){
@@ -35,11 +35,11 @@ class Widgets {
                   fontSize: 21.5 * unitHeightValue),
             ),
             Spacer(),
-            Icon(
+            shown=='true'?   Icon(
               Icons.notifications,
               color: HexColor(ThemP.getcolor()),
               size: 33 * unitHeightValue,
-            )
+            ):Container()
           ],
         ),
       ),
@@ -57,11 +57,11 @@ class Widgets {
             builder: (context) => Notifications()),
       );
       },
-              child: Icon(
+              child:   shown=='true'?   Icon(
                 Icons.notifications,
                 color: HexColor(ThemP.getcolor()),
                 size: 33 * unitHeightValue,
-              ),
+              ):Container()
             ),
             Spacer(),
             Text(

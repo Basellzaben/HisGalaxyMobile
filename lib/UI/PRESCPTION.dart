@@ -89,7 +89,7 @@ class PRESCPTION extends StatefulWidget {
 class _PRESCPTIONState extends State<PRESCPTION> {
   @override
   void initState() {
-   // setsearch(context);
+    // setsearch(context);
     super.initState();
   }
 
@@ -111,7 +111,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
   setsearch(BuildContext context) {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
     //if(homeP.getVisitDate().toString().length==10)
-   // dateinputC.text = homeP.getVisitDate();
+    // dateinputC.text = homeP.getVisitDate();
   }
 
   @override
@@ -125,7 +125,6 @@ class _PRESCPTIONState extends State<PRESCPTION> {
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     return Stack(children: <Widget>[
-
       Image.asset(
         "assets/background.png",
         height: MediaQuery.of(context).size.height,
@@ -199,7 +198,6 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 1.2,
                     decoration: BoxDecoration(
-
                       image: DecorationImage(
                         image: AssetImage("assets/background.png"),
                         fit: BoxFit.cover,
@@ -226,7 +224,6 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                 ),
                                 suffixIcon: GestureDetector(
                                     onTap: () {
-
                                       print("ex 1");
                                       setState(() {
                                         dateinputC.text =
@@ -234,28 +231,25 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                 'SearchbyDate');
                                       });
 
-                                      setState(() {
-
-                                      });
-
+                                      setState(() {});
                                     },
-                                    child: Icon(color: Colors.redAccent,dateinputC.text.isEmpty ||
-                                            dateinputC.text.toString() ==
-                                                LanguageProvider.Llanguage(
-                                                    'SearchbyDate')
-                                        ? null
-                                        : Icons.cancel)),
+                                    child: Icon(
+                                        color: Colors.redAccent,
+                                        dateinputC.text.isEmpty ||
+                                                dateinputC.text.toString() ==
+                                                    LanguageProvider.Llanguage(
+                                                        'SearchbyDate')
+                                            ? null
+                                            : Icons.cancel)),
                                 border: OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color:
-                                            HexColor(ThemP.getcolor()),
+                                        color: HexColor(ThemP.getcolor()),
                                         width: 1.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color:
-                                            HexColor(ThemP.getcolor()),
+                                        color: HexColor(ThemP.getcolor()),
                                         width: 2.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 contentPadding: EdgeInsets.only(
@@ -284,8 +278,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                         .toString(); //set output date to TextField value.
                                   });
                                 } else {
-                                  setState(() {
-                                  });
+                                  setState(() {});
 
                                   print("Date is not selected");
                                 }
@@ -301,342 +294,458 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.11,
                             height: MediaQuery.of(context).size.height / 1.4,
-
                             child: FutureBuilder(
                               future: getPRESCPTION(
-                                  context,
-                                Loginprovider.userId,
-                                      dateinputC.text.isEmpty ||
-                                      dateinputC.text.toString() ==
-                                      LanguageProvider.Llanguage(
-                                      'SearchbyDate')
-                                      ? "202"
-                                      : dateinputC.text,
+                                context,
+                                Loginprovider.getuserId(),
+                                dateinputC.text.isEmpty ||
+                                        dateinputC.text.toString() ==
+                                            LanguageProvider.Llanguage(
+                                                'SearchbyDate')
+                                    ? "202"
+                                    : dateinputC.text,
                               ),
                               builder: (BuildContext context,
                                   AsyncSnapshot<List<prescptionM>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<prescptionM>? PRESCPTION = snapshot.data;
-                                  return PRESCPTION!.isNotEmpty? Container(
-
-
-
-
-                                    child: ListView(
-                                      children: PRESCPTION!
-                                          .map((prescptionM inv) => SizedBox(
-                                              child: GestureDetector(
-                                           onTap: () {
-
-                                                    },
-                                                child: Column(
-                                                  children: [
-                                                    Card(
-                                                        child:  Theme(
-                                                          data : ThemeData().copyWith(dividerColor: Colors.transparent),
-                                                          child: ExpansionTile(
-                                                            leading: Padding(
-                                                              padding: const EdgeInsets.all(8.0),
-                                                              child: Icon(Icons.expand_more_sharp),
-                                                            ),
-                                                            trailing:  Padding(
-                                                              padding: const EdgeInsets.only(left: 0),
-                                                              child: Text(
-                                                                retDay(inv.cdate.toString()),
-                                                                style: TextStyle(
-                                                                    fontSize: 30,
-                                                                    fontWeight: FontWeight
-                                                                        .bold,
-                                                                    color: HexColor(
-                                                                        ThemP
-                                                                            .getcolor())),
-                                                              ),
-                                                            ),
-                                                            title:Row(
-                                                              children: [
-                                                                Spacer(),
-                                                                Spacer(),
-
-                                                                SizedBox(
-                                                                  child: Align(alignment: Alignment.center,child: SizedBox(width: MediaQuery.of(context).size.width/3.5,
-                                                                    child: Text( textAlign: TextAlign.left,inv.doctorname.toString(),
-                                                                      style: ArabicTextStyle(
-                                                                          arabicFont: ArabicFont.tajawal,fontWeight: FontWeight.w900,fontSize: 15*unitHeightValue,color: Colors.black),
-                                                                      maxLines: 3,
-                                                                      overflow: TextOverflow.ellipsis,
-                                                                    ),
-                                                                  )),
-                                                                ),
-                                                                Padding(
-                                                                  padding: const EdgeInsets.all(8.0),
-                                                                  child: Container(
-                                                                      color: HexColor(ThemP.getcolor()),
-                                                                      child: SizedBox(height: 50,width: 2,)),
-                                                                ),
-                                                                SizedBox(
-                                                                  child: Row(
-                                                                    children: [
-
-                                                                      Column(
-                                                                        children: [
-                                                                          Text(
-
-                                                                              textAlign: TextAlign.center,
-                                                                              retMonth(inv.cdate.toString()),
-                                                                              style: TextStyle(fontSize: 15,
-                                                                              fontWeight: FontWeight.w900, height: 1)
-
-                                                                          ),
-
-                                                                          Text(
-                                                                              textAlign: TextAlign
-                                                                                  .center,
-                                                                              retYear(inv.cdate.toString()),
-                                                                              style: TextStyle(
-                                                                                  fontSize: 15,
-                                                                                  height: 1)),
-                                                                        ],
-
-                                                                      ),
-
-
-
-                                                                    ],),
-                                                                )
-                                                                ,
-                                                              ],
-                                                            ),
+                                  return PRESCPTION!.isNotEmpty
+                                      ? Container(
+                                          child: ListView(
+                                            children: PRESCPTION!
+                                                .map(
+                                                    (prescptionM inv) =>
+                                                        SizedBox(
+                                                            child:
+                                                                GestureDetector(
+                                                          onTap: () {},
+                                                          child: Column(
                                                             children: [
-                                                              Column(children: [
-                                                                for(int i=0;i<inv.prescptionHdrModels!.length;i++)
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.only(top: 12),
-                                                                    child: Column(
-                                                                      children: [
-
-                                                                        Padding(
-                                                                          padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                                          child: Row(children: [
-
-
-                                                                            GestureDetector(
-                                                                                onTap: () {
-
-
-                                                                                  showDialog(
-                                                                                    context: context,
-                                                                                    builder: (BuildContext context) {
-                                                                                      return Expanded(
-                                                                                        child: AlertDialog(
-                                                                                          title: SizedBox(
-                                                                                            height: MediaQuery.of(context).size.height/8,
-
-                                                                                            child: Center(
-                                                                                              child: Column(
-                                                                                                children: [
-                                                                                                  Text(
-                                                                                                      textAlign: TextAlign.center,
-
-                                                                                                      LanguageProvider.Llanguage("Dosageinstructions"),
-                                                                                                      style: ArabicTextStyle(
-                                                                                                          arabicFont: ArabicFont.tajawal,
-                                                                                                          fontSize: 22 *
-                                                                                                              unitHeightValue)),
-                                                                                                  Text(
-                                                                                                    textAlign: TextAlign.center,
-
-                                                                                                    inv.prescptionHdrModels![i].dos.toString(),
-                                                                                                    style: ArabicTextStyle(
-                                                                                                        arabicFont: ArabicFont.tajawal,
-                                                                                                        fontSize:
-                                                                                                        16 * unitHeightValue),
-                                                                                                  ),
-
-
-                                                                                                ],
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                          content:   SizedBox(
-                                                                                            height: MediaQuery.of(context).size.height/8,
-
-                                                                                            child: Column(
-                                                                                        children: [
-                                                                                        Text(
-                                                                                        textAlign: TextAlign.center,
-
-                                                                                              LanguageProvider.Llanguage("qt"),
-                                                                                              style: ArabicTextStyle(
-                                                                                                  arabicFont: ArabicFont.tajawal,
-                                                                                                  fontSize: 22 * unitHeightValue)),
-                                                                                        Text(
-                                                                                                textAlign: TextAlign.center,
-
-
-                                                                                            inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" : "
-                                                                                                +(
-                                                                                                LanguageProvider.getLanguage()=='AR'?inv.prescptionHdrModels![i].unit.toString().split(':').last:
-                                                                                                inv.prescptionHdrModels![i].unit.toString().split(':').first
-                                                                                            ),
-
-
-
-                                                                                              /*  inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
-                                                                                                +inv.prescptionHdrModels![i].unit.toString(),*/
-                                                                                                style: ArabicTextStyle(
-                                                                                                arabicFont: ArabicFont.tajawal,
-                                                                                                fontSize:
-                                                                                                16 * unitHeightValue),
-                                                                                        ),
-
-
-                                                                                        ],
-                                                                                      ),
-                                                                                          ),
-                                                                                          actions: [
-
-
-
-                                                                                          ],
-                                                                                        ),
-                                                                                      );
-                                                                                    },
-                                                                                  );
-
-
-                                                                                },child: Icon(Icons.more_horiz))
-                                                                            ,
-
-                                                                            Align(
-                                                                              alignment: Alignment.topLeft,
-                                                                              child: SizedBox(
-                                                                                width:MediaQuery.of(context).size.width/1.7,
-                                                                                child: Text( textAlign: TextAlign.left,maxLines: 3,
-                                                                                  overflow: TextOverflow.ellipsis,inv.prescptionHdrModels![i].cname.toString(),style: ArabicTextStyle(
-                                                                                      arabicFont: ArabicFont.tajawal,fontSize: 15*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),),
+                                                              Card(
+                                                                  child: Theme(
+                                                                data: ThemeData()
+                                                                    .copyWith(
+                                                                        dividerColor:
+                                                                            Colors.transparent),
+                                                                child:
+                                                                    ExpansionTile(
+                                                                  leading:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .expand_more_sharp),
+                                                                  ),
+                                                                  trailing:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            0),
+                                                                    child: Text(
+                                                                      retDay(inv
+                                                                          .cdate
+                                                                          .toString()),
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              30,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              HexColor(ThemP.getcolor())),
+                                                                    ),
+                                                                  ),
+                                                                  title: Row(
+                                                                    children: [
+                                                                      Spacer(),
+                                                                      Spacer(),
+                                                                      SizedBox(
+                                                                        child: Align(
+                                                                            alignment: Alignment.center,
+                                                                            child: SizedBox(
+                                                                              width: MediaQuery.of(context).size.width / 4,
+                                                                              child: Text(
+                                                                                textAlign: TextAlign.left,
+                                                                                inv.doctorname.toString(),
+                                                                                style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontWeight: FontWeight.w900, fontSize: 15 * unitHeightValue, color: Colors.black),
+                                                                                maxLines: 3,
+                                                                                overflow: TextOverflow.ellipsis,
                                                                               ),
+                                                                            )),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                        child: Container(
+                                                                            color: HexColor(ThemP.getcolor()),
+                                                                            child: SizedBox(
+                                                                              height: 50,
+                                                                              width: 2,
+                                                                            )),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        child:
+                                                                            Row(
+                                                                          children: [
+                                                                            Column(
+                                                                              children: [
+                                                                                Text(textAlign: TextAlign.center, retMonth(inv.cdate.toString()), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, height: 1)),
+                                                                                Text(textAlign: TextAlign.center, retYear(inv.cdate.toString()), style: TextStyle(fontSize: 15, height: 1)),
+                                                                              ],
                                                                             ),
-
-
-                                                                            SizedBox(width: 10,),
-                                                                            Container(
-                                                                              width: 28,
-                                                                              height: 28,
-                                                                              decoration: BoxDecoration(
-                                                                                color:  Colors.white, // border color
-                                                                                shape: BoxShape.circle,
-                                                                              ),
-                                                                              child: Padding(
-                                                                                padding: EdgeInsets.all(2), // border width
-                                                                                child: Container( // or ClipRRect if you need to clip the content
-                                                                                  decoration: BoxDecoration(
-                                                                                    shape: BoxShape.circle,
-                                                                                    color: HexColor(ThemP.getcolor()), // inner circle color
-                                                                                  ),
-                                                                                  child: Center(child: Text((i+1).toString(),style: TextStyle(color: Colors.white),)), // inner content
-                                                                                ),
-                                                                              ),
-                                                                            ),
-
-
-
-
-
-
-                                                                          ],),
+                                                                          ],
                                                                         ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  children: [
+                                                                    Column(
+                                                                      children: [
+                                                                        for (int i =
+                                                                                0;
+                                                                            i < inv.prescptionHdrModels!.length;
+                                                                            i++)
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(top: 12),
+                                                                            child:
+                                                                                Column(
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: EdgeInsets.only(left: 16, right: 16, top: 6),
+                                                                                  child: Row(
+                                                                                    children: [
+                                                                                      GestureDetector(
+                                                                                          onTap: () {
+                                                                                            showDialog(
+                                                                                              context: context,
+                                                                                              builder: (BuildContext context) {
+                                                                                                return Expanded(
+                                                                                                  child: AlertDialog(
+                                                                                                    title: SizedBox(
+                                                                                                      height: MediaQuery.of(context).size.height / 8,
+                                                                                                      child: Center(
+                                                                                                        child: Column(
+                                                                                                          children: [
+                                                                                                            Text(textAlign: TextAlign.center, LanguageProvider.Llanguage("Dosageinstructions"), style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 22 * unitHeightValue)),
+                                                                                                            Text(
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              inv.prescptionHdrModels![i].dos.toString(),
+                                                                                                              style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 16 * unitHeightValue),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    content: SizedBox(
+                                                                                                      height: MediaQuery.of(context).size.height / 8,
+                                                                                                      child: Column(
+                                                                                                        children: [
+                                                                                                          Text(textAlign: TextAlign.center, LanguageProvider.Llanguage("qt"), style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 22 * unitHeightValue)),
+                                                                                                          Text(
+                                                                                                            textAlign: TextAlign.center,
+                                                                                                            inv.prescptionHdrModels![i].qt.toString().substring(0, 3) + " : " + (LanguageProvider.getLanguage() == 'AR' ? inv.prescptionHdrModels![i].unit.toString().split(':').last : inv.prescptionHdrModels![i].unit.toString().split(':').first),
 
+                                                                                                            /*  inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
+                                                                                                +inv.prescptionHdrModels![i].unit.toString(),*/
+                                                                                                            style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 16 * unitHeightValue),
+                                                                                                          ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    actions: [],
+                                                                                                  ),
+                                                                                                );
+                                                                                              },
+                                                                                            );
+                                                                                          },
+                                                                                          child: Icon(Icons.more_horiz)),
+                                                                                      Align(
+                                                                                        alignment: Alignment.topLeft,
+                                                                                        child: SizedBox(
+                                                                                          width: MediaQuery.of(context).size.width / 1.7,
+                                                                                          child: Text(
+                                                                                            textAlign: TextAlign.left,
+                                                                                            maxLines: 3,
+                                                                                            overflow: TextOverflow.ellipsis,
+                                                                                            inv.prescptionHdrModels![i].cname.toString(),
+                                                                                            style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 15 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      SizedBox(
+                                                                                        width: 10,
+                                                                                      ),
+                                                                                      Container(
+                                                                                        width: 28,
+                                                                                        height: 28,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Colors.white,
+                                                                                          // border color
+                                                                                          shape: BoxShape.circle,
+                                                                                        ),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.all(2),
+                                                                                          // border width
+                                                                                          child: Container(
+                                                                                            // or ClipRRect if you need to clip the content
+                                                                                            decoration: BoxDecoration(
+                                                                                              shape: BoxShape.circle,
+                                                                                              color: HexColor(ThemP.getcolor()), // inner circle color
+                                                                                            ),
+                                                                                            child: Center(
+                                                                                                child: Text(
+                                                                                              (i + 1).toString(),
+                                                                                              style: TextStyle(color: Colors.white),
+                                                                                            )), // inner content
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
 
-
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        SizedBox(
+                                                                          height:
+                                                                              18,
+                                                                        ),
 
 
                                                                         Align(
                                                                           alignment: Alignment.bottomCenter,
                                                                           child: Container(
                                                                             height: 50,
-                                                                            width:
-                                                                            MediaQuery.of(context).size.width /1.6,
+                                                                            width: MediaQuery.of(context).size.width / 1.6,
                                                                             margin: EdgeInsets.only(top: 40, bottom: 5),
                                                                             color: HexColor(Globalvireables.white),
                                                                             child: ElevatedButton(
                                                                               style: ElevatedButton.styleFrom(
-                                                                                primary: HexColor(ThemP.getcolor()),),
-                                                                              child:
-
-                                                                              Icon(
+                                                                                primary: HexColor(ThemP.getcolor()),
+                                                                              ),
+                                                                              child: Icon(
                                                                                 Icons.cloud_download,
                                                                                 color: Colors.white,
                                                                                 size: 30.0,
                                                                               ),
-
-
                                                                               onPressed: () async {
-
                                                                                 showDialog(
                                                                                   context: context,
                                                                                   builder: (BuildContext context) {
-
-                                                                                    return Expanded(
-                                                                                      child: AlertDialog(
-                                                                                        insetPadding: EdgeInsets.zero,
-                                                                                        content: Directionality(
-                                                                                          textDirection: LanguageProvider.getDirectionPres(),
-                                                                                          child: RepaintBoundary(
-                                                                                            child: SingleChildScrollView(
-                                                                                              child: RepaintBoundary(
-                                                                                                child: Column(
-                                                                                                  children: [
-
-                                                                                                    RepaintBoundary(
-                                                                                                      key: globalKey,
-                                                                                                      child: Container(
-                                                                                                        height: MediaQuery.of(context).size.height/2,
-                                                                                                        child: Padding(
-                                                                                                          padding: const EdgeInsets.all(0.0),
-                                                                                                          child: Column(children: [
-
-                                                                                                            Column(children: [
-                                                                                                              Row(
-                                                                                                                children: [
-                                                                                                                  Spacer(),
-                                                                                                                  Spacer(),
-                                                                                                                  Column(
-                                                                                                                    children: [
-                                                                                                                      Text(
-                                                                                                                        'MARKA SPECIALITY HOSPITAL',
-                                                                                                                        style: TextStyle(
-                                                                                                                            fontWeight: FontWeight.w700,
-                                                                                                                            color: HexColor(Globalvireables
-                                                                                                                                .black),
-                                                                                                                            fontSize:
-                                                                                                                            12 *
-                                                                                                                                unitHeightValue),
+                                                                                    return  AlertDialog(
+                                                                                      insetPadding: EdgeInsets.zero,
+                                                                                      content: Directionality(
+                                                                                        textDirection: LanguageProvider.getDirectionPres(),
+                                                                                        child: RepaintBoundary(
+                                                                                          child: SingleChildScrollView(
+                                                                                            child: RepaintBoundary(
+                                                                                              child: Column(
+                                                                                                children: [
+                                                                                                  RepaintBoundary(
+                                                                                                    key: globalKey,
+                                                                                                    child: Container(
+                                                                                                      height: MediaQuery.of(context).size.height / 2,
+                                                                                                      child: Padding(
+                                                                                                        padding: const EdgeInsets.all(0.0),
+                                                                                                        child: Column(
+                                                                                                          children: [
+                                                                                                            Column(
+                                                                                                              children: [
+                                                                                                                Row(
+                                                                                                                  children: [
+                                                                                                                    Spacer(),
+                                                                                                                    Spacer(),
+                                                                                                                    Column(
+                                                                                                                      children: [
+                                                                                                                        Text(
+                                                                                                                          'MARKA SPECIALITY HOSPITAL',
+                                                                                                                          style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                        ),
+                                                                                                                        Text(
+                                                                                                                          'وصفة الخروج',
+                                                                                                                          style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                        ),
+                                                                                                                      ],
+                                                                                                                    ),
+                                                                                                                    Spacer(),
+                                                                                                                    Container(width: 60, height: 60, child: Image(image: new AssetImage("assets/newlogo.png")))
+                                                                                                                  ],
+                                                                                                                ),
+                                                                                                                Divider(thickness: 1.0, color: Colors.black),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                            Row(
+                                                                                                              children: [
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.6,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        LanguageProvider.getLanguage() == 'AR' ? 'اسم المريض  ' : 'Patient Name  ',
+                                                                                                                        style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
                                                                                                                       ),
-                                                                                                                      Text(
-
-                                                                                                                        'prescription',
-                                                                                                                        style: TextStyle(
-                                                                                                                            fontWeight: FontWeight.w700,
-                                                                                                                            color: HexColor(Globalvireables
-                                                                                                                                .black),
-                                                                                                                            fontSize:
-                                                                                                                            12 *
-                                                                                                                                unitHeightValue),
-                                                                                                                      ),
-                                                                                                                    ],
+                                                                                                                    ),
                                                                                                                   ),
-                                                                                                                  Spacer(),
-                                                                                                                  Container(
-                                                                                                                      width:60,
-                                                                                                                      height:60,
-                                                                                                                      child: Image(
-                                                                                                                          image: new AssetImage(
-                                                                                                                              "assets/newlogo.png")))
-                                                                                                                ],
-                                                                                                              ),
-                                                                                                              Divider(thickness: 1.0, color: Colors.black),
-                                                                                                            ],),
-                                                                                                            Row(children: [ Text(
+                                                                                                                ),
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.3,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        Loginprovider.nameE,
+                                                                                                                        style: TextStyle(color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Spacer(),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                            Row(
+                                                                                                              children: [
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.6,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        LanguageProvider.getLanguage() == 'AR' ? 'التاريخ ' : 'Date ',
+                                                                                                                        style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.3,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        inv.cdate.toString(),
+                                                                                                                        style: TextStyle(color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Spacer(),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                            Row(
+                                                                                                              children: [
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.6,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        LanguageProvider.getLanguage() == 'AR' ? 'رقم المريض  ' : 'Patient No  ',
+                                                                                                                        style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.3,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        Loginprovider.id,
+                                                                                                                        style: TextStyle(color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Spacer(),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                            Row(
+                                                                                                              children: [
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.6,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        LanguageProvider.getLanguage() == 'AR' ? 'تاريخ الاصدار  ' : 'Patient No  ',
+                                                                                                                        style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Padding(
+                                                                                                                  padding: const EdgeInsets.all(3.0),
+                                                                                                                  child: Container(
+                                                                                                                    width: MediaQuery.of(context).size.width / 2.3,
+                                                                                                                    decoration: BoxDecoration(
+                                                                                                                      border: Border.all(color: Colors.black),
+                                                                                                                      color: Colors.transparent,
+                                                                                                                    ),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: const EdgeInsets.all(3.0),
+                                                                                                                      child: Text(
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        DateTime.now().toString(),
+                                                                                                                        style: TextStyle(color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                Spacer(),
+                                                                                                              ],
+                                                                                                            ),
+
+                                                                                                            /*    Row(children: [ Text(
                                                                                                               LanguageProvider.getLanguage()=='AR'?'اسم المريض : ':'Patient Name : ',
                                                                                                               style: TextStyle(
                                                                                                                   fontWeight: FontWeight.w700,
@@ -657,8 +766,8 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                               ),
                                                                                                               Spacer(),
 
-                                                                                                            ],),
-                                                                                                            Row(children: [
+                                                                                                            ],),*/
+                                                                                                            /*  Row(children: [
                                                                                                               Text(
                                                                                                                 LanguageProvider.getLanguage()=='AR'?'التاريخ :':'Date :',
                                                                                                                 style: TextStyle(
@@ -741,131 +850,194 @@ class _PRESCPTIONState extends State<PRESCPTION> {
 
 
                                                                                                             ],),
-
+*/
 
                                                                                                             Divider(thickness: 0.3, color: Colors.black),
                                                                                                             Padding(
-                                                                                                              padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                                                                              child: Row(children: [
-                                                                                                                Container(
-                                                                                                                    width: 120,
-                                                                                                                    child: Text("اسم الدواء",style: ArabicTextStyle(
-                                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                                                                Spacer(),
-                                                                                                                Container(
-                                                                                                                    alignment: Alignment.center,
-                                                                                                                    width: 70,
-                                                                                                                    child: Text("الكميه",style: ArabicTextStyle(
-                                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                                                                Spacer(),
+                                                                                                              padding: EdgeInsets.only(left: 0, right: 0, top: 6),
+                                                                                                              child: Row(
+                                                                                                                children: [
+                                                                                                                  Spacer(),
+                                                                                                                  Container(
+                                                                                                                      width: MediaQuery.of(context).size.width / 4,
+                                                                                                                      decoration: BoxDecoration(
+                                                                                                                        border: Border.all(color: Colors.black),
+                                                                                                                        color: Colors.black12,
 
-                                                                                                                Container(
-                                                                                                                    alignment: Alignment.center,
-                                                                                                                    child: Text("التعليمات",style: ArabicTextStyle(
-                                                                                                                        arabicFont: ArabicFont.tajawal,fontSize: 14*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
+                                                                                                                      ),
+                                                                                                                      child: Text(
+                                                                                                                        "اسم الدواء",
+                                                                                                                        style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w400),
+                                                                                                                      )),
 
-                                                                                                              ],),
-                                                                                                            ),
+                                                                                                                  Container(   decoration: BoxDecoration(
+                                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                                    color: Colors.black12,
 
-                                                                                                            Column(children: [
-                                                                                                              for(int i=0;i<inv.prescptionHdrModels!.length;i++)
-                                                                                                                Padding(
-                                                                                                                  padding: EdgeInsets.only(left: 16,right: 16,top: 6),
-                                                                                                                  child: Container(
-                                                                                                                    child: Row(children: [
-
-                                                                                                                      Container(
-                                                                                                                          width: 120,
-                                                                                                                          child: Text(
-inv.prescptionHdrModels![i].cname.toString()
-
-                                                                                                                            ,style: ArabicTextStyle(
-                                                                                                                              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black),)),
-                                                                                                                      Spacer(),
-                                                                                                                      Container(
-                                                                                                                          width: 70,
-                                                                                                                          child: Text(
-                                                                                                                            textAlign: TextAlign.left,
-
-
-                                                                                                                            inv.prescptionHdrModels![i].qt.toString().substring(0,3)+" "
-                                                                                                                                +(
-                                                                                                                                LanguageProvider.getLanguage()=='AR'?inv.prescptionHdrModels![i].unit.toString().split(':').last:
-                                                                                                                                inv.prescptionHdrModels![i].unit.toString().split(':').first
-                                                                                                                            ),
-
-                                                                                                                            style: ArabicTextStyle(
-                                                                                                                                arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black,fontWeight: FontWeight.w600),)),
-                                                                                                                      Spacer(),
-                                                                                                                      Container(
-                                                                                                                          alignment: Alignment.center,
-                                                                                                                          width: 60,
-                                                                                                                          child: Text(
-                                                                                                                            inv.prescptionHdrModels![i].dos.toString()
-
-
-                                                                                                                            /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,style: ArabicTextStyle(
-                                                                                                                              arabicFont: ArabicFont.tajawal,fontSize: 12*unitHeightValue,color: Colors.black),)),
-
-
-
-                                                                                                                    ],),
                                                                                                                   ),
-                                                                                                                ),
+                                                                                                                      width: MediaQuery.of(context).size.width / 4,
+                                                                                                                      alignment: Alignment.center,
+                                                                                                                      child: Text(
+                                                                                                                        "الكميه",
+                                                                                                                        style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w400),
+                                                                                                                      )),
+                                                                                                                 /* Container(   decoration: BoxDecoration(
+                                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                                    color: Colors.black12,
+
+                                                                                                                  ),
+                                                                                                                      width: MediaQuery.of(context).size.width / 4,
+                                                                                                                      alignment: Alignment.center,
+                                                                                                                      child: Text(
+                                                                                                                        "الجرعه",
+                                                                                                                        style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w400),
+                                                                                                                      )),*/
+                                                                                                                  Container(   decoration: BoxDecoration(
+                                                                                                                    border: Border.all(color: Colors.black),
+                                                                                                                    color: Colors.black12,
+
+                                                                                                                  ),
+                                                                                                                      width: MediaQuery.of(context).size.width / 4,
+                                                                                                                      alignment: Alignment.center,
+                                                                                                                      child: Text(
+                                                                                                                        "التعليمات",
+                                                                                                                        style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w400),
+                                                                                                                      )),                                                                                                                            Spacer(),
+
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                            Column(
+                                                                                                              children: [
+                                                                                                                for (int i = 0; i < inv.prescptionHdrModels!.length; i++)
+                                                                                                                  Padding(
+                                                                                                                    padding: EdgeInsets.only(left: 16, right: 16, top: 0),
+                                                                                                                    child: Container(
+                                                                                                                      child: Row(
+                                                                                                                        children: [
+                                                                                                                          Spacer(),
+
+                                                                                                                          Container(   decoration: BoxDecoration(
+                                                                                                                            border: Border.all(color: Colors.black),
+                                                                                                                            color: Colors.transparent,
+
+                                                                                                                          ),
+                                                                                                                              width: MediaQuery.of(context).size.width / 4,
+                                                                                                                              height: 35,
+                                                                                                                              child: Text(
+                                                                                                                                textAlign: TextAlign.right,
+
+                                                                                                                                inv.prescptionHdrModels![i].cname.toString(),
+                                                                                                                                style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black),
+                                                                                                                              )),
+                                                                                                                          Container(
+                                                                                                                              height: 35,
+
+                                                                                                                              decoration: BoxDecoration(
+                                                                                                                                border: Border.all(color: Colors.black),
+                                                                                                                                color: Colors.transparent,
+
+                                                                                                                              ),
+                                                                                                                              width: MediaQuery.of(context).size.width / 4,
+
+                                                                                                                              child: Text(
+                                                                                                                                textAlign: TextAlign.center,
+                                                                                                                                inv.prescptionHdrModels![i].qt.toString().substring(0, 3) + " " + (LanguageProvider.getLanguage() == 'AR' ? inv.prescptionHdrModels![i].unit.toString().split(':').last : inv.prescptionHdrModels![i].unit.toString().split(':').first),
+                                                                                                                                style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w400),
+                                                                                                                              )),
+                                                                                                                         /* Container(height: 35,
+                                                                                                                              decoration: BoxDecoration(
+                                                                                                                                border: Border.all(color: Colors.black),
+                                                                                                                                color: Colors.transparent,
+
+                                                                                                                              ),
+                                                                                                                              width: MediaQuery.of(context).size.width / 4,
+
+                                                                                                                              child: Text(
+                                                                                                                                textAlign: TextAlign.center,
+                                                                                                                                inv.prescptionHdrModels![i].dos.toString().substring(0, 3) + " " + (LanguageProvider.getLanguage() == 'AR' ? inv.prescptionHdrModels![i].unit.toString().split(':').last : inv.prescptionHdrModels![i].unit.toString().split(':').first),
+                                                                                                                                style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black, fontWeight: FontWeight.w400),
+                                                                                                                              )),*/
+                                                                                                                          Container(height: 35,
+                                                                                                                              decoration: BoxDecoration(
+                                                                                                                                border: Border.all(color: Colors.black),
+                                                                                                                                color: Colors.transparent,
+
+                                                                                                                              ),
+                                                                                                                              alignment: Alignment.center,
+                                                                                                                              width: MediaQuery.of(context).size.width / 4,
+
+                                                                                                                              child: Text(
+                                                                                                                                inv.prescptionHdrModels![i].dos.toString() /*inv.iNVOICESAllModelS![i].servicEPATIENTAMT.toString()*/,
+                                                                                                                                style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black),
+                                                                                                                              )),
+
+
+                                                                                                                          Spacer(),
+                                                                                                                        ],
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+
+                                                                                                                SizedBox(height: 50,),
+
+                                                                                                                Container(
+                                                                                                                    child: Text(
+                                                                                                                      textAlign: TextAlign.right,
+
+                                                                                                                      'الدواء المباع لا يرد ولا يستبدل',
+                                                                                                                      style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 14 * unitHeightValue, color: Colors.black,fontWeight: FontWeight.w900),
+                                                                                                                    )),
+
+
+                                                                                                                Container(
+                                                                                                                    child: Text(
+                                                                                                                      textAlign: TextAlign.right,
+
+                                                                                                                      'وصفه خروج',
+                                                                                                                      style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, fontSize: 12 * unitHeightValue, color: Colors.black,fontWeight: FontWeight.w600),
+                                                                                                                    )),
 
 
 
 
-                                                                                                            ],),
-
-
-
-                                                                                                          ],),
+                                                                                                              ],
+                                                                                                            ),
+                                                                                                          ],
                                                                                                         ),
                                                                                                       ),
                                                                                                     ),
-                                                                                                    Align(
-                                                                                                        alignment: Alignment.bottomCenter,
-                                                                                                        child: Container(
-                                                                                                            height: 50,
-                                                                                                            width:
-                                                                                                            MediaQuery.of(context).size.width / 1.6,
-                                                                                                            margin: EdgeInsets.only(top: 40, bottom: 5),
-                                                                                                            color: HexColor(Globalvireables.white),
-                                                                                                            child: ElevatedButton(
-                                                                                                                style: ElevatedButton.styleFrom(
-                                                                                                                  primary: HexColor(ThemP.getcolor()),),
-                                                                                                                child:   Icon(
-                                                                                                                  Icons.cloud_download,
-                                                                                                                  color: Colors.white,
-                                                                                                                  size: 30.0,
-                                                                                                                ),
-                                                                                                                onPressed: () async {
-                                                                                                                  _takeScreenshot();
-
-
-                                                                                                                })))
-
-
-
-                                                                                                  ],
-                                                                                                ),
+                                                                                                  ),
+                                                                                                  Align(
+                                                                                                      alignment: Alignment.bottomCenter,
+                                                                                                      child: Container(
+                                                                                                          height: 50,
+                                                                                                          width: MediaQuery.of(context).size.width / 1.6,
+                                                                                                          margin: EdgeInsets.only(top: 40, bottom: 5),
+                                                                                                          color: HexColor(Globalvireables.white),
+                                                                                                          child: ElevatedButton(
+                                                                                                              style: ElevatedButton.styleFrom(
+                                                                                                                primary: HexColor(ThemP.getcolor()),
+                                                                                                              ),
+                                                                                                              child: Icon(
+                                                                                                                Icons.cloud_download,
+                                                                                                                color: Colors.white,
+                                                                                                                size: 30.0,
+                                                                                                              ),
+                                                                                                              onPressed: () async {
+                                                                                                                _takeScreenshot();
+                                                                                                              })))
+                                                                                                ],
                                                                                               ),
                                                                                             ),
                                                                                           ),
                                                                                         ),
-                                                                                        actions: [
-
-
-                                                                                        ],
                                                                                       ),
+                                                                                      actions: [],
                                                                                     );
 
                                                                                   },
                                                                                 );
-
-
-
 
                                                                                 //    _takeScreenshot();
                                                                                 //  _capturePng();
@@ -874,25 +1046,12 @@ inv.prescptionHdrModels![i].cname.toString()
                                                                           ),
                                                                         ),
 
-
-
-
-
-
                                                                       ],
                                                                     ),
-                                                                  ),
-
-SizedBox(height: 18,)
-
-                                                              ],),
-                                                            ],
-                                                          ),
-                                                        )
-
-
-                                                    )
-                                                   /* Card(
+                                                                  ],
+                                                                ),
+                                                              ))
+                                                              /* Card(
                                                         color: Colors.white,
                                                         shape: RoundedRectangleBorder(
                                                           side: BorderSide(
@@ -1040,16 +1199,17 @@ SizedBox(height: 18,)
                                                             ),
                                                           ),
                                                         )),*/
-                                                  ],
-                                                ),
-                                              )))
-                                          .toList(),
-                                    ),
-                                  ):Image.asset(
-                                    "assets/null.png",
-                                    height: 100,
-                                    width: 100,
-                                  );
+                                                            ],
+                                                          ),
+                                                        )))
+                                                .toList(),
+                                          ),
+                                        )
+                                      : Image.asset(
+                                          "assets/null5.png",
+                                          height: 100,
+                                          width: 100,
+                                        );
                                 } else {
                                   return Center(
                                       child: CircularProgressIndicator());
@@ -1069,27 +1229,24 @@ SizedBox(height: 18,)
   }
 
   Future<List<prescptionM>> getPRESCPTION(
-    BuildContext context, String patientid, String date ) async {
+      BuildContext context, String patientid, String date) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
-    var ip= Loginprovider.getFirebaseIp().toString();
-
+    var ip = Loginprovider.getFirebaseIp().toString();
 
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    Uri postsURL = Uri.parse(ip+Globalvireables.prescptionURL);
+    Uri postsURL = Uri.parse(ip + Globalvireables.prescptionURL);
     try {
       var map = new Map<String, dynamic>();
 
       var vtt;
-      if(homeP.getvisittype()=='2')
-      vtt='3';
-      else if(homeP.getvisittype()=='3')
-        vtt='2';
+      if (homeP.getvisittype() == '2')
+        vtt = '3';
+      else if (homeP.getvisittype() == '3')
+        vtt = '2';
       else
-        vtt=homeP.getvisittype();
-
+        vtt = homeP.getvisittype();
 
       map['PatientNo'] = patientid;
       map['Date'] = date;
@@ -1134,13 +1291,11 @@ SizedBox(height: 18,)
     setState(() {
       var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-
-      if(index==1){
+      if (index == 1) {
         homeP.setVisitDate('');
 
         homeP.setvisitNo('0');
         homeP.setvisittype('0');
-
       }
       selectedIndex = index;
       Navigator.push(
@@ -1193,7 +1348,6 @@ SizedBox(height: 18,)
     return d.toString();
   }
 
-
   String retYear(String DATE) {
     var parts = DATE.split('-');
     String y = parts[0].trim();
@@ -1232,9 +1386,10 @@ SizedBox(height: 18,)
     }
     return newMonth.toString();
   }
+
   void _takeScreenshot() async {
     RenderRepaintBoundary boundary =
-    globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+        globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
 
     ui.Image image = await boundary.toImage();
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
@@ -1244,24 +1399,22 @@ SizedBox(height: 18,)
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return  PdfPreview(
+          return PdfPreview(
             build: (context) => makePdf(pngBytes),
           );
         },
       );
     }
   }
+
   Future<Uint8List> makePdf(Uint8List byteList) async {
     final pdf = pw.Document();
-    pdf.addPage(
-        pw.Page(
-            margin: const pw.EdgeInsets.all(10),
-            pageFormat: PdfPageFormat.a4,
-            build: (context) {
-              return  pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
-
-            }
-        ));
+    pdf.addPage(pw.Page(
+        margin: const pw.EdgeInsets.all(10),
+        pageFormat: PdfPageFormat.a4,
+        build: (context) {
+          return pw.Center(child: pw.Image(pw.MemoryImage(byteList)));
+        }));
     return pdf.save();
   }
 }

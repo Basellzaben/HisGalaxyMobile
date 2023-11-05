@@ -172,7 +172,7 @@ class _XrayImageState extends State<XrayImage> {
                           fontSize: 14 * unitHeightValue),
                     ),
                     onPressed: () async {
-                     Share.share(subject:'El esraa Hospital - ',  ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                     Share.share(subject:'Marka Hospital ',  ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
 //print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
   //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
 
@@ -253,7 +253,7 @@ SizedBox(height: 20,),
                         fontSize: 14 * unitHeightValue),
                   ),
                   onPressed: () async {
-                    Share.share(subject:'El esraa Hospital - ',  ImgaeXrayProvide.PLACEHOLDER.trim());
+                    Share.share(subject:'Marka Hospital - ',  ImgaeXrayProvide.PLACEHOLDER.trim());
 
                   },
                 ),

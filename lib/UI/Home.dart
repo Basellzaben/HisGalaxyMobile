@@ -13,12 +13,15 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
+import 'package:badges/badges.dart' as badges;
+
 import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../Models/Doctor.dart';
 import '../Models/HospitalInfo.dart';
+import '../Models/NotificationsM.dart';
 import '../Models/ProfileM.dart';
 import '../Models/VisitsM.dart';
 import '../provider/HomeProvider.dart';
@@ -206,7 +209,6 @@ class _HomeState extends State<Home> {
     fontSize: 19 * unitHeightValue,
     fontWeight: FontWeight.w700),
     ),),
-    Spacer(),
       GestureDetector(
         onTap: () {
           print("name "+Loginprovider.getnameA());
@@ -217,11 +219,61 @@ class _HomeState extends State<Home> {
                 builder: (context) => Notifications()),
           );
         },
-      child: Icon(
-      Icons.notifications,
-      color: HexColor(ThemP.getcolor()),
-      size: 33 * unitHeightValue,
+
+   child: badges.Badge(
+
+    badgeAnimation: badges.BadgeAnimation.rotation(
+    animationDuration: Duration(seconds: 1),
+    colorChangeAnimationDuration: Duration(seconds: 1),
+    loopAnimation: false,
+    curve: Curves.fastOutSlowIn,
+    colorChangeAnimationCurve: Curves.easeInCubic,
+    ),
+    badgeStyle: badges.BadgeStyle(
+    badgeColor: Colors.blue,
+    padding: EdgeInsets.all(5),
+    badgeGradient: badges.BadgeGradient.linear(
+    colors: [HexColor((ThemP.getcolor())), HexColor((ThemP.getcolor()))],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    )),
+
+
+
+    badgeContent:
+    StreamBuilder<String>(
+    stream: getnotificationsCount(),
+    builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+    return CircularProgressIndicator.adaptive(); // Display a loading indicator
+    } else if (snapshot.hasError) {
+      return Text(
+        '0',
+      );
+    } else {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(1.0),
+        child: Text(
+        "${snapshot.data ?? '0'}",
+          style: TextStyle(color: Colors.white),// Display the count or '0' if null
+        ),
       ),
+    );
+    }
+    },
+    ),
+
+   // Text(,style: TextStyle(color: Colors.white),),
+    child: Icon(
+    Icons.notifications,
+    color: HexColor(ThemP.getcolor()),
+    size: 33 * unitHeightValue,
+    ),
+    )
+
+
+
     )
     ],
     ),
@@ -364,7 +416,7 @@ class _HomeState extends State<Home> {
         .width / 1.4,
     child: FutureBuilder(
     future: getvisits(
-    context, Loginprovider.userId),
+    context, Loginprovider.getuserId()),
     builder: (
     BuildContext context,
     AsyncSnapshot<List<
@@ -2161,7 +2213,45 @@ Spacer(),
 
 
 
+  Stream<String> getnotificationsCount() async* {
+    Uri postsURL = Uri.parse(Globalvireables.NotificationURL); // Fix the typo in GlobalVariables
+    print(Globalvireables.HospitalInfoURL.toString()); // Fix the typo in GlobalVariables
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
+    var map = <String, dynamic>{};
+    map['PatientNo'] = Loginprovider.getuserId().toString();
+    map['NotificationType'] = 'screen';
+    try {
+      final http.Response res = await http.post(
+        postsURL,
+        body: map,
+      );
+
+      if (res.statusCode == 200) {
+        print("Doctors: " + res.body.toString());
+
+        final List<dynamic> body = jsonDecode(res.body);
+
+        print(res.body.toString() + "screenscreen");
+
+        final List<NotificationsM> HINFO = body
+            .map(
+              (dynamic item) => NotificationsM.fromJson(item),
+        )
+            .toList();
+
+        int count = HINFO.length; // Calculate the count directly
+
+        print("count: " + count.toString());
+
+        yield count.toString();
+      } else {
+        throw "Unable to retrieve Doctors. orrr";
+      }
+    } catch (e) {
+      print("Error: " + e.toString());
+    }
+  }
 
 
 
