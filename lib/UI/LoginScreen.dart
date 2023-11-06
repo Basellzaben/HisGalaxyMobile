@@ -600,7 +600,7 @@ margin: EdgeInsets.only(top: 0),
     homeP.setvisitNo('0');
     homeP.setvisittype('0');
 
-
+    Firebase.initializeApp();
     var value = FirebaseDatabase.instance.reference();
     var getValue = await value.child('ip').once();
 

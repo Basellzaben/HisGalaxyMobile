@@ -25,14 +25,19 @@ import 'HexaColor.dart';
 import 'Models/NotificationsM.dart';
 import 'NotificationService.dart';
 import 'UI/LoginScreen.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+
 String language='';
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp(options:DefaultFirebaseOptions.currentPlatform);
+ // await Firebase.initializeApp();
   await Firebase.initializeApp();
 
-  //final prefs = await SharedPreferences.getInstance();
+
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<Language>(create: (_) => Language()),
@@ -46,8 +51,6 @@ Future<void> main() async {
       ],
       child:DevicePreview(enabled: false,builder:(context)=> const MyApp(),)));
 
-
-  await Firebase.initializeApp();
 
   var value = FirebaseDatabase.instance.reference();
   var ActiveNotifications = await value.child('ActiveNotifications').once();
@@ -71,6 +74,7 @@ const notificationChannelId = 'background_test';
 const notificationId = 424;
 var ticketId = '';
 Future<List<NotificationsM>> getnotifications() async {
+  await Firebase.initializeApp();
 
   var prefs = await SharedPreferences.getInstance();
 

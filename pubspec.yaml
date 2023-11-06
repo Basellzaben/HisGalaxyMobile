@@ -3,7 +3,6 @@ description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -16,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+6
+version: 1.0.0+7
 
 environment:
   sdk: '>=3.1.0-113.0.dev <4.0.0'
@@ -39,7 +38,7 @@ dependencies:
   easy_splash_screen: ^1.0.4
   provider: ^6.0.5
   local_auth: ^2.1.6
-  shared_preferences: ^2.1.1
+  shared_preferences: any
   http: ^0.13.6
   geocoding: ^2.1.0
   google_fonts: ^4.0.4
@@ -53,7 +52,7 @@ dependencies:
   circular_chart_flutter: ^0.0.2
   percent_indicator: ^4.2.3
   webview_flutter: ^4.2.2
-  share_plus: ^7.0.2
+  share_plus: ^7.2.1
   arabic_font: ^0.0.9
   image_gallery_saver: ^2.0.2
   fluttertoast: ^8.2.2
@@ -62,13 +61,15 @@ dependencies:
   syncfusion_flutter_pdf: ^22.1.37
   flutter_svg: ^2.0.7
   flutter_html: ^3.0.0-beta.2
-  firebase_core:
-  firebase_database:
-  syncfusion_flutter_barcodes: ^22.2.12
-  flutter_local_notifications: ^16.1.0
-  flutter_background_service: ^5.0.2
-  badges: ^3.1.2
   app_settings: ^5.1.1
+  flutter_background_service: ^5.0.2
+  flutter_local_notifications: ^16.1.0
+  badges: ^3.1.2
+  syncfusion_flutter_barcodes: ^22.2.12
+  firebase_core: any
+  firebase_database: ^10.3.3
+
+
 
 dev_dependencies:
   flutter_test:
@@ -100,8 +101,6 @@ flutter:
     - assets/doctor2.png
     - assets/doctor3.png
     - assets/svgtest.svg
-    - assets/family.png
-    - assets/null5.png
 
 
   # To add assets to your application, add an assets section, like this:
