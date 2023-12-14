@@ -71,3 +71,7 @@ class NotificationService {
         id!, title, body, await notificationDetails());
   }*/
 }
+
+
+
+//flutter pub add flutter_local_notifications

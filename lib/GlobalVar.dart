@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
   static String black2="#333334";
   static String grey="#707070";
   static String secondcolor2="#d0e8ee";
- //static String connectIP="10.0.1.120:9999";
-  static String connectIP="94.249.83.196:8055";
+ static String connectIP="10.0.1.120:9999";
+  //static String connectIP="94.249.83.196:8055";
 
 
 

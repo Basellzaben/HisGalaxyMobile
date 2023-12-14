@@ -448,12 +448,7 @@ var Terms='';
 
                                           },
                                         );
-                                        //Widgets.ShowLoaderDialog(context, "Logout","");
-                                        /*Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                          builder: (context) => LoginScreen(),
-                                        ),
-                                            (Route<dynamic> route) => false);*/
+
                                       },
                                       child: Row(
                                         children: [
@@ -617,8 +612,7 @@ var Terms='';
                                             fontWeight: FontWeight.w500),
                                       )
                                     ]),
-                                  )
-                              ,
+                                  ),
 
                                   Divider(thickness: 1.0, color: Colors.black),
                                   SizedBox(
@@ -683,10 +677,7 @@ var Terms='';
                                             fontWeight: FontWeight.w500),
                                       )
                                     ]),
-                                  )
-
-                              ,
-
+                                  ),
                                   Divider(thickness: 1.0, color: Colors.black),
                                   SizedBox(
                                   height: 6,
@@ -1020,7 +1011,6 @@ SizedBox(height: 15,),
 
       prefs.setString('username','');
    prefs.setString('password','');
-   prefs.setString('userId','');
 
   }
 
