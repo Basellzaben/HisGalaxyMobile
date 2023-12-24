@@ -240,7 +240,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                                           Column(
                                             children: [
                                               Text(
-                                                'MARKA SPECIALITY HOSPITAL',
+                                                'Irbid SPECIALITY HOSPITAL',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w700,
                                                     color: HexColor(Globalvireables
@@ -274,7 +274,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                                               height:60,
                                               child: Image(
                                                   image: new AssetImage(
-                                                      "assets/newlogo.png")))
+                                                      "assets/irbidlogo.png")))
                                         ],
                                       ),
                                       Divider(thickness: 1.0, color: Colors.black),
@@ -366,7 +366,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                                                   unitHeightValue),
                                         ),
                                         Text(
-                                          Loginprovider.id,
+                                          Loginprovider.userId,
                                           style: TextStyle(
 
                                               color: HexColor(Globalvireables
@@ -423,51 +423,60 @@ SizedBox(height: 6,),
                                                 children: Examnation!
                                                     .map((ExamnationGroupM inv) => SizedBox(
                                                     child: Row(children: [
-                                                      Text(
-                                                        inv.serVDESC.toString(),
-                                                        style: TextStyle(
+                                                      Container(
+                                                        width: MediaQuery.of(context).size.width/3.5,
+                                                        child: Text(
+                                                          inv.serVDESC.toString(),
+                                                          style: TextStyle(
 
-                                                            color: HexColor(Globalvireables
-                                                                .black),
-                                                            fontSize:
-                                                            12 *
-                                                                unitHeightValue),
+                                                              color: HexColor(Globalvireables
+                                                                  .black),
+                                                              fontSize:
+                                                              12 *
+                                                                  unitHeightValue),
+                                                        ),
                                                       ),
-                                                      Spacer(),
-                                                      Text(
-                                                        inv.result.toString(),
-                                                        style: TextStyle(
+                                                      Container(
+                                                        width: MediaQuery.of(context).size.width/6.5,
+                                                        child: Text(
+                                                          inv.result.toString(),
+                                                          style: TextStyle(
 
-                                                            color: HexColor(Globalvireables
-                                                                .black),
-                                                            fontSize:
-                                                            12 *
-                                                                unitHeightValue),
+                                                              color: HexColor(Globalvireables
+                                                                  .black),
+                                                              fontSize:
+                                                              12 *
+                                                                  unitHeightValue),
+                                                        ),
                                                       ),
-                                                      Spacer(),
 
-                                                      Text(
-                                                          inv.unitDesc.toString(),
+                                                      Container(
+                                                        width: MediaQuery.of(context).size.width/5.2,
+                                                        child: Text(
+                                                            inv.unitDesc.toString(),
 
-                                                        style: TextStyle(
+                                                          style: TextStyle(
 
-                                                            color: HexColor(Globalvireables
-                                                                .black),
-                                                            fontSize:
-                                                            12 *
-                                                                unitHeightValue),
+                                                              color: HexColor(Globalvireables
+                                                                  .black),
+                                                              fontSize:
+                                                              12 *
+                                                                  unitHeightValue),
+                                                        ),
                                                       ),
-                                                      Spacer(),
-                                                      Text(
-                                                        inv.normalRange.toString(),
+                                                      Container(
+                                                        width: MediaQuery.of(context).size.width/5.2,
+                                                        child: Text(
+                                                          inv.normalRange.toString(),
 
-                                                        style: TextStyle(
+                                                          style: TextStyle(
 
-                                                            color: HexColor(Globalvireables
-                                                                .black),
-                                                            fontSize:
-                                                            12 *
-                                                                unitHeightValue),
+                                                              color: HexColor(Globalvireables
+                                                                  .black),
+                                                              fontSize:
+                                                              12 *
+                                                                  unitHeightValue),
+                                                        ),
                                                       ),
 
 

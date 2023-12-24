@@ -221,7 +221,7 @@ class _MedicalReportState extends State<MedicalReport> {
                                             height: 100,
                                             child: Image(
                                                 image: new AssetImage(
-                                                    "assets/newlogo.png")),
+                                                    "assets/irbidlogo.png")),
                                           ),
                                           Text(
                                             "تقرير طبي",

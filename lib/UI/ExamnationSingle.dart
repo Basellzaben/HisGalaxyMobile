@@ -225,7 +225,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                                           Column(
                                             children: [
                                               Text(
-                                                'MARKA SPECIALITY HOSPITAL',
+                                                'Irbid SPECIALITY HOSPITAL',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w700,
                                                     color: HexColor(Globalvireables
@@ -259,7 +259,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                                               height:60,
                                               child: Image(
                                                   image: new AssetImage(
-                                                      "assets/newlogo.png")))
+                                                      "assets/irbidlogo.png")))
                                         ],
                                       ),
 

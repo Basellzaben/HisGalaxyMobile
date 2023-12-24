@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../GlobalVar.dart';
 import '../HexaColor.dart';
@@ -619,7 +620,24 @@ Spacer(),
                                           ),
                                         ),
 
-                                        SizedBox(height: 240,),
+                                        SizedBox(height: 20,),
+
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width/2,
+                                      height: MediaQuery.of(context).size.width/2,
+                                      child: QrImageView(
+                                        data: Doctor.nationalno.toString()
+                                        ,
+                                        errorCorrectionLevel: QrErrorCorrectLevel.H,
+                                        version: QrVersions.auto,
+                                        gapless: true,
+                                        backgroundColor:Colors.white,
+                                        eyeStyle: QrEyeStyle(color: Colors.black),
+                                      ),
+                                    ),
+
+
+                                        SizedBox(height: 40,),
                                         Text("Version 1.0 - Galaxy Group")
 
 
@@ -912,5 +930,8 @@ Spacer(),
 
     throw "Unable to retrieve Profile.";
   }
+
+
+
 
 }

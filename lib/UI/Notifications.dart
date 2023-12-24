@@ -133,7 +133,11 @@ class _NotificationsState extends State<Notifications> {
                             bottomLeft: Radius.circular(40.0)),
                       ),
                       padding: EdgeInsets.only(left: 20, right: 20),
-                      child: SizedBox(
+                      child: Image.asset(
+                        "assets/null5.png",
+                        height: 100,
+                        width: 100,
+                      )/*SizedBox(
                         width: MediaQuery.of(context).size.width / 1.11,
                         height: MediaQuery.of(context).size.height / 1.4,
                         child: FutureBuilder(
@@ -143,7 +147,7 @@ class _NotificationsState extends State<Notifications> {
                             if (snapshot.hasData) {
                               List<NotificationsM>? NotificationList = snapshot.data;
                               return NotificationList!.isNotEmpty
-                                  ? ListView(
+                                  ? *//*ListView(
                                       children: NotificationList!
                                           .map((NotificationsM inv) => SizedBox(
                                                   child: GestureDetector(
@@ -190,9 +194,9 @@ class _NotificationsState extends State<Notifications> {
                                                                   child: Row(
                                                                     children: [
 
-                                                                    /*  Icon(
+                                                                    *//**//*  Icon(
                                                                         Icons.settings,
-                                                                      ),*/
+                                                                      ),*//**//*
 
                                                                       Padding(
                                                                         padding: const EdgeInsets.only(left: 4,right: 4),
@@ -210,10 +214,10 @@ class _NotificationsState extends State<Notifications> {
                                                                               color: Colors.white,
                                                                               size: 27,
                                                                             ),
-                                                                            /*SvgPicture.asset("assets/xray.svg",color: Colors.white,
+                                                                            *//**//*SvgPicture.asset("assets/xray.svg",color: Colors.white,
                                                                               height: 25 * unitHeightValue,
                                                                               width: 25 * unitHeightValue,
-                                                                            ),*/
+                                                                            ),*//**//*
                                                                           ),
                                                                         ),
                                                                       ),
@@ -268,7 +272,7 @@ Spacer(),
 
 
 
-    /*     Padding(
+    *//**//*     Padding(
 
 
                                                                         padding: const EdgeInsets
@@ -300,7 +304,7 @@ Spacer(),
                                                                             )
                                                                           ],
                                                                         ),
-                                                                      )*/
+                                                                      )*//**//*
                                                                     ],
                                                                   ),
                                                                 ),
@@ -312,7 +316,12 @@ Spacer(),
                                                     )),
                                               )))
                                           .toList(),
-                                    )
+                                    )*//*
+                              Image.asset(
+                                "assets/null5.png",
+                                height: 100,
+                                width: 100,
+                              )
                                   : Image.asset(
                                       "assets/null5.png",
                                       height: 100,
@@ -323,7 +332,7 @@ Spacer(),
                             }
                           },
                         ),
-                      )),
+                      )*/),
                 ),
               ),
             ),

@@ -38,7 +38,7 @@ class DrugHosAllModelS {
 
   DrugHosAllModelS.fromJson(Map<String, dynamic> json) {
     cname = json['cname'].toString() ??' ';
-    qt = json['qt'].toString() ??' ';
+    qt = json['qt'].toString() ??'1';
     unit = json['unit'].toString() ??' ';
     dose = json['dose'].toString()??'';
 
@@ -47,7 +47,7 @@ class DrugHosAllModelS {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['cname'] = this.cname.toString()??' ';
-    data['qt'] = this.qt.toString()??' ' ;
+    data['qt'] = this.qt.toString()??'1' ;
     data['unit'] = this.unit.toString()??' ';
     data['dose'] = this.dose.toString()=='null'?? "- : -";
     return data;

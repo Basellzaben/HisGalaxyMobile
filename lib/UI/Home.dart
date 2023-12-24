@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:arabic_font/arabic_font.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -305,16 +306,88 @@ class _HomeState extends State<Home> {
       ),
     ),
 
-    SizedBox(height: 5,),
+
+      /*SizedBox(
+        height: 120,
+        width: double.infinity,
+        child: CarouselSlider(
+          items: [
+            Container(
+              alignment: Alignment.center,
+              margin:
+              EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(0),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          HexColor(ThemP.getcolor()), BlendMode.dstIn),
+                      image: AssetImage('assets/s2.png')),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey,
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                        offset: Offset(4, 4))
+                  ]),
+
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin:
+              EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(0),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          HexColor(ThemP.getcolor()), BlendMode.dstIn),
+                      image: AssetImage('assets/s1.png')),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey,
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                        offset: Offset(4, 4))
+                  ]),
+
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin:
+              EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(0),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          HexColor(ThemP.getcolor()), BlendMode.dstIn),
+                      image: AssetImage('assets/s3.png')),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey,
+                        spreadRadius: 2,
+                        blurRadius: 8,
+                        offset: Offset(4, 4))
+                  ]),
+
+            ),
+          ],
+          options: CarouselOptions(
+           autoPlay: true,
+            viewportFraction: 1,
+
+          ),
+        ),
+      )
+,*/
+    SizedBox(height: 10,),
     SizedBox(
     child: SizedBox(
     child: TextField(
     controller: dateinput,
     //editing controller of this TextField
     decoration: InputDecoration(
-
-
-
     prefixIcon: Icon(
     Icons.airline_seat_flat, color: HexColor(
     ThemP.getcolor()),
@@ -437,7 +510,11 @@ class _HomeState extends State<Home> {
 
           homeP.setVisitDate(v
               .visitDate
-              .toString().substring(0,10)) ;
+              .toString().length>10?v
+              .visitDate
+              .toString().substring(0,10):v
+              .VisitType
+              .toString()) ;
           dateinput.text=homeP.getVisitDate();
           homeP.setvisitNo(v
               .visitName
@@ -462,7 +539,7 @@ class _HomeState extends State<Home> {
           child: SizedBox(
           child: Row(
           children: [
-          Spacer(),
+         /* Spacer(),
           Text(
           v
               .visitName
@@ -475,12 +552,16 @@ class _HomeState extends State<Home> {
           unitHeightValue,
           fontWeight: FontWeight
               .w700),),
-          Spacer(),
+          Spacer(),*/
           Spacer(),
           Text(
-          v
+              v
+                  .visitDate
+                  .toString().length>10?  v
               .visitDate
-              .toString().substring(0,10),
+              .toString().substring(0,10): v
+                  .visitDate
+                  .toString(),
           style: ArabicTextStyle(
                   arabicFont: ArabicFont.tajawal,
           color: Colors
@@ -583,82 +664,89 @@ class _HomeState extends State<Home> {
     ),
     Row(
     children: [
-    GestureDetector(
-    onTap: () async {
+      GestureDetector(
+        onTap: () async {
 
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Appoiments()),);
+          // if(homeP.getvisitNo().toString()!='0')
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DrugInHOSPITAL()),);
+          /*    else
+            showDialog(
+              context: context,
+              builder: (context) =>
+              new AlertDialog(
+                title: new Text(LanguageProvider.Llanguage('note')),
+                content: Text(LanguageProvider.Llanguage('selectvisitno')),
+                actions: <Widget>[],
+              ),
+            );*/
 
 
-    },
-    child: Column(
-    children: [
- Container(
-   decoration: BoxDecoration(
-       border: Border.all(color: HexColor(ThemP.getcolor())),
-        borderRadius: BorderRadius.circular(15.0),
+        },
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
 
-    ),
-    width: MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    height:
-    MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    child: Column(
-    children: [
-      Spacer(),
-      SvgPicture.asset("assets/Dates.svg",color: HexColor(ThemP.getcolor()),
-        height: 50 * unitHeightValue,
-        width: 50 * unitHeightValue,
+              ),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              height:
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              child: Column(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/Medical_In.svg",color: HexColor(ThemP.getcolor()),
+                    height: 50 * unitHeightValue,
+                    width: 50 * unitHeightValue,
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+                LanguageProvider.Llanguage("drugH"),
+
+                style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+                    color: HexColor(ThemP.getcolor()),
+                    fontSize: 13 * unitHeightValue,
+                    fontWeight: FontWeight.w700
+                )
+
+
+
+            ),
+          ],
+        ),
       ),
-      Spacer(),
 
-    ],
-    ),
-    ),
-      SizedBox(
-        height: 5,
-      ),
-    Text(
-    LanguageProvider.Llanguage("Appoiments"),
-        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-            color: HexColor(ThemP.getcolor()),
-            fontSize: 13 * unitHeightValue,
-            fontWeight: FontWeight.w700
-        )
-    ),
-
-
-
-
-
-    ],
-    ),
-    ),
     Spacer(),
+      GestureDetector(
+        onTap: () async {
 
-    GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Invoices( )),);
- /*     if(homeP.getvisitNo().toString()!='0')
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Invoices( )),);
-      else
+
+          //  if(homeP.getvisitNo().toString()!='0')
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Examnation()),);
+          /*  else
         showDialog(
           context: context,
           builder: (context) =>
@@ -670,60 +758,57 @@ class _HomeState extends State<Home> {
         );*/
 
 
+        },
+        child: Column(
+          children: [
 
-    },
-    child: Column(
-    children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
+
+              ),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              height:
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              child: Column(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/Checkup.svg",color: HexColor(ThemP.getcolor()),
+                    height: 50 * unitHeightValue,
+                    width: 50 * unitHeightValue,
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+                LanguageProvider.Llanguage("examination"),
+
+                style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+                    color: HexColor(ThemP.getcolor()),
+                    fontSize: 13 * unitHeightValue,
+                    fontWeight: FontWeight.w700
+                )
 
 
-    Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: HexColor(ThemP.getcolor())),
-        borderRadius: BorderRadius.circular(15.0),
 
+            ),
+          ],
+        ),
       ),
-    width: MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    height:
-    MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    child: Column(
-    children: [
-    Spacer(),
-      SvgPicture.asset("assets/invoices.svg",color: HexColor(ThemP.getcolor()),
-        height: 50 * unitHeightValue,
-        width: 50 * unitHeightValue,
-      ),
-    Spacer(),
-    ],
-    ),
-    ),
-      SizedBox(
-        height: 5,
-      ),
-    Text(
-    LanguageProvider.Llanguage("Invoices"),
-
-
-        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-            color: HexColor(ThemP.getcolor()),
-            fontSize: 13 * unitHeightValue,
-            fontWeight: FontWeight.w700
-        )
-
-
-
-    ),
-    ],
-    ),
-    ),
     Spacer(),
     GestureDetector(
         onTap: () async {
@@ -804,75 +889,69 @@ class _HomeState extends State<Home> {
     ),
     Row(
     children: [
-    GestureDetector(
-    onTap: () {
+      GestureDetector(
+        onTap: () async {
 
-    //  if(homeP.getvisitNo().toString()!='0')
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => Insurance()),);
-    /*  else
-         showDialog(
-          context: context,
-          builder: (context) =>
-      new AlertDialog(
-        title: new Text(LanguageProvider.Llanguage('note')),
-        content: Text(LanguageProvider.Llanguage('selectvisitno')),
-        actions: <Widget>[],
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Appoiments()),);
+
+
+        },
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
+
+              ),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              height:
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              child: Column(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/Dates.svg",color: HexColor(ThemP.getcolor()),
+                    height: 50 * unitHeightValue,
+                    width: 50 * unitHeightValue,
+                  ),
+                  Spacer(),
+
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+                LanguageProvider.Llanguage("Appoiments"),
+                style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+                    color: HexColor(ThemP.getcolor()),
+                    fontSize: 13 * unitHeightValue,
+                    fontWeight: FontWeight.w700
+                )
+            ),
+
+
+
+
+
+          ],
+        ),
       ),
-      );*/
-    },
-    child: Column(
-    children: [
 
-     Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: HexColor(ThemP.getcolor())),
-        borderRadius: BorderRadius.circular(15.0),
-
-      ),
-    width: MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    height:
-    MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    child: Column(
-    children: [
-    Spacer(),
-      SvgPicture.asset("assets/Insurance.svg",color: HexColor(ThemP.getcolor()),
-        height: 50 * unitHeightValue,
-        width: 50 * unitHeightValue,
-      ),
-    Spacer(),
-    ],
-    ),
-    ),
-      SizedBox(
-        height: 5,
-      ),
-    Text(
-    LanguageProvider.Llanguage("Insurance"),
-
-
-        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-            color: HexColor(ThemP.getcolor()),
-            fontSize: 13 * unitHeightValue,
-            fontWeight: FontWeight.w700
-        )
-
-
-    ),
-    ],
-    ),
-    ),
     Spacer(),
     GestureDetector(
     onTap: () {
@@ -994,6 +1073,10 @@ class _HomeState extends State<Home> {
       ],
       ),
       ),
+
+
+
+
         SizedBox(
           height: 5,
         ),
@@ -1013,6 +1096,8 @@ class _HomeState extends State<Home> {
       ],
       ),
     )
+
+
     ],
     ),
     SizedBox(
@@ -1020,16 +1105,18 @@ class _HomeState extends State<Home> {
     ),
     Row(
     children: [
-    GestureDetector(
-    onTap: () async {
-
-
-    //  if(homeP.getvisitNo().toString()!='0')
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Invoices( )),);
+          /*     if(homeP.getvisitNo().toString()!='0')
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => Examnation()),);
-    /*  else
+              builder: (context) => Invoices( )),);
+      else
         showDialog(
           context: context,
           builder: (context) =>
@@ -1041,115 +1128,46 @@ class _HomeState extends State<Home> {
         );*/
 
 
-    },
-    child: Column(
-    children: [
 
-   Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: HexColor(ThemP.getcolor())),
-        borderRadius: BorderRadius.circular(15.0),
-
-      ),
-    width: MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    height:
-    MediaQuery
-        .of(context)
-        .size
-        .width /
-    4.5,
-    child: Column(
-    children: [
-    Spacer(),
-      SvgPicture.asset("assets/Checkup.svg",color: HexColor(ThemP.getcolor()),
-        height: 50 * unitHeightValue,
-        width: 50 * unitHeightValue,
-      ),
-    Spacer(),
-    ],
-    ),
-    ),
-      SizedBox(
-        height: 5,
-      ),
-    Text(
-    LanguageProvider.Llanguage("examination"),
-
-        style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-            color: HexColor(ThemP.getcolor()),
-            fontSize: 13 * unitHeightValue,
-            fontWeight: FontWeight.w700
-        )
-
-
-
-    ),
-    ],
-    ),
-    ),
-    Spacer(),
-      GestureDetector(
-        onTap: () async {
-
-
-         // if(homeP.getvisitNo().toString()!='0')
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DrugInHOSPITAL()),);
-      /*    else
-            showDialog(
-              context: context,
-              builder: (context) =>
-              new AlertDialog(
-                title: new Text(LanguageProvider.Llanguage('note')),
-                content: Text(LanguageProvider.Llanguage('selectvisitno')),
-                actions: <Widget>[],
-              ),
-            );*/
-
-
-},
+        },
         child: Column(
           children: [
-            Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: HexColor(ThemP.getcolor())),
-                  borderRadius: BorderRadius.circular(15.0),
 
-                ),
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width /
-                    4.5,
-                height:
-                MediaQuery
-                    .of(context)
-                    .size
-                    .width /
-                    4.5,
-                child: Column(
-                  children: [
-                    Spacer(),
-                    SvgPicture.asset("assets/Medical_In.svg",color: HexColor(ThemP.getcolor()),
-                      height: 50 * unitHeightValue,
-                      width: 50 * unitHeightValue,
-                    ),
-                    Spacer(),
-                  ],
-                ),
+
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
+
               ),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              height:
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              child: Column(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/invoices.svg",color: HexColor(ThemP.getcolor()),
+                    height: 50 * unitHeightValue,
+                    width: 50 * unitHeightValue,
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
             SizedBox(
               height: 5,
             ),
             Text(
-                LanguageProvider.Llanguage("drugH"),
+                LanguageProvider.Llanguage("Invoices"),
+
 
                 style: ArabicTextStyle(
                     arabicFont: ArabicFont.tajawal,
@@ -1165,6 +1183,79 @@ class _HomeState extends State<Home> {
         ),
       ),
 
+      Spacer(),
+      GestureDetector(
+        onTap: () {
+
+          //  if(homeP.getvisitNo().toString()!='0')
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Insurance()),);
+          /*  else
+         showDialog(
+          context: context,
+          builder: (context) =>
+      new AlertDialog(
+        title: new Text(LanguageProvider.Llanguage('note')),
+        content: Text(LanguageProvider.Llanguage('selectvisitno')),
+        actions: <Widget>[],
+      ),
+      );*/
+        },
+        child: Column(
+          children: [
+
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: HexColor(ThemP.getcolor())),
+                borderRadius: BorderRadius.circular(15.0),
+
+              ),
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              height:
+              MediaQuery
+                  .of(context)
+                  .size
+                  .width /
+                  4.5,
+              child: Column(
+                children: [
+                  Spacer(),
+                  SvgPicture.asset("assets/Insurance.svg",color: HexColor(ThemP.getcolor()),
+                    height: 50 * unitHeightValue,
+                    width: 50 * unitHeightValue,
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+                LanguageProvider.Llanguage("Insurance"),
+
+
+                style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+                    color: HexColor(ThemP.getcolor()),
+                    fontSize: 13 * unitHeightValue,
+                    fontWeight: FontWeight.w700
+                )
+
+
+            ),
+          ],
+        ),
+      ),
+
+
+//drg
       Spacer(),
 
       GestureDetector(

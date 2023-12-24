@@ -249,7 +249,7 @@ var Terms='';
                                   //////////////////////////////////
 
 
-                                  SizedBox(
+                               /*   SizedBox(
                                     height: 6,
                                   ),
                                   Divider(thickness: 1.0, color: Colors.black),
@@ -288,7 +288,7 @@ var Terms='';
                                     ),
                                   ),
 
-
+*/
                                   //////////////////////////////////
                                   SizedBox(
                                     height: 6,
@@ -492,7 +492,7 @@ var Terms='';
                                   ),
                                   GestureDetector(
                                   onTap: ()  {
-
+/////////////
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -525,7 +525,7 @@ var Terms='';
                                   height: 100,
                                   child: Image(
                                       image: new AssetImage(
-                                          "assets/newlogo.png")),
+                                          "assets/irbidlogo.png")),
                                 ),
                                 Spacer(),
 
@@ -684,7 +684,7 @@ var Terms='';
                                   ),
                                   GestureDetector(
                                   onTap: () async {
-                                  Share.share(subject:'Marka Hospital - ', 'https://play.google.com/store/apps/details?id=com.galaxygroup.hismobileapp');
+                                  Share.share(subject:'Irbid Hospital - ', 'https://play.google.com/store/apps/details?id=com.galaxygroup.hismobileapp');
                                   },
                                   child: Row(children: [
                                   Icon(

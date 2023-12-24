@@ -290,9 +290,8 @@ class _ExamnationState extends State<Examnation> {
                                                         color: Colors.white,
                                                         shape: RoundedRectangleBorder(
                                                           side: BorderSide(
-                                                              color: HexColor(
-                                                                  ThemP
-                                                                      .getcolor()),
+                                                              color: returnNormalRange(inv.normalRange.toString(),
+                                                              inv.result.toString()),
                                                               width: 1),
                                                           borderRadius:
                                                           BorderRadius.circular(
@@ -368,23 +367,13 @@ class _ExamnationState extends State<Examnation> {
                                                                                     .serVDESC
                                                                                     .toString());
 
-                                                                            SINGLEEx
-                                                                                .setServNo(
-                                                                                inv
-                                                                                    .servNo
-                                                                                    .toString());
-                                                                            SINGLEEx
-                                                                                .setOrderNo(
-                                                                                inv
-                                                                                    .orederNo
-                                                                                    .toString());
+                                                                            SINGLEEx.setServNo(inv.servNo.toString());
+                                                                            SINGLEEx.setOrderNo(inv.orederNo.toString());
 
 
-                                                                            if (inv
-                                                                                .normalRange !=
-                                                                                "null") {
-                                                                              Navigator
-                                                                                  .push(
+
+                                                                            if (inv.normalRange != "null") {
+                                                                              Navigator.push(
                                                                                 context,
                                                                                 MaterialPageRoute(
                                                                                     builder: (
@@ -392,8 +381,7 @@ class _ExamnationState extends State<Examnation> {
                                                                                         ExamnationSingle()),
                                                                               );
                                                                             } else {
-                                                                              Navigator
-                                                                                  .push(
+                                                                              Navigator.push(
                                                                                 context,
                                                                                 MaterialPageRoute(
                                                                                     builder: (
@@ -723,4 +711,47 @@ class _ExamnationState extends State<Examnation> {
 
     return newMonth + " " + d + "," + y;
   }
+
+
+ returnNormalRange(var x , var finalr){
+  var ThemP = Provider.of<Them>(context, listen: false);
+
+  try {
+
+    double intresult = double.parse(finalr.toString());
+
+
+      // Given string
+      //String x = "10 - 50";
+
+      // Split the string by the '-' character
+      List<String> parts = x.split('-');
+
+      // Extract and convert the numbers
+    double y = double.parse(parts[0].trim());
+    double z = double.parse(parts[1].trim());
+
+      // Perform the subtraction
+
+      // Print the results
+      print("y = $y");
+      print("z = $z");
+
+
+      if (intresult > y && intresult < z) {
+        return HexColor(ThemP.getcolor());
+      } else {
+        return Colors.red;
+      }
+    }catch(_){
+      return HexColor(ThemP.getcolor());
+
+    }
+
+}
+
+
+
+
+
 }

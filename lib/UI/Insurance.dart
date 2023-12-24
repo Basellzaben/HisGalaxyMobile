@@ -792,7 +792,7 @@ class _InsuranceState extends State<Insurance> {
                                                             margin: EdgeInsets.only(top: 10),
 
                                                             child:Text(
-                                                              ( double.parse(insurance.InPre.toString()))
+                                                              ( double.parse(insurance.labPercent.toString()))
                                                                   .toString()+'%',
                                                               style: ArabicTextStyle(
                                                                   arabicFont: ArabicFont.tajawal,
@@ -851,7 +851,7 @@ class _InsuranceState extends State<Insurance> {
                                                             /
                                                             100,
                                                         center: new Text(
-                                                          ( double.parse(insurance.InPre.toString()))
+                                                          ( double.parse(insurance.pharmacyPercent.toString()))
                                                               .toString()
                                                           ,
                                                           style: ArabicTextStyle(
@@ -912,7 +912,7 @@ class _InsuranceState extends State<Insurance> {
                                                             /
                                                             100,
                                                         center: new Text(
-                                                          ( double.parse(insurance.InPre.toString()))
+                                                          ( double.parse(insurance.servicePercent.toString()))
                                                               .toString()
                                                           ,
                                                           style: ArabicTextStyle(
@@ -968,7 +968,7 @@ class _InsuranceState extends State<Insurance> {
                                                             /
                                                             100,
                                                         center: new Text(
-                                                          (double.parse(insurance.InPre.toString()))
+                                                          (double.parse(insurance.suppliesPercent.toString()))
                                                               .toString()
                                                           ,
                                                           style: ArabicTextStyle(
@@ -1029,7 +1029,7 @@ class _InsuranceState extends State<Insurance> {
                                                             /
                                                             100,
                                                         center: new Text(
-                                                          (double.parse(insurance.InPre.toString()))
+                                                          (double.parse(insurance.pharmacyPercent.toString()))
                                                               .toString()
                                                           ,
                                                           style: ArabicTextStyle(
@@ -1086,7 +1086,7 @@ class _InsuranceState extends State<Insurance> {
                                                             /
                                                             100,
                                                         center: new Text(
-                                                          ( double.parse(insurance.InPre.toString()))
+                                                          ( double.parse(insurance.raysPercent.toString()))
                                                               .toString()
                                                           ,
                                                           style: ArabicTextStyle(

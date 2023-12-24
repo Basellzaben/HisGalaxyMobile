@@ -424,8 +424,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                             showDialog(
                                                                                               context: context,
                                                                                               builder: (BuildContext context) {
-                                                                                                return Expanded(
-                                                                                                  child: AlertDialog(
+                                                                                                return  AlertDialog(
                                                                                                     title: SizedBox(
                                                                                                       height: MediaQuery.of(context).size.height / 8,
                                                                                                       child: Center(
@@ -458,8 +457,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                       ),
                                                                                                     ),
                                                                                                     actions: [],
-                                                                                                  ),
-                                                                                                );
+                                                                                                  );
                                                                                               },
                                                                                             );
                                                                                           },
@@ -564,7 +562,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                                     Column(
                                                                                                                       children: [
                                                                                                                         Text(
-                                                                                                                          'MARKA SPECIALITY HOSPITAL',
+                                                                                                                          'Irbid SPECIALITY HOSPITAL',
                                                                                                                           style: TextStyle(fontWeight: FontWeight.w700, color: HexColor(Globalvireables.black), fontSize: 12 * unitHeightValue),
                                                                                                                         ),
                                                                                                                         Text(
@@ -574,7 +572,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                                       ],
                                                                                                                     ),
                                                                                                                     Spacer(),
-                                                                                                                    Container(width: 60, height: 60, child: Image(image: new AssetImage("assets/newlogo.png")))
+                                                                                                                    Container(width: 60, height: 60, child: Image(image: new AssetImage("assets/irbidlogo.png")))
                                                                                                                   ],
                                                                                                                 ),
                                                                                                                 Divider(thickness: 1.0, color: Colors.black),

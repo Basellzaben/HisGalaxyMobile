@@ -390,8 +390,14 @@ class _AppoimentsState extends State<Appoiments> {
     Uri postsURL = Uri.parse(Loginprovider.getFirebaseIp().toString() +
         Globalvireables.AppoimentsURL);
     try {
-      String state1 = '3649';
-      String state2 = '2';
+
+      //irbid
+      String  state1 = '3247';
+      String  state2 = '1';
+
+      //marka
+    /*  String state1 = '3649';
+      String state2 = '2';*/
       var homeP = Provider.of<HomeProvider>(context, listen: false);
 
       var type;
@@ -410,8 +416,12 @@ class _AppoimentsState extends State<Appoiments> {
       map['searchDate'] = date;
       map['VisitType'] = type;
       if (state) {
-        state1 = '3650';
+        //irbid
+        state1 = '3248';
         state2 = '1';
+        //marka
+      /*  state1 = '3650';
+        state2 = '1';*/
       }
       map['state'] = state1;
       map['state2'] = state2;

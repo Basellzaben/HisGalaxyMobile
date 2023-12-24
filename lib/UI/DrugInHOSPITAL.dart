@@ -352,8 +352,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                   showDialog(
                                                                                     context: context,
                                                                                     builder: (BuildContext context) {
-                                                                                      return Expanded(
-                                                                                        child: AlertDialog(
+                                                                                      return  AlertDialog(
                                                                                           title: SizedBox(
                                                                                             height: MediaQuery.of(context).size.height/8,
 
@@ -362,7 +361,6 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                                 children: [
                                                                                                   Text(
                                                                                                       textAlign: TextAlign.center,
-
                                                                                                       LanguageProvider.Llanguage("Dosageinstructions"),
                                                                                                       style: ArabicTextStyle(
                                                                                                           arabicFont: ArabicFont.tajawal,
@@ -395,13 +393,19 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
                                                                                               style: ArabicTextStyle(
                                                                                                   arabicFont: ArabicFont.tajawal,
                                                                                                   fontSize: 22 * unitHeightValue)),
-                                                                                        Text(
+                                                                                              Text(
                                                                                                 textAlign: TextAlign.center,
-                                                                                               double.parse(inv.drugHosAllModelS![i].qt.toString()).toStringAsFixed(1)+" : "
-                                                                                                +(
-                                                                                                    LanguageProvider.getLanguage()=='AR'?inv.drugHosAllModelS![i].unit.toString().split(':').last:
-                                                                                                    inv.drugHosAllModelS![i].unit.toString().split(':').first
-                                                                                                ),
+                                                                                                (
+                                                                                                    inv.drugHosAllModelS![i].qt != null
+                                                                                                        ? double.parse(inv.drugHosAllModelS![i].qt.toString()=='null'?'0.0':inv.drugHosAllModelS![i].qt.toString()).toStringAsFixed(1) + " : "
+                                                                                                        : '0.0 : '
+                                                                                                ) +
+                                                                                                    (
+                                                                                                        LanguageProvider.getLanguage() == 'AR'
+                                                                                                            ? inv.drugHosAllModelS![i].unit.toString().split(':').last
+                                                                                                            : inv.drugHosAllModelS![i].unit.toString().split(':').first
+                                                                                                    ),
+
                                                                                                 style: ArabicTextStyle(
                                                                                                 arabicFont: ArabicFont.tajawal,
                                                                                                 fontSize:
@@ -417,8 +421,7 @@ class _DrugInHOSPITALState extends State<DrugInHOSPITAL> {
 
 
                                                                                           ],
-                                                                                        ),
-                                                                                      );
+                                                                                        );
                                                                                     },
                                                                                   );
 

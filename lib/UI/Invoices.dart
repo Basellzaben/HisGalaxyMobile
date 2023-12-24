@@ -512,7 +512,7 @@ SizedBox(height: 15,),
                                                                                                 Column(
                                                                                                   children: [
                                                                                                     Text(
-                                                                                                      'MARKA SPECIALITY HOSPITAL',
+                                                                                                      'Irbid SPECIALITY HOSPITAL',
                                                                                                       style: TextStyle(
                                                                                                           fontWeight: FontWeight.w700,
                                                                                                           color: HexColor(Globalvireables
@@ -522,8 +522,7 @@ SizedBox(height: 15,),
                                                                                                               unitHeightValue),
                                                                                                     ),
                                                                                                     Text(
-
-                                                                                                      'مستشفى ماركا التخصصي',
+                                                                                                      'مستشفى اربد التخصصي',
                                                                                                       style: TextStyle(
                                                                                                           fontWeight: FontWeight.w700,
                                                                                                           color: HexColor(Globalvireables
@@ -540,7 +539,7 @@ SizedBox(height: 15,),
                                                                                                     height:60,
                                                                                                     child: Image(
                                                                                                         image: new AssetImage(
-                                                                                                            "assets/newlogo.png")))
+                                                                                                            "assets/irbidlogo.png")))
                                                                                               ],
                                                                                             ),
                                                                                             Divider(thickness: 1.0, color: Colors.black),

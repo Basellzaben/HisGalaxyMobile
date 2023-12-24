@@ -32,7 +32,7 @@ class XrayList extends StatefulWidget {
 class _XrayListState extends State<XrayList> {
   @override
   void initState() {
-   // setsearch(context);
+    // setsearch(context);
     super.initState();
   }
 
@@ -59,14 +59,14 @@ class _XrayListState extends State<XrayList> {
 
   @override
   Widget build(BuildContext context) {
-
     var ThemP = Provider.of<Them>(context, listen: false);
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var stops = [0.0, 1.00];
     var LanguageProvider = Provider.of<Language>(context, listen: false);
-    var ImgaeXrayProvide = Provider.of<ImgaeXrayProvider>(context, listen: false);
+    var ImgaeXrayProvide =
+        Provider.of<ImgaeXrayProvider>(context, listen: false);
 
     return Stack(children: <Widget>[
       Image.asset(
@@ -142,7 +142,6 @@ class _XrayListState extends State<XrayList> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height / 1.2,
                     decoration: BoxDecoration(
-
                       image: DecorationImage(
                         image: AssetImage("assets/background.png"),
                         fit: BoxFit.cover,
@@ -176,23 +175,23 @@ class _XrayListState extends State<XrayList> {
                                                 'SearchbyDate');
                                       });
                                     },
-                                    child: Icon(color: Colors.redAccent,dateinputC.text.isEmpty ||
-                                            dateinputC.text.toString() ==
-                                                LanguageProvider.Llanguage(
-                                                    'SearchbyDate')
-                                        ? null
-                                        : Icons.cancel)),
+                                    child: Icon(
+                                        color: Colors.redAccent,
+                                        dateinputC.text.isEmpty ||
+                                                dateinputC.text.toString() ==
+                                                    LanguageProvider.Llanguage(
+                                                        'SearchbyDate')
+                                            ? null
+                                            : Icons.cancel)),
                                 border: OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color:
-                                            HexColor(ThemP.getcolor()),
+                                        color: HexColor(ThemP.getcolor()),
                                         width: 1.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color:
-                                            HexColor(ThemP.getcolor()),
+                                        color: HexColor(ThemP.getcolor()),
                                         width: 2.0),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 contentPadding: EdgeInsets.only(
@@ -218,10 +217,9 @@ class _XrayListState extends State<XrayList> {
                                           .format(pickedDate);
                                   print(formattedDate + "formattedDate");
                                   setState(() {
-                                    dateinputC.text = formattedDate
-                                        .toString();
+                                    dateinputC.text = formattedDate.toString();
 
-                                    print("DATE   "+dateinputC.text);
+                                    print("DATE   " + dateinputC.text);
                                     //set output date to TextField value.
                                   });
                                 } else {
@@ -239,196 +237,164 @@ class _XrayListState extends State<XrayList> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.11,
                             height: MediaQuery.of(context).size.height / 1.4,
-
                             child: FutureBuilder(
                               future: getXrayList(
-                                  context,
+                                context,
                                 Loginprovider.getuserId(),
-                                  dateinputC.text.isEmpty ||
-                                          dateinputC.text.toString() ==
-                                              LanguageProvider.Llanguage(
-                                                  'SearchbyDate')
-                                      ? "202"
-                                      : dateinputC.text.toString(),
-
+                                dateinputC.text.isEmpty ||
+                                        dateinputC.text.toString() ==
+                                            LanguageProvider.Llanguage(
+                                                'SearchbyDate')
+                                    ? "202"
+                                    : dateinputC.text.toString(),
                               ),
                               builder: (BuildContext context,
-                              AsyncSnapshot<List<xRAYM>> snapshot) {
+                                  AsyncSnapshot<List<xRAYM>> snapshot) {
                                 if (snapshot.hasData) {
                                   List<xRAYM>? XrayList = snapshot.data;
-                                  return XrayList!.isNotEmpty? ListView(
-                                    children: XrayList!
-                                        .map((xRAYM inv) => SizedBox(
-                                            child: GestureDetector(
-                                         onTap: () {
-                                           
-
-                                                  },
-                                              child: Card(
-                                                  color: Colors.white,
-                                                  shape: RoundedRectangleBorder(
-                                                    side: BorderSide(
-                                                        color: HexColor(
-                                                            ThemP.getcolor()),
-                                                        width: 1),
-                                                    borderRadius:
-                                                        BorderRadius.circular(10),
-                                                  ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(13),
-                                                    child: SizedBox(
-                                                      child: Column(
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              Align(
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child: SizedBox(
-                                                                  height: 40,
-                                                                  child: ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      primary: HexColor(
-                                                                          ThemP.getcolor()),
-                                                                    ),
-                                                                    child: Text(
-                                                                      LanguageProvider.Llanguage("Show"),
-                                                                      style: ArabicTextStyle(
-            arabicFont: ArabicFont.tajawal,
-                                                                          color: HexColor(Globalvireables
-                                                                              .white),
-                                                                          fontSize:
-                                                                              12 *
-                                                                                  unitHeightValue),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-
-
-                                                                      print("imgggg  "+inv.placeholdeR_HTML.toString());
-                                                                      ImgaeXrayProvide.setPLACEHOLDER(inv.placeholder.toString());
-                                                                      ImgaeXrayProvide.setPLACEHOLDER_HTML(inv.placeholdeR_HTML.toString());
-                                                                      ImgaeXrayProvide.setpassno(inv.accN.toString());
-                                                                      ImgaeXrayProvide.setresult(inv.report.toString());
-                                                                      ImgaeXrayProvide.setdate(inv.sdate.toString());
-
-if(inv.placeholder.toString().length>8 &&inv.placeholdeR_HTML.toString().length>8 )
-                                                                          Navigator.push(
-                                                                            context,
-                                                                            MaterialPageRoute(
-                                                                                builder: (context) => XrayImage()),
-                                                                          );
-else
-  await showDialog(
-    context: context,
-    builder: (context) =>
-    new AlertDialog(
-      title: new Text(LanguageProvider.Llanguage('anerrortitle')),
-      content: Text(LanguageProvider.Llanguage('notfound')),
-      actions: <Widget>[],
-    ),
-  );
-
-                                                                        },
-                                                                  ),
-                                                                ),
-                                                              ),
-
-                                                              SizedBox(
-                                                                width: 5,
-                                                              ),
-
-
-
-                                                              Expanded(
-                                                                child: Row(
+                                  return XrayList!.isNotEmpty
+                                      ? ListView(
+                                          children: XrayList!
+                                              .map((xRAYM inv) => SizedBox(
+                                                      child: GestureDetector(
+                                                    onTap: () {},
+                                                    child: Card(
+                                                        color: Colors.white,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          side: BorderSide(
+                                                              color: HexColor(ThemP
+                                                                  .getcolor()),
+                                                              width: 1),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  13),
+                                                          child: SizedBox(
+                                                            child: Column(
+                                                              children: [
+                                                                Row(
                                                                   children: [
-                                                                    Spacer(),
                                                                     Align(
-                                                                      alignment: Alignment.topLeft,
-                                                                      child: SizedBox(
-                                                                        width: MediaQuery.of(context).size.width/3,
-                                                                        child: Text(
-                                                                            maxLines: 3,
-                                                                            overflow: TextOverflow.ellipsis,
-                                                                            textAlign: TextAlign.left,
-                                                                            inv.descr.toString() == null
-                                                                                ||  inv.descr.toString() == 'NULL'
-                                                                                || inv.descr.toString() ==
-                                                                                'null'? '' : inv.descr.toString()
-                                                                                .trim()),
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .bottomCenter,
+                                                                      child:
+                                                                          SizedBox(
+                                                                        height:
+                                                                            40,
+                                                                        child:
+                                                                            ElevatedButton(
+                                                                          style:
+                                                                              ElevatedButton.styleFrom(
+                                                                            primary:
+                                                                                HexColor(ThemP.getcolor()),
+                                                                          ),
+                                                                          child:
+                                                                              Text(
+                                                                            LanguageProvider.Llanguage("Show"),
+                                                                            style: ArabicTextStyle(
+                                                                                arabicFont: ArabicFont.tajawal,
+                                                                                color: HexColor(Globalvireables.white),
+                                                                                fontSize: 12 * unitHeightValue),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            print("imgggg  " +
+                                                                                inv.placeholdeR_HTML.toString());
+                                                                            ImgaeXrayProvide.setPLACEHOLDER(inv.placeholder.toString());
+                                                                            ImgaeXrayProvide.setPLACEHOLDER_HTML(inv.placeholdeR_HTML.toString());
+                                                                            ImgaeXrayProvide.setpassno(inv.accN.toString());
+                                                                            ImgaeXrayProvide.setresult(inv.report.toString());
+                                                                            ImgaeXrayProvide.setdate(inv.sdate.toString());
+
+                                                                            if (inv.placeholder.toString().length > 8 &&
+                                                                                inv.placeholdeR_HTML.toString().length > 8)
+                                                                              Navigator.push(
+                                                                                context,
+                                                                                MaterialPageRoute(builder: (context) => XrayImage()),
+                                                                              );
+                                                                            else
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (context) => new AlertDialog(
+                                                                                  title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+                                                                                  content: Text(LanguageProvider.Llanguage('notfound')),
+                                                                                  actions: <Widget>[],
+                                                                                ),
+                                                                              );
+                                                                          },
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.all(8.0),
-                                                                      child: Container(
-                                                                          color: HexColor(ThemP.getcolor()),
-                                                                          child: SizedBox(height: 50,width: 2,)),
-                                                                    ),
                                                                     SizedBox(
-                                                                      child: Row(
+                                                                      width: 5,
+                                                                    ),
+                                                                    Expanded(
+                                                                      child:
+                                                                          Row(
                                                                         children: [
-
-                                                                          Column(
-                                                                            children: [
-                                                                              Text(
-                                                                                  textAlign: TextAlign
-                                                                                      .center,
-                                                                                  retMonth(inv.sdate.toString()),
-                                                                                  style: TextStyle(
-                                                                                      fontSize: 16,
-                                                                                      fontWeight: FontWeight
-                                                                                          .w800,
-                                                                                      height: 1)),
-                                                                              Text(
-                                                                                  textAlign: TextAlign
-                                                                                      .center,
-                                                                                  retYear(inv.sdate.toString()),
-                                                                                  style: TextStyle(
-                                                                                      fontSize: 14,
-                                                                                      height: 1)),
-                                                                            ],
-
+                                                                          Spacer(),
+                                                                          Align(
+                                                                            alignment:
+                                                                                Alignment.topLeft,
+                                                                            child:
+                                                                                SizedBox(
+                                                                              width: MediaQuery.of(context).size.width / 3,
+                                                                              child: Text(maxLines: 3, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, inv.descr.toString() == null || inv.descr.toString() == 'NULL' || inv.descr.toString() == 'null' ? '' : inv.descr.toString().trim()),
+                                                                            ),
                                                                           ),
-
-                                                                          SizedBox(width: 2,),
-                                                                          Text(
-                                                                            retDay(inv.sdate.toString()),
-                                                                            style: TextStyle(
-                                                                                fontSize: 38,
-                                                                                fontWeight: FontWeight
-                                                                                    .w800,
-                                                                                color: HexColor(
-                                                                                    ThemP
-                                                                                        .getcolor())),
-                                                                              )
-
-
-
-                                                                        ],),
-                                                                    )
+                                                                          Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child: Container(
+                                                                                color: HexColor(ThemP.getcolor()),
+                                                                                child: SizedBox(
+                                                                                  height: 50,
+                                                                                  width: 2,
+                                                                                )),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                Column(
+                                                                                  children: [
+                                                                                    Text(textAlign: TextAlign.center, retMonth(inv.sdate.toString()), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, height: 1)),
+                                                                                    Text(textAlign: TextAlign.center, retYear(inv.sdate.toString()), style: TextStyle(fontSize: 14, height: 1)),
+                                                                                  ],
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: 2,
+                                                                                ),
+                                                                                Text(
+                                                                                  retDay(inv.sdate.toString()),
+                                                                                  style: TextStyle(fontSize: 38, fontWeight: FontWeight.w800, color: HexColor(ThemP.getcolor())),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                   ],
                                                                 ),
-                                                              ),
-
-
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
-
-
-
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )),
-                                            )))
-                                        .toList(),
-                                  ):Image.asset(
-                                    "assets/null5.png",
-                                    height: 100,
-                                    width: 100,
-                                  );
+                                                        )),
+                                                  )))
+                                              .toList(),
+                                        )
+                                      : Image.asset(
+                                          "assets/null5.png",
+                                          height: 100,
+                                          width: 100,
+                                        );
                                 } else {
                                   return Center(
                                       child: CircularProgressIndicator());
@@ -447,19 +413,16 @@ else
     ]);
   }
 
-
   Future<List<xRAYM>> getXrayList(
       BuildContext context, String patientid, String date) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
 
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
-    var ip= Loginprovider.getFirebaseIp().toString();
+    var ip = Loginprovider.getFirebaseIp().toString();
 
+    print("dateOfApi" + homeP.visitNo + "ff");
 
-
-    print("dateOfApi"+homeP.visitNo+"ff");
-
-    Uri postsURL = Uri.parse(ip+Globalvireables.XrayListURL);
+    Uri postsURL = Uri.parse(ip + Globalvireables.XrayListURL);
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientid;
@@ -505,13 +468,11 @@ else
     setState(() {
       var homeP = Provider.of<HomeProvider>(context, listen: false);
 
-
-      if(index==1){
+      if (index == 1) {
         homeP.setVisitDate('');
 
         homeP.setvisitNo('0');
         homeP.setvisittype('0');
-
       }
       selectedIndex = index;
       Navigator.push(
@@ -557,13 +518,12 @@ else
     return newMonth + "  " + d + " " + y;
   }
 
-
   String retDay(String DATE) {
     try {
       var parts;
-      if(DATE.contains('-'))
-       parts = DATE.split('-');
-      else if(DATE.contains('  '))
+      if (DATE.contains('-'))
+        parts = DATE.split('-');
+      else if (DATE.contains('  '))
         parts = DATE.split('  ');
       else
         parts = DATE.split(' ');
@@ -571,83 +531,79 @@ else
       String d = parts[2].trim().substring(0, 2);
 
       return d.toString();
-    }catch(_){
-
+    } catch (_) {
       return '';
     }
   }
 
-
   String retYear(String DATE) {
-    try{
-    var parts ;
+    try {
+      var parts;
 
-    if(DATE.contains('-'))
-      parts = DATE.split('-');
-    else if(DATE.contains('  '))
-      parts = DATE.split('  ');
-    else
-      parts = DATE.split(' ');
+      if (DATE.contains('-'))
+        parts = DATE.split('-');
+      else if (DATE.contains('  '))
+        parts = DATE.split('  ');
+      else
+        parts = DATE.split(' ');
 
-    String y = parts[0].trim();
+      String y = parts[0].trim();
 
-
-
-    return y.toString();}
-    catch(_){
+      return y.toString();
+    } catch (_) {
       return "";
     }
   }
-  String dattw(String date){
+
+  String dattw(String date) {
     var parts = date.split('-');
     int y = int.parse(parts[0].trim());
     int m = int.parse(parts[1].trim());
     int d = int.parse(parts[2].trim());
 
-    return("");
-}
-  String retMonth(String DATE) {
-    try{
-      var parts;
-    String newMonth = "";
-    if(DATE.contains('-'))
-     parts = DATE.split('-');
-    else if(DATE.contains('  '))
-      parts = DATE.split('  ');
-    else
-     parts = DATE.split(' ');
-
-    int m = int.parse(parts[1].trim());
-    if (m == 1) {
-      newMonth = 'JAN';
-    } else if (m == 2) {
-      newMonth = 'FEB';
-    } else if (m == 3) {
-      newMonth = 'MAR';
-    } else if (m == 4) {
-      newMonth = 'APR';
-    } else if (m == 5) {
-      newMonth = 'MAY';
-    } else if (m == 6) {
-      newMonth = 'JUN';
-    } else if (m == 7) {
-      newMonth = 'JUL';
-    } else if (m == 8) {
-      newMonth = 'AUG';
-    } else if (m == 9) {
-      newMonth = 'SEP';
-    } else if (m == 10) {
-      newMonth = 'OCT';
-    } else if (m == 11) {
-      newMonth = 'NOV';
-    } else if (m == 12) {
-      newMonth = 'DEC';
-    }
-    return newMonth.toString();}catch(_){
-
-      return "";
-
-    }
+    return ("");
   }
 
+  String retMonth(String DATE) {
+    try {
+      var parts;
+      String newMonth = "";
+      if (DATE.contains('-'))
+        parts = DATE.split('-');
+      else if (DATE.contains('  '))
+        parts = DATE.split('  ');
+      else
+        parts = DATE.split(' ');
+
+      int m = int.parse(parts[1].trim());
+      if (m == 1) {
+        newMonth = 'JAN';
+      } else if (m == 2) {
+        newMonth = 'FEB';
+      } else if (m == 3) {
+        newMonth = 'MAR';
+      } else if (m == 4) {
+        newMonth = 'APR';
+      } else if (m == 5) {
+        newMonth = 'MAY';
+      } else if (m == 6) {
+        newMonth = 'JUN';
+      } else if (m == 7) {
+        newMonth = 'JUL';
+      } else if (m == 8) {
+        newMonth = 'AUG';
+      } else if (m == 9) {
+        newMonth = 'SEP';
+      } else if (m == 10) {
+        newMonth = 'OCT';
+      } else if (m == 11) {
+        newMonth = 'NOV';
+      } else if (m == 12) {
+        newMonth = 'DEC';
+      }
+      return newMonth.toString();
+    } catch (_) {
+      return "";
+    }
+  }
 }

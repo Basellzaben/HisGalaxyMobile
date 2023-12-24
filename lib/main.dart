@@ -259,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
       logoWidth: MediaQuery.of(context).size.width/2.5,
       loaderColor:HexColor(Globalvireables.basecolor),
       logo: Image.asset(
-        "assets/newlogo.png",
+        "assets/irbidlogo.png",
       ),
       showLoader: true,
       title:  Text(

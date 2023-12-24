@@ -25,6 +25,7 @@ import 'package:intl/intl.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:arabic_font/arabic_font.dart';
+
 class XrayImage extends StatefulWidget {
   @override
   State<XrayImage> createState() => _XrayImageState();
@@ -33,11 +34,12 @@ class XrayImage extends StatefulWidget {
 class _XrayImageState extends State<XrayImage> {
   @override
   void initState() {
-
-
     super.initState();
   }
-  late  WebViewController controller,controlimg;
+
+  late WebViewController controlimg;
+
+  //controller
   @override
   void dispose() {
     super.dispose();
@@ -45,271 +47,294 @@ class _XrayImageState extends State<XrayImage> {
 
   int selectedIndex = 1;
 
-
   final _key = UniqueKey();
   final _keyimg = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
-    var ImgaeXrayProvide = Provider.of<ImgaeXrayProvider>(context, listen: false);
+    var ImgaeXrayProvide =
+        Provider.of<ImgaeXrayProvider>(context, listen: false);
     var ThemP = Provider.of<Them>(context, listen: false);
 
-    String link,linkimg;
-    link=ImgaeXrayProvide.PLACEHOLDER.toString().trim();
-    linkimg=ImgaeXrayProvide.PLACEHOLDER_HTML.toString().trim();
+    String link, linkimg;
+    // link=ImgaeXrayProvide.PLACEHOLDER.toString().trim();
+    // linkimg=ImgaeXrayProvide.PLACEHOLDER_HTML.toString().trim();
+    linkimg =
+        'https://myvue.ishjo.com/portal/?user_name=view&password=view123&accession_number=150278'; //ImgaeXrayProvide.PLACEHOLDER_HTML.toString().trim();
 
-    controller = WebViewController()..loadRequest(Uri.parse(
+    /* controller = WebViewController()..loadRequest(Uri.parse(
         link.trim()
-    ));
-    controller
+    ));*/
+    /*controller
       ..enableZoom(true)
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
-
-    controlimg = WebViewController()..loadRequest(Uri.parse(
-        linkimg.trim()
-    ));
+*/
+    controlimg = WebViewController()..loadRequest(Uri.parse(linkimg.trim()));
     controlimg
       ..enableZoom(true)
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
-
-
-
 
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
     var LanguageProvider = Provider.of<Language>(context, listen: false);
 
     return Stack(children: <Widget>[
-    Image.asset(
-    "assets/background.png",
-      height: MediaQuery
-          .of(context)
-          .size
-          .height,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      fit: BoxFit.cover,
-    ),
-    Scaffold(
-
-    appBar: AppBar(
-      backgroundColor: Colors.white,
-      bottomOpacity: 800.0,
-      elevation: 4.0,
-    title: Widgets.Appbar(
-    context,
-    LanguageProvider.Llanguage('Ray'),
-    unitHeightValue,
-    LanguageProvider.langg,
-    LanguageProvider.getDirection()),
-    ),
-    //backgroundColor: HexColor(ThemP.getcolor()),
-    // backgroundColor: Colors.transparent,
-    body: Directionality(
-    textDirection: LanguageProvider.getDirection(),
-    child: Container(
-    width: MediaQuery.of(context).size.width,
-    height: MediaQuery.of(context).size.height / 1.15,
-
-    child: SafeArea(
-    child: Container(
-    child: Container(
-    width: MediaQuery.of(context).size.width,
-    height: MediaQuery.of(context).size.height / 1.2,
-    decoration: BoxDecoration(
-    image: DecorationImage(
-    image: AssetImage("assets/background.png"),
-    fit: BoxFit.cover,
-    ),
-    borderRadius: BorderRadius.only(
-    topRight: Radius.circular(0.0),
-    bottomRight: Radius.circular(29.0),
-    topLeft: Radius.circular(0.0),
-    bottomLeft: Radius.circular(29.0)),
-    ),
-    padding: EdgeInsets.only(left: 20, right: 20),
-    child: SingleChildScrollView(
-      child: Column(
-      children: [
-
-        Text(LanguageProvider.Llanguage('Rayi'),
-          style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: HexColor(Globalvireables
-                  .black),
-              fontSize:
-              18 *
-                  unitHeightValue),),
-
-        SizedBox(
-          height: MediaQuery.of(context).size.width,
-          width: MediaQuery.of(context).size.width,
-          child: WebViewWidget(
-            // initialUrl: Uri.encodeFull(EnterUrlHere),
-            controller: controlimg,key: _keyimg,)
+      Image.asset(
+        "assets/background.png",
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        fit: BoxFit.cover,
       ),
-        Center(
-          child: Row(
-            children: [
-              Spacer(),
-              Container(
-                  height: 40,
-                  width:
-                  MediaQuery.of(context).size.width / 3,
-                  margin: EdgeInsets.only(top: 10, bottom: 5),
-                  color: HexColor(Globalvireables.white),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: HexColor(ThemP.getcolor()),
-                    ),
-                    child: Text(
-                      LanguageProvider.Llanguage('Share'),
-                      style: ArabicTextStyle(
-                          arabicFont: ArabicFont.tajawal,
-                          color:
-                          HexColor(Globalvireables.white),
-                          fontSize: 14 * unitHeightValue),
-                    ),
-                    onPressed: () async {
-                     Share.share(subject:'Marka Hospital ',  ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
-//print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
-  //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
-
-                    },
-                  ),
-                ),
-              Spacer(),
-              Container(
-                  height: 40,
-                  width:
-                  MediaQuery.of(context).size.width / 3,
-                  margin: EdgeInsets.only(top: 10, bottom: 5),
-                  color: HexColor(Globalvireables.white),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: HexColor(ThemP.getcolor()),
-                    ),
-                    child: Text(
-                      LanguageProvider.Llanguage('openbrowser'),
-                      textAlign: TextAlign.center,
-
-                      style: ArabicTextStyle(
-                          arabicFont: ArabicFont.tajawal,
-                          color:
-                          HexColor(Globalvireables.white),
-                          fontSize: 12 * unitHeightValue),
-                    ),
-                    onPressed: () async {
-                        openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
-
-                    },
-                  ),
-                ),
-              Spacer(),
-
-            ],
+      Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            bottomOpacity: 800.0,
+            elevation: 4.0,
+            title: Widgets.Appbar(
+                context,
+                LanguageProvider.Llanguage('Ray'),
+                unitHeightValue,
+                LanguageProvider.langg,
+                LanguageProvider.getDirection()),
           ),
-        ),
+          //backgroundColor: HexColor(ThemP.getcolor()),
+          // backgroundColor: Colors.transparent,
+          body: Directionality(
+            textDirection: LanguageProvider.getDirection(),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 1.15,
+              child: SafeArea(
+                child: Container(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 1.2,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/background.png"),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(0.0),
+                          bottomRight: Radius.circular(29.0),
+                          topLeft: Radius.circular(0.0),
+                          bottomLeft: Radius.circular(29.0)),
+                    ),
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            LanguageProvider.Llanguage('Rayi'),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: HexColor(Globalvireables.black),
+                                fontSize: 18 * unitHeightValue),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.width,
+                              width: MediaQuery.of(context).size.width,
+                              child: WebViewWidget(
+                                // initialUrl: Uri.encodeFull(EnterUrlHere),
+                                controller: controlimg, key: _keyimg,
+                              )),
 
-SizedBox(height: 20,),
-        Text(LanguageProvider.Llanguage('Rayr'),
-          style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: HexColor(Globalvireables
-                  .black),
-              fontSize:
-              18 *
-                  unitHeightValue),),
 
-        SizedBox(
+                          Text(
+                           'قد لا يستطيع جهازك عرض الصوره ، يمكنك فتح الرابط من خلال جهاز كمبيوتر',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 10 * unitHeightValue),
+                          ),
+
+                          Center(
+                            child: Row(
+                              children: [
+                                Spacer(),
+                                Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                                  color: HexColor(Globalvireables.white),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: HexColor(ThemP.getcolor()),
+                                    ),
+                                    child: Text(
+                                      LanguageProvider.Llanguage('Share'),
+                                      style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                          color:
+                                              HexColor(Globalvireables.white),
+                                          fontSize: 14 * unitHeightValue),
+                                    ),
+                                    onPressed: () async {
+                                      Share.share(
+                                          subject: 'Irbid Hospital ',
+                                          ImgaeXrayProvide.PLACEHOLDER_HTML
+                                              .trim());
+//print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                                      //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                                    },
+                                  ),
+                                ),
+                                Spacer(),
+                                Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                                  color: HexColor(Globalvireables.white),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: HexColor(ThemP.getcolor()),
+                                    ),
+                                    child: Text(
+                                      LanguageProvider.Llanguage('openbrowser'),
+                                      textAlign: TextAlign.center,
+                                      style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                          color: HexColor(Globalvireables.white),
+                                          fontSize: 12 * unitHeightValue),
+                                    ),
+                                    onPressed: () async {
+                                      openUrl(
+                                          'https://myvue.ishjo.com/portal/?user_name=view&password=view123&accession_number=150278');
+
+                                      //  linkimg='https://myvue.ishjo.com/portal/?user_name=view&password=view123&accession_number=150278&key_images=true';//ImgaeXrayProvide.PLACEHOLDER_HTML.toString().trim();
+                                    },
+                                  ),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            LanguageProvider.Llanguage('Rayr'),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: HexColor(Globalvireables.black),
+                                fontSize: 18 * unitHeightValue),
+                          ),
+
+                          /*SizedBox(
             height: MediaQuery.of(context).size.width,
             width: MediaQuery.of(context).size.width,
           child: WebViewWidget(
            // initialUrl: Uri.encodeFull(EnterUrlHere),
               controller: controller,key: _key,)
-              ),
+              ),*/
 
-        Center(
-          child: Row(
-            children: [
-              Spacer(),
-              Container(
-                height: 40,
-                width:
-                MediaQuery.of(context).size.width / 3,
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                color: HexColor(Globalvireables.white),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: HexColor(ThemP.getcolor()),
-                  ),
-                  child: Text(
-                    LanguageProvider.Llanguage('Share'),
-                    style: ArabicTextStyle(
-                        arabicFont: ArabicFont.tajawal,
-                        color:
-                        HexColor(Globalvireables.white),
-                        fontSize: 14 * unitHeightValue),
-                  ),
-                  onPressed: () async {
-                    Share.share(subject:'Marka Hospital - ',  ImgaeXrayProvide.PLACEHOLDER.trim());
+                        /*  Center(
+                            child: Row(
+                              children: [
+                                Spacer(),
+                                Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                                  color: HexColor(Globalvireables.white),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: HexColor(ThemP.getcolor()),
+                                    ),
+                                    child: Text(
+                                      LanguageProvider.Llanguage('Share'),
+                                      style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                          color:
+                                              HexColor(Globalvireables.white),
+                                          fontSize: 14 * unitHeightValue),
+                                    ),
+                                    onPressed: () async {
+                                      Share.share(
+                                          subject: 'Irbid Hospital - ',
+                                          ImgaeXrayProvide.PLACEHOLDER.trim());
+                                    },
+                                  ),
+                                ),
+                                Spacer(),
+                                Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width / 3,
+                                  margin: EdgeInsets.only(top: 10, bottom: 5),
+                                  color: HexColor(Globalvireables.white),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: HexColor(ThemP.getcolor()),
+                                    ),
+                                    child: Text(
+                                      LanguageProvider.Llanguage('openbrowser'),
+                                      textAlign: TextAlign.center,
+                                      style: ArabicTextStyle(
+                                          arabicFont: ArabicFont.tajawal,
+                                          color:
+                                              HexColor(Globalvireables.white),
+                                          fontSize: 12 * unitHeightValue),
+                                    ),
+                                    onPressed: () async {
+                                      openUrl(
+                                          'https://myvue.ishjo.com/portal/?user_name=view&password=view123&accession_number=150278&key_images=true');
+                                    },
+                                  ),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),*/
 
-                  },
+                          Container(
+                            padding: EdgeInsets.all(5),
+                              color: Colors.white,
+                              child: Text(ImgaeXrayProvide.PLACEHOLDER, textAlign: TextAlign.left,))
+,
+                          Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 3,
+                            margin: EdgeInsets.only(top: 10, bottom: 5),
+                            color: HexColor(Globalvireables.white),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: HexColor(ThemP.getcolor()),
+                              ),
+                              child: Text(
+                                LanguageProvider.Llanguage('Share'),
+                                style: ArabicTextStyle(
+                                    arabicFont: ArabicFont.tajawal,
+                                    color:
+                                    HexColor(Globalvireables.white),
+                                    fontSize: 14 * unitHeightValue),
+                              ),
+                              onPressed: () async {
+                                Share.share(
+                                    subject: 'Report',
+                                    ImgaeXrayProvide.PLACEHOLDER_HTML
+                                        .trim());
+//print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                                //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              Spacer(),
-              Container(
-                height: 40,
-                width:
-                MediaQuery.of(context).size.width / 3,
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                color: HexColor(Globalvireables.white),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: HexColor(ThemP.getcolor()),
-                  ),
-                  child: Text(
-                    LanguageProvider.Llanguage('openbrowser'),
-                    textAlign: TextAlign.center,
-
-                    style: ArabicTextStyle(
-                        arabicFont: ArabicFont.tajawal,
-                        color:
-                        HexColor(Globalvireables.white),
-                        fontSize: 12 * unitHeightValue),
-                  ),
-                  onPressed: () async {
-                    openUrl(ImgaeXrayProvide.PLACEHOLDER.trim());
-
-                  },
-                ),
-              ),
-              Spacer(),
-
-            ],
-          ),
-        ),
-
-      ],
-      ),
-    ),
-    ),
-    ),
-    ),
-    ),
-    ))
-    ,
-    ]
-    );
+            ),
+          )),
+    ]);
   }
 
   Future<void> openUrl(String url) async {
     final _url = Uri.parse(url);
-    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) { // <--
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      // <--
       throw Exception('Could not launch $_url');
     }
   }
+
   String retturndatenewformat(String DATE) {
     String newMonth = "";
     var parts = DATE.substring(0, 10).split('-');
