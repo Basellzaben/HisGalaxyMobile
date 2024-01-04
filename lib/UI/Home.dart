@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hismobileapp/UI/Clinicks.dart';
 import 'package:hismobileapp/UI/Doctors.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:http/http.dart';
@@ -108,20 +109,24 @@ class _HomeState extends State<Home> {
     unselectedItemColor: Colors.white,
     backgroundColor: HexColor(ThemP.getcolor()),
     items: [
+
+
+
     BottomNavigationBarItem(
     icon: Icon(Icons.settings,),
     label: LanguageProvider.Llanguage('settings',),
     ),
-    BottomNavigationBarItem(
-    icon: Icon(Icons.home),
-    label: LanguageProvider.Llanguage('Home')),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.apps_outlined),
+          label: LanguageProvider.Llanguage('app')),
+
     BottomNavigationBarItem(
     icon: Icon(Icons.person),
     label: LanguageProvider.Llanguage('profile')),
     ],
     iconSize: 30 * unitHeightValue,
-    unselectedFontSize: 12 * unitHeightValue,
-    selectedFontSize: 16 * unitHeightValue,
+    unselectedFontSize: 14 * unitHeightValue,
+    selectedFontSize: 14 * unitHeightValue,
     showUnselectedLabels: true,
     currentIndex: selectedIndex,
     selectedIconTheme:
@@ -303,9 +308,36 @@ class _HomeState extends State<Home> {
       ),
 
 
+
+
+
+
+
       ),
     ),
-
+  /*    SizedBox(
+        child: Align(
+          alignment: Alignment.topRight,
+          child: Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width / 2,
+            margin: EdgeInsets.only(top: 0, bottom: 5),
+            child:ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  primary: HexColor(ThemP.getcolor()),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child:  Text('حجز موعد', style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: HexColor(Globalvireables.white),
+                    fontSize: 18 * unitHeightValue),)),
+          ),
+        ),
+      ),
+*/
 
       /*SizedBox(
         height: 120,
@@ -1641,6 +1673,9 @@ class _HomeState extends State<Home> {
     var ip= Loginprovider.getFirebaseIp().toString();
 
 
+    print("ip   "+ip+Globalvireables.VisitsApi);
+
+
     var LanguageProvider = Provider.of<Language>(context, listen: false);
     Uri postsURL = Uri.parse(ip+Globalvireables.VisitsApi);
     try {
@@ -1685,19 +1720,18 @@ class _HomeState extends State<Home> {
   _onItemTapped(int index) {
 
 
-    if(index != 1){
     setState(() {
       selectedIndex = index;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => nav[index]),
       );
-    });}
+    });
   }
   int selectedIndex = 1;
   final List<Widget> nav = [
     Settings(),
-    Home(),
+    Clinicks(),
     profile(),
   ];
   changepass(BuildContext c) async {
@@ -2237,6 +2271,8 @@ Spacer(),
 
   Future<List<ProfileM>> getProfile(BuildContext context,String patientNo) async {
 
+
+
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var ip= Loginprovider.getFirebaseIp().toString();
 
@@ -2305,9 +2341,13 @@ Spacer(),
 
 
   Stream<String> getnotificationsCount() async* {
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+
     Uri postsURL = Uri.parse(Globalvireables.NotificationURL); // Fix the typo in GlobalVariables
     print(Globalvireables.HospitalInfoURL.toString()); // Fix the typo in GlobalVariables
-    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
     var map = <String, dynamic>{};
     map['PatientNo'] = Loginprovider.getuserId().toString();

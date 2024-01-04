@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
   static String black2="#333334";
   static String grey="#707070";
   static String secondcolor2="#d0e8ee";
- static String connectIP="10.0.1.120:9999";
+  static String connectIP="10.0.1.120:9999";
   //static String connectIP="94.249.83.196:8055"; marka - in galaxy
 
 
@@ -38,9 +38,13 @@ import 'package:flutter/material.dart';
   static String GetMedicalReport="/api/MedicalReport/GetMedicalReport";
   static String AddFamily="/api/AddFamilyController/AddFamily";
   static String GETFamily="/api/GetFamilyController/GetFamily";
-  static String NotificationURL="http://94.249.83.196:8055/api/Notificationscontroller/Notifications";
+  static String NotificationURL="http://10.0.1.120:9999/api/Notificationscontroller/Notifications";
+  static String ClinicksURL="/api/ClinicksController/Clinicks";
+  static String AvalAppoimentURL="/api/AvalibalAppoimentController/GetAppoiments";
+  static String BookingAppoiment="/api/BookingAppoimentController/Booking";
+  static String CanselAppoiment="/api/CanselAppoimentController/Cansel";
 
-
+  //http://94.249.83.196:8055
   /* static String loginAPI="http://"+Globalvireables.connectIP+"/api/auth/Mobilelogin";
   static String DoctorsURL="http://"+Globalvireables.connectIP+"/api/Doctor/GetDoctors";
   static String InsuranceURL="http://"+Globalvireables.connectIP+"/api/PatientInsurances/GetPatientInsurances";

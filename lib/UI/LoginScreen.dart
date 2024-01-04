@@ -606,7 +606,8 @@ margin: EdgeInsets.only(top: 0),
 
 
 
-    Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+    //   Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+  Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP);
 
 
     //return getValue;
@@ -696,12 +697,17 @@ if(jsonResponse["userType"].toString()!='2'  ){
         content: Text(l.Llanguage('anerror')),
       ));
 }
-else
-          CheckTerms(jsonResponse["userId"].toString(),jsonResponse["username"].toString());
+else {
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => Home()),
+          (Route<dynamic> route) => false);
+}
+//   CheckTerms(jsonResponse["userId"].toString(),jsonResponse["username"].toString());
 
 
 
-        } else {
+          } else {
           showDialog(
               context: context,
               builder: (_) => AlertDialog(
@@ -938,6 +944,7 @@ else
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var ip= Loginprovider.getFirebaseIp().toString();
 
+    ip=Globalvireables.connectIP;
 
     Uri postsURL =
     Uri.parse(ip+Globalvireables.ChangeTermsACCSEPTURL);
@@ -1081,7 +1088,8 @@ else
 
 
 
-    Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+    // Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+    Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP.toString());
 
 
 

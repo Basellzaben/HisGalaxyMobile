@@ -133,11 +133,7 @@ class _NotificationsState extends State<Notifications> {
                             bottomLeft: Radius.circular(40.0)),
                       ),
                       padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Image.asset(
-                        "assets/null5.png",
-                        height: 100,
-                        width: 100,
-                      )/*SizedBox(
+                      child:SizedBox(
                         width: MediaQuery.of(context).size.width / 1.11,
                         height: MediaQuery.of(context).size.height / 1.4,
                         child: FutureBuilder(
@@ -147,7 +143,7 @@ class _NotificationsState extends State<Notifications> {
                             if (snapshot.hasData) {
                               List<NotificationsM>? NotificationList = snapshot.data;
                               return NotificationList!.isNotEmpty
-                                  ? *//*ListView(
+                                  ? ListView(
                                       children: NotificationList!
                                           .map((NotificationsM inv) => SizedBox(
                                                   child: GestureDetector(
@@ -194,100 +190,9 @@ class _NotificationsState extends State<Notifications> {
                                                                   child: Row(
                                                                     children: [
 
-                                                                    *//**//*  Icon(
-                                                                        Icons.settings,
-                                                                      ),*//**//*
-
-                                                                      Padding(
-                                                                        padding: const EdgeInsets.only(left: 4,right: 4),
-
-                                                                        child: Container(
-                                                                          decoration: BoxDecoration(
-                                                                              color: HexColor(ThemP.getcolor()),
-                                                                              shape: BoxShape.circle
-                                                                          ),
-                                                                          child: Padding(
-                                                                            padding: const EdgeInsets.all(9.0),
-                                                                            child:
-                                                                            Icon(
-                                                                             Icons.maps_ugc_rounded,
-                                                                              color: Colors.white,
-                                                                              size: 27,
-                                                                            ),
-                                                                            *//**//*SvgPicture.asset("assets/xray.svg",color: Colors.white,
-                                                                              height: 25 * unitHeightValue,
-                                                                              width: 25 * unitHeightValue,
-                                                                            ),*//**//*
-                                                                          ),
-                                                                        ),
-                                                                      ),
-Spacer(),
-                                                                      Padding(
-                                                                        padding: const EdgeInsets.only(top: 14.0,left: 4,right: 4),
-                                                                        child: Align(
-                                                                          alignment:
-                                                                              Alignment.topRight,
-                                                                          child:
-                                                                              Column(
-                                                                            children: [
-                                                                              SizedBox(
-                                                                                width: MediaQuery.of(context).size.width / 1.4,
-                                                                                child: Text(
-                                                                                  inv.hdr.toString(),
-                                                                                  maxLines: 3,
-                                                                                  overflow: TextOverflow.ellipsis,
-                                                                                  textAlign: TextAlign.right,
-                                                                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(
-                                                                                width: MediaQuery.of(context).size.width / 1.4,
-                                                                                child: Text(
-                                                                                  inv.dtl.toString(),
-                                                                                  maxLines: 3,
-                                                                                  overflow: TextOverflow.ellipsis,
-                                                                                  textAlign: TextAlign.right,
-                                                                                ),
-                                                                              ),
-
-                                                                              SizedBox(height: 5,),
-
-                                                                              Padding(
-                                                                                padding: const EdgeInsets.only(bottom: 8.0),
-                                                                                child: SizedBox(
-                                                                                  width: MediaQuery.of(context).size.width / 1.4,
-                                                                                  child: Text(
-                                                                                    GetTime(inv.date.toString()),
-                                                                                    maxLines: 3,
-                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                    textAlign: TextAlign.right,
-                                                                                    style: TextStyle(fontSize: 12),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-
-
-
-    *//**//*     Padding(
-
-
-                                                                        padding: const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                        child: Container(
-                                                                            color: HexColor(ThemP.getcolor()),
-                                                                            child: SizedBox(
-                                                                              height: 50,
-                                                                              width: 2,
-                                                                            )),
-                                                                      ),
-                                                                   SizedBox(
+                                                                   /*   SizedBox(
                                                                         child:
-                                                                            Row(
+                                                                        Row(
                                                                           children: [
                                                                             Column(
                                                                               children: [
@@ -304,7 +209,60 @@ Spacer(),
                                                                             )
                                                                           ],
                                                                         ),
-                                                                      )*//**//*
+                                                                      )
+,*/
+
+                                                                      Container(
+                                                                        width: MediaQuery.of(context).size.width/1.2,
+                                                                        child: Padding(
+                                                                          padding: const EdgeInsets.only(top: 14.0,left: 4,right: 4),
+                                                                          child: Align(
+                                                                            alignment:
+                                                                                Alignment.topRight,
+                                                                            child:
+                                                                                Column(
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  width: MediaQuery.of(context).size.width / 1.4,
+                                                                                  child: Text(
+                                                                                    inv.hdr.toString(),
+                                                                                    maxLines: 3,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                    textAlign: TextAlign.right,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                                                  ),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  width: MediaQuery.of(context).size.width / 1.4,
+                                                                                  child: Text(
+                                                                                    inv.dtl.toString(),
+                                                                                    maxLines: 3,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                    textAlign: TextAlign.right,
+                                                                                  ),
+                                                                                ),
+
+                                                                                SizedBox(height: 5,),
+
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                                                                  child: SizedBox(
+                                                                                    width: MediaQuery.of(context).size.width / 1.4,
+                                                                                    child: Text(
+                                                                                      GetTime(inv.date.toString()),
+                                                                                      maxLines: 3,
+                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                      textAlign: TextAlign.right,
+                                                                                      style: TextStyle(fontSize: 12),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+
                                                                     ],
                                                                   ),
                                                                 ),
@@ -315,24 +273,19 @@ Spacer(),
                                                       ),
                                                     )),
                                               )))
-                                          .toList(),
-                                    )*//*
+                                          .toList()
+                                    ):
                               Image.asset(
                                 "assets/null5.png",
                                 height: 100,
                                 width: 100,
-                              )
-                                  : Image.asset(
-                                      "assets/null5.png",
-                                      height: 100,
-                                      width: 100,
-                                    );
+                              );
                             } else {
                               return Center(child: CircularProgressIndicator());
                             }
                           },
                         ),
-                      )*/),
+                      )),
                 ),
               ),
             ),
@@ -359,12 +312,18 @@ Spacer(),
   ];
 
   Future<List<NotificationsM>> getnotifications() async {
-    Uri postsURL = Uri.parse(Globalvireables.NotificationURL);
-    print(Globalvireables.HospitalInfoURL.toString());
+
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
 
+
+
+    Uri postsURL = Uri.parse(Globalvireables.NotificationURL);
+
+    print(Globalvireables.NotificationURL.toString());
+
+
     var map = new Map<String, dynamic>();
-    map['PatientNo'] = Loginprovider.getuserId().toString();
+    map['PatientNo'] = '505083';
     map['NotificationType'] = 'screen';
     try {
       http.Response res = await http.post(
@@ -499,11 +458,11 @@ Spacer(),
       return '';
 else {
       // Specify the target time
-
-      //  String dateTimeString = "Oct 31 2023 01:40 PM";
-      String dateTimeString = time;
-      DateFormat format = DateFormat("MMM dd yyyy hh:mm a");
+    //  String dateTimeString = "Oct 31 2023 01:40 PM";
+     String dateTimeString = time;
+      DateFormat format = DateFormat("yyyy-MM-dd hh:mm:ss");
       DateTime targetTime = format.parse(dateTimeString);
+
 
       DateTime currentTime = DateTime.now();
 

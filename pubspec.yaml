@@ -70,6 +70,8 @@ dependencies:
   firebase_database: ^10.3.3
   qr_flutter: ^4.1.0
   carousel_slider: ^4.2.1
+  syncfusion_flutter_calendar: ^22.2.12
+  table_calendar: ^3.0.9
 
 
 

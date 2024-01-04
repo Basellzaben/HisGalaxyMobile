@@ -8,6 +8,27 @@ class HomeProvider extends ChangeNotifier {
   String VisitDate="";
   String visitNo="";
   String visittype="";
+  String Clinics_ID="";
+  String docid="";
+
+  getdocid() {
+    return docid;
+  }
+
+  setdocid(String docid) {
+    this.docid = docid;
+    notifyListeners();
+  }
+
+  getClinics_ID() {
+    return Clinics_ID;
+  }
+
+  setClinics_ID(String Clinics_ID) {
+    this.Clinics_ID = Clinics_ID;
+    notifyListeners();
+  }
+
 
   getvisitNo() {
     return visitNo;

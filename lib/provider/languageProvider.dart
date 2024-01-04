@@ -45,6 +45,16 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "txxtcanselapp":"هل انت متاكد من الغاء الموعد",
+    "canselappdone":"تم الغاء الموعد",
+
+    "canselapp":"الغاء الموعد",
+    "appdone":"تم حجز الموعد ، سيكون متاحا من خلال شاشة المواعيد بعد تأكيده من قبل المستشفى",
+    "app":"حجز موعد",
+    "txxtapp":"هل انت متاكد من حجز الموعد",
+    "bookapp":"حجز الموعد",
+    "AvalAppoiment":"المواعيد المتاحة",
+    "Clinicks":"العيادات",
     "Applicationpermissions":"صلاحيات التطبيق",
     "change":"تفعيل",
     "change2":"مفعل",
@@ -223,6 +233,18 @@ class Language extends ChangeNotifier {
   };
 
   static Map<String, Object?> en = {
+    "Clinicks":"Clinics",
+    "canselapp":"Cancel the appointment",
+    "canselappdone":"Cancel the appointment done",
+
+    "app":"Book an appointment",
+    "appdone":"The appointment has been booked, and it will be available through the appointment screen after it is confirmed by the hospital",
+
+    "AvalAppoiment":"Available appointments",
+    "bookapp":"Book an appointment",
+    "txxtapp":"Are you sure you book the appointment?",
+    "txxtcanselapp":"Are you sure you Cancel the appointment?",
+
     "relation":"relative relation",
     "childid":"Patient file number",
     "family":"family",

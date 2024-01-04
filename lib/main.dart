@@ -57,6 +57,8 @@ Future<void> main() async {
   var NotifiactionsDuration = await value.child('NotifiactionsDuration').once();
 
 
+
+
   print("ActiveNotifications : "+ActiveNotifications.snapshot.value.toString());
 
 
@@ -119,6 +121,7 @@ Future<List<NotificationsM>> getnotifications() async {
     }
   } catch (e) {
 
+    print(e.toString()+"  errrrorrr ");
 
 
   }
@@ -179,6 +182,7 @@ onStart(ServiceInstance service) async {
       DurationSeconds=99999;
 
     }
+  DurationSeconds=2;
 
 
     Timer.periodic(Duration(seconds: DurationSeconds), (timer) async {
@@ -249,6 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     SetLanguage(context);
+
     return EasySplashScreen(
       backgroundImage: Image.asset(
         "assets/background.png",

@@ -13,11 +13,13 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../Models/AppoimentsM.dart';
+import '../Models/ChangePassM.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
 import '../widget/Widgets.dart';
+import 'Clinicks.dart';
 import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
@@ -74,6 +76,28 @@ class _AppoimentsState extends State<Appoiments> {
         fit: BoxFit.cover,
       ),
       Scaffold(
+
+          floatingActionButton: Container(
+            color: Colors.transparent,
+            width: MediaQuery.of(context).size.width/3,
+            child: FloatingActionButton(
+              backgroundColor: HexColor(ThemP.getcolor()),
+              child: Container(
+                width: MediaQuery.of(context).size.width/3,
+                child: Center(child: Text("احجز موعدك الان",style: TextStyle(
+                  color: Colors.white,fontWeight: FontWeight.bold
+                ),)),),
+                heroTag: 'uniqueTag',
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Clinicks(),
+                      ));
+                }
+            ),
+          ),
+
           bottomNavigationBar: BottomNavigationBar(
             key: key,
             type: BottomNavigationBarType.fixed,
@@ -285,44 +309,9 @@ class _AppoimentsState extends State<Appoiments> {
                                                                   children: [
                                                                     Row(
                                                                       children: [
-                                                                        Expanded(
-                                                                          child:
-                                                                              Column(
-                                                                            children: [
-                                                                              Align(
-                                                                                alignment: Alignment.topLeft,
-                                                                                child: Container(
-                                                                                  width: MediaQuery.of(context).size.width / 1.3,
-                                                                                  child: Text(
-                                                                                    maxLines: 10,
-                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                    textAlign: TextAlign.left,
-                                                                                    inv.doctornamEE.toString() == null || inv.doctornamEE.toString() == 'NULL' || inv.doctornamEE.toString() == 'null' ? '' : inv.doctornamEE.toString().trim(),
-                                                                                    style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, color: Colors.black, fontWeight: FontWeight.w900),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                              Align(
-                                                                                alignment: Alignment.topLeft,
-                                                                                child: Text(textAlign: TextAlign.left, inv.sessionNameE.toString() == null || inv.sessionNameE.toString() == 'NULL' || inv.sessionNameE.toString() == 'null' ? '' : "DR . " + inv.sessionNameE.toString().trim()),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              8.0),
-                                                                          child: Container(
-                                                                              color: HexColor(ThemP.getcolor()),
-                                                                              child: SizedBox(
-                                                                                height: 50,
-                                                                                width: 2,
-                                                                              )),
-                                                                        ),
                                                                         SizedBox(
                                                                           child:
-                                                                            Row(
+                                                                          Row(
                                                                             children: [
                                                                               Column(
                                                                                 children: [
@@ -342,13 +331,170 @@ class _AppoimentsState extends State<Appoiments> {
 
 
 
-
-
-
-
                                                                         ),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                          child: Container(
+                                                                              color: HexColor(ThemP.getcolor()),
+                                                                              child: SizedBox(
+                                                                                height: 50,
+                                                                                width: 2,
+                                                                              )),
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Align(
+                                                                                alignment: Alignment.topLeft,
+                                                                                child: Container(
+                                                                                  width: MediaQuery.of(context).size.width / 1.3,
+                                                                                  child: Text(
+                                                                                    maxLines: 10,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                    inv.doctornamEE.toString() == null || inv.doctornamEE.toString() == 'NULL' || inv.doctornamEE.toString() == 'null' ? '' : inv.doctornamEE.toString().trim(),
+                                                                                    style: ArabicTextStyle(arabicFont: ArabicFont.tajawal, color: Colors.black, fontWeight: FontWeight.w900),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              inv.sessionNameA.toString().contains('العياد')?
+                                                                              Row(
+                                                                                children: [
+                                                                                  Text( inv.Start_Time.toString()),
+                                                                                  Spacer(),
+
+                                                                                ],
+                                                                              )
+                                                                                  :
+                                                                             Row(
+                                                                               children: [
+                                                                                 Text( inv.sessionNameE.toString() == null || inv.sessionNameE.toString() == 'NULL' || inv.sessionNameE.toString() == 'null' ? '' : "" + inv.sessionNameE.toString().trim()),
+                                                                                 Spacer(),
+
+                                                                               ],
+                                                                             ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+
+                                                                        inv.sessionNameA.toString().contains('العياد')?
+                                                                        Align(
+                                                                          alignment: Alignment
+                                                                              .bottomCenter,
+                                                                          child: Container(
+                                                                            height: 40,
+                                                                            width: 100,
+                                                                            color: HexColor(
+                                                                                Globalvireables
+                                                                                    .white),
+                                                                            child:
+                                                                            ElevatedButton(
+                                                                              style: ElevatedButton
+                                                                                  .styleFrom(
+                                                                                primary: Colors.red,
+                                                                              ),
+                                                                              child: Text(
+                                                                                LanguageProvider.Llanguage("cancel"),
+                                                                                style: ArabicTextStyle(
+                                                                                    arabicFont: ArabicFont
+                                                                                        .tajawal,
+                                                                                    color: HexColor(
+                                                                                        Globalvireables
+                                                                                            .white),
+                                                                                    fontSize:
+                                                                                    12 *
+                                                                                        unitHeightValue),
+                                                                              ),
+                                                                              onPressed:
+                                                                                  () async {
+
+                                                                                    showDialog(
+                                                                                      context: context,
+                                                                                      builder:
+                                                                                          (BuildContext context) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text(
+                                                                                              textAlign:
+                                                                                              TextAlign.center,
+                                                                                              LanguageProvider.Llanguage(
+                                                                                                  'canselapp'),
+                                                                                              style: ArabicTextStyle(
+                                                                                                  arabicFont:
+                                                                                                  ArabicFont
+                                                                                                      .tajawal,
+                                                                                                  fontSize: 22 *
+                                                                                                      unitHeightValue)),
+                                                                                          content:  Text(
+                                                                                            LanguageProvider
+                                                                                                .Llanguage(
+                                                                                                "txxtcanselapp"),
+                                                                                            style: ArabicTextStyle(
+                                                                                                arabicFont:
+                                                                                                ArabicFont
+                                                                                                    .tajawal,
+                                                                                                fontSize: 14 *
+                                                                                                    unitHeightValue),
+                                                                                          ),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              //  textColor: Colors.black,
+                                                                                              onPressed: () {
+
+                                                                                       CanselAppoiment(context,inv.Reserv_No.toString());
+
+                                                                                              },
+                                                                                              child: Text(
+                                                                                                LanguageProvider
+                                                                                                    .Llanguage(
+                                                                                                    'canselapp'),
+                                                                                                style: ArabicTextStyle(
+                                                                                                    arabicFont:
+                                                                                                    ArabicFont
+                                                                                                        .tajawal,
+                                                                                                    color: Colors.red,
+                                                                                                    fontSize: 15 *
+                                                                                                        unitHeightValue),
+                                                                                              ),
+                                                                                            ),
+                                                                                            TextButton(
+                                                                                              // textColor: Colors.black,
+                                                                                              onPressed: () {
+                                                                                                Navigator.of(
+                                                                                                    context)
+                                                                                                    .pop();
+                                                                                              },
+                                                                                              child: Text(
+                                                                                                LanguageProvider
+                                                                                                    .Llanguage(
+                                                                                                    'cancel'),
+                                                                                                style: ArabicTextStyle(
+                                                                                                    arabicFont:
+                                                                                                    ArabicFont
+                                                                                                        .tajawal,
+                                                                                                    color: Colors
+                                                                                                        .black87,
+                                                                                                    fontSize: 15 *
+                                                                                                        unitHeightValue),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    );
+
+
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                       :Container()
+
                                                                       ],
                                                                     ),
+
+
                                                                   ],
                                                                 ),
                                                               ),
@@ -552,4 +698,81 @@ class _AppoimentsState extends State<Appoiments> {
     }
     return newMonth.toString();
   }
+
+  CanselAppoiment(BuildContext context, String RESERVATION_ID) async {
+
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip = Loginprovider.getFirebaseIp().toString();
+    var HomeP = Provider.of<HomeProvider>(context, listen: false);
+
+
+    Uri postsURL = Uri.parse(ip + Globalvireables.CanselAppoiment);
+    try {
+      // HomeP.getClinics_ID();
+
+
+      var map = new Map<String, dynamic>();
+      map['PatientNo'] = Loginprovider.getuserId().toString();
+      map['RESERVATION_ID'] = RESERVATION_ID;
+
+      http.Response res = await http.post(postsURL, body: map);
+
+      print("input" + map.toString());
+      print("statusCode" + res.statusCode.toString());
+
+      if (res.statusCode == 200) {
+        print("ChangePass" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<ChangePassM> Doctors = body
+            .map(
+              (dynamic item) => ChangePassM.fromJson(item),
+        )
+            .toList();
+
+
+        if(Doctors[0].response=='1S'){
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('canselapp')),
+              content: Text(LanguageProvider.Llanguage('canselappdone')),
+              actions: <Widget>[],
+            ),
+          );
+setState(() {
+
+});
+        }else{
+          Navigator.pop(context);
+          await showDialog(
+            context: context,
+            builder: (context) =>
+            new AlertDialog(
+              title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+              content: Text(LanguageProvider.Llanguage('anerror')),      actions: <Widget>[],
+            ),
+          );
+
+        }
+      } else {
+        Navigator.pop(context);
+
+        new AlertDialog(
+          title: new Text(LanguageProvider.Llanguage('anerrortitle')),
+          content: Text(LanguageProvider.Llanguage('anerror')),     actions: <Widget>[],
+        );
+      }
+    } catch (e) {
+      print(e.toString() + "uuuuu");
+    }
+
+    throw "Unable to retrieve AvalAppoiment.";
+  }
+
+
 }

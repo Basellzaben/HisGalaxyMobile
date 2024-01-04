@@ -457,7 +457,7 @@ class _ExamnationState extends State<Examnation> {
                                                                                           .toString() ==
                                                                                           'null'
                                                                                       ? ''
-                                                                                      : "DR . " +
+                                                                                      : " " +
                                                                                       inv
                                                                                           .doctorName
                                                                                           .toString()

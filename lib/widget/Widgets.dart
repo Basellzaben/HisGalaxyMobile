@@ -35,11 +35,13 @@ class Widgets {
                   fontSize: 21.5 * unitHeightValue),
             ),
             Spacer(),
-            shown=='true'?   Icon(
+            shown=='true'? Icon(
               Icons.notifications,
               color: HexColor(ThemP.getcolor()),
               size: 33 * unitHeightValue,
-            ):Container()
+            ):Container(
+
+            )
           ],
         ),
       ),

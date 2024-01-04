@@ -451,7 +451,7 @@ class _MedicalReportTListState extends State<MedicalReportTList> {
                                                                                           .toString() ==
                                                                                           'null'
                                                                                       ? ''
-                                                                                      : "DR . " +
+                                                                                      : " " +
                                                                                       inv
                                                                                           .datee
                                                                                           .toString()

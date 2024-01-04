@@ -10,12 +10,23 @@ class AppoimentsM {
   String? doctornamEA;
   String? doctornamEE;
 
+  String? Start_Time;
+  String? Reserv_No;
+  String? appid;
+
+
+
   AppoimentsM(
       {this.sessionDate,
         this.sessionStatus,
         this.sessionNameA,
         this.sessionNameE,
         this.doctornamEA,
+
+        this.Start_Time,
+        this.Reserv_No,
+        this.appid,
+
         this.doctornamEE});
 
   AppoimentsM.fromJson(Map<String, dynamic> json) {
@@ -25,6 +36,11 @@ class AppoimentsM {
     sessionNameE = json['sessionNameE'];
     doctornamEA = json['doctornamE_A'];
     doctornamEE = json['doctornamE_E'];
+
+    Start_Time = json['start_Time'];
+    Reserv_No = json['reserv_No'];
+    appid = json['appid'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +51,11 @@ class AppoimentsM {
     data['sessionNameE'] = this.sessionNameE;
     data['doctornamE_A'] = this.doctornamEA;
     data['doctornamE_E'] = this.doctornamEE;
+
+    data['start_Time'] = this.Start_Time;
+    data['reserv_No'] = this.Reserv_No;
+    data['appid'] = this.appid;
+
     return data;
   }
 }
