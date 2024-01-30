@@ -522,7 +522,7 @@ SizedBox(height: 15,),
                                                                                                               unitHeightValue),
                                                                                                     ),
                                                                                                     Text(
-                                                                                                      'مستشفى اربد التخصصي',
+                                                                                                      'مستشفى ماركا التخصصي',
                                                                                                       style: TextStyle(
                                                                                                           fontWeight: FontWeight.w700,
                                                                                                           color: HexColor(Globalvireables
@@ -539,7 +539,7 @@ SizedBox(height: 15,),
                                                                                                     height:60,
                                                                                                     child: Image(
                                                                                                         image: new AssetImage(
-                                                                                                            "assets/irbidlogo.png")))
+                                                                                                            "assets/newlogo.png")))
                                                                                               ],
                                                                                             ),
                                                                                             Divider(thickness: 1.0, color: Colors.black),

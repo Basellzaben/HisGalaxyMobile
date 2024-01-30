@@ -201,9 +201,9 @@ class _DoctorsState extends State<Doctors> {
                                 if (snapshot.hasData) {
                                   List<Doctor>? Doctors2 = snapshot.data;
                                   List<Doctor>? Doctors = Doctors2!.where(
-                                      (map)=>(map.firsT_NAME_A.toString() +
-                                      " " + map.fatheR_NAME_A.toString() +
-                                      " " + map.lasT_NAME_A.toString()).toString().contains(dateinputC.text.toString())
+                                      (map)=>(map.fulL_NAME_A.toString() +
+                                      " " + map.depName.toString() +
+                                      " " + map.fulL_NAME_E.toString()).toString().contains(dateinputC.text.toString())
                                   || map.depName.toString().contains(dateinputC.text.toString())
                                   ).toList();
                                   return Doctors!.isNotEmpty? Container(
@@ -245,18 +245,12 @@ class _DoctorsState extends State<Doctors> {
                                                                   children: [
                                                                       Row(
                                                                         children: [
-                                                                          (Doctor.firsT_NAME_A.toString() +
-                                                                              "" + Doctor.fatheR_NAME_A.toString() +
-                                                                              "" + Doctor.lasT_NAME_A.toString()).length<14? Container(
+                                                                          (Doctor.fulL_NAME_A.toString() ).length<14? Container(
                                                                             width: MediaQuery.of(context).size.width/2,
                                                                                 child: Text(
                                                                             maxLines: 2,
                                                                             overflow: TextOverflow.ellipsis,
-                                                                            Doctor.firsT_NAME_A.toString() +
-                                                                                  " " +
-                                                                                  Doctor.fatheR_NAME_A.toString() +
-                                                                                  " " +
-                                                                                  Doctor.lasT_NAME_A.toString(),
+                                                                            Doctor.fulL_NAME_A.toString() .toString(),
                                                                             style: ArabicTextStyle(
                                                                                   arabicFont: ArabicFont.tajawal,
                                                                                   fontSize: 18 * unitHeightValue,
@@ -269,9 +263,7 @@ class _DoctorsState extends State<Doctors> {
                                                                             child: Text(
                                                                               maxLines: 2,
                                                                               overflow: TextOverflow.ellipsis,
-                                                                              Doctor.firsT_NAME_A.toString() +
-                                                                                  " " +
-                                                                                  Doctor.lasT_NAME_A.toString() ,
+                                                                              Doctor.fulL_NAME_A.toString() .toString() ,
                                                                               style: ArabicTextStyle(
                                                                                   arabicFont: ArabicFont.tajawal,
                                                                                   fontSize: 18 * unitHeightValue,
@@ -332,16 +324,8 @@ class _DoctorsState extends State<Doctors> {
                                                                             maxLines: 2,
                                                                             overflow: TextOverflow.ellipsis,
                                                                             Doctor
-                                                                                .firsT_NAME_A
-                                                                                .toString() +
-                                                                                " " +
-                                                                                Doctor
-                                                                                    .fatheR_NAME_A
-                                                                                    .toString() +
-                                                                                " " +
-                                                                                Doctor
-                                                                                    .lasT_NAME_A
-                                                                                    .toString(),
+                                                                                .fulL_NAME_A
+                                                                                .toString(),
                                                                             style: ArabicTextStyle(
             arabicFont: ArabicFont.tajawal,
                                                                                 fontSize: 16 *
@@ -421,8 +405,7 @@ class _DoctorsState extends State<Doctors> {
         Uri.parse(ip+Globalvireables.DoctorsURL);
     try {
       var map = new Map<String, dynamic>();
-      map['lan'] = LanguageProvider.getLanguage();
-      map['search'] = "all";
+      map['docno'] = 'all';
 
 
       http.Response res = await http.post(

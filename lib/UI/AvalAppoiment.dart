@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../Models/AvalAppoimentModel.dart';
 import '../Models/ChangePassM.dart';
+import '../Models/Doctor.dart';
 import '../provider/HomeProvider.dart';
 import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
@@ -116,8 +117,199 @@ class _AvalAppoimentState extends State<AvalAppoiment> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-//////////////////////////////////////
+                        Container(
+                          color: Colors.transparent,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.1,
+                            height: MediaQuery.of(context).size.height /8,
 
+                            child: FutureBuilder(
+                              future: getDoctors(context,"all"),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<Doctor>> snapshot) {
+                                if (snapshot.hasData) {
+                                  List<Doctor>? Doctors2 = snapshot.data;
+                                  List<Doctor>? Doctors = Doctors2!.where(
+                                          (map)=>(map.fulL_NAME_A.toString() +
+                                          " " + map.fulL_NAME_E.toString() +
+                                          " " + map.fulL_NAME_A.toString()).toString().contains(dateinputC.text.toString())
+                                          || map.depName.toString().contains(dateinputC.text.toString())
+                                  ).toList();
+                                  return Doctors!.isNotEmpty? Container(
+                                    child: ListView(
+                                      children: Doctors!
+                                          .map((Doctor Doctor) => SizedBox(
+                                          child:  Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(30),
+                                              // if you need this
+                                              side: BorderSide(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                //  color: Colors.black12.withOpacity(0.1),
+                                              ),
+                                            ),
+                                            child: LanguageProvider.getLanguage() ==
+                                                "EN"
+                                                ? Container(
+                                              width:
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                                  1.1,
+                                              child: Row(
+                                                children: [
+
+                                                  SizedBox(
+                                                    width: MediaQuery.of(context).size.width / 1.8,
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            (Doctor.fulL_NAME_A.toString() ).length<14? Container(
+                                                              width: MediaQuery.of(context).size.width/2,
+                                                              child: Text(
+                                                                maxLines: 2,
+                                                                overflow: TextOverflow.ellipsis,
+                                                                Doctor.fulL_NAME_A.toString() ,
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    fontSize: 18 * unitHeightValue,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    color: Colors.black87),
+                                                              ),
+                                                            ):
+                                                            Container(
+                                                              width: MediaQuery.of(context).size.width/2,
+                                                              child: Text(
+                                                                maxLines: 2,
+                                                                overflow: TextOverflow.ellipsis,
+                                                                Doctor.fulL_NAME_A.toString()  ,
+                                                                style: ArabicTextStyle(
+                                                                    arabicFont: ArabicFont.tajawal,
+                                                                    fontSize: 18 * unitHeightValue,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    color: Colors.black87),
+                                                              ),
+                                                            ),
+                                                            Spacer(),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              Doctor.depName
+                                                                  .toString(),
+                                                              style: ArabicTextStyle(
+                                                                  arabicFont: ArabicFont.tajawal,
+                                                                  fontSize: 14 *
+                                                                      unitHeightValue),
+                                                            ),
+                                                            Spacer(),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+
+                                                  ),
+                                                  Spacer(),
+                                                  Spacer(),
+                                                ],
+                                              ),
+                                            )
+                                                : Row(
+                                              children: [
+                                                // Spacer(),
+                                                // Spacer(),
+
+                                                Container(
+                                                  width: MediaQuery.of(context).size.width / 1.8,
+                                                  margin: EdgeInsets.all(10),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Spacer(),
+                                                          Center(
+                                                            child: SizedBox(
+                                                              width: MediaQuery.of(context).size.width / 2,
+                                                              child: Row(
+                                                                children: [
+                                                                  Spacer(),
+
+                                                                  Container(
+                                                                    width: MediaQuery.of(context).size.width/2,
+
+                                                                    child: Text(
+                                                                      textAlign: TextAlign.right,
+                                                                      maxLines: 2,
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                      Doctor
+                                                                          .fulL_NAME_A
+                                                                          .toString() ,
+                                                                      style: ArabicTextStyle(
+                                                                          arabicFont: ArabicFont.tajawal,
+                                                                          fontSize: 16 *
+                                                                              unitHeightValue,
+                                                                          fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                          color: Colors
+                                                                              .black87),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Spacer(),
+                                                          Text(
+                                                            Doctor.depName
+                                                                .toString(),
+                                                            style: ArabicTextStyle(
+                                                                arabicFont: ArabicFont.tajawal,
+                                                                fontSize: 14 *
+                                                                    unitHeightValue),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+
+                                                ),
+                                                Image.asset(
+                                                  "assets/doctor3.png",
+                                                  height: 80 *
+                                                      unitHeightValue,
+                                                  width: 80 *
+                                                      unitHeightValue,
+                                                ),
+                                              ],
+                                            ),)))
+                                          .toList(),
+                                    ),
+                                  ):Image.asset(
+                                    "assets/null5.png",
+                                    height: 100,
+                                    width: 100,
+                                  );
+                                } else {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+
+//////////////////////////////////////
                         SizedBox(
                           child: Card(
                             child: TableCalendar(
@@ -142,6 +334,9 @@ class _AvalAppoimentState extends State<AvalAppoiment> {
                             ),
                           ),
                         ),
+
+
+
 
                         /////////////////////////////////////
                         Container(
@@ -489,6 +684,56 @@ class _AvalAppoimentState extends State<AvalAppoiment> {
     }
 
     throw "Unable to retrieve AvalAppoiment.";
+  }
+  Future<List<Doctor>> getDoctors(BuildContext context,String search) async {
+    var LanguageProvider = Provider.of<Language>(context, listen: false);
+    var HomeP = Provider.of<HomeProvider>(context, listen: false);
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var ip= Loginprovider.getFirebaseIp().toString();
+
+    Uri postsURL =
+    Uri.parse(ip+Globalvireables.DoctorsURL);
+    try {
+      var map = new Map<String, dynamic>();
+      map['docno'] = HomeP.getdocid().toString();
+
+      print("Doctors" + map.toString());
+      print("URL " + ip+Globalvireables.DoctorsURL.toString());
+
+      http.Response res = await http.post(
+        postsURL,
+        body: map,
+
+      );
+
+      if (res.statusCode == 200) {
+        print("Doctors" + res.body.toString());
+
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<Doctor> Doctors = body
+            .map(
+              (dynamic item) => Doctor.fromJson(item),
+        )
+            .toList();
+
+        return Doctors;
+      } else {
+        throw "Unable to retrieve Doctors.";
+      }
+    } catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) => new AlertDialog(
+          title: new Text('بيانات الأطباء'),
+          content: Text(e.toString()),
+          actions: <Widget>[],
+        ),
+      );
+    }
+
+    throw "Unable to retrieve Doctors.";
   }
 
 }

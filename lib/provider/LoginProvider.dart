@@ -26,7 +26,36 @@ class LoginProvider extends ChangeNotifier {
   String parentnamee="";
 
 
+  String phone="";
+  String otp="";
+
+
+
   String FirebaseIp="";
+
+
+  getotp() {
+    return otp;
+  }
+
+  setotp(String otp) {
+    this.otp = otp;
+    notifyListeners();
+  }
+
+
+
+  getphone() {
+    return phone;
+  }
+
+  setphone(String phone) {
+    this.phone = phone;
+    notifyListeners();
+  }
+
+
+
 
   getparentnamee() {
     return parentnamee;

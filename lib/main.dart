@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'dart:io';
+import 'package:hismobileapp/provider/CreateAccountProvider.dart';
 import 'package:http/http.dart' as http;
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
@@ -48,6 +50,10 @@ Future<void> main() async {
         ChangeNotifierProvider<Them>(create: (_) => Them()),
         ChangeNotifierProvider<HospitalProvider>(create: (_) => HospitalProvider()),
         ChangeNotifierProvider<MedicalREPProvider>(create: (_) => MedicalREPProvider()),
+        ChangeNotifierProvider<CreateAccountProvider>(create: (_) => CreateAccountProvider()),
+
+
+
       ],
       child:DevicePreview(enabled: false,builder:(context)=> const MyApp(),)));
 
@@ -182,7 +188,7 @@ onStart(ServiceInstance service) async {
       DurationSeconds=99999;
 
     }
-  DurationSeconds=2;
+  DurationSeconds=2000000;
 
 
     Timer.periodic(Duration(seconds: DurationSeconds), (timer) async {
@@ -254,6 +260,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     SetLanguage(context);
 
+
+
+    var ThemP = Provider.of<Them>(context, listen: false);
+    ThemP.setcolor('#097969');
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+
+    Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP);
+
     return EasySplashScreen(
       backgroundImage: Image.asset(
         "assets/background.png",
@@ -264,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
       logoWidth: MediaQuery.of(context).size.width/2.5,
       loaderColor:HexColor(Globalvireables.basecolor),
       logo: Image.asset(
-        "assets/irbidlogo.png",
+        "assets/newlogo.png",
       ),
       showLoader: true,
       title:  Text(

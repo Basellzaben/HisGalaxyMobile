@@ -468,7 +468,7 @@ class _AppoimentsState extends State<Appoiments> {
                                                                                               child: Text(
                                                                                                 LanguageProvider
                                                                                                     .Llanguage(
-                                                                                                    'cancel'),
+                                                                                                    'return'),
                                                                                                 style: ArabicTextStyle(
                                                                                                     arabicFont:
                                                                                                     ArabicFont

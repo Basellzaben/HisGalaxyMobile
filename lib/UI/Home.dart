@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:arabic_font/arabic_font.dart';
@@ -56,19 +57,47 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-
+    _startAutoScroll();
     changepass(context);
     super.initState();
   }
-
+  PageController _pageController = PageController();
+  int _currentPage = 0;
   var data;
 
   String selectedSpinnerItem = 'Eliseo@gardner.biz';
 
+
+  void _startAutoScroll() {
+    // Auto-scroll every 3 seconds
+    Timer.periodic(Duration(seconds: 3), (timer) {
+      if (_currentPage < _imageAssets.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInCirc,
+      );
+    });
+  }
+
   @override
   void dispose() {
+    _pageController.dispose();
     super.dispose();
   }
+
+
+  List<String> _imageAssets = [
+    'assets/slide1.png',
+    'assets/slide2.png',
+    'assets/slide3.png',
+    // Add more asset paths as needed
+  ];
+
 
   TextEditingController dateinput = TextEditingController();
   var HospitLProvider;
@@ -248,7 +277,7 @@ class _HomeState extends State<Home> {
 
     badgeContent:
     StreamBuilder<String>(
-    stream: getnotificationsCount(),
+    stream: null,
     builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
     return CircularProgressIndicator.adaptive(); // Display a loading indicator
@@ -286,6 +315,9 @@ class _HomeState extends State<Home> {
     SizedBox(
     height: 10,
     ),
+
+
+
     GestureDetector(
     onTap: () async {
      // Share.share( 'https://vuemotion.ishjo.com/portal/?user_name=view&password=view123&accession_number="+"3284"+"&key_images=true');
@@ -306,15 +338,50 @@ class _HomeState extends State<Home> {
       fontSize: 22 * unitHeightValue,
       fontWeight: FontWeight.w700)
       ),
-
-
-
-
-
-
-
       ),
     ),
+
+    Container(
+    alignment: LanguageProvider.Align(),
+    child: Text(
+    "الصدارة في تقديم الرعاية الطبية الشاملة على مستوى المنطقة",
+    style: ArabicTextStyle(
+    arabicFont: ArabicFont.tajawal,
+    color: HexColor(Globalvireables.black2),
+    fontSize: 12 * unitHeightValue,
+    fontWeight: FontWeight.w400)
+    ),
+    ),
+
+
+
+    Card(
+      child: SizedBox(
+      height: 140,
+      child: PageView.builder(
+      controller: _pageController,
+      itemCount: _imageAssets.length,
+      onPageChanged: (index) {
+      setState(() {
+      _currentPage = index;
+      });
+      },
+      itemBuilder: (context, index) {
+      return ColorFiltered(
+          colorFilter: ColorFilter.mode(
+            HexColor(ThemP.getcolor()).withOpacity(0.2), // Adjust the color and opacity as needed
+            BlendMode.srcOver,
+          ), child: Image.asset(
+       _imageAssets[index],
+      fit: BoxFit.cover,
+      ));
+      },
+      ),
+      ),
+    ),
+
+
+
   /*    SizedBox(
         child: Align(
           alignment: Alignment.topRight,
@@ -1480,28 +1547,25 @@ class _HomeState extends State<Home> {
           child: Column(
           children: [
           Center(
-          child: Text(
-          Doctor
-              .firsT_NAME_A
-              .toString() +
-          " " +
-          Doctor
-              .fatheR_NAME_A
-              .toString() +
-          " " +
-          Doctor
-              .lasT_NAME_A
-              .toString(),
-          style: ArabicTextStyle(
-                  arabicFont: ArabicFont.tajawal,
-          fontSize:
-          16 *
-          unitHeightValue,
-          fontWeight:
-          FontWeight
-              .w700,
-          color: Colors
-              .black87),
+          child: Container(
+            width: MediaQuery.of(context).size.width/1.8,
+            child: Text(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            Doctor
+                .fulL_NAME_E
+                .toString() ,
+            style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+            fontSize:
+            16 *
+            unitHeightValue,
+            fontWeight:
+            FontWeight
+                .w700,
+            color: Colors
+                .black87),
+            ),
           ),
           ),
           Center(
@@ -1532,28 +1596,25 @@ class _HomeState extends State<Home> {
           child: Column(
           children: [
           Center(
-          child: Text(
-          Doctor
-              .firsT_NAME_A
-              .toString() +
-          " " +
-          Doctor
-              .fatheR_NAME_A
-              .toString() +
-          " " +
-          Doctor
-              .lasT_NAME_A
-              .toString(),
-          style: ArabicTextStyle(
-                  arabicFont: ArabicFont.tajawal,
-          fontSize:
-          16 *
-          unitHeightValue,
-          fontWeight:
-          FontWeight
-              .w700,
-          color: Colors
-              .black87),
+          child: Container(
+            width: MediaQuery.of(context).size.width/1.8,
+            child: Text(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            Doctor
+                .fulL_NAME_A
+                .toString() ,
+            style: ArabicTextStyle(
+                    arabicFont: ArabicFont.tajawal,
+            fontSize:
+            16 *
+            unitHeightValue,
+            fontWeight:
+            FontWeight
+                .w700,
+            color: Colors
+                .black87),
+            ),
           ),
           ),
           Center(
@@ -1622,6 +1683,7 @@ class _HomeState extends State<Home> {
 
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var ip= Loginprovider.getFirebaseIp().toString();
+    var homeP = Provider.of<HomeProvider>(context, listen: false);
 
 
     var LanguageProvider = Provider.of<Language>(context, listen: false);
@@ -1629,13 +1691,13 @@ class _HomeState extends State<Home> {
     Uri.parse(ip+Globalvireables.DoctorsURL);
     try {
       var map = new Map<String, dynamic>();
-      map['lan'] = LanguageProvider.getLanguage();
-      map['search'] = "all";
+      //map['lan'] = LanguageProvider.getLanguage();
+     // map['search'] = "all";
+      map['docno'] = 'all';
 
       http.Response res = await http.post(
         postsURL,
         body: map,
-
       );
 
       if (res.statusCode == 200) {
@@ -1739,6 +1801,7 @@ class _HomeState extends State<Home> {
 if(prefs.getString('changepass')==null || prefs.getString('changepass')!='yes'){
   showLoaderDialog(c);
 }
+
 }
 
 
@@ -2299,6 +2362,10 @@ Spacer(),
               (dynamic item) => ProfileM.fromJson(item),
         )
             .toList();
+
+
+        Loginprovider.setphone(Doctors[0].mobilENO.toString());
+
 
         return Doctors;
       } else {

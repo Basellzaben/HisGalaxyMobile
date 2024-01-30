@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:hismobileapp/UI/CreatAccount.dart';
 import 'package:hismobileapp/provider/LoginProvider.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ import '../provider/HomeProvider.dart';
 import '../provider/HospitalProvider.dart';
 import '../provider/Them.dart';
 import '../provider/languageProvider.dart';
+import 'Forgetpassword1.dart';
 import 'Home.dart';
 import 'Index.dart';
 import  'package:intl/intl.dart';
@@ -192,7 +194,7 @@ var LanguageProvider = Provider.of<Language>(context, listen: false);
                                         MediaQuery.of(context).size.width / 2,
                                     child: Image(
                                         image: new AssetImage(
-                                         "assets/irbidlogo.png"))),
+                                         "assets/newlogo.png"))),
                               ),
           Container(
               alignment:Alignment.center,
@@ -341,7 +343,11 @@ margin: EdgeInsets.only(top: 0),
                                     ),
                                     onPressed: () async {
 
-                                      Login(_emailController.text.toString(),_passController.text.toString(),context);
+
+
+
+
+                                   Login(_emailController.text.toString(),_passController.text.toString(),context);
 
                                      /* Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
@@ -421,7 +427,78 @@ margin: EdgeInsets.only(top: 0),
                                     ),
                                   ),
                                 ),
-                          SizedBox(
+
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 35,right: 35),
+                                      child:  GestureDetector(
+                                        onTap: () async {
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Forgetpassword1()),
+                                          );
+
+                                        },
+                                        child: Text(
+                                            LanguageProvider.Llanguage(
+                                                'forgetpass')
+                                           ,
+                                            style: ArabicTextStyle(
+                                                arabicFont: ArabicFont.tajawal,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                12 * unitHeightValue)),
+                                      ),
+                                    ),
+                                    Spacer()
+                                  ],
+                                ),
+                              ),
+
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 35,right: 35),
+                                      child:  GestureDetector(
+                                        onTap: () async {
+
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => CreatAccount()),
+                                          );
+
+                                        },
+
+
+                                        child: Text(  LanguageProvider.Llanguage(
+    'noaccount')
+                                           ,
+                                            style: ArabicTextStyle(
+                                                arabicFont: ArabicFont.tajawal,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                12 * unitHeightValue)),
+                                      ),
+                                    ),
+                                    Spacer()
+                                  ],
+                                ),
+                              ),
+
+
+                              SizedBox(
                                child: Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Container(
@@ -480,13 +557,7 @@ margin: EdgeInsets.only(top: 0),
                                            }
                                           } on PlatformException catch (e) {
                                             print("errorlogiin "+ e.message.toString());
-                                           /* if (e.code == auth_error.notEnrolled) {
-                                              // Add handling of no hardware here.
-                                            } else if (e.code == auth_error.lockedOut ||
-                                                e.code == auth_error.permanentlyLockedOut) {
-                                            } else {
-                                             print("errorlogiin "+ e.message.toString());
-                                            }*/
+
                                           }
 
                                         }),
@@ -580,7 +651,7 @@ margin: EdgeInsets.only(top: 0),
       && prefs.getString('password').toString()!=null){
         _passController.text= prefs.getString('password').toString();
         _emailController.text= prefs.getString('username').toString();
-        Login(_emailController.text.toString(),_passController.text.toString(),context);
+       // Login(_emailController.text.toString(),_passController.text.toString(),context);
         check=true;
       }else{
         _passController.text='';
@@ -596,26 +667,15 @@ margin: EdgeInsets.only(top: 0),
   Login(String username, String password, BuildContext context) async {
     var homeP = Provider.of<HomeProvider>(context, listen: false);
     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+    var l = Provider.of<Language>(context, listen: false);
 
     homeP.setvisitNo('0');
     homeP.setvisittype('0');
 
-    Firebase.initializeApp();
-    var value = FirebaseDatabase.instance.reference();
-    var getValue = await value.child('ip').once();
 
-
-
-    //   Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
-  Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP);
-
-
-    //return getValue;
-    getHospitalInf();
-
-
-    prefs = await SharedPreferences.getInstance();
-    var l = Provider.of<Language>(context, listen: false);
+   // Firebase.initializeApp();
+    //var value = FirebaseDatabase.instance.reference();
+    //var getValue = await value.child('ip').once();
 
     showDialog(
         context: context,
@@ -623,6 +683,19 @@ margin: EdgeInsets.only(top: 0),
           title:  Text(l.Llanguage('login')),
           content: Text(l.getLanguage()=="AR"?'جار تسجيل الدخول ...':'Logging in...'),
         ));
+
+
+    // Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
+   Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP);
+
+
+    //return getValue;
+    getHospitalInf();
+
+
+    prefs = await SharedPreferences.getInstance();
+
+
 
 
     print("UUSER" + username.toString());
@@ -698,12 +771,11 @@ if(jsonResponse["userType"].toString()!='2'  ){
       ));
 }
 else {
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => Home()),
-          (Route<dynamic> route) => false);
+
+  CheckTerms(jsonResponse["userId"].toString(),jsonResponse["username"].toString());
+
+
 }
-//   CheckTerms(jsonResponse["userId"].toString(),jsonResponse["username"].toString());
 
 
 
@@ -825,8 +897,13 @@ else {
                                   fontSize: 13 * unitHeightValue),
                             ),
                             onPressed: () async {
-                              ChangeTerms(context,PatientNo,Patientname);
 
+                             ChangeTerms(context,PatientNo, Patientname);
+                             /*
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                      (Route<dynamic> route) => false);*/
                             },
                           ),
                         ),
@@ -910,7 +987,7 @@ else {
                       ),
                       onPressed: () async {
 
-                        ChangeTerms(context,PatientNo,Patientname);
+                       // CheckTerms(context,PatientNo,Patientname);
 
 
 
@@ -947,7 +1024,12 @@ else {
     ip=Globalvireables.connectIP;
 
     Uri postsURL =
-    Uri.parse(ip+Globalvireables.ChangeTermsACCSEPTURL);
+    Uri.parse('http://'+ip+Globalvireables.ChangeTermsACCSEPTURL);
+
+
+
+    print("termapi : "+postsURL.toString());
+
     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
@@ -1089,7 +1171,7 @@ else {
 
 
     // Loginprovider.setFirebaseIp("http://"+getValue.snapshot.value.toString());
-    Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP.toString());
+     Loginprovider.setFirebaseIp("http://"+Globalvireables.connectIP.toString());
 
 
 
@@ -1149,5 +1231,16 @@ else {
 
 
 
+  void SendWhatsapp() async {
+    var url = Uri.parse("https://api.4whats.net/sendMessage/?instanceid=%7B%7Binstanceid%7D%7D&token=%7B%7Btoken%7D%7D&phone=962779176141&body=hello");
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      print("Response: ${response.body}");
+    } else {
+      print("Error: ${response.statusCode}");
+    }
+  }
 
 }

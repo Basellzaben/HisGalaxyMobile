@@ -141,7 +141,7 @@ class _HospitalInfoSState extends State<HospitalInfoS> {
                                    height: 200,
                                    child: Image(
                                        image: new AssetImage(
-                                           "assets/irbidlogo.png")),
+                                           "assets/newlogo.png")),
                                  ),
                                  Text(LanguageProvider.getLanguage()=='AR'? Doctors![0].desCA.toString():Doctors![0].desCE.toString(),
                                    style: TextStyle(
@@ -354,11 +354,129 @@ Spacer(),
 
 
 
+
+
                                    ],),
+                                 ),
+
+
+                                 Container(
+                                   padding: EdgeInsets.all(10),
+                                   child: Card(
+                                     
+                                       child: Column(
+                                       children: [
+                                         Row(
+                                           children: [
+                                             Spacer()
+,
+                                             Text(
+                                                 textAlign: TextAlign.right,
+                                                 style: TextStyle(
+                                                     fontWeight: FontWeight.w900,
+                                                     color: HexColor(Globalvireables
+                                                         .black),
+                                                     fontSize:
+                                                     18 * unitHeightValue),
+                                               " مستشفى ماركا التخصصي"
+                                           ),
+                                           ],
+                                         ),
+                                         SizedBox(height: 10,),
+                                         Text(
+                                             textAlign: TextAlign.right,
+                                             style: TextStyle(
+                                                 fontWeight: FontWeight.w300,
+                                                 color: HexColor(Globalvireables
+                                                     .black),
+                                                 fontSize:
+                                                 16 *
+                                                     unitHeightValue),
+
+                                                 "مستشفى ماركا التخصصي، الذي يعود تأسيسه الى عام ١٩٨٢، هو من اعرق المستشفيات الموجودة في شرق عمان وتحديدا في منطقة ماركا طاقة المستشفى السريرية تبلغ 50 سرير مع وجود خطة للتوسعة من خلال استحداث مبنى عيادات خارجية خلال السنوات المقبلة. وللمستشفى سمعة مرموقة في العمليات الجراحية المختلفة و التي تجرى بأحدث الأجهزة الطبية ذات المنشأ الأمريكي و الأوروبي بمواصفات عالية الجودة ، و استحداث وحدة القلب و القسطرة التداخلية وكذلك مركز جراحة السمنة وتكميم المعدة  أطلق على المستشفى اسم مستشفى ماركا التخصصي لأن إدارته ارتقت على كل أن يكون مستشفى ريادي في التخصصات المتاحة وذلك لضمان مستوى متقدم من الخدمة الطبية يضاهي فيها المستشفيات من شتى أنحاء الوطن العربي  يقدم المستشفى خدماته الطبية للمواطنين وكذلك يقصده كثير من مرضى الدول المجاورة وقد تمّ تجهيز المستشفى بأفضل وأحدث المرافق من حيث العلاج والمعدات والتشخيص، إلى جانب تسليم قيادة الدفة إلى فريق عمل طبي واختصاصيين متميزين  كما يستعد مستشفى ماركا التخصصي لدخول حقبة جديدة في مجال الرعاية الصحية من خلال حصوله على اعتمادية الايزو 9001 والعمل الدؤوب للحصول على اعتمادية مجلس اعتماد المؤسسات الصحية(HCAC) خلال عام 2019."
+                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(height: 20,),
+                                 Container(
+                                   padding: EdgeInsets.all(10),
+                                   child: Card(
+
+                                     child: Column(
+                                       children: [
+                                         Row(
+                                           children: [
+                                             Spacer()
+                                             ,
+                                             Text(
+                                                 textAlign: TextAlign.right,
+                                                 style: TextStyle(
+                                                     fontWeight: FontWeight.w900,
+                                                     color: HexColor(Globalvireables
+                                                         .black),
+                                                     fontSize:
+                                                     18 * unitHeightValue),
+                                                 "كلمة المدير العام"
+                                             ),
+                                           ],
+                                         ),
+                                         SizedBox(height: 10,),
+                                         Text(
+                                             textAlign: TextAlign.right,
+                                             style: TextStyle(
+                                                 fontWeight: FontWeight.w300,
+                                                 color: HexColor(Globalvireables
+                                                     .black),
+                                                 fontSize:
+                                                 16 *
+                                                     unitHeightValue),
+
+"اهلا و سهلا بكم في مستشفى ماركا التخصصي ، الذي يعد من اعرق المستشفيات على مستوى المنطقة  ايماناً منا بأهمية توفير بيئة رعاية صحية آمنة، والالتزام بأعلى معايير ممكنة للجودة وتتويجا لتوجيهات جلالة الملك المعظم عبد الله بن الحسين، وتعليمات معالي وزير الصحة بضرورة العمل على راحة المستفيدين وصحتهم الجسدية والنفسية نحرص على مضاعفة جهودنا و خدماتنا من أجل استكمال مسيرتنا لتحقيق رسالتنا و رؤيتنا و غاياتنا المنشودة، وذلك من خلال منظومة عمل جماعي تعتمد تطبيق أحدث ما توصل اليه العلم و الاستعانة بأفضل الاجهزة المتطورة و المعدات الطبية الحديثة و توظيف النخبة من الكوادر الطبية و الفنية، إضافة الى التواصل مع المستفيدين من الخدمات الصحية ومشاركتهم في تقييم الخدمة من أجل التحسين المستمر.  إن جعل زيارتكم وإقامتكم بالمستشفى الأكثر راحة واستفادة تأتي في أولويات جميع العاملين بمستشفى ماركا التخصصي بكافة كوادرهم الفنية والإدارية، وهذا التواصل يؤدي إلى أقصى درجات النجاح للعناية بكم.  وهنا يسرني ويسعدني نيابة عن كافة طاقم المستشفى أن أرحب بجميع زوار الموقع الذي يقدم أفضل الخدمات الصحية وفق جودة عالية . أسأل الله العلي القدير أن يوفقنا جميعا ً لما فيه خدمة المرضى والمراجع"                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+
+                                 SizedBox(height: 20,),
+                                 Container(
+                                   padding: EdgeInsets.all(10),
+                                   child: Card(
+
+                                     child: Column(
+                                       children: [
+                                         Row(
+                                           children: [
+                                             Spacer()
+                                             ,
+                                             Text(
+                                                 textAlign: TextAlign.right,
+                                                 style: TextStyle(
+                                                     fontWeight: FontWeight.w900,
+                                                     color: HexColor(Globalvireables
+                                                         .black),
+                                                     fontSize:
+                                                     18 * unitHeightValue),
+                                                 "رسالتنا"
+                                             ),
+                                           ],
+                                         ),
+                                         SizedBox(height: 10,),
+                                         Text(
+                                             textAlign: TextAlign.right,
+                                             style: TextStyle(
+                                                 fontWeight: FontWeight.w300,
+                                                 color: HexColor(Globalvireables
+                                                     .black),
+                                                 fontSize:
+                                                 16 *
+                                                     unitHeightValue),
+
+"تقديم خدمات طبية شاملة ضمن اعلى معايير الجودة لسكان المنطقة و ما حولها من خلال توفير بيئة علاج صحية و متكاملة و استخدام احدث التقنيات و استقطاب افضل الكفاءات .  "                     )                  ],
+                                     ),
+                                   ),
                                  )
-
-
-
                                ],
 
 

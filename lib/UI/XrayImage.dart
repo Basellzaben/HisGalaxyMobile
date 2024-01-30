@@ -52,6 +52,10 @@ class _XrayImageState extends State<XrayImage> {
 
   @override
   Widget build(BuildContext context) {
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+
+
     var ImgaeXrayProvide =
         Provider.of<ImgaeXrayProvider>(context, listen: false);
     var ThemP = Provider.of<Them>(context, listen: false);
@@ -119,10 +123,186 @@ class _XrayImageState extends State<XrayImage> {
                           topLeft: Radius.circular(0.0),
                           bottomLeft: Radius.circular(29.0)),
                     ),
-                    padding: EdgeInsets.only(left: 20, right: 20),
+                    padding: EdgeInsets.only(left: 10, right: 10),
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
+
+
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: HexColor(ThemP.getcolor())),
+                              color: Colors.white54,
+
+                            ),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: Padding(
+                                padding: EdgeInsets.all(0.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 120,
+                                      height: 100,
+                                      child: Image(
+                                          image: new AssetImage(
+                                              "assets/newlogo.png")),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "تقرير صورة الاشعة",
+                                        style: ArabicTextStyle(
+                                            arabicFont: ArabicFont.tajawal,
+                                            fontWeight: FontWeight.w400,
+                                            color: HexColor(
+                                                Globalvireables.black),
+                                            fontSize: 16 * unitHeightValue),
+                                      ),
+                                    ),
+
+                                    Column(
+                                      children: [
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                          child: Row(
+                                            children: [
+                                              Text( 'رقم المريض : '
+                                                  ,
+                                                  style: ArabicTextStyle(
+                                                      arabicFont:
+                                                      ArabicFont.tajawal,
+                                                      color: HexColor(
+                                                          Globalvireables.black),
+                                                      fontSize:
+                                                      12 * unitHeightValue)),
+                                              Text(
+                                                Loginprovider.getuserId(),
+                                                style: ArabicTextStyle(
+                                                    arabicFont:
+                                                    ArabicFont.tajawal,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    color: HexColor(
+                                                        Globalvireables
+                                                            .black),
+                                                    fontSize: 14 *
+                                                        unitHeightValue),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                                          child: Row(
+                                            children: [
+
+                                              Text('اسم المريض : '
+                                                  ,
+                                                  style: ArabicTextStyle(
+                                                      arabicFont:
+                                                      ArabicFont.tajawal,
+                                                      color: HexColor(
+                                                          Globalvireables.black),
+                                                      fontSize:
+                                                      12 * unitHeightValue)),
+                                              Text(
+                                                Loginprovider.nameA,
+                                                style: ArabicTextStyle(
+                                                    arabicFont:
+                                                    ArabicFont.tajawal,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    color: HexColor(
+                                                        Globalvireables
+                                                            .black),
+                                                    fontSize: 14 *
+                                                        unitHeightValue),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, right: 8.0),
+                                          child: Divider(
+                                              thickness: 1.0,
+                                              color: Colors.black),
+                                        ),
+
+                                        SizedBox(height: 20,),
+
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            textAlign: TextAlign
+                                                .left,
+                                            ImgaeXrayProvide.PLACEHOLDER_HTML.toString().replaceAll(':', "")
+                                                .replaceAll('-', '').replaceAll('.', '').replaceAll('Procedure', ' : Procedure')
+                                                .replaceAll('Technique', ' : Technique')
+                                                .replaceAll('Findings', ' : Findings')
+                                                .replaceAll('Impression', ' : Impression'),
+
+                                            style: ArabicTextStyle(
+                                                arabicFont:
+                                                ArabicFont.tajawal,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                color: HexColor(
+                                                    Globalvireables
+                                                        .black),
+                                                fontSize: 14 *
+                                                    unitHeightValue),
+                                          ),
+                                        )
+
+
+                                      ],
+                                    ),
+
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 3,
+                            margin: EdgeInsets.only(top: 10, bottom: 5),
+                            color: HexColor(Globalvireables.white),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: HexColor(ThemP.getcolor()),
+                              ),
+                              child: Text(
+                                LanguageProvider.Llanguage('Share'),
+                                style: ArabicTextStyle(
+                                    arabicFont: ArabicFont.tajawal,
+                                    color:
+                                    HexColor(Globalvireables.white),
+                                    fontSize: 14 * unitHeightValue),
+                              ),
+                              onPressed: () async {
+                                Share.share(
+                                    subject: 'Report',
+                                    ImgaeXrayProvide.PLACEHOLDER_HTML
+                                        .trim());
+//print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                                //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
+                              },
+                            ),
+                          ),
+
+
+                          ////
+SizedBox(height: 100,),
+
+
                           Text(
                             LanguageProvider.Llanguage('Rayi'),
                             style: TextStyle(
@@ -210,112 +390,7 @@ class _XrayImageState extends State<XrayImage> {
                           SizedBox(
                             height: 20,
                           ),
-                          Text(
-                            LanguageProvider.Llanguage('Rayr'),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: HexColor(Globalvireables.black),
-                                fontSize: 18 * unitHeightValue),
-                          ),
 
-                          /*SizedBox(
-            height: MediaQuery.of(context).size.width,
-            width: MediaQuery.of(context).size.width,
-          child: WebViewWidget(
-           // initialUrl: Uri.encodeFull(EnterUrlHere),
-              controller: controller,key: _key,)
-              ),*/
-
-                        /*  Center(
-                            child: Row(
-                              children: [
-                                Spacer(),
-                                Container(
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  margin: EdgeInsets.only(top: 10, bottom: 5),
-                                  color: HexColor(Globalvireables.white),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: HexColor(ThemP.getcolor()),
-                                    ),
-                                    child: Text(
-                                      LanguageProvider.Llanguage('Share'),
-                                      style: ArabicTextStyle(
-                                          arabicFont: ArabicFont.tajawal,
-                                          color:
-                                              HexColor(Globalvireables.white),
-                                          fontSize: 14 * unitHeightValue),
-                                    ),
-                                    onPressed: () async {
-                                      Share.share(
-                                          subject: 'Irbid Hospital - ',
-                                          ImgaeXrayProvide.PLACEHOLDER.trim());
-                                    },
-                                  ),
-                                ),
-                                Spacer(),
-                                Container(
-                                  height: 40,
-                                  width: MediaQuery.of(context).size.width / 3,
-                                  margin: EdgeInsets.only(top: 10, bottom: 5),
-                                  color: HexColor(Globalvireables.white),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: HexColor(ThemP.getcolor()),
-                                    ),
-                                    child: Text(
-                                      LanguageProvider.Llanguage('openbrowser'),
-                                      textAlign: TextAlign.center,
-                                      style: ArabicTextStyle(
-                                          arabicFont: ArabicFont.tajawal,
-                                          color:
-                                              HexColor(Globalvireables.white),
-                                          fontSize: 12 * unitHeightValue),
-                                    ),
-                                    onPressed: () async {
-                                      openUrl(
-                                          'https://myvue.ishjo.com/portal/?user_name=view&password=view123&accession_number=150278&key_images=true');
-                                    },
-                                  ),
-                                ),
-                                Spacer(),
-                              ],
-                            ),
-                          ),*/
-
-                          Container(
-                            padding: EdgeInsets.all(5),
-                              color: Colors.white,
-                              child: Text(ImgaeXrayProvide.PLACEHOLDER, textAlign: TextAlign.left,))
-,
-                          Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width / 3,
-                            margin: EdgeInsets.only(top: 10, bottom: 5),
-                            color: HexColor(Globalvireables.white),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: HexColor(ThemP.getcolor()),
-                              ),
-                              child: Text(
-                                LanguageProvider.Llanguage('Share'),
-                                style: ArabicTextStyle(
-                                    arabicFont: ArabicFont.tajawal,
-                                    color:
-                                    HexColor(Globalvireables.white),
-                                    fontSize: 14 * unitHeightValue),
-                              ),
-                              onPressed: () async {
-                                Share.share(
-                                    subject: 'Report',
-                                    ImgaeXrayProvide.PLACEHOLDER_HTML
-                                        .trim());
-//print("xx   "+ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
-                                //                  openUrl(ImgaeXrayProvide.PLACEHOLDER_HTML.trim());
-                              },
-                            ),
-                          ),
                         ],
                       ),
                     ),

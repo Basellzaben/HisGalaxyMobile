@@ -14,6 +14,7 @@ import '../HexaColor.dart';
 import 'package:flutter/services.dart';
 
 import '../Models/ChangePassM.dart';
+import '../Models/CreatAccountModel.dart';
 import '../Models/HospitalInfo.dart';
 import '../provider/LoginProvider.dart';
 import '../provider/Them.dart';
@@ -23,12 +24,12 @@ import 'Home.dart';
 import 'Settings.dart';
 import 'package:http/http.dart' as http;
 
-class ChangePass extends StatefulWidget {
+class CreatAccount2 extends StatefulWidget {
   @override
-  State<ChangePass> createState() => _ChangePassState();
+  State<CreatAccount2> createState() => _CreatAccount2State();
 }
 
-class _ChangePassState extends State<ChangePass> {
+class _CreatAccount2State extends State<CreatAccount2> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +42,7 @@ class _ChangePassState extends State<ChangePass> {
 
   final newpass2 = TextEditingController();
   final newpass1 = TextEditingController();
-  final oldpass = TextEditingController();
+  final otpcontroller = TextEditingController();
 
 
 
@@ -49,6 +50,15 @@ class _ChangePassState extends State<ChangePass> {
   Widget build(BuildContext context) {
     var Loginproviderr = Provider.of<LoginProvider>(context, listen: false);
     var ThemP = Provider.of<Them>(context, listen: false);
+    String pp='';
+    try{
+      pp=Loginproviderr.getphone().toString().substring(Loginproviderr.getphone().toString().length-2,Loginproviderr.getphone().toString().length);
+      String pp2=Loginproviderr.getphone().toString().substring(0,3);
+      pp=pp+"*******"+pp2;
+
+    }catch(_){
+
+    }
 
     var colors = [HexColor((Globalvireables.secondcolor)), HexColor((ThemP.getcolor()))];
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
@@ -63,41 +73,13 @@ class _ChangePassState extends State<ChangePass> {
         fit: BoxFit.cover,
       ),
       Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            elevation: 8,
-            selectedItemColor: HexColor(Globalvireables.white),
-            unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(ThemP.getcolor()),
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: LanguageProvider.Llanguage('settings'),
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: LanguageProvider.Llanguage('Home')
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: LanguageProvider.Llanguage('profile')
-              ),
-            ],
-            iconSize: 30 * unitHeightValue,
-            unselectedFontSize: 12 * unitHeightValue,
-            selectedFontSize: 16 * unitHeightValue,
-            showUnselectedLabels: true,
-            currentIndex: selectedIndex,
-            selectedIconTheme:
-            IconThemeData(color: HexColor(Globalvireables.white)),
-            onTap: _onItemTapped,
-          ),
 
           appBar: AppBar(
             backgroundColor: Colors.white,
             bottomOpacity: 800.0,
             elevation: 4.0,
-            title: Widgets.Appbar(context,LanguageProvider.Llanguage('Gangepasswor') , unitHeightValue,LanguageProvider.langg,LanguageProvider.getDirection()),
+            title: Widgets.Appbar(context,LanguageProvider.Llanguage('creataccount') , unitHeightValue,LanguageProvider.langg,LanguageProvider.getDirection()
+                ,'false'),
           ),
           backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
@@ -137,18 +119,34 @@ class _ChangePassState extends State<ChangePass> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-    Image.asset(
-    "assets/repass.png",
-    height: 200,
-    width: 200,
-    ),
+                        Image.asset(
+                          "assets/repass.png",
+                          height: 200,
+                          width: 200,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            " تم ارسال رمز التحقق المكون من 5 ارقام إلى رقمك  " + " $pp ",
+                            style: ArabicTextStyle(
+                                arabicFont: ArabicFont.tajawal,
+                                fontWeight: FontWeight.w400,
+                                color: HexColor(
+                                    Globalvireables.black),
+                                fontSize: 16 * unitHeightValue),
+                          ),
+                        ),
+
+
+
                         SizedBox(height: 20,),
 
                         Container(
                             margin: EdgeInsets.only(
                                 left: 25, right: 25, top: 10),
                             child: TextField(
-                                    controller: oldpass,
+                              controller: otpcontroller,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
@@ -165,7 +163,7 @@ class _ChangePassState extends State<ChangePass> {
                                         width: 1.0),
                                     borderRadius:
                                     BorderRadius.circular(10.0)),
-                                      contentPadding: EdgeInsets.only(
+                                contentPadding: EdgeInsets.only(
                                     top: 18,
                                     bottom: 18,
                                     right: 20,
@@ -174,85 +172,10 @@ class _ChangePassState extends State<ChangePass> {
                                 HexColor(Globalvireables.white),
                                 filled: true,
                                 hintText: LanguageProvider.Llanguage(
-                                    "oldpass"),
+                                    "otp"),
                               ),
                             )
                         ),
-
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 25, right: 25, top: 10),
-                            child: TextField(
-                              controller: newpass1,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: HexColor(
-                                            Globalvireables.black),
-                                        width: 0.0),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: HexColor(
-                                            ThemP.getcolor()),
-                                        width: 1.0),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0)),
-                                contentPadding: EdgeInsets.only(
-                                    top: 18,
-                                    bottom: 18,
-                                    right: 20,
-                                    left: 20),
-                                fillColor:
-                                HexColor(Globalvireables.white),
-                                filled: true,
-                                hintText: LanguageProvider.Llanguage(
-                                    "newpass"),
-                              ),
-                            )),
-
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 25, right: 25, top: 10),
-                            child: TextField(
-                              controller: newpass2,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: HexColor(
-                                            Globalvireables.black),
-                                        width: 0.0),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: HexColor(
-                                            ThemP.getcolor()),
-                                        width: 1.0),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0)),
-                                contentPadding: EdgeInsets.only(
-                                    top: 18,
-                                    bottom: 18,
-                                    right: 20,
-                                    left: 20),
-                                fillColor:
-                                HexColor(Globalvireables.white),
-                                filled: true,
-                                hintText: LanguageProvider.Llanguage(
-                                    "newpassconfirm"),
-                              ),
-                            )),
-
-
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 25, right: 25, top: 10),
-                            child: Text(textAlign: TextAlign.right,'يجب أن تكون كلمة المرور أطول من 6 أحرف و تحتوي كلمة المرور على احرف كبيرة و صغيرة ورموز ')),
-
 
 
                         Align(
@@ -269,7 +192,7 @@ class _ChangePassState extends State<ChangePass> {
                                 HexColor(ThemP.getcolor()),
                               ),
                               child: Text(
-                                LanguageProvider.Llanguage('Gangepasswor'),
+                                LanguageProvider.Llanguage('Send'),
                                 style: ArabicTextStyle(
                                     arabicFont: ArabicFont.tajawal,
                                     color:
@@ -278,8 +201,8 @@ class _ChangePassState extends State<ChangePass> {
                               ),
                               onPressed: () async {
 
-                                if(newpass1.text==newpass2.text && oldpass.text==Loginproviderr.pass.toString())
-                                  _validatePassword(newpass2.text);
+                                if( otpcontroller.text==Loginproviderr.getotp().toString())
+                                  CreatAccount2(context,Loginproviderr.userId);
                                 else
                                   await showDialog(
                                     context: context,
@@ -321,31 +244,36 @@ class _ChangePassState extends State<ChangePass> {
     profile(),
   ];
 
-   ChangePass(BuildContext context,String patientNo,String newPass) async {
+  CreatAccount2(BuildContext context,String patientNo) async {
 
-     var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
+
+    var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var ip= Loginprovider.getFirebaseIp().toString();
 
-         print("userid :"+patientNo.toString());
 
     var LanguageProvider = Provider.of<Language>(context, listen: false);
 
-     showDialog(
-         context: context,
-         builder: (_) => AlertDialog(
-           title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
-           content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
-         ));
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
+          content: Text(LanguageProvider.getLanguage()=="AR"?'جار تحديث البيانات ...':'Updating...'),
+        ));
 
 
 
     Uri postsURL =
-    Uri.parse(     Loginprovider.getFirebaseIp().toString()+
-        Globalvireables.ChangePassURL);
+    Uri.parse(Loginprovider.getFirebaseIp().toString()+
+        Globalvireables.CreatAccount);
+
+    String userid=  Loginprovider.getuserId().toString();
+
+    print("CreatAccount2 \n" + postsURL.toString());
+
+
     try {
       var map = new Map<String, dynamic>();
-      map['PatientNo'] = patientNo;
-      map['password'] = newPass;
+      map['PatientNo'] = userid;
 
       http.Response res = await http.post(
         postsURL,
@@ -353,34 +281,83 @@ class _ChangePassState extends State<ChangePass> {
 
       ).whenComplete(() => Navigator.pop(context));
 
+
+      print("phone \n" +  Loginprovider.getphone().toString());
+
+      print("statusCode \n" +  res.statusCode.toString());
+
       if (res.statusCode == 200) {
-        print("ChangePass" + res.body.toString());
 
         List<dynamic> body = jsonDecode(res.body);
 
-        List<ChangePassM> Doctors = body
+        List<CreatAccountModel> Doctors = body
             .map(
-              (dynamic item) => ChangePassM.fromJson(item),
-        )
+              (dynamic item) => CreatAccountModel.fromJson(item),)
             .toList();
 
+        print("CreatAccount2State" + res.body.toString());
 
-        if(Doctors[0].response=='1S'){
+        if(!res.body.toString().contains('0E')){
 
-         var prefs = await SharedPreferences.getInstance();
+        var url;
 
-            prefs.setString('changepass','yes');
 
-          Navigator.pop(context);
-          await showDialog(
-            context: context,
-            builder: (context) =>
-            new AlertDialog(
-              title: new Text(LanguageProvider.Llanguage('Gangepasswor')),
-              content: Text(LanguageProvider.Llanguage('SGangepasswor')),
-              actions: <Widget>[],
-            ),
+        if (Globalvireables.hospital == 'irbid') {
+          url = Uri.parse(
+              "https://user.4whats.net/api/qr_code?instanceid=123803&token=f5749109-7d83-4246-bc34-06aa7b2947b0&phone=" +
+                  Loginprovider.getphone() +
+                  "&body=" +
+
+                  "Irbid His Login Information \n"+
+                  "username : "+ Doctors[0].username.toString() +"\n"
+                  "password : "+ Doctors[0].passwordd.toString() +""
           );
+        } else {
+          url = Uri.parse(
+              "http://82.212.81.40:8080/websmpp/websms?user=Marka&pass=Marka@123&sid=Marka%20Hos&mno=" +
+                  Loginprovider.getphone() +
+                  "&type=1&text=" +
+
+                  "Irbid His Login Information \n"+
+                  "username : "+ Doctors[0].username.toString() +"\n"
+                  "password : "+ Doctors[0].passwordd.toString() +
+
+                  "");
+        }
+
+        var response = await http.get(url);
+        if (response.statusCode == 200) {
+          if (response.body.toString().contains('\"sent\":true,') &&
+              Globalvireables.hospital == 'irbid') {
+            Navigator.pop(context);
+            Navigator.pop(context);
+
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
+                  content: Text('تم ارسال معلومات تسجيل الدخول إلى رقم هاتفك '),     actions: <Widget>[],
+                ));
+          }
+          if (!response.body.toString().contains('ERROR') &&
+              Globalvireables.hospital == 'marka') {
+            Navigator.pop(context);
+            Navigator.pop(context);
+
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text(LanguageProvider.getLanguage()=="AR"?'تحديث البيانات':'Updating'),
+                  content: Text('تم ارسال معلومات تسجيل الدخول إلى رقم هاتفك '),     actions: <Widget>[],
+                ));
+          }
+
+          print("Response2: ${response.body}");
+        } else {
+          print("Error: ${response.statusCode}");
+        }
+
+
 
         }else{
           Navigator.pop(context);
@@ -395,7 +372,7 @@ class _ChangePassState extends State<ChangePass> {
 
         }
       } else {
-        Navigator.pop(context);
+       // Navigator.pop(context);
 
         new AlertDialog(
           title: new Text(LanguageProvider.Llanguage('anerrortitle')),
@@ -409,7 +386,7 @@ class _ChangePassState extends State<ChangePass> {
         builder: (context) =>
         new AlertDialog(
           title: new Text(LanguageProvider.Llanguage('anerrortitle')),
-          content: Text(LanguageProvider.Llanguage('anerror')),
+          content: Text(LanguageProvider.Llanguage('anerror') + e.toString()),
           actions: <Widget>[],
         ),
 
@@ -417,48 +394,6 @@ class _ChangePassState extends State<ChangePass> {
     }
 
   }
-
-
-   _validatePassword(String password) {
-
-     var Loginproviderr = Provider.of<LoginProvider>(context, listen: false);
-
-
-     String _errorMessage='';
-    if (password.length <6) {
-      _errorMessage += ' يجب أن تحتوي كلمة المرور أطول من 6 أحرف و ';
-    }
-    // Contains at least one uppercase letter
-    if (!password.contains(RegExp(r'[A-Z]'))) {
-      _errorMessage += ' يجب أن تحتوي كلمة المرور على احرف كبيرة و ';
-
-    }
-    // Contains at least one lowercase letter
-    if (!password.contains(RegExp(r'[a-z]'))) {
-      _errorMessage += ' يجب أن تحتوي كلمة المرور على احرف صغيرة و ';
-
-    }
-    // Contains at least one digit
-    if (!password.contains(RegExp(r'[0-9]'))) {
-      _errorMessage += ' يجب أن تحتوي كلمة المرور على ارقام و ';
-
-    }
-    // Contains at least one special character
-    if (!password.contains(RegExp(r'[!@#%^&*(),.?":{}|<>]'))) {
-      _errorMessage += ' يجب أن تحتوي كلمة المرور على رموز ';
-    }
-
-if(_errorMessage.length>3)
-{
-  ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-    content: Text(_errorMessage),
-  ));
-}else
-  ChangePass(context,Loginproviderr.userId,newpass1.text);
-  }
-
-
-
 
 
 
@@ -478,7 +413,7 @@ Container(
 margin: EdgeInsets.only(
 left: 25, right: 25, top: 10),
 child: TextField(
-controller: oldpass,
+controller: otpcontroller,
 decoration: InputDecoration(
 border: OutlineInputBorder(),
 focusedBorder: OutlineInputBorder(
@@ -504,7 +439,7 @@ fillColor:
 HexColor(Globalvireables.white),
 filled: true,
 hintText: LanguageProvider.Llanguage(
-"oldpass"),
+"otpcontroller"),
 ),
 )),
 Container(
@@ -590,7 +525,7 @@ primary:
 HexColor(ThemP.getcolor()),
 ),
 child: Text(
-LanguageProvider.Llanguage('ChangePass'),
+LanguageProvider.Llanguage('CreatAccount2'),
 style: ArabicTextStyle(
 arabicFont: ArabicFont.tajawal,
 color:
@@ -599,7 +534,7 @@ fontSize: 13 * unitHeightValue),
 ),
 onPressed: () async {
 if(newpass1.text==newpass2.text)
-ChangePass(context,LoginProvider().userId,newpass1.text);
+CreatAccount2(context,LoginProvider().userId,newpass1.text);
 else
 await showDialog(
 context: context,

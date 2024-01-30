@@ -259,7 +259,7 @@ class _ExamnationSingleState extends State<ExamnationSingle> {
                                               height:60,
                                               child: Image(
                                                   image: new AssetImage(
-                                                      "assets/irbidlogo.png")))
+                                                      "assets/newlogo.png")))
                                         ],
                                       ),
 

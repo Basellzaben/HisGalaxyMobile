@@ -19,9 +19,12 @@ class Language extends ChangeNotifier {
   TextDirection getDirection() {
     String languageCode = getLanguage(); //Platform.localeName.split('_')[0];
 
+
+
     if (languageCode == "AR") return TextDirection.rtl;
     return TextDirection.ltr;
   }
+
 
   TextDirection getDirectionPres() {
     String languageCode = getLanguage(); //Platform.localeName.split('_')[0];
@@ -45,11 +48,19 @@ class Language extends ChangeNotifier {
   //"Top Doctors :",
 
   static Map<String, Object?> ar = {
+    "forgetpass":" هل نسيت كلمه المرور ?",
+    "noaccount":"لا تملك حساب ?",
+    "return":"رجوع",
+    "otp":"رمز التحقق",
+    "enaplemobile":"تغعيل الحساب",
+    "nationalid":"الرقم الوطني",
+"message":"الرسالة",
+    "creataccount":"انشاء حساب جديد",
+    "contactus":"تواصل مع مستشفى ماركا",
     "txxtcanselapp":"هل انت متاكد من الغاء الموعد",
     "canselappdone":"تم الغاء الموعد",
-
     "canselapp":"الغاء الموعد",
-    "appdone":"تم حجز الموعد ، سيكون متاحا من خلال شاشة المواعيد بعد تأكيده من قبل المستشفى",
+    "appdone":"تم حجز الموعد ، متاح الان من خلال شاشة المواعيد",
     "app":"حجز موعد",
     "txxtapp":"هل انت متاكد من حجز الموعد",
     "bookapp":"حجز الموعد",
@@ -61,7 +72,7 @@ class Language extends ChangeNotifier {
 "shareapp":"شارك التطبيق",
 
     "relation":"صلة القرابة",
-    "childid":"رقم ملف المريض ",
+    "childid":"رقم ملف المريض او الرقم الوطني ",
     "Addfimilypersion":"أضف أحد أفراد العائلة",
     "family":"العائلة",
     "selectvisitno":"يجب اختيار زياره لعرض التفاصيل ",
@@ -119,7 +130,7 @@ class Language extends ChangeNotifier {
     "Invoices": "الفواتير",
     "Payments": "الدفعات",
     "Insurance": "التامين",
-    "AlEsraaHospital": "مستشفى اربد التخصصي",
+    "AlEsraaHospital": "مستشفى ماركا التخصصي",
 
     "language": "تغيير اللغه",
     "loading": "يجب الانتظار لحين جلب الوقت...",
@@ -175,7 +186,7 @@ class Language extends ChangeNotifier {
     "Departureendtime": "وقت نهاية المغادرة",
     "Send": "أرسال",
     "notes": "الملاحظات",
-    "note": "ملاحظة",
+    "note": "الملاحظة",
 
     "Departuretime": "مدة المغادرة",
     "vactioncount": "عدد ايام الاجازة",
@@ -229,27 +240,33 @@ class Language extends ChangeNotifier {
     "doneupdte": "تم تحديث المعلومات بنجاح",
     "Add":"إضافة",
     "descapp":
-        "طورت مجموعة المجرة هذه المنصة لتمكنك من عرض ملفك الطبي في مستشفى اربد التخصصي ، يمكنك الاطلاع على المواعيد الطبية في العيادات المتخصصة والاطلاع على الأدوية الحالية والحساسية واللقاحات ونتائج الفحوصات المخبرية والعلامات الحيوية و صور الاشعة",
+        "طورت مجموعة المجرة هذه المنصة لتمكنك من عرض ملفك الطبي في مستشفى ماركا التخصصي ، يمكنك الاطلاع على المواعيد الطبية في العيادات المتخصصة والاطلاع على الأدوية الحالية والحساسية واللقاحات ونتائج الفحوصات المخبرية والعلامات الحيوية و صور الاشعة",
   };
 
   static Map<String, Object?> en = {
+    "noaccount":"Don't have an account?",
+
+    "forgetpass":"Forget password",
+    "enaplemobile":"Enable account",
+    "otp":"OTP",
+    "return":"back",
+    "nationalid":"National ID",
+    "contactus":"Contact Marka Hospital",
+    "creataccount":"Create a new account",
+    "message":"Message",
     "Clinicks":"Clinics",
     "canselapp":"Cancel the appointment",
     "canselappdone":"Cancel the appointment done",
-
     "app":"Book an appointment",
-    "appdone":"The appointment has been booked, and it will be available through the appointment screen after it is confirmed by the hospital",
-
+    "appdone":"The appointment has been booked,  available through the appointment screen ",
     "AvalAppoiment":"Available appointments",
     "bookapp":"Book an appointment",
     "txxtapp":"Are you sure you book the appointment?",
     "txxtcanselapp":"Are you sure you Cancel the appointment?",
-
     "relation":"relative relation",
     "childid":"Patient file number",
     "family":"family",
     "Applicationpermissions":"Application permissions",
-
     "change":"active",
     "change2":"Enabled",
     "AlEsraaHospital": "Marka Specialized Hospital",

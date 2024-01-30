@@ -13,12 +13,18 @@ import 'package:flutter/material.dart';
   static String black2="#333334";
   static String grey="#707070";
   static String secondcolor2="#d0e8ee";
-  static String connectIP="10.0.1.120:9999";
-  //static String connectIP="94.249.83.196:8055"; marka - in galaxy
+  static String hospital="marka";
+  //static String hospital="irbid";
 
+
+ // static String connectIP="10.0.1.120:9999";
+ // static String connectIP="94.249.83.196:8055";
+  //static String connectIP="158.98.227.36:9999";
+  static String connectIP="94.249.83.196:1210";
 
   static String loginAPI="/api/auth/Mobilelogin";
-  static String DoctorsURL="/api/Doctor/GetDoctors";
+  static String DoctorsURL1="/api/Doctor/GetDoctors";
+  static String DoctorsURL="/api/GetDoctController/Doct";
   static String InsuranceURL="/api/PatientInsurances/GetPatientInsurances";
   static String VitalSignsURL="/api/VitalSigns/GetVitalSigns";
   static String InvoicesURL="/api/InvoiceAll/GetInvoiceAll";
@@ -43,6 +49,10 @@ import 'package:flutter/material.dart';
   static String AvalAppoimentURL="/api/AvalibalAppoimentController/GetAppoiments";
   static String BookingAppoiment="/api/BookingAppoimentController/Booking";
   static String CanselAppoiment="/api/CanselAppoimentController/Cansel";
+
+
+  static String CreatAccount="/api/CreatAccountController/CreatAccount";
+
 
   //http://94.249.83.196:8055
   /* static String loginAPI="http://"+Globalvireables.connectIP+"/api/auth/Mobilelogin";

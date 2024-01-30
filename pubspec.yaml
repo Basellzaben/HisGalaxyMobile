@@ -55,7 +55,7 @@ dependencies:
   share_plus: ^7.2.1
   arabic_font: ^0.0.9
   image_gallery_saver: ^2.0.2
-  fluttertoast: ^8.2.2
+  fluttertoast:
   printing: ^5.11.0
   pdf: ^3.10.4
   syncfusion_flutter_pdf: ^22.1.37
@@ -72,6 +72,9 @@ dependencies:
   carousel_slider: ^4.2.1
   syncfusion_flutter_calendar: ^22.2.12
   table_calendar: ^3.0.9
+  mailer: ^6.0.1
+  flutter_email_sender: ^6.0.2
+  xml: ^6.5.0
 
 
 

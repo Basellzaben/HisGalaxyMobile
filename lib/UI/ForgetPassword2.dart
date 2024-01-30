@@ -23,12 +23,12 @@ import 'Home.dart';
 import 'Settings.dart';
 import 'package:http/http.dart' as http;
 
-class ChangePass extends StatefulWidget {
+class ForgetPassword2 extends StatefulWidget {
   @override
-  State<ChangePass> createState() => _ChangePassState();
+  State<ForgetPassword2> createState() => _ForgetPassword2State();
 }
 
-class _ChangePassState extends State<ChangePass> {
+class _ForgetPassword2State extends State<ForgetPassword2> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _ChangePassState extends State<ChangePass> {
 
   final newpass2 = TextEditingController();
   final newpass1 = TextEditingController();
-  final oldpass = TextEditingController();
+  final otpcontroller = TextEditingController();
 
 
 
@@ -49,6 +49,15 @@ class _ChangePassState extends State<ChangePass> {
   Widget build(BuildContext context) {
     var Loginproviderr = Provider.of<LoginProvider>(context, listen: false);
     var ThemP = Provider.of<Them>(context, listen: false);
+    String pp='';
+    try{
+   pp=Loginproviderr.getphone().toString().substring(Loginproviderr.getphone().toString().length-2,Loginproviderr.getphone().toString().length);
+  String pp2=Loginproviderr.getphone().toString().substring(0,3);
+  pp=pp+"*******"+pp2;
+
+}catch(_){
+
+}
 
     var colors = [HexColor((Globalvireables.secondcolor)), HexColor((ThemP.getcolor()))];
     double unitHeightValue = MediaQuery.of(context).size.height * 0.00122;
@@ -63,41 +72,13 @@ class _ChangePassState extends State<ChangePass> {
         fit: BoxFit.cover,
       ),
       Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            elevation: 8,
-            selectedItemColor: HexColor(Globalvireables.white),
-            unselectedItemColor: Colors.white,
-            backgroundColor: HexColor(ThemP.getcolor()),
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: LanguageProvider.Llanguage('settings'),
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: LanguageProvider.Llanguage('Home')
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: LanguageProvider.Llanguage('profile')
-              ),
-            ],
-            iconSize: 30 * unitHeightValue,
-            unselectedFontSize: 12 * unitHeightValue,
-            selectedFontSize: 16 * unitHeightValue,
-            showUnselectedLabels: true,
-            currentIndex: selectedIndex,
-            selectedIconTheme:
-            IconThemeData(color: HexColor(Globalvireables.white)),
-            onTap: _onItemTapped,
-          ),
 
           appBar: AppBar(
             backgroundColor: Colors.white,
             bottomOpacity: 800.0,
             elevation: 4.0,
-            title: Widgets.Appbar(context,LanguageProvider.Llanguage('Gangepasswor') , unitHeightValue,LanguageProvider.langg,LanguageProvider.getDirection()),
+            title: Widgets.Appbar(context,LanguageProvider.Llanguage('Gangepasswor') , unitHeightValue,LanguageProvider.langg,LanguageProvider.getDirection()
+            ,'false'),
           ),
           backgroundColor: HexColor(ThemP.getcolor()),
           // backgroundColor: Colors.transparent,
@@ -142,13 +123,29 @@ class _ChangePassState extends State<ChangePass> {
     height: 200,
     width: 200,
     ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                           " تم ارسال رمز التحقق المكون من 5 ارقام إلى واتساب رقم  " + " $pp ",
+                            style: ArabicTextStyle(
+                                arabicFont: ArabicFont.tajawal,
+                                fontWeight: FontWeight.w400,
+                                color: HexColor(
+                                    Globalvireables.black),
+                                fontSize: 16 * unitHeightValue),
+                          ),
+                        ),
+
+
+
                         SizedBox(height: 20,),
 
                         Container(
                             margin: EdgeInsets.only(
                                 left: 25, right: 25, top: 10),
                             child: TextField(
-                                    controller: oldpass,
+                                    controller: otpcontroller,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 focusedBorder: OutlineInputBorder(
@@ -174,7 +171,7 @@ class _ChangePassState extends State<ChangePass> {
                                 HexColor(Globalvireables.white),
                                 filled: true,
                                 hintText: LanguageProvider.Llanguage(
-                                    "oldpass"),
+                                    "otp"),
                               ),
                             )
                         ),
@@ -251,7 +248,8 @@ class _ChangePassState extends State<ChangePass> {
                         Container(
                             margin: EdgeInsets.only(
                                 left: 25, right: 25, top: 10),
-                            child: Text(textAlign: TextAlign.right,'يجب أن تكون كلمة المرور أطول من 6 أحرف و تحتوي كلمة المرور على احرف كبيرة و صغيرة ورموز ')),
+                            child: Text(textAlign: TextAlign.right,'يجب أن تكون كلمة المرور أطول من 6 أحرف و تحتوي كلمة المرور على احرف كبيرة و صغيرة ورموز '
+                            ,style: TextStyle(color: Colors.red),)),
 
 
 
@@ -278,7 +276,7 @@ class _ChangePassState extends State<ChangePass> {
                               ),
                               onPressed: () async {
 
-                                if(newpass1.text==newpass2.text && oldpass.text==Loginproviderr.pass.toString())
+                                if(newpass1.text==newpass2.text && otpcontroller.text==Loginproviderr.getotp().toString())
                                   _validatePassword(newpass2.text);
                                 else
                                   await showDialog(
@@ -321,7 +319,7 @@ class _ChangePassState extends State<ChangePass> {
     profile(),
   ];
 
-   ChangePass(BuildContext context,String patientNo,String newPass) async {
+   ForgetPassword2(BuildContext context,String patientNo,String newPass) async {
 
      var Loginprovider = Provider.of<LoginProvider>(context, listen: false);
     var ip= Loginprovider.getFirebaseIp().toString();
@@ -340,9 +338,14 @@ class _ChangePassState extends State<ChangePass> {
 
 
     Uri postsURL =
-    Uri.parse(     Loginprovider.getFirebaseIp().toString()+
+    Uri.parse(    Loginprovider.getFirebaseIp().toString()+
         Globalvireables.ChangePassURL);
-    try {
+
+
+     print("ForgetPassword2" + postsURL.toString());
+
+
+     try {
       var map = new Map<String, dynamic>();
       map['PatientNo'] = patientNo;
       map['password'] = newPass;
@@ -354,7 +357,7 @@ class _ChangePassState extends State<ChangePass> {
       ).whenComplete(() => Navigator.pop(context));
 
       if (res.statusCode == 200) {
-        print("ChangePass" + res.body.toString());
+        print("ForgetPassword2" + res.body.toString());
 
         List<dynamic> body = jsonDecode(res.body);
 
@@ -369,9 +372,10 @@ class _ChangePassState extends State<ChangePass> {
 
          var prefs = await SharedPreferences.getInstance();
 
-            prefs.setString('changepass','yes');
+            prefs.setString('ForgetPassword2','yes');
 
-          Navigator.pop(context);
+         Navigator.pop(context);
+         Navigator.pop(context);
           await showDialog(
             context: context,
             builder: (context) =>
@@ -409,7 +413,7 @@ class _ChangePassState extends State<ChangePass> {
         builder: (context) =>
         new AlertDialog(
           title: new Text(LanguageProvider.Llanguage('anerrortitle')),
-          content: Text(LanguageProvider.Llanguage('anerror')),
+          content: Text(LanguageProvider.Llanguage('anerror') + e.toString()),
           actions: <Widget>[],
         ),
 
@@ -454,7 +458,7 @@ if(_errorMessage.length>3)
     content: Text(_errorMessage),
   ));
 }else
-  ChangePass(context,Loginproviderr.userId,newpass1.text);
+  ForgetPassword2(context,Loginproviderr.userId,newpass1.text);
   }
 
 
@@ -478,7 +482,7 @@ Container(
 margin: EdgeInsets.only(
 left: 25, right: 25, top: 10),
 child: TextField(
-controller: oldpass,
+controller: otpcontroller,
 decoration: InputDecoration(
 border: OutlineInputBorder(),
 focusedBorder: OutlineInputBorder(
@@ -504,7 +508,7 @@ fillColor:
 HexColor(Globalvireables.white),
 filled: true,
 hintText: LanguageProvider.Llanguage(
-"oldpass"),
+"otpcontroller"),
 ),
 )),
 Container(
@@ -590,7 +594,7 @@ primary:
 HexColor(ThemP.getcolor()),
 ),
 child: Text(
-LanguageProvider.Llanguage('ChangePass'),
+LanguageProvider.Llanguage('ForgetPassword2'),
 style: ArabicTextStyle(
 arabicFont: ArabicFont.tajawal,
 color:
@@ -599,7 +603,7 @@ fontSize: 13 * unitHeightValue),
 ),
 onPressed: () async {
 if(newpass1.text==newpass2.text)
-ChangePass(context,LoginProvider().userId,newpass1.text);
+ForgetPassword2(context,LoginProvider().userId,newpass1.text);
 else
 await showDialog(
 context: context,

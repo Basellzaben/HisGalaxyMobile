@@ -274,7 +274,7 @@ class _ExamnationGroupState extends State<ExamnationGroup> {
                                               height:60,
                                               child: Image(
                                                   image: new AssetImage(
-                                                      "assets/irbidlogo.png")))
+                                                      "assets/newlogo.png")))
                                         ],
                                       ),
                                       Divider(thickness: 1.0, color: Colors.black),

@@ -32,7 +32,7 @@ class Widgets {
             arabicFont: ArabicFont.tajawal,
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
-                  fontSize: 21.5 * unitHeightValue),
+                  fontSize: 20 * unitHeightValue),
             ),
             Spacer(),
             shown=='true'? Icon(
@@ -72,7 +72,7 @@ class Widgets {
             arabicFont: ArabicFont.tajawal,
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
-                  fontSize: 21.5 * unitHeightValue),
+                  fontSize: 20 * unitHeightValue),
             ),
             SizedBox(
               width: 0,

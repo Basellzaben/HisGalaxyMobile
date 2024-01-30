@@ -572,7 +572,7 @@ class _PRESCPTIONState extends State<PRESCPTION> {
                                                                                                                       ],
                                                                                                                     ),
                                                                                                                     Spacer(),
-                                                                                                                    Container(width: 60, height: 60, child: Image(image: new AssetImage("assets/irbidlogo.png")))
+                                                                                                                    Container(width: 60, height: 60, child: Image(image: new AssetImage("assets/newlogo.png")))
                                                                                                                   ],
                                                                                                                 ),
                                                                                                                 Divider(thickness: 1.0, color: Colors.black),

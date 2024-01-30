@@ -3,6 +3,7 @@ import 'package:arabic_font/arabic_font.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hismobileapp/UI/ClinicksDoctor.dart';
 import 'package:hismobileapp/UI/profile.dart';
 import 'package:hismobileapp/provider/HomeProvider.dart';
 import 'package:local_auth/local_auth.dart';
@@ -219,9 +220,14 @@ class _ClinicksState extends State<Clinicks> {
 
       HomeP.setClinics_ID(ClinicksModel.no.toString());
       HomeP.setdocid(ClinicksModel.docid.toString());
+
+      HomeP.setClinicDocName(ClinicksModel.fULL_NAME_A.toString());
+      HomeP.setdocid(ClinicksModel.docid.toString());
+
+
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AvalAppoiment()),
+        MaterialPageRoute(builder: (context) => ClinicksDoctor()),
       );
 
     },

@@ -4,23 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
-class HomeProvider extends ChangeNotifier {
-  String VisitDate="";
+class CreateAccountProvider extends ChangeNotifier {
+  String nationalid="";
   String visitNo="";
   String visittype="";
   String Clinics_ID="";
   String docid="";
 
+  String Nationality="";
 
-  String ClinicDocName="";
-  getClinicDocName() {
-    return ClinicDocName;
+  getNationality() {
+    return Nationality;
   }
 
-  setClinicDocName(String ClinicDocName) {
-    this.ClinicDocName = ClinicDocName;
+  setNationality(String Nationality) {
+    this.Nationality = Nationality;
     notifyListeners();
   }
+
+
 
 
   getdocid() {
@@ -62,12 +64,12 @@ class HomeProvider extends ChangeNotifier {
 
 
 
-  getVisitDate() {
-    return VisitDate;
+  getnationalid() {
+    return nationalid;
   }
 
-  setVisitDate(String VisitDate) {
-    this.VisitDate = VisitDate;
+  setnationalid(String nationalid) {
+    this.nationalid = nationalid;
     notifyListeners();
   }
 
